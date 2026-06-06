@@ -83,12 +83,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;fo
 
 /* ===== TABLE ===== */
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%}
-/* Bang co dinh full man hinh, khong scroll ngang */
-.tbl-fixed{overflow:visible;width:100%}
-.tbl-fixed table{table-layout:fixed;width:100%;font-size:0.625rem}
-.tbl-fixed thead th{font-size:0.5625rem;padding:0.3125rem 0.25rem;word-break:break-word;white-space:normal}
-.tbl-fixed tbody td{padding:0.25rem;white-space:normal;word-break:break-word;font-size:0.625rem}
-.tbl-fixed tfoot td{padding:0.3125rem 0.25rem;font-size:0.625rem}
 table{width:100%;border-collapse:collapse;font-size:0.71875rem}
 thead tr{background:#1a3a5c;color:white}
 thead th{padding:0.4375rem 0.5625rem;text-align:center;font-weight:600;white-space:nowrap;font-size:0.6875rem}
@@ -289,7 +283,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
 
   <div class="card">
     <div class="stitle">Bảng tổng hợp giá trị chi tiết</div>
-    <div class="tbl-fixed">
+    <div class="tbl-wrap">
     <table>
       <thead>
         <colgroup>
@@ -363,6 +357,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
       <table>
         <thead><tr>
           <th class="tl">Gói thầu / Hạng mục</th>
+          <th>ĐVT</th>
           <th>KL BOQ</th>
           <th>KL CĐT xác nhận</th>
           <th>KL xác nhận ĐTC</th>
@@ -666,9 +661,12 @@ function applyData(data) {
     const cdtV = bg.cdt_workdone || 0;
     const ttV  = TT.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0);
     allBOQ+=boqV; allNS+=nsV; allTT2+=ttV;
+    // % BOQ: chi tinh khi co ca BOQ va CDT WD; CDT=0 hien "--"; khong co BOQ hien "Ngoai HD"
     const pBar = boqV>0&&cdtV>0
       ? '<div class="prog"><div class="prog-fill" style="width:'+Math.min((cdtV/boqV)*100,100)+'%;background:#1565c0"></div></div><small>'+((cdtV/boqV)*100).toFixed(1)+'%</small>'
-      : '<span style="font-size:9px;color:#e65100">Ngoài HĐ</span>';
+      : boqV>0&&cdtV===0
+        ? '<span style="color:#6c757d">—</span>'
+        : '<span style="font-size:9px;color:#e65100">Ngoài HĐ</span>';
     const tr = document.createElement('tr');
     tr.innerHTML = '<td class="tl"><strong>'+g+'</strong></td>'
       +'<td class="tr">'+(boqV>0?(boqV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>'
