@@ -50,11 +50,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;fo
 #errorState .icon{font-size:2rem;margin-bottom:0.5rem}
 
 /* ===== PAGES ===== */
-.page{display:none;padding:1.125rem 1.25rem;max-width:1440px;margin:0 auto}
+.page{display:none;padding:1.125rem 1.25rem;width:100%}
 .page.active{display:block}
 
 /* ===== KPI ===== */
-.kpi-row{display:grid;gap:0.75rem;margin-bottom:1.125rem}
+.kpi-row{display:grid;gap:0.75rem;margin-bottom:1.125rem;width:100%}
 .kpi-6{grid-template-columns:repeat(6,1fr)}
 .kpi-4{grid-template-columns:repeat(4,1fr)}
 .kpi-5{grid-template-columns:repeat(5,1fr)}
@@ -71,10 +71,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;fo
 .bg-p{background:#e8d5f5;color:#4a0072}.bg-t{background:#b2dfdb;color:#00352e}
 
 /* ===== GRID ===== */
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem}
-.grid-6040{display:grid;grid-template-columns:60fr 40fr;gap:0.875rem;margin-bottom:0.875rem}
-.grid-4060{display:grid;grid-template-columns:40fr 60fr;gap:0.875rem;margin-bottom:0.875rem}
-.card{background:white;border-radius:9px;padding:1rem 1.125rem;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:0.875rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem;width:100%}
+.grid-6040{display:grid;grid-template-columns:60fr 40fr;gap:0.875rem;margin-bottom:0.875rem;width:100%}
+.grid-4060{display:grid;grid-template-columns:40fr 60fr;gap:0.875rem;margin-bottom:0.875rem;width:100%}
+.card{background:white;border-radius:9px;padding:1rem 1.125rem;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:0.875rem;width:100%}
 .mb0{margin-bottom:0}
 
 /* ===== SECTION TITLE ===== */
@@ -82,7 +82,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;fo
 .stitle::before{content:'';display:block;width:3px;height:13px;background:#1565c0;border-radius:2px;flex-shrink:0}
 
 /* ===== TABLE ===== */
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%}
 table{width:100%;border-collapse:collapse;font-size:0.71875rem}
 thead tr{background:#1a3a5c;color:white}
 thead th{padding:0.4375rem 0.5625rem;text-align:center;font-weight:600;white-space:nowrap;font-size:0.6875rem}
@@ -153,7 +153,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
   body{background:white;color:black}
   .header{position:relative;box-shadow:none;background:#1a3a5c!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .project-switcher,.nav-bar,.tool-bar,.filter-bar{display:none!important}
-  .page{display:block!important;page-break-before:always;padding:0}
+  .page{display:block!important;page-break-before:always;padding:0;width:100%}
   .page:first-of-type{page-break-before:auto}
   .card{box-shadow:none;border:1px solid #dee2e6;margin-bottom:0.5rem}
   .chart-box{height:200px!important}
@@ -183,16 +183,13 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
       <span id="hdrPhase">—</span>
     </div>
   </div>
-
-  <!-- PROJECT SWITCHER: build boi JS -->
   <div class="project-switcher" id="projectSwitcher"></div>
-
   <nav class="nav-bar">
     <button class="nav-btn active" onclick="showPage('p1',this)">
-      <span class="nav-num">1</span>Tổng hợp TT CĐT – Ngân sách – Thanh toán đội
+      <span class="nav-num">1</span>Tổng hợp Thanh toán
     </button>
     <button class="nav-btn" onclick="showPage('p2',this)">
-      <span class="nav-num">2</span>BC Workdone
+      <span class="nav-num">2</span>Báo cáo Workdone
     </button>
     <button class="nav-btn" onclick="showPage('p3',this)">
       <span class="nav-num">3</span>Thanh Quyết Toán Đội Thi Công
@@ -216,11 +213,11 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
 <div id="errorState">
   <div class="icon">⚠️</div>
   <div id="errorMsg">Chưa có dữ liệu cho dự án này.</div>
-  <div style="margin-top:0.5rem;font-size:0.75rem;color:#adb5bd">Chạy quy trình cập nhật hoặc <code>python scripts\cap_nhat_dashboard.py</code></div>
+  <div style="margin-top:0.5rem;font-size:0.75rem;color:#adb5bd">Chạy quy trình cập nhật hoặc <code>uv run --with openpyxl scripts\cap_nhat_dashboard.py</code></div>
 </div>
 
 <!-- ============================================================ -->
-<!-- PAGE 1: TỔNG HỢP                                             -->
+<!-- PAGE 1: TỔNG HỢP THANH TOÁN                                  -->
 <!-- ============================================================ -->
 <div id="p1" class="page active">
 
@@ -262,7 +259,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
 
   <div class="grid-6040">
     <div class="card mb0">
-      <div class="stitle">Biểu đồ so sánh Ngân sách – CĐT Workdone – Đã thanh toán cho đội</div>
+      <div class="stitle">Biểu đồ so sánh Ngân sách – CĐT Workdone – Đã TT cho đội</div>
       <div class="chart-box" style="height:270px"><canvas id="chartP1"></canvas></div>
     </div>
     <div class="card mb0">
@@ -275,7 +272,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
           <th>CĐT WD (tỷ)</th>
           <th>% BOQ</th>
           <th>Ngân sách (tỷ)</th>
-          <th>TT đội (tr.)</th>
+          <th>TT đội (tỷ)</th>
         </tr></thead>
         <tbody id="p1GoiBody"></tbody>
         <tfoot id="p1GoiTfoot"></tfoot>
@@ -284,14 +281,13 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
     </div>
   </div>
 
-  <!-- BẢNG TỔNG HỢP CHI TIẾT -->
   <div class="card">
     <div class="stitle">Bảng tổng hợp giá trị chi tiết</div>
     <div class="tbl-wrap">
     <table>
       <thead>
         <tr>
-          <th class="tl" rowspan="2" style="min-width:130px">Hạng mục / Gói thầu</th>
+          <th class="tl" rowspan="2" style="min-width:160px">Hạng mục / Gói thầu</th>
           <th rowspan="2">HĐ/PS</th>
           <th rowspan="2">ĐVT</th>
           <th colspan="2" style="background:#1e4976">GIÁ TRỊ BOQ</th>
@@ -317,7 +313,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
 </div><!-- /p1 -->
 
 <!-- ============================================================ -->
-<!-- PAGE 2: BC WORKDONE                                          -->
+<!-- PAGE 2: BÁO CÁO WORKDONE                                     -->
 <!-- ============================================================ -->
 <div id="p2" class="page">
 
@@ -352,9 +348,12 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
       <div class="tbl-wrap">
       <table>
         <thead><tr>
-          <th class="tl">Gói thầu / Hạng mục</th><th>ĐVT</th>
-          <th>KL CĐT xác nhận</th><th>KL xác nhận ĐTC</th>
-          <th>Chênh lệch KL</th><th>Trạng thái</th>
+          <th class="tl">Gói thầu / Hạng mục</th>
+          <th>KL BOQ</th>
+          <th>KL CĐT xác nhận</th>
+          <th>KL xác nhận ĐTC</th>
+          <th>Chênh lệch KL</th>
+          <th>Trạng thái</th>
         </tr></thead>
         <tbody id="p2WdGroupBody"></tbody>
       </table>
@@ -362,8 +361,8 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
       <div class="info">ℹ️ <strong>Chênh lệch âm</strong> = ĐTC chưa thực hiện đến mức CĐT đã xác nhận. <strong>Chênh lệch dương</strong> = ĐTC vượt KL CĐT xác nhận – cần kiểm tra.</div>
     </div>
     <div class="card mb0">
-      <div class="stitle">Biểu đồ so sánh workdone giữa CĐT và ĐTC (% hoàn thành BOQ)</div>
-      <div class="chart-box" style="height:240px"><canvas id="chartWD"></canvas></div>
+      <div class="stitle">Biểu đồ so sánh Workdone giữa CĐT và ĐTC (% hoàn thành theo BOQ)</div>
+      <div class="chart-box" style="height:260px"><canvas id="chartWD"></canvas></div>
       <div style="font-size:10px;color:#6c757d;margin-top:6px;text-align:center">
         Gói ngoài HĐ không có BOQ – không thể hiện trên biểu đồ % BOQ
       </div>
@@ -406,16 +405,39 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
 <div id="p3" class="page">
 
   <div class="kpi-row kpi-5">
-    <div class="kpi-card"><div class="kpi-label">Số đội thi công</div><div class="kpi-value" id="kpi3_ndoi">—</div><div class="kpi-sub" id="kpi3_phase">—</div></div>
-    <div class="kpi-card"><div class="kpi-label">Tổng GT thực hiện</div><div class="kpi-value" id="kpi3_th">—</div><div class="kpi-sub">VNĐ</div></div>
-    <div class="kpi-card g"><div class="kpi-label">Đã thanh toán</div><div class="kpi-value" id="kpi3_tt" style="color:#2e7d32">—</div><div class="kpi-sub">VNĐ</div><span class="kpi-badge bg-g" id="kpi3_tt_badge">—</span></div>
-    <div class="kpi-card r"><div class="kpi-label">Còn lại chưa TT</div><div class="kpi-value" id="kpi3_cl" style="color:#c62828">—</div><div class="kpi-sub">VNĐ</div><span class="kpi-badge bg-r" id="kpi3_cl_badge">—</span></div>
-    <div class="kpi-card p"><div class="kpi-label">Phát sinh ngoài HĐ</div><div class="kpi-value" id="kpi3_ps" style="color:#6a1b9a">—</div><div class="kpi-sub">VNĐ</div><span class="kpi-badge bg-p" id="kpi3_ps_badge">—</span></div>
+    <div class="kpi-card">
+      <div class="kpi-label">Số đội thi công</div>
+      <div class="kpi-value" id="kpi3_ndoi">—</div>
+      <div class="kpi-sub" id="kpi3_phase">—</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Tổng GT thực hiện</div>
+      <div class="kpi-value" id="kpi3_th">—</div>
+      <div class="kpi-sub">VNĐ</div>
+    </div>
+    <div class="kpi-card g">
+      <div class="kpi-label">Đã thanh toán</div>
+      <div class="kpi-value" id="kpi3_tt" style="color:#2e7d32">—</div>
+      <div class="kpi-sub">VNĐ</div>
+      <span class="kpi-badge bg-g" id="kpi3_tt_badge">—</span>
+    </div>
+    <div class="kpi-card r">
+      <div class="kpi-label">Còn lại chưa TT</div>
+      <div class="kpi-value" id="kpi3_cl" style="color:#c62828">—</div>
+      <div class="kpi-sub">VNĐ</div>
+      <span class="kpi-badge bg-r" id="kpi3_cl_badge">—</span>
+    </div>
+    <div class="kpi-card p">
+      <div class="kpi-label">Phát sinh ngoài HĐ</div>
+      <div class="kpi-value" id="kpi3_ps" style="color:#6a1b9a">—</div>
+      <div class="kpi-sub">VNĐ</div>
+      <span class="kpi-badge bg-p" id="kpi3_ps_badge">—</span>
+    </div>
   </div>
 
   <div class="grid-6040">
     <div class="card mb0">
-      <div class="stitle">Biểu đồ thanh toán theo đội (đã TT vs còn lại)</div>
+      <div class="stitle">Biểu đồ thanh toán theo đội (Đã TT vs Còn lại)</div>
       <div class="chart-box" style="height:270px"><canvas id="chartDoi"></canvas></div>
     </div>
     <div class="card mb0">
@@ -423,8 +445,11 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
       <div class="tbl-wrap">
       <table>
         <thead><tr>
-          <th class="tl">Đội</th><th>Đợt</th><th>GT TH (VNĐ)</th>
-          <th>Đã TT (VNĐ)</th><th>Còn lại</th><th>% TT</th>
+          <th class="tl">Đội</th><th>Đợt</th>
+          <th>GT TH (VNĐ)</th>
+          <th>Đã TT (VNĐ)</th>
+          <th>Còn lại (VNĐ)</th>
+          <th>% TT</th>
         </tr></thead>
         <tbody id="p3DoiBody"></tbody>
         <tfoot id="p3DoiTfoot"></tfoot>
@@ -477,15 +502,15 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
 <!-- ============================= SCRIPTS ============================= -->
 <script>
 // ===== STATE =====
-let WD = [], TT = [];
+let WD = [], TT = [], NS = [];
 let chartP1Inst = null, chartWDInst = null, chartDoiInst = null;
-let currentProject = null;
 
 // ===== UTILS =====
-const vnd = n => Math.round(n).toLocaleString('vi-VN');
-const fmtAuto = v => v >= 1e9 ? (v/1e9).toFixed(3)+' tỷ' : (v/1e6).toFixed(3)+' triệu';
-const fmtTy   = v => (v/1e9).toFixed(3)+' tỷ';
+const vnd    = n => Math.round(n||0).toLocaleString('vi-VN');
+const fmtAuto = v => !v||v===0 ? '—' : v >= 1e9 ? (v/1e9).toFixed(3)+' tỷ' : (v/1e6).toFixed(3)+' triệu';
+const fmtTy   = v => !v||v===0 ? '—' : (v/1e9).toFixed(3)+' tỷ';
 const el = id => document.getElementById(id);
+const pct = (a, b) => b > 0 ? ((a/b)*100).toFixed(1) : '0';
 
 // ===== NAV =====
 function showPage(id, btn) {
@@ -499,15 +524,12 @@ function showPage(id, btn) {
 function showLoading(on) {
   el('loadingState').style.display = on ? 'block' : 'none';
   el('errorState').style.display = 'none';
-  ['p1','p2','p3'].forEach(id => { if(on) el(id).classList.remove('active'); });
-  if(on) el('p1').classList.remove('active');
+  if(on) ['p1','p2','p3'].forEach(id => el(id).classList.remove('active'));
 }
-
 function showError(msg) {
   el('loadingState').style.display = 'none';
   el('errorState').style.display = 'block';
   if(msg) el('errorMsg').textContent = msg;
-  // Giu page tabs hien thi nhung rong
 }
 
 // ===== PROJECT SWITCHER =====
@@ -530,7 +552,7 @@ function buildProjectSwitcher(projects) {
   });
 }
 
-// ===== LOAD PROJECT DATA =====
+// ===== LOAD PROJECT =====
 async function loadProject(id) {
   showLoading(true);
   try {
@@ -540,7 +562,6 @@ async function loadProject(id) {
     applyData(data);
     showLoading(false);
     el('p1').classList.add('active');
-    // Dat active tab nav ve page 1
     document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i===0));
   } catch(e) {
     showLoading(false);
@@ -548,251 +569,251 @@ async function loadProject(id) {
   }
 }
 
-// ===== APPLY DATA (main function) =====
+// ===== APPLY DATA =====
 function applyData(data) {
-  currentProject = data;
   WD = data.WD || [];
   TT = data.TT || [];
-  const s = data.summary || {};
-  const meta = data.meta || {};
+  NS = data.NS || [];
+  const s    = data.summary || {};
+  const meta = data.meta    || {};
 
   // --- Header ---
   el('hdrProjectSub').textContent = 'Dự án: ' + meta.project_name
     + (meta.phase ? '  |  Giai đoạn: ' + meta.phase : '');
   el('hdrPhase').textContent = meta.phase || '—';
-
-  // Period tu generated_at
   const gen = meta.generated_at ? new Date(meta.generated_at) : null;
-  const periodStr = gen
-    ? String(gen.getMonth()+1).padStart(2,'0') + '/' + gen.getFullYear()
-    : '—';
-  el('hdrPeriod').textContent = 'Cập nhật: ' + periodStr;
-
-  // Footer
+  el('hdrPeriod').textContent = 'Cập nhật: '
+    + (gen ? String(gen.getMonth()+1).padStart(2,'0')+'/'+gen.getFullYear() : '—');
   el('footerBar').innerHTML = 'VELA E&C &nbsp;|&nbsp; Cost & Contract Management &nbsp;|&nbsp;'
     + ' ' + (meta.project_name||'') + ' &nbsp;|&nbsp; Lập bởi: <strong>Huỳnh Phương</strong>'
     + (gen ? ' &nbsp;|&nbsp; ' + gen.toLocaleDateString('vi-VN') : '');
+  el('dataLabel').textContent = 'Nguồn: ' + (meta.source_file||'—')
+    + '  |  Cập nhật: ' + (gen ? gen.toLocaleString('vi-VN') : '—');
 
-  // Tool bar label
-  const genStr = gen ? gen.toLocaleString('vi-VN') : '—';
-  el('dataLabel').textContent = 'Nguồn: ' + (meta.source_file||'—') + '  |  Cập nhật: ' + genStr;
-
-  // --- Tinh toan ---
-  const totTH  = TT.reduce((s,r) => s+r.gt, 0);
-  const totTT  = TT.reduce((s,r) => s+r.tt, 0);
-  const totCL  = TT.reduce((s,r) => s+r.cl, 0);
-  const totPS  = TT.filter(r => r.h==='Ngoài HĐ').reduce((s,r) => s+r.gt, 0);
+  // --- Tính tổng ---
+  const totTH  = TT.reduce((a,r) => a+(r.gt||0), 0);
+  const totTT  = TT.reduce((a,r) => a+(r.tt||0), 0);
+  const totCL  = TT.reduce((a,r) => a+(r.cl||0), 0);
+  const totPS  = TT.filter(r => r.h && r.h.includes('Ngoài')).reduce((a,r) => a+(r.gt||0), 0);
   const totCDT = s.cdt_workdone_total || 0;
-  const boq    = s.boq_total || 0;
+  const boq    = s.boq_total    || 0;
+  const nsTotal= s.budget_total || 0;
 
-  const pctTT    = totTH > 0 ? ((totTT/totTH)*100).toFixed(1) : '0';
-  const pctCLNum = (100 - parseFloat(pctTT)).toFixed(1);
-  const pctPS    = totTH > 0 ? ((totPS/totTH)*100).toFixed(1) : '0';
-  const pctCDT   = boq > 0 ? ((totCDT/boq)*100).toFixed(1) : '0';
+  const pctTT   = pct(totTT, totTH);
+  const pctCLv  = (100 - parseFloat(pctTT)).toFixed(1);
+  const pctPS   = pct(totPS, totTH);
+  const pctCDTv = pct(totCDT, boq);
 
-  const groups = [...new Set([...TT.map(r=>r.g), ...WD.map(r=>r.g)])].filter(Boolean).sort();
-  const ttByGroup = groups.map(g => TT.filter(r=>r.g===g).reduce((s,r)=>s+r.tt,0));
-  const teams = [...new Set(TT.map(r=>r.t))].filter(Boolean).sort();
+  // Danh sách gói thầu (union WD + TT)
+  const groups = [...new Set([...WD.map(r=>r.g), ...TT.map(r=>r.g)])].filter(Boolean).sort();
+  const teams  = [...new Set(TT.map(r=>r.t))].filter(Boolean).sort();
 
   // --- KPI Page 1 ---
-  el('kpi1_boq').textContent = boq > 0 ? fmtAuto(boq) : '—';
-  el('kpi1_ns').textContent  = s.budget_total > 0 ? fmtAuto(s.budget_total) : '—';
+  el('kpi1_boq').textContent = fmtAuto(boq);
+  el('kpi1_ns').textContent  = fmtAuto(nsTotal);
   el('kpi1_cdt').textContent = fmtAuto(totCDT);
-  el('kpi1_cdt_badge').textContent = pctCDT + '% BOQ';
+  el('kpi1_cdt_badge').textContent = pctCDTv + '% BOQ';
   el('kpi1_th').textContent  = fmtAuto(totTH);
   el('kpi1_tt').textContent  = fmtAuto(totTT);
   el('kpi1_cl').textContent  = fmtAuto(totCL);
   el('kpi1_tt_badge').textContent = pctTT + '% GT TH';
-  el('kpi1_cl_badge').textContent = pctCLNum + '% GT TH';
+  el('kpi1_cl_badge').textContent = pctCLv + '% GT TH';
 
   // --- KPI Page 2 ---
   el('kpi2_cdt').textContent = fmtTy(totCDT);
   el('kpi2_th').textContent  = fmtTy(totTH);
   el('kpi2_tt').textContent  = fmtTy(totTT);
   el('kpi2_tt_badge').textContent = pctTT + '%';
-  el('kpi2_ps').textContent  = (totPS/1e9).toFixed(3) + ' tỷ';
+  el('kpi2_ps').textContent  = fmtTy(totPS);
   el('kpi2_ps_badge').textContent = pctPS + '% tổng TH đội';
 
   // --- KPI Page 3 ---
-  const phase = meta.phase || '—';
   el('kpi3_ndoi').textContent = teams.length + ' đội';
-  el('kpi3_phase').textContent = phase;
-  el('kpi3_th').textContent  = totTH.toLocaleString('vi-VN');
-  el('kpi3_tt').textContent  = totTT.toLocaleString('vi-VN');
-  el('kpi3_cl').textContent  = totCL.toLocaleString('vi-VN');
-  el('kpi3_ps').textContent  = totPS.toLocaleString('vi-VN');
+  el('kpi3_phase').textContent = meta.phase || '—';
+  el('kpi3_th').textContent  = vnd(totTH);
+  el('kpi3_tt').textContent  = vnd(totTT);
+  el('kpi3_cl').textContent  = vnd(totCL);
+  el('kpi3_ps').textContent  = vnd(totPS);
   el('kpi3_tt_badge').textContent = pctTT + '%';
-  el('kpi3_cl_badge').textContent = pctCLNum + '%';
+  el('kpi3_cl_badge').textContent = pctCLv + '%';
   el('kpi3_ps_badge').textContent = pctPS + '%';
 
-  // --- Bang goi thau Page 1 ---
-  const p1GoiBody = el('p1GoiBody');
+  // --- Bảng gói thầu P1 ---
+  const p1GoiBody  = el('p1GoiBody');
   const p1GoiTfoot = el('p1GoiTfoot');
-  if(p1GoiBody) {
-    p1GoiBody.innerHTML = '';
-    const boqGroups = s.by_group || [];
-    const groupMap = {};
-    boqGroups.forEach(g => { groupMap[g.group] = g; });
+  p1GoiBody.innerHTML = '';
+  let allBOQ=0, allNS=0, allTT2=0;
+  const bgMap = {};
+  (s.by_group||[]).forEach(g => { bgMap[g.group] = g; });
+  groups.forEach(g => {
+    const bg   = bgMap[g] || {};
+    const boqV = bg.boq_value    || 0;
+    const nsV  = bg.budget_value || 0;
+    const cdtV = bg.cdt_workdone || 0;
+    const ttV  = TT.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0);
+    allBOQ+=boqV; allNS+=nsV; allTT2+=ttV;
+    const pBar = boqV>0&&cdtV>0
+      ? '<div class="prog"><div class="prog-fill" style="width:'+Math.min((cdtV/boqV)*100,100)+'%;background:#1565c0"></div></div><small>'+((cdtV/boqV)*100).toFixed(1)+'%</small>'
+      : '<span style="font-size:9px;color:#e65100">Ngoài HĐ</span>';
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td class="tl"><strong>'+g+'</strong></td>'
+      +'<td class="tr">'+(boqV>0?(boqV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr">'+(cdtV>0?(cdtV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tc">'+pBar+'</td>'
+      +'<td class="tr">'+(nsV>0?(nsV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr">'+(ttV>0?(ttV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>';
+    p1GoiBody.appendChild(tr);
+  });
+  p1GoiTfoot.innerHTML = '<tr><td class="tl">TỔNG</td>'
+    +'<td class="tr">'+(allBOQ>0?(allBOQ/1e9).toFixed(3):'—')+'</td>'
+    +'<td class="tr" style="color:#6c757d">—</td>'
+    +'<td class="tc"><strong>'+pctCDTv+'%</strong></td>'
+    +'<td class="tr">'+(allNS>0?(allNS/1e9).toFixed(3):'—')+'</td>'
+    +'<td class="tr"><strong>'+(allTT2/1e9).toFixed(3)+'</strong></td></tr>';
 
-    let allTT = 0, allBOQ = 0, allNS = 0;
-    groups.forEach(g => {
-      const gdata = groupMap[g] || {};
-      const boqV = gdata.boq_value || 0;
-      const nsV  = gdata.budget_value || 0;  // 0 si pas de budget
-      const cdtV = gdata.cdt_workdone || 0;
-      const ttV  = gdata.contractor_paid || TT.filter(r=>r.g===g).reduce((s,r)=>s+r.tt,0);
-      allTT  += ttV; allBOQ += boqV; allNS += nsV;
-      const pctBoq = boqV > 0 && cdtV > 0
-        ? '<div class="prog"><div class="prog-fill" style="width:'+Math.min((cdtV/boqV)*100,100)+'%;background:#1565c0"></div></div><small>'+((cdtV/boqV)*100).toFixed(1)+'%</small>'
-        : '<span style="font-size:9px;color:#e65100">Ngoài HĐ</span>';
+  // --- Bảng chi tiết P1 (join WD + NS theo nội dung + gói) ---
+  const p1DetailBody  = el('p1DetailBody');
+  const p1DetailTfoot = el('p1DetailTfoot');
+  p1DetailBody.innerHTML = '';
+  // Build NS lookup: key = g+'|'+n
+  const nsMap = {};
+  NS.forEach(r => {
+    const key = (r.g||'')+'|'+(r.n||'');
+    nsMap[key] = r;
+  });
+
+  let totBOQ2=0, totCDT2=0, totNS2=0, totTH2=0;
+  groups.forEach(g => {
+    const gWD = WD.filter(r=>r.g===g);
+    const gTT = TT.filter(r=>r.g===g);
+    if(gWD.length===0 && gTT.length===0) return;
+
+    const sumBoqG  = gWD.reduce((a,r)=>a+(r.ttBOQ||0),0);
+    const sumCdtG  = gWD.reduce((a,r)=>a+(r.ttCDT||0),0);
+    const sumNsG   = NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0);
+    const sumThG   = gTT.reduce((a,r)=>a+(r.gt||0),0);
+    totBOQ2+=sumBoqG; totCDT2+=sumCdtG; totNS2+=sumNsG; totTH2+=sumThG;
+
+    const pctBoqG = sumBoqG>0?((sumCdtG/sumBoqG)*100).toFixed(1)+'%':'<span style="font-size:9px;color:#e65100">Ngoài HĐ</span>';
+    const grpRow = document.createElement('tr');
+    grpRow.className='grow';
+    grpRow.innerHTML='<td class="tl" colspan="3">📁 '+g+'</td>'
+      +'<td class="tr">'+(gWD.reduce((a,r)=>a+(r.bq||0),0)>0?gWD.reduce((a,r)=>a+(r.bq||0),0).toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr">'+(sumBoqG>0?vnd(sumBoqG):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr">'+(gWD.reduce((a,r)=>a+(r.cdt||0),0)>0?gWD.reduce((a,r)=>a+(r.cdt||0),0).toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr">'+(sumCdtG>0?vnd(sumCdtG):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tc">'+pctBoqG+'</td>'
+      +'<td class="tr" style="color:#6c757d">—</td>'
+      +'<td class="tr">'+(sumNsG>0?vnd(sumNsG):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr" style="color:#6c757d">—</td>'
+      +'<td class="tr">'+(sumThG>0?vnd(sumThG):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tc" style="color:#6c757d">—</td>'
+      +'<td class="tr" style="color:#6c757d">—</td>'
+      +'<td class="tr" style="color:#6c757d">—</td>'
+      +'<td class="tc" style="color:#6c757d">—</td>';
+    p1DetailBody.appendChild(grpRow);
+
+    gWD.forEach(row => {
+      if(!row.bq&&!row.cdt&&!row.ttBOQ&&!row.ttCDT) return;
+      const nsRow = nsMap[(row.g||'')+'|'+(row.n||'')] || {};
+      const hb = row.h&&row.h.includes('Ngoài')
+        ? '<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>'
+        : '<span class="badge bg-b" style="font-size:9px">Trong HĐ</span>';
+      const pctR = row.bq>0&&row.cdt>0?((row.cdt/row.bq)*100).toFixed(1)+'%':'—';
+      const tdTH = nsRow.klTH>0?vnd(nsRow.klTH):'<span style="color:#6c757d">—</span>';
+      const tdTHTT = nsRow.ttTH>0?vnd(nsRow.ttTH):'<span style="color:#6c757d">—</span>';
+      const tdTD = nsRow.tdTH>0?(nsRow.tdTH*100).toFixed(1)+'%':'<span style="color:#6c757d">—</span>';
+      const tdKLV = nsRow.klV>0?nsRow.klV.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>';
+      const tdGTV = nsRow.ttV>0?vnd(nsRow.ttV):'<span style="color:#6c757d">—</span>';
+      const tdTLV = nsRow.tlV>0?(nsRow.tlV*100).toFixed(1)+'%':'<span style="color:#6c757d">—</span>';
       const tr = document.createElement('tr');
-      tr.innerHTML = '<td class="tl"><strong>'+g+'</strong></td>'
-        + '<td class="tr">'+(boqV>0?(boqV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>'
-        + '<td class="tr">'+(cdtV>0?(cdtV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>'
-        + '<td class="tc">'+pctBoq+'</td>'
-        + '<td class="tr">'+(nsV>0?(nsV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>'
-        + '<td class="tr">'+(ttV>0?(ttV/1e6).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>';
-      p1GoiBody.appendChild(tr);
+      tr.innerHTML='<td class="tl" style="padding-left:22px">'+row.n+'</td>'
+        +'<td class="tc">'+hb+'</td>'
+        +'<td class="tc">'+(row.u||'—')+'</td>'
+        +'<td class="tr">'+(row.bq>0?row.bq.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
+        +'<td class="tr">'+(row.ttBOQ>0?vnd(row.ttBOQ):'<span style="color:#6c757d">—</span>')+'</td>'
+        +'<td class="tr">'+(row.cdt>0?row.cdt.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
+        +'<td class="tr">'+(row.ttCDT>0?vnd(row.ttCDT):'<span style="color:#6c757d">—</span>')+'</td>'
+        +'<td class="tc">'+pctR+'</td>'
+        +'<td class="tr">'+(nsRow.kl>0?nsRow.kl.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
+        +'<td class="tr">'+(nsRow.tt>0?vnd(nsRow.tt):'<span style="color:#6c757d">—</span>')+'</td>'
+        +'<td class="tr">'+tdTH+'</td>'
+        +'<td class="tr">'+tdTHTT+'</td>'
+        +'<td class="tc">'+tdTD+'</td>'
+        +'<td class="tr">'+tdKLV+'</td>'
+        +'<td class="tr">'+tdGTV+'</td>'
+        +'<td class="tc">'+tdTLV+'</td>';
+      p1DetailBody.appendChild(tr);
     });
-    p1GoiTfoot.innerHTML = '<tr><td class="tl">TỔNG</td>'
-      + '<td class="tr">'+(allBOQ>0?(allBOQ/1e9).toFixed(3):'—')+'</td>'
-      + '<td class="tr" style="color:#6c757d">—</td><td class="tc"><strong>'+pctCDT+'%</strong></td>'
-      + '<td class="tr">'+(allNS>0?(allNS/1e9).toFixed(3):'—')+'</td>'
-      + '<td class="tr"><strong>'+(allTT/1e6).toFixed(3)+'</strong></td></tr>';
-  }
+  });
+  p1DetailTfoot.innerHTML='<tr><td class="tl" colspan="3">TỔNG CỘNG</td>'
+    +'<td class="tr">—</td><td class="tr">'+vnd(totBOQ2)+'</td>'
+    +'<td class="tr">—</td><td class="tr">'+vnd(totCDT2)+'</td>'
+    +'<td class="tc">'+pctCDTv+'%</td>'
+    +'<td class="tr">—</td><td class="tr">'+vnd(totNS2)+'</td>'
+    +'<td class="tr">—</td><td class="tr">'+vnd(totTH2)+'</td>'
+    +'<td class="tc">—</td><td class="tr">—</td><td class="tr">—</td><td class="tc">—</td></tr>';
 
-  // --- Bang chi tiet Page 1 (WD) ---
-  const p1DetailBody = el('p1DetailBody');
-  if(p1DetailBody) {
-    p1DetailBody.innerHTML = '';
-    let totalBOQ=0, totalCDT=0, totalTH=0, totalVuot=0;
-    groups.forEach(g => {
-      const gWD = WD.filter(r=>r.g===g);
-      const gTT = TT.filter(r=>r.g===g);
-      const gBoq = gWD.reduce((s,r)=>s+r.ttBOQ,0);
-      const gCDT = gWD.reduce((s,r)=>s+r.ttCDT,0);
-      const gBoqKL = gWD.reduce((s,r)=>s+r.bq,0);
-      const gCDTkl = gWD.reduce((s,r)=>s+r.cdt,0);
-      const gTH  = gTT.reduce((s,r)=>s+r.gt,0);
-      const gTT2 = gTT.reduce((s,r)=>s+r.tt,0);
-      const gTHkl= gTT.reduce((s,r)=>s+r.k,0);
-      const gVuot= gBoq>0?0:gTH;
-      totalBOQ+=gBoq; totalCDT+=gCDT; totalTH+=gTH; totalVuot+=gVuot;
-      const pctTHg = gBoq>0?((gCDT/gBoq)*100).toFixed(1)+'%':'<span style="font-size:9px;color:#e65100">Ngoài HĐ</span>';
-      const pctTH2 = gTH>0?((gTH/(gBoq||gTH))*100).toFixed(1)+'%':'—';
-      const grp = document.createElement('tr');
-      grp.className='grow';
-      grp.innerHTML='<td class="tl" colspan="3">📁 '+g+'</td>'
-        +'<td class="tr">'+(gBoqKL>0?gBoqKL.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tr">'+(gBoq>0?gBoq.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tr">'+(gCDTkl>0?gCDTkl.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tr">'+(gCDT>0?gCDT.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tc">'+pctTHg+'</td>'
-        +'<td class="tr" style="color:#6c757d">—</td><td class="tr" style="color:#6c757d">—</td>'
-        +'<td class="tr">'+(gTHkl>0?gTHkl.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tr">'+(gTH>0?gTH.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tc">'+pctTH2+'</td>'
-        +'<td class="tr '+(gVuot>0?'neg':'')+'">'+((gVuot>0&&gTHkl>0)?gTHkl.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tr '+(gVuot>0?'neg':'')+'">'+((gVuot>0)?gVuot.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tc '+(gVuot>0?'neg':'')+'">'+((gVuot>0)?'100%':'<span style="color:#6c757d">—</span>')+'</td>';
-      p1DetailBody.appendChild(grp);
-
-      // Chi tiet tung hang WD
-      gWD.forEach(row => {
-        if(row.bq===0 && row.cdt===0 && row.dtc===0 && row.ttBOQ===0 && row.ttDTC===0) return;
-        const hb = row.h==='Trong HĐ'
-          ? '<span class="badge bg-b" style="font-size:9px">Trong HĐ</span>'
-          : '<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>';
-        const pctR = row.bq>0&&row.cdt>0?((row.cdt/row.bq)*100).toFixed(1)+'%':'—';
-        const tr = document.createElement('tr');
-        tr.innerHTML='<td class="tl" style="padding-left:22px">'+row.n+'</td>'
-          +'<td class="tc">'+hb+'</td><td class="tc">'+row.u+'</td>'
-          +'<td class="tr">'+(row.bq>0?row.bq.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-          +'<td class="tr">'+(row.ttBOQ>0?row.ttBOQ.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-          +'<td class="tr">'+(row.cdt>0?row.cdt.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-          +'<td class="tr">'+(row.ttCDT>0?row.ttCDT.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-          +'<td class="tc">'+pctR+'</td>'
-          +'<td class="tr" style="color:#6c757d">—</td><td class="tr" style="color:#6c757d">—</td>'
-          +'<td class="tr">'+(row.dtc>0?row.dtc.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-          +'<td class="tr">'+(row.ttDTC>0?row.ttDTC.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-          +'<td class="tc">—</td>'
-          +'<td class="tr" style="color:#6c757d">—</td><td class="tr" style="color:#6c757d">—</td><td class="tc" style="color:#6c757d">—</td>';
-        p1DetailBody.appendChild(tr);
-      });
-    });
-    const tfoot = el('p1DetailTfoot');
-    if(tfoot) {
-      tfoot.innerHTML='<tr><td class="tl" colspan="3">TỔNG CỘNG</td>'
-        +'<td class="tr">—</td><td class="tr">'+totalBOQ.toLocaleString('vi-VN')+'</td>'
-        +'<td class="tr" style="color:#6c757d">—</td><td class="tr" style="color:#6c757d">—</td>'
-        +'<td class="tc" style="color:#6c757d">'+pctCDT+'%</td>'
-        +'<td class="tr">—</td><td class="tr">—</td>'
-        +'<td class="tr">—</td><td class="tr">'+totalTH.toLocaleString('vi-VN')+'</td>'
-        +'<td class="tc">—</td>'
-        +'<td class="tr neg">—</td><td class="tr neg">'+totalVuot.toLocaleString('vi-VN')+'</td>'
-        +'<td class="tc neg">—</td></tr>';
-    }
-  }
-
-  // --- Bang tong hop kl theo goi (Page 2) ---
+  // --- Bảng tổng hợp KL gói P2 ---
   const p2WdGroupBody = el('p2WdGroupBody');
-  if(p2WdGroupBody) {
-    p2WdGroupBody.innerHTML = '';
-    // Lay don vi chu yeu cua tung group tu WD
-    groups.forEach(g => {
-      const gWD = WD.filter(r => r.g===g && r.h==='Trong HĐ');
-      const units = [...new Set(gWD.map(r=>r.u).filter(Boolean))];
-      const u = units[0] || '—';
-      const totCDTkl = gWD.reduce((s,r)=>s+r.cdt,0);
-      const totDTCkl = gWD.reduce((s,r)=>s+r.dtc,0);
-      const cl = totDTCkl - totCDTkl;
-      let badge;
-      if(totCDTkl===0 && totDTCkl>0) badge='<span class="badge bg-o">Chưa có KL CĐT</span>';
-      else if(totDTCkl===0 && totCDTkl===0) badge='<span class="badge bg-b">Chưa phân công</span>';
-      else if(cl>0) badge='<span class="badge bg-r">Vượt KL CĐT</span>';
-      else badge='<span class="badge bg-g">Bình thường</span>';
-      const tr = document.createElement('tr');
-      tr.innerHTML='<td class="tl"><strong>'+g+'</strong></td><td class="tc">'+u+'</td>'
-        +'<td class="tr">'+(totCDTkl>0?totCDTkl.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tr">'+(totDTCkl>0?totDTCkl.toLocaleString('vi-VN'):'<span style="color:#6c757d">0</span>')+'</td>'
-        +'<td class="tr '+(cl>0?'neg':cl<0?'pos':'')+'">'+((cl!==0)?'+'+cl.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tc">'+badge+'</td>';
-      p2WdGroupBody.appendChild(tr);
-    });
-  }
+  p2WdGroupBody.innerHTML = '';
+  groups.forEach(g => {
+    const gWD = WD.filter(r => r.g===g);
+    const boqKLg  = gWD.reduce((a,r)=>a+(r.bq||0),0);
+    const cdtKLg  = gWD.reduce((a,r)=>a+(r.cdt||0),0);
+    // KL xác nhận ĐTC: lấy từ NS array, col P (klTH)
+    const dtcKLg  = NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.klTH||0),0);
+    const cl = dtcKLg - cdtKLg;
+    const units = [...new Set(gWD.map(r=>r.u).filter(Boolean))];
+    const u = units[0]||'—';
+    let badge;
+    if(cdtKLg===0 && dtcKLg===0)
+      badge='<span class="badge bg-b">Chưa phân công</span>';
+    else if(cdtKLg===0 && dtcKLg>0)
+      badge='<span class="badge" style="background:#fff3cd;color:#7d3000">Chưa có KL CĐT</span>';
+    else if(cl>0)
+      badge='<span class="badge bg-r">Vượt '+(pct(cl,cdtKLg))+'%</span>';
+    else
+      badge='<span class="badge bg-g">Trong hạn</span>';
+    const tr = document.createElement('tr');
+    tr.innerHTML='<td class="tl"><strong>'+g+'</strong></td>'
+      +'<td class="tc">'+u+'</td>'
+      +'<td class="tr">'+(boqKLg>0?boqKLg.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td class="tr">'+(cdtKLg>0?cdtKLg.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td class="tr">'+(dtcKLg>0?dtcKLg.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td class="tr '+(cl>0?'neg':cl<0?'pos':'')+'">'+((cl!==0)?cl.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td class="tc">'+badge+'</td>';
+    p2WdGroupBody.appendChild(tr);
+  });
 
-  // --- Bang tong hop doi (Page 3) ---
-  const p3Body = el('p3DoiBody');
+  // --- Bảng tổng hợp đội P3 ---
+  const p3Body  = el('p3DoiBody');
   const p3Tfoot = el('p3DoiTfoot');
-  if(p3Body) {
-    p3Body.innerHTML = '';
-    let sumDot=0;
-    teams.forEach(team => {
-      const rows = TT.filter(r=>r.t===team);
-      const gtT = rows.reduce((s,r)=>s+r.gt,0);
-      const ttT = rows.reduce((s,r)=>s+r.tt,0);
-      const clT = rows.reduce((s,r)=>s+r.cl,0);
-      const pct = gtT>0?Math.round((ttT/gtT)*100):0;
-      const nDots = [...new Set(rows.map(r=>r.l))].length;
-      sumDot += nDots;
-      const color = pct>=100?'#2e7d32':pct>=90?'#1565c0':'#e65100';
-      const tr = document.createElement('tr');
-      tr.innerHTML='<td class="tl"><strong>'+team+'</strong></td>'
-        +'<td class="tc">'+nDots+'</td>'
-        +'<td class="tr">'+gtT.toLocaleString('vi-VN')+'</td>'
-        +'<td class="tr pos">'+ttT.toLocaleString('vi-VN')+'</td>'
-        +'<td class="tr '+(clT>0?'neg':'')+'" style="'+(clT===0?'color:#6c757d':'')+'">'+clT.toLocaleString('vi-VN')+'</td>'
-        +'<td class="tc"><div class="prog"><div class="prog-fill" style="width:'+Math.min(pct,100)+'%;background:'+color+'"></div></div><small>'+pct+'%</small></td>';
-      p3Body.appendChild(tr);
-    });
-    if(p3Tfoot) {
-      p3Tfoot.innerHTML='<tr><td class="tl">TỔNG</td><td class="tc">'+sumDot+'</td>'
-        +'<td class="tr">'+totTH.toLocaleString('vi-VN')+'</td>'
-        +'<td class="tr">'+totTT.toLocaleString('vi-VN')+'</td>'
-        +'<td class="tr neg">'+totCL.toLocaleString('vi-VN')+'</td>'
-        +'<td class="tc"><strong>'+pctTT+'%</strong></td></tr>';
-    }
-  }
+  p3Body.innerHTML = '';
+  let sumDot=0;
+  teams.forEach(team => {
+    const rows = TT.filter(r=>r.t===team);
+    const gtT = rows.reduce((a,r)=>a+(r.gt||0),0);
+    const ttT = rows.reduce((a,r)=>a+(r.tt||0),0);
+    const clT = rows.reduce((a,r)=>a+(r.cl||0),0);
+    const pctT = pct(ttT, gtT);
+    const nDots = [...new Set(rows.map(r=>r.l))].length;
+    sumDot += nDots;
+    const color = parseFloat(pctT)>=100?'#2e7d32':parseFloat(pctT)>=90?'#1565c0':'#e65100';
+    const tr = document.createElement('tr');
+    tr.innerHTML='<td class="tl"><strong>'+team+'</strong></td>'
+      +'<td class="tc">'+nDots+'</td>'
+      +'<td class="tr">'+vnd(gtT)+'</td>'
+      +'<td class="tr pos">'+vnd(ttT)+'</td>'
+      +'<td class="tr '+(clT>0?'neg':'')+'">'+vnd(clT)+'</td>'
+      +'<td class="tc"><div class="prog"><div class="prog-fill" style="width:'+Math.min(parseFloat(pctT),100)+'%;background:'+color+'"></div></div><small>'+pctT+'%</small></td>';
+    p3Body.appendChild(tr);
+  });
+  p3Tfoot.innerHTML='<tr><td class="tl">TỔNG</td><td class="tc">'+sumDot+'</td>'
+    +'<td class="tr">'+vnd(totTH)+'</td>'
+    +'<td class="tr">'+vnd(totTT)+'</td>'
+    +'<td class="tr neg">'+vnd(totCL)+'</td>'
+    +'<td class="tc"><strong>'+pctTT+'%</strong></td></tr>';
 
   // --- Repopulate filter dropdowns ---
   function repopSel(selId, vals) {
@@ -802,86 +823,78 @@ function applyData(data) {
     vals.forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); });
     sel.value = vals.includes(prev) ? prev : '';
   }
-  repopSel('f2Goi', [...new Set(WD.map(r=>r.g).filter(Boolean))]);
+  repopSel('f2Goi', [...new Set(WD.map(r=>r.g).filter(Boolean))].sort());
   repopSel('f3Doi', teams);
   repopSel('f3Lan', [...new Set(TT.map(r=>r.l).filter(Boolean))].sort());
 
   // --- Charts ---
-  const nsData  = groups.map(g => {
-    const gdata = (s.by_group||[]).find(x=>x.group===g);
-    return gdata ? (gdata.budget_value||0) : 0;
-  });
-  const cdtData = groups.map(g => TT.filter(r=>r.g===g).reduce((s,r)=>s+r.gt,0));
-  const ttData  = groups.map(g => TT.filter(r=>r.g===g).reduce((s,r)=>s+r.tt,0));
+  const nsGroupData  = groups.map(g => NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0));
+  const cdtGroupData = groups.map(g => WD.filter(r=>r.g===g).reduce((a,r)=>a+(r.ttCDT||0),0));
+  const ttGroupData  = groups.map(g => TT.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0));
 
-  if(chartP1Inst) { chartP1Inst.destroy(); chartP1Inst = null; }
+  if(chartP1Inst){ chartP1Inst.destroy(); chartP1Inst=null; }
   chartP1Inst = new Chart(el('chartP1').getContext('2d'),{
     type:'bar',
     data:{
       labels: groups,
       datasets:[
-        {label:'Ngân sách nội bộ',data:nsData,backgroundColor:'rgba(0,121,107,.7)',borderColor:'#00796b',borderWidth:1},
-        {label:'CĐT Workdone',data:cdtData,backgroundColor:'rgba(46,125,50,.8)',borderColor:'#2e7d32',borderWidth:1},
-        {label:'Đã thanh toán cho đội',data:ttData,backgroundColor:'rgba(106,27,154,.8)',borderColor:'#6a1b9a',borderWidth:1},
+        {label:'Ngân sách nội bộ',  data:nsGroupData,  backgroundColor:'rgba(0,121,107,.7)', borderColor:'#00796b',borderWidth:1},
+        {label:'CĐT Workdone',      data:cdtGroupData, backgroundColor:'rgba(46,125,50,.8)', borderColor:'#2e7d32',borderWidth:1},
+        {label:'Đã TT cho đội',     data:ttGroupData,  backgroundColor:'rgba(106,27,154,.8)',borderColor:'#6a1b9a',borderWidth:1},
       ]
     },
     options:{
       responsive:true,maintainAspectRatio:false,
       plugins:{legend:{position:'top',labels:{font:{size:11}}},
         tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toLocaleString('vi-VN')+' VNĐ'}}},
-      scales:{
-        x:{ticks:{font:{size:10}}},
-        y:{ticks:{font:{size:10},callback:v=>(v/1e9).toFixed(2)+'tỷ'}}
-      }
+      scales:{x:{ticks:{font:{size:10}}},y:{ticks:{font:{size:10},callback:v=>(v/1e9).toFixed(2)+'tỷ'}}}
     }
   });
 
   // Chart WD
-  const wdG3 = groups.filter(g => WD.some(r=>r.g===g && r.bq>0));
-  const pctCDTBoq = wdG3.map(g=>{
-    const items=WD.filter(r=>r.g===g); const sb=items.reduce((s,r)=>s+r.bq,0);
-    const sc=items.reduce((s,r)=>s+r.cdt,0);
+  const wdGroups = groups.filter(g => WD.some(r=>r.g===g&&r.bq>0));
+  const pctCDTBoq = wdGroups.map(g=>{
+    const items=WD.filter(r=>r.g===g);
+    const sb=items.reduce((a,r)=>a+(r.bq||0),0);
+    const sc=items.reduce((a,r)=>a+(r.cdt||0),0);
     return sb>0?parseFloat(((sc/sb)*100).toFixed(2)):0;
   });
-  const pctDTCBoq = wdG3.map(g=>{
-    const items=WD.filter(r=>r.g===g); const sb=items.reduce((s,r)=>s+r.bq,0);
-    const sd=items.reduce((s,r)=>s+r.dtc,0);
-    return sb>0?parseFloat(((sd/sb)*100).toFixed(2)):0;
+  const pctDTCBoq = wdGroups.map(g=>{
+    const items=WD.filter(r=>r.g===g);
+    const sb=items.reduce((a,r)=>a+(r.bq||0),0);
+    const sd=NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.klTH||0),0);
+    const bqKL=items.reduce((a,r)=>a+(r.bq||0),0);
+    return bqKL>0?parseFloat(((sd/bqKL)*100).toFixed(2)):0;
   });
-
-  if(chartWDInst) { chartWDInst.destroy(); chartWDInst = null; }
+  if(chartWDInst){ chartWDInst.destroy(); chartWDInst=null; }
   chartWDInst = new Chart(el('chartWD').getContext('2d'),{
     type:'bar',
     data:{
-      labels: wdG3.map(g=>g+' ('+((WD.find(r=>r.g===g&&r.bq>0)||{}).u||'')+')')  ,
+      labels: wdGroups,
       datasets:[
-        {label:'% CĐT xác nhận / BOQ',data:pctCDTBoq,backgroundColor:'rgba(46,125,50,.8)',borderColor:'#2e7d32',borderWidth:1},
-        {label:'% ĐTC thực hiện / BOQ',data:pctDTCBoq,backgroundColor:'rgba(198,40,40,.75)',borderColor:'#c62828',borderWidth:1},
+        {label:'% CĐT xác nhận / BOQ',  data:pctCDTBoq, backgroundColor:'rgba(46,125,50,.8)', borderColor:'#2e7d32',borderWidth:1},
+        {label:'% ĐTC thực hiện / BOQ', data:pctDTCBoq, backgroundColor:'rgba(198,40,40,.75)',borderColor:'#c62828',borderWidth:1},
       ]
     },
     options:{
       responsive:true,maintainAspectRatio:false,
       plugins:{legend:{position:'top',labels:{font:{size:11}}},
         tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'%'}}},
-      scales:{
-        x:{ticks:{font:{size:10}}},
-        y:{ticks:{font:{size:10},callback:v=>v+'%'}}
-      }
+      scales:{x:{ticks:{font:{size:10}}},y:{ticks:{font:{size:10},callback:v=>v+'%'}}}
     }
   });
 
-  // Chart Doi
-  const paidByTeam = teams.map(t => TT.filter(r=>r.t===t).reduce((s,r)=>s+r.tt,0));
-  const remByTeam  = teams.map(t => TT.filter(r=>r.t===t).reduce((s,r)=>s+r.cl,0));
-
-  if(chartDoiInst) { chartDoiInst.destroy(); chartDoiInst = null; }
+  // Chart Đội
+  const paidByTeam = teams.map(t => TT.filter(r=>r.t===t).reduce((a,r)=>a+(r.tt||0),0));
+  const remByTeam  = teams.map(t => TT.filter(r=>r.t===t).reduce((a,r)=>a+(r.cl||0),0));
+  if(chartDoiInst){ chartDoiInst.destroy(); chartDoiInst=null; }
   chartDoiInst = new Chart(el('chartDoi').getContext('2d'),{
     type:'bar',
     data:{
       labels: teams,
       datasets:[
-        {label:'Đã thanh toán',data:paidByTeam,backgroundColor:'rgba(46,125,50,.85)',borderColor:'#2e7d32',borderWidth:1},
-        {label:'Còn lại',data:remByTeam,backgroundColor:'rgba(198,40,40,.75)',borderColor:'#c62828',borderWidth:1},
+        {label:'Đã thanh toán',data:paidByTeam,backgroundColor:'rgba(46,125,50,.85)', borderColor:'#2e7d32',borderWidth:1},
+        {label:'Còn lại',      data:remByTeam, backgroundColor:'rgba(198,40,40,.75)',  borderColor:'#c62828',borderWidth:1},
       ]
     },
     options:{
@@ -901,10 +914,10 @@ function applyData(data) {
         const{ctx,data}=chart;
         const metas=chart.getSortedVisibleDatasetMetas();
         teams.forEach((_,i)=>{
-          let total=0, topY=null;
+          let total=0,topY=null;
           metas.forEach(meta=>{
-            const el=meta.data[i];
-            if(el){ total+=data.datasets[meta.index].data[i]; if(topY===null||el.y<topY)topY=el.y; }
+            const pt=meta.data[i];
+            if(pt){ total+=data.datasets[meta.index].data[i]||0; if(topY===null||pt.y<topY)topY=pt.y; }
           });
           if(total>0&&topY!==null){
             ctx.save();ctx.fillStyle='#1a2332';ctx.font='bold 10px Segoe UI,Arial';
@@ -917,7 +930,6 @@ function applyData(data) {
     }]
   });
 
-  // --- Render filter tables ---
   filterWD();
   filterTT();
 }
@@ -928,28 +940,39 @@ function filterWD(){
   const tb=el('wdBody'); tb.innerHTML='';
   let stt=0;
   WD.forEach(r=>{
-    if(r.bq===0&&r.cdt===0&&r.dtc===0&&(!r.ttDTC||r.ttDTC===0)) return;
+    if(!r.bq&&!r.cdt&&!r.ttBOQ&&!r.ttCDT) return;
     if(gv&&r.g!==gv) return;
     if(hv&&r.h!==hv) return;
+    // KL ĐTC từ NS
+    const nsRow = NS.find(n=>n.g===r.g&&n.n===r.n) || {};
+    const dtcKL = nsRow.klTH||0;
     stt++;
-    const cl=r.dtc-r.cdt;
-    const pct=r.bq>0?((r.dtc/r.bq)*100).toFixed(1)+'%':'—';
-    const vuot=r.bq>0&&r.dtc>r.cdt?'<span class="badge bg-r">Vượt '+((r.cdt>0?(cl/r.cdt)*100:100).toFixed(0))+'%</span>'
-      :r.cdt===0&&r.dtc>0?'<span class="badge bg-o">CĐT chưa XN</span>'
-      :r.dtc===0?'<span class="badge bg-b">Chưa phân công</span>':'—';
-    const hbadge=r.h==='Trong HĐ'?'<span class="badge bg-b" style="font-size:9px">Trong HĐ</span>':'<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>';
+    const cl = dtcKL - (r.cdt||0);
+    const vuotPct = r.cdt>0?((cl/r.cdt)*100).toFixed(0):null;
+    const hbadge = r.h&&r.h.includes('Ngoài')
+      ?'<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>'
+      :'<span class="badge bg-b" style="font-size:9px">Trong HĐ</span>';
+    let statusBadge;
+    if((r.cdt||0)===0 && dtcKL===0)
+      statusBadge='<span class="badge bg-b">Chưa phân công</span>';
+    else if((r.cdt||0)===0 && dtcKL>0)
+      statusBadge='<span class="badge" style="background:#fff3cd;color:#7d3000">Chưa có KL CĐT</span>';
+    else if(cl>0)
+      statusBadge='<span class="badge bg-r">Vượt '+vuotPct+'%</span>';
+    else
+      statusBadge='—';
     const tr=document.createElement('tr');
     tr.innerHTML='<td class="tc">'+stt+'</td>'
       +'<td class="tl"><strong>'+r.g+'</strong></td>'
       +'<td class="tl">'+r.n+'</td>'
-      +'<td class="tc">'+r.u+'</td>'
+      +'<td class="tc">'+(r.u||'—')+'</td>'
       +'<td class="tc">'+hbadge+'</td>'
       +'<td class="tr">'+(r.bq>0?r.bq.toLocaleString('vi-VN'):'—')+'</td>'
       +'<td class="tr">'+(r.cdt>0?r.cdt.toLocaleString('vi-VN'):'—')+'</td>'
-      +'<td class="tr">'+(r.dtc>0?r.dtc.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td class="tr">'+(dtcKL>0?dtcKL.toLocaleString('vi-VN'):'—')+'</td>'
       +'<td class="tr '+(cl>0?'neg':cl<0?'pos':'')+'">'+((cl!==0)?cl.toLocaleString('vi-VN'):'—')+'</td>'
-      +'<td class="tc">'+pct+'</td>'
-      +'<td>'+vuot+'</td>';
+      +'<td class="tc">'+statusBadge+'</td>'
+      +'<td class="tc">—</td>';
     tb.appendChild(tr);
   });
   el('wdCount').textContent=stt;
@@ -959,25 +982,28 @@ function filterWD(){
 function filterTT(){
   const dv=el('f3Doi').value, lv=el('f3Lan').value, hv=el('f3Hd').value;
   const tb=el('ttBody'); tb.innerHTML='';
-  let stt=0, sTH=0, sTT=0, sCL=0;
+  let stt=0,sTH=0,sTT=0,sCL=0;
   TT.forEach(r=>{
     if(dv&&r.t!==dv) return;
     if(lv&&r.l!==lv) return;
     if(hv&&r.h!==hv) return;
-    stt++; sTH+=r.gt; sTT+=r.tt; sCL+=r.cl;
-    const hb=r.h==='Trong HĐ'?'<span class="badge bg-b" style="font-size:9px">Trong HĐ</span>':'<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>';
+    stt++; sTH+=(r.gt||0); sTT+=(r.tt||0); sCL+=(r.cl||0);
+    const hb=r.h&&r.h.includes('Ngoài')
+      ?'<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>'
+      :'<span class="badge bg-b" style="font-size:9px">Trong HĐ</span>';
     const tr=document.createElement('tr');
     tr.innerHTML='<td class="tc">'+stt+'</td>'
       +'<td class="tl"><strong>'+r.t+'</strong></td>'
-      +'<td class="tc">'+r.l+'</td><td class="tc">'+r.p+'</td>'
-      +'<td class="tl">'+r.n+'</td>'
-      +'<td class="tc">'+r.g+'</td>'
+      +'<td class="tc">'+(r.l||'—')+'</td>'
+      +'<td class="tc">'+(r.p||'—')+'</td>'
+      +'<td class="tl">'+(r.n||'—')+'</td>'
+      +'<td class="tc">'+(r.g||'—')+'</td>'
       +'<td class="tc">'+hb+'</td>'
-      +'<td class="tc">'+r.u+'</td>'
-      +'<td class="tr">'+r.k.toLocaleString('vi-VN')+'</td>'
+      +'<td class="tc">'+(r.u||'—')+'</td>'
+      +'<td class="tr">'+((r.k||0).toLocaleString('vi-VN'))+'</td>'
       +'<td class="tr">'+vnd(r.d)+'</td>'
       +'<td class="tr">'+vnd(r.gt)+'</td>'
-      +'<td class="tc">'+(r.tl*100).toFixed(0)+'%</td>'
+      +'<td class="tc">'+((r.tl||0)*100).toFixed(0)+'%</td>'
       +'<td class="tr pos">'+vnd(r.tt)+'</td>'
       +'<td class="tr '+(r.cl>0?'neg':'')+'">'+vnd(r.cl)+'</td>';
     tb.appendChild(tr);
@@ -995,15 +1021,12 @@ async function init() {
     const resp = await fetch('data/projects.json');
     if(!resp.ok) throw new Error('Không tải được projects.json');
     const { projects } = await resp.json();
-
     buildProjectSwitcher(projects);
-
-    const firstWithData = projects.find(p => p.has_data);
-    if(firstWithData) {
-      // Set active tab
-      const tabs = document.querySelectorAll('.proj-tab');
-      tabs.forEach(t => t.classList.toggle('active', t.textContent.startsWith(firstWithData.id)));
-      await loadProject(firstWithData.id);
+    const first = projects.find(p => p.has_data);
+    if(first) {
+      document.querySelectorAll('.proj-tab').forEach(t =>
+        t.classList.toggle('active', t.textContent.startsWith(first.id)));
+      await loadProject(first.id);
     } else {
       showLoading(false);
       showError('Chưa có dự án nào có dữ liệu. Chạy quy trình nhập liệu trước.');
