@@ -1,0 +1,18 @@
+{
+  "projects": [
+    {
+      "id": "UOA",
+      "name": "Tòa nhà UOA Tower 2",
+      "description": "Đường Tân Trào, Tân Mỹ, Quận 7, TP.HCM",
+      "phase": "Phần ngầm",
+      "has_data": true
+    },
+    {
+      "id": "SCM",
+      "name": "SYCAMORE",
+      "description": "—",
+      "phase": "—",
+      "has_data": false
+    }
+  ]
+}
