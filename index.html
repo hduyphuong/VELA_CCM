@@ -876,13 +876,13 @@ function applyData(data) {
   // Chart WD
   const wdGroups = groups.filter(g => WD.some(r=>r.g===g&&r.bq>0));
   const pctCDTBoq = wdGroups.map(g=>{
-    const items=WD.filter(r=>r.g===g);
+    const items=WD.filter(r=>r.g===g&&(r.bq||0)>0);
     const sb=items.reduce((a,r)=>a+(r.bq||0),0);
     const sc=items.reduce((a,r)=>a+(r.cdt||0),0);
     return sb>0?parseFloat(((sc/sb)*100).toFixed(2)):0;
   });
   const pctDTCBoq = wdGroups.map(g=>{
-    const items=WD.filter(r=>r.g===g);
+    const items=WD.filter(r=>r.g===g&&(r.bq||0)>0);
     const sb=items.reduce((a,r)=>a+(r.bq||0),0);
     const sd=items.reduce((a,r)=>a+(r.dtc||0),0);
     return sb>0?parseFloat(((sd/sb)*100).toFixed(2)):0;
