@@ -718,7 +718,7 @@ function applyData(data) {
     p1DetailBody.appendChild(grpRow);
 
     gWD.forEach(row => {
-      if(!row.bq&&!row.cdt&&!row.ttBOQ&&!row.ttCDT) return;
+      if(!row.n && !row.u) return; // bo qua dong hoan toan trong (khong co noi dung)
       const nsRow = nsMap[(row.g||'')+'|'+(row.n||'')] || {};
       const hb = row.h&&row.h.includes('Ngoài')
         ? '<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>'
@@ -944,7 +944,7 @@ function filterWD(){
   const tb=el('wdBody'); tb.innerHTML='';
   let stt=0;
   WD.forEach(r=>{
-    if(!r.bq&&!r.cdt&&!r.ttBOQ&&!r.ttCDT) return;
+    if(!r.n && !r.u) return; // bo qua dong hoan toan trong
     if(gv&&r.g!==gv) return;
     if(hv&&r.h!==hv) return;
     // KL ĐTC: lookup NS theo gói thầu (col C) + nội dung CV (col H) — dòng 93 DINH_NGHIA
