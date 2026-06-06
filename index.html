@@ -724,12 +724,30 @@ function applyData(data) {
         ? '<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>'
         : '<span class="badge bg-b" style="font-size:9px">Trong HĐ</span>';
       const pctR = row.bq>0&&row.cdt>0?((row.cdt/row.bq)*100).toFixed(1)+'%':'—';
-      const tdTH = nsRow.klTH>0?vnd(nsRow.klTH):'<span style="color:#6c757d">—</span>';
+      const tdTH   = nsRow.klTH>0?vnd(nsRow.klTH):'<span style="color:#6c757d">—</span>';
       const tdTHTT = nsRow.ttTH>0?vnd(nsRow.ttTH):'<span style="color:#6c757d">—</span>';
-      const tdTD = nsRow.tdTH>0?(nsRow.tdTH*100).toFixed(1)+'%':'<span style="color:#6c757d">—</span>';
-      const tdKLV = nsRow.klV>0?nsRow.klV.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>';
-      const tdGTV = nsRow.ttV>0?vnd(nsRow.ttV):'<span style="color:#6c757d">—</span>';
-      const tdTLV = nsRow.tlV>0?(nsRow.tlV*100).toFixed(1)+'%':'<span style="color:#6c757d">—</span>';
+      const tdTD   = nsRow.tdTH>0?(nsRow.tdTH*100).toFixed(1)+'%':'<span style="color:#6c757d">—</span>';
+      // VUOT NGAN SACH: neu co du lieu o NS thi lay cot S/T/U cua NS
+      // neu la cong tac Ngoai HD (khong co NS) thi GT vuot = tong GT thuc hien tu TT[]
+      const isNgoaiHD = row.h && row.h.includes('Ngoài');
+      const ttGtTH = TT.filter(r=>r.g===row.g&&r.n===row.n).reduce((a,r)=>a+(r.gt||0),0);
+      const ttKlTH = TT.filter(r=>r.g===row.g&&r.n===row.n).reduce((a,r)=>a+(r.k||0),0);
+      let tdKLV, tdGTV, tdTLV;
+      if(nsRow.klV>0 || nsRow.ttV>0) {
+        // Co du lieu vuot NS tu sheet Ngan sach
+        tdKLV = nsRow.klV>0?nsRow.klV.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>';
+        tdGTV = nsRow.ttV>0?'<span class="neg">'+vnd(nsRow.ttV)+'</span>':'<span style="color:#6c757d">—</span>';
+        tdTLV = nsRow.tlV>0?(nsRow.tlV*100).toFixed(1)+'%':'<span style="color:#6c757d">—</span>';
+      } else if(isNgoaiHD && ttGtTH>0) {
+        // Cong tac Ngoai HD: GT vuot = GT thuc hien cua doi (cot R Data-TT)
+        tdKLV = ttKlTH>0?ttKlTH.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>';
+        tdGTV = '<span class="neg">'+vnd(ttGtTH)+'</span>';
+        tdTLV = '<span class="badge bg-r" style="font-size:9px">100%</span>';
+      } else {
+        tdKLV = '<span style="color:#6c757d">—</span>';
+        tdGTV = '<span style="color:#6c757d">—</span>';
+        tdTLV = '<span style="color:#6c757d">—</span>';
+      }
       const tr = document.createElement('tr');
       tr.innerHTML='<td class="tl" style="padding-left:22px">'+row.n+'</td>'
         +'<td class="tc">'+hb+'</td>'
