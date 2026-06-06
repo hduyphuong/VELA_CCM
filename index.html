@@ -83,6 +83,12 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;fo
 
 /* ===== TABLE ===== */
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%}
+/* Bang co dinh full man hinh, khong scroll ngang */
+.tbl-fixed{overflow:visible;width:100%}
+.tbl-fixed table{table-layout:fixed;width:100%;font-size:0.625rem}
+.tbl-fixed thead th{font-size:0.5625rem;padding:0.3125rem 0.25rem;word-break:break-word;white-space:normal}
+.tbl-fixed tbody td{padding:0.25rem;white-space:normal;word-break:break-word;font-size:0.625rem}
+.tbl-fixed tfoot td{padding:0.3125rem 0.25rem;font-size:0.625rem}
 table{width:100%;border-collapse:collapse;font-size:0.71875rem}
 thead tr{background:#1a3a5c;color:white}
 thead th{padding:0.4375rem 0.5625rem;text-align:center;font-weight:600;white-space:nowrap;font-size:0.6875rem}
@@ -283,11 +289,19 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
 
   <div class="card">
     <div class="stitle">Bảng tổng hợp giá trị chi tiết</div>
-    <div class="tbl-wrap">
+    <div class="tbl-fixed">
     <table>
       <thead>
+        <colgroup>
+          <col style="width:12%"><col style="width:4%"><col style="width:3%">
+          <col style="width:5%"><col style="width:7%">
+          <col style="width:5%"><col style="width:7%"><col style="width:4%">
+          <col style="width:5%"><col style="width:7%">
+          <col style="width:5%"><col style="width:7%"><col style="width:4%">
+          <col style="width:5%"><col style="width:7%"><col style="width:4%">
+        </colgroup>
         <tr>
-          <th class="tl" rowspan="2" style="min-width:160px">Hạng mục / Gói thầu</th>
+          <th class="tl" rowspan="2">Hạng mục / Gói thầu</th>
           <th rowspan="2">HĐ/PS</th>
           <th rowspan="2">ĐVT</th>
           <th colspan="2" style="background:#1e4976">GIÁ TRỊ BOQ</th>
@@ -300,7 +314,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
           <th style="background:#1e4976">KL</th><th style="background:#1e4976">Giá trị (VNĐ)</th>
           <th style="background:#1b5e20">KL LK</th><th style="background:#1b5e20">Giá trị (VNĐ)</th><th style="background:#1b5e20">% BOQ</th>
           <th style="background:#00695c">KL</th><th style="background:#00695c">Giá trị (VNĐ)</th>
-          <th style="background:#4a148c">KL TT</th><th style="background:#4a148c">GT thực hiện (VNĐ)</th><th style="background:#4a148c">Tiến độ TH</th>
+          <th style="background:#4a148c">KL TT</th><th style="background:#4a148c">GT TH (VNĐ)</th><th style="background:#4a148c">TD TH</th>
           <th style="background:#b71c1c">KL vượt</th><th style="background:#b71c1c">GT vượt (VNĐ)</th><th style="background:#b71c1c">TL vượt</th>
         </tr>
       </thead>
@@ -943,8 +957,8 @@ function filterWD(){
     if(!r.bq&&!r.cdt&&!r.ttBOQ&&!r.ttCDT) return;
     if(gv&&r.g!==gv) return;
     if(hv&&r.h!==hv) return;
-    // KL ĐTC từ NS
-    const nsRow = NS.find(n=>n.g===r.g&&n.n===r.n) || {};
+    // KL ĐTC: lookup NS theo gói thầu (col C) + nội dung CV (col H) — dòng 93 DINH_NGHIA
+    const nsRow = NS.find(n => n.g===r.g && n.n===r.n) || {};
     const dtcKL = nsRow.klTH||0;
     stt++;
     const cl = dtcKL - (r.cdt||0);
