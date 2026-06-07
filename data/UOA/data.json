@@ -2,14 +2,14 @@
   "meta": {
     "project_id": "UOA",
     "project_name": "Tòa nhà UOA Tower 2",
-    "generated_at": "2026-06-07T13:16:31",
+    "generated_at": "2026-06-07T13:42:36",
     "source_file": "HDP_UOA_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Phần ngầm"
   },
   "summary": {
     "boq_total": 25781222400.0,
     "budget_total": 13925078000.0,
-    "cdt_workdone_total": 0,
+    "cdt_workdone_total": 962750000.0,
     "contractor_executed_total": 827295000.0,
     "contractor_paid_total": 791959000.0,
     "contractor_remaining_total": 35336000.0,
@@ -21,15 +21,15 @@
         "group": "Bê tông",
         "boq_value": 6059103900.0,
         "budget_value": 1346450000.0,
-        "cdt_workdone": 0,
+        "cdt_workdone": 320250000.0,
         "contractor_paid": 67500000.0
       },
       {
         "group": "Capping beam",
-        "boq_value": 100000000.0,
-        "budget_value": 585730000.0,
+        "boq_value": 0,
+        "budget_value": 485730000.0,
         "cdt_workdone": 0,
-        "contractor_paid": 276630000.0
+        "contractor_paid": 264630000.0
       },
       {
         "group": "Công nhật",
@@ -42,15 +42,22 @@
         "group": "Cốp pha",
         "boq_value": 8604118500.0,
         "budget_value": 4184798000.0,
-        "cdt_workdone": 0,
+        "cdt_workdone": 262500000.0,
         "contractor_paid": 0
       },
       {
         "group": "Cốt thép",
         "boq_value": 11018000000.0,
         "budget_value": 7555200000.0,
-        "cdt_workdone": 0,
+        "cdt_workdone": 280000000.0,
         "contractor_paid": 395504000.0
+      },
+      {
+        "group": "Móng cẩu tháp",
+        "boq_value": 100000000.0,
+        "budget_value": 100000000.0,
+        "cdt_workdone": 100000000.0,
+        "contractor_paid": 12000000.0
       }
     ]
   },
@@ -254,7 +261,7 @@
       "t": "03.N.M.Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
-      "g": "Capping beam",
+      "g": "Móng cẩu tháp",
       "h": "Trong HĐ",
       "n": "Cốt thép,Coppha, bê tông móng cẩu tháp",
       "u": "cái",
@@ -1236,7 +1243,7 @@
       "tlV": -1.0
     },
     {
-      "g": "Capping beam",
+      "g": "Móng cẩu tháp",
       "n": "Nhân công cốt thép,Coppha, đổ bê tông móng cẩu tháp",
       "u": "cái",
       "kl": 2.0,
@@ -1322,8 +1329,8 @@
       "u": "m3",
       "bq": 533.0,
       "ttBOQ": 220395500.0,
-      "cdt": 0.0,
-      "ttCDT": 0.0,
+      "cdt": 100.0,
+      "ttCDT": 41350000.0,
       "dtc": 0.0,
       "ttDTC": 0.0
     },
@@ -1334,8 +1341,8 @@
       "u": "m3",
       "bq": 3795.0,
       "ttBOQ": 1058425500.0,
-      "cdt": 0.0,
-      "ttCDT": 0.0,
+      "cdt": 1000.0,
+      "ttCDT": 278900000.0,
       "dtc": 0.0,
       "ttDTC": 0.0
     },
@@ -1466,8 +1473,8 @@
       "u": "m2",
       "bq": 6704.0,
       "ttBOQ": 1759800000.0,
-      "cdt": 0.0,
-      "ttCDT": 0.0,
+      "cdt": 1000.0,
+      "ttCDT": 262500000.0,
       "dtc": 0.0,
       "ttDTC": 0.0
     },
@@ -1694,8 +1701,8 @@
       "u": "kg",
       "bq": 522000.0,
       "ttBOQ": 1827000000.0,
-      "cdt": 0.0,
-      "ttCDT": 0.0,
+      "cdt": 10000.0,
+      "ttCDT": 35000000.0,
       "dtc": 10000.0,
       "ttDTC": 32000000.0
     },
@@ -1706,8 +1713,8 @@
       "u": "kg",
       "bq": 1998000.0,
       "ttBOQ": 6993000000.0,
-      "cdt": 0.0,
-      "ttCDT": 0.0,
+      "cdt": 20000.0,
+      "ttCDT": 70000000.0,
       "dtc": 10000.0,
       "ttDTC": 32000000.0
     },
@@ -1718,8 +1725,8 @@
       "u": "kg",
       "bq": 573000.0,
       "ttBOQ": 2005500000.0,
-      "cdt": 0.0,
-      "ttCDT": 0.0,
+      "cdt": 50000.0,
+      "ttCDT": 175000000.0,
       "dtc": 100000.0,
       "ttDTC": 320000000.0
     },
@@ -1808,14 +1815,14 @@
       "ttDTC": 0.0
     },
     {
-      "g": "Capping beam",
+      "g": "Móng cẩu tháp",
       "h": "Trong HĐ",
       "n": "Nhân công cốt thép,Coppha, đổ bê tông móng cẩu tháp",
       "u": "cái",
       "bq": 2.0,
       "ttBOQ": 100000000.0,
-      "cdt": 0.0,
-      "ttCDT": 0.0,
+      "cdt": 2.0,
+      "ttCDT": 100000000.0,
       "dtc": 1.0,
       "ttDTC": 12000000.0
     },
