@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-08T16:25:38",
+    "generated_at": "2026-06-08T16:26:26",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -10,12 +10,12 @@
     "boq_total": 66078115228.28174,
     "budget_total": 31877946715.0,
     "cdt_workdone_total": 14436292198.313572,
-    "contractor_executed_total": 2436065850.5,
-    "contractor_paid_total": 2423360454.85,
-    "contractor_remaining_total": 12705395.650000006,
+    "contractor_executed_total": 2537642605.125,
+    "contractor_paid_total": 2514779534.0125,
+    "contractor_remaining_total": 22863071.1125,
     "contractor_ps_total": 0,
-    "contractor_count": 9,
-    "payment_rounds_total": 9,
+    "contractor_count": 10,
+    "payment_rounds_total": 10,
     "by_group": [
       {
         "group": "Bể ngầm",
@@ -53,9 +53,16 @@
         "contractor_paid": 2237695437.5
       },
       {
+        "group": "Hỗ trợ",
+        "boq_value": 0,
+        "budget_value": 405036870.00000006,
+        "cdt_workdone": 0,
+        "contractor_paid": 5400000.0
+      },
+      {
         "group": "LTBT",
         "boq_value": 7840392985.8104105,
-        "budget_value": 3941786850.0,
+        "budget_value": 2858824380.0,
         "cdt_workdone": 2604162052.711497,
         "contractor_paid": 0
       },
@@ -65,6 +72,13 @@
         "budget_value": 0,
         "cdt_workdone": 88949276.69275719,
         "contractor_paid": 0
+      },
+      {
+        "group": "Nước",
+        "boq_value": 0,
+        "budget_value": 677925600.0,
+        "cdt_workdone": 0,
+        "contractor_paid": 1485000.0
       },
       {
         "group": "Phòng điện",
@@ -113,7 +127,7 @@
         "boq_value": 29134716965.77,
         "budget_value": 6544368550.0,
         "cdt_workdone": 7942162120.020609,
-        "contractor_paid": 0
+        "contractor_paid": 84534079.16250001
       },
       {
         "group": "Ốp lát",
@@ -1054,6 +1068,126 @@
       "tl": 1.0,
       "tt": 12412500.0,
       "cl": 0.0
+    },
+    {
+      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "l": "Lần 3",
+      "p": "04-2026",
+      "g": "Xây tường",
+      "h": "",
+      "n": "Xây tường gạch nung dày 80mm, vữa M75",
+      "u": "m2",
+      "k": 442.252575,
+      "d": 85000.0,
+      "gt": 37591468.875,
+      "tl": 0.9,
+      "tt": 33832321.987500004,
+      "cl": 3759146.8874999955
+    },
+    {
+      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "l": "Lần 3",
+      "p": "04-2026",
+      "g": "Xây tường",
+      "h": "",
+      "n": "Xây tường gạch nung dày 180-230mm, vữa M75",
+      "u": "m2",
+      "k": 303.227,
+      "d": 145000.0,
+      "gt": 43967915.0,
+      "tl": 0.9,
+      "tt": 39571123.5,
+      "cl": 4396791.5
+    },
+    {
+      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "l": "Lần 3",
+      "p": "04-2026",
+      "g": "Xây tường",
+      "h": "",
+      "n": "Xây tường gạch đinh dày 80mm, vữa M75",
+      "u": "m2",
+      "k": 102.8963,
+      "d": 90000.0,
+      "gt": 9260667.0,
+      "tl": 0.9,
+      "tt": 8334600.3,
+      "cl": 926066.7000000002
+    },
+    {
+      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "l": "Lần 3",
+      "p": "04-2026",
+      "g": "Xây tường",
+      "h": "",
+      "n": "Xây tường gạch đinh dày 180-230 mm, vữa M75",
+      "u": "m2",
+      "k": 20.04325,
+      "d": 155000.0,
+      "gt": 3106703.75,
+      "tl": 0.9,
+      "tt": 2796033.375,
+      "cl": 310670.375
+    },
+    {
+      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "l": "Lần 3",
+      "p": "04-2026",
+      "g": "Hỗ trợ",
+      "h": "",
+      "n": "Hỗ trợ nhà trọ 250k/người/tháng",
+      "u": "",
+      "k": 4.0,
+      "d": 250000.0,
+      "gt": 1000000.0,
+      "tl": 0.9,
+      "tt": 900000.0,
+      "cl": 100000.0
+    },
+    {
+      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "l": "Lần 3",
+      "p": "04-2026",
+      "g": "Hỗ trợ",
+      "h": "",
+      "n": "Hỗ trợ xây căn douplex B3,B7 tầng 7",
+      "u": "căn",
+      "k": 2.0,
+      "d": 2000000.0,
+      "gt": 4000000.0,
+      "tl": 0.9,
+      "tt": 3600000.0,
+      "cl": 400000.0
+    },
+    {
+      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "l": "Lần 3",
+      "p": "04-2026",
+      "g": "Hỗ trợ",
+      "h": "",
+      "n": "Hỗ trợ xây căn B11 dang dở",
+      "u": "căn",
+      "k": 1.0,
+      "d": 1000000.0,
+      "gt": 1000000.0,
+      "tl": 0.9,
+      "tt": 900000.0,
+      "cl": 100000.0
+    },
+    {
+      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "l": "Lần 3",
+      "p": "04-2026",
+      "g": "Nước",
+      "h": "",
+      "n": "Tô PKT nước tầng 3",
+      "u": "công",
+      "k": 1.5,
+      "d": 1100000.0,
+      "gt": 1650000.0,
+      "tl": 0.9,
+      "tt": 1485000.0,
+      "cl": 165000.0
     }
   ],
   "NS": [
@@ -1175,9 +1309,22 @@
       "tlV": 0.0
     },
     {
-      "g": "LTBT",
-      "n": "Chân bê tông cao 80x200",
-      "u": "m",
+      "g": "Xây tường",
+      "n": "Xây tường gạch nung dày 80mm, vữa M75",
+      "u": "m2",
+      "kl": 0.0,
+      "tt": 0.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Hỗ trợ",
+      "n": "Hỗ trợ xây căn douplex B3,B7 tầng 7",
+      "u": "căn",
       "kl": 36.75,
       "tt": 1837500.0,
       "klTH": 0.0,
@@ -1188,9 +1335,9 @@
       "tlV": 0.0
     },
     {
-      "g": "LTBT",
-      "n": "Chân bê tông cao 80x150",
-      "u": "m",
+      "g": "Hỗ trợ",
+      "n": "Hỗ trợ xây căn B11 dang dở",
+      "u": "căn",
       "kl": 8959.986,
       "tt": 403199370.00000006,
       "klTH": 0.0,
@@ -1201,9 +1348,9 @@
       "tlV": 0.0
     },
     {
-      "g": "LTBT",
-      "n": "Chân bê tông cao 180x150",
-      "u": "m",
+      "g": "Nước",
+      "n": "Tô PKT nước tầng 3",
+      "u": "công",
       "kl": 11298.76,
       "tt": 677925600.0,
       "klTH": 0.0,
