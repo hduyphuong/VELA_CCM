@@ -2,26 +2,26 @@
   "meta": {
     "project_id": "UOA",
     "project_name": "Tòa nhà UOA Tower 2",
-    "generated_at": "2026-06-08T08:07:05",
+    "generated_at": "2026-06-08T08:18:00",
     "source_file": "HDP_UOA_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Phần ngầm"
   },
   "summary": {
     "boq_total": 25781222400.0,
     "budget_total": 13925078000.0,
-    "cdt_workdone_total": 962750000.0,
-    "contractor_executed_total": 827295000.0,
-    "contractor_paid_total": 791959000.0,
-    "contractor_remaining_total": 35336000.0,
+    "cdt_workdone_total": 0,
+    "contractor_executed_total": 410975000.0,
+    "contractor_paid_total": 396455000.0,
+    "contractor_remaining_total": 14520000.0,
     "contractor_ps_total": 362310000.0,
     "contractor_count": 5,
-    "payment_rounds_total": 9,
+    "payment_rounds_total": 8,
     "by_group": [
       {
         "group": "Bê tông",
         "boq_value": 6059103900.0,
         "budget_value": 1346450000.0,
-        "cdt_workdone": 320250000.0,
+        "cdt_workdone": 0,
         "contractor_paid": 67500000.0
       },
       {
@@ -42,21 +42,21 @@
         "group": "Cốp pha",
         "boq_value": 8604118500.0,
         "budget_value": 4184798000.0,
-        "cdt_workdone": 262500000.0,
+        "cdt_workdone": 0,
         "contractor_paid": 0
       },
       {
         "group": "Cốt thép",
         "boq_value": 11018000000.0,
         "budget_value": 7555200000.0,
-        "cdt_workdone": 280000000.0,
-        "contractor_paid": 395504000.0
+        "cdt_workdone": 0,
+        "contractor_paid": 0
       },
       {
         "group": "Móng cẩu tháp",
         "boq_value": 100000000.0,
         "budget_value": 100000000.0,
-        "cdt_workdone": 100000000.0,
+        "cdt_workdone": 0,
         "contractor_paid": 12000000.0
       }
     ]
@@ -631,81 +631,6 @@
       "tl": 0.95,
       "tt": 77520000.0,
       "cl": 4080000.0
-    },
-    {
-      "t": "05.N.T.Em",
-      "l": "Lần 2",
-      "p": "06-2026",
-      "g": "Cốt thép",
-      "h": "Trong HĐ",
-      "n": "Cốt thép đài cọc",
-      "u": "kg",
-      "k": 10000.0,
-      "d": 3200.0,
-      "gt": 32000000.0,
-      "tl": 0.95,
-      "tt": 30400000.0,
-      "cl": 1600000.0
-    },
-    {
-      "t": "05.N.T.Em",
-      "l": "Lần 2",
-      "p": "06-2026",
-      "g": "Cốt thép",
-      "h": "Trong HĐ",
-      "n": "Cốt thép Dầm sàn và đỉnh tường hầm",
-      "u": "kg",
-      "k": 10000.0,
-      "d": 3200.0,
-      "gt": 32000000.0,
-      "tl": 0.95,
-      "tt": 30400000.0,
-      "cl": 1600000.0
-    },
-    {
-      "t": "05.N.T.Em",
-      "l": "Lần 2",
-      "p": "06-2026",
-      "g": "Cốt thép",
-      "h": "Trong HĐ",
-      "n": "Cốt thép cột vách lõi thang bể nước",
-      "u": "kg",
-      "k": 100000.0,
-      "d": 3200.0,
-      "gt": 320000000.0,
-      "tl": 0.95,
-      "tt": 304000000.0,
-      "cl": 16000000.0
-    },
-    {
-      "t": "05.N.T.Em",
-      "l": "Lần 2",
-      "p": "06-2026",
-      "g": "Cốt thép",
-      "h": "Trong HĐ",
-      "n": "Cốt thép ram dốc cầu thang bồn cây tường lan can tường ngăn",
-      "u": "kg",
-      "k": 10000.0,
-      "d": 3200.0,
-      "gt": 32000000.0,
-      "tl": 0.95,
-      "tt": 30400000.0,
-      "cl": 1600000.0
-    },
-    {
-      "t": "05.N.T.Em",
-      "l": "Lần 2",
-      "p": "06-2026",
-      "g": "Cốt thép",
-      "h": "Trong HĐ",
-      "n": "Cốt thép hố ga hố thu",
-      "u": "kg",
-      "k": 100.0,
-      "d": 3200.0,
-      "gt": 320000.0,
-      "tl": 0.95,
-      "tt": 304000.0,
-      "cl": 16000.0
     }
   ],
   "NS": [
@@ -1105,9 +1030,9 @@
       "u": "kg",
       "kl": 522000.0,
       "tt": 1252800000.0,
-      "klTH": 10000.0,
-      "ttTH": 32000000.0,
-      "tdTH": 0.019157088122605363,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
       "klV": 0.0,
       "ttV": 0.0,
       "tlV": 0.0
@@ -1118,9 +1043,9 @@
       "u": "kg",
       "kl": 1998000.0,
       "tt": 4795200000.0,
-      "klTH": 10000.0,
-      "ttTH": 32000000.0,
-      "tdTH": 0.005005005005005005,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
       "klV": 0.0,
       "ttV": 0.0,
       "tlV": 0.0
@@ -1131,9 +1056,9 @@
       "u": "kg",
       "kl": 573000.0,
       "tt": 1375200000.0,
-      "klTH": 100000.0,
-      "ttTH": 320000000.0,
-      "tdTH": 0.17452006980802792,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
       "klV": 0.0,
       "ttV": 0.0,
       "tlV": 0.0
@@ -1144,9 +1069,9 @@
       "u": "kg",
       "kl": 54000.0,
       "tt": 129600000.0,
-      "klTH": 10000.0,
-      "ttTH": 32000000.0,
-      "tdTH": 0.18518518518518517,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
       "klV": 0.0,
       "ttV": 0.0,
       "tlV": 0.0
@@ -1157,9 +1082,9 @@
       "u": "kg",
       "kl": 1000.0,
       "tt": 2400000.0,
-      "klTH": 100.0,
-      "ttTH": 320000.0,
-      "tdTH": 0.1,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
       "klV": 0.0,
       "ttV": 0.0,
       "tlV": 0.0
@@ -1329,8 +1254,8 @@
       "u": "m3",
       "bq": 533.0,
       "ttBOQ": 220395500.0,
-      "cdt": 100.0,
-      "ttCDT": 41350000.0,
+      "cdt": 0.0,
+      "ttCDT": 0.0,
       "dtc": 0.0,
       "ttDTC": 0.0
     },
@@ -1341,8 +1266,8 @@
       "u": "m3",
       "bq": 3795.0,
       "ttBOQ": 1058425500.0,
-      "cdt": 1000.0,
-      "ttCDT": 278900000.0,
+      "cdt": 0.0,
+      "ttCDT": 0.0,
       "dtc": 0.0,
       "ttDTC": 0.0
     },
@@ -1473,8 +1398,8 @@
       "u": "m2",
       "bq": 6704.0,
       "ttBOQ": 1759800000.0,
-      "cdt": 1000.0,
-      "ttCDT": 262500000.0,
+      "cdt": 0.0,
+      "ttCDT": 0.0,
       "dtc": 0.0,
       "ttDTC": 0.0
     },
@@ -1701,10 +1626,10 @@
       "u": "kg",
       "bq": 522000.0,
       "ttBOQ": 1827000000.0,
-      "cdt": 10000.0,
-      "ttCDT": 35000000.0,
-      "dtc": 10000.0,
-      "ttDTC": 32000000.0
+      "cdt": 0.0,
+      "ttCDT": 0.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
     },
     {
       "g": "Cốt thép",
@@ -1713,10 +1638,10 @@
       "u": "kg",
       "bq": 1998000.0,
       "ttBOQ": 6993000000.0,
-      "cdt": 20000.0,
-      "ttCDT": 70000000.0,
-      "dtc": 10000.0,
-      "ttDTC": 32000000.0
+      "cdt": 0.0,
+      "ttCDT": 0.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
     },
     {
       "g": "Cốt thép",
@@ -1725,10 +1650,10 @@
       "u": "kg",
       "bq": 573000.0,
       "ttBOQ": 2005500000.0,
-      "cdt": 50000.0,
-      "ttCDT": 175000000.0,
-      "dtc": 100000.0,
-      "ttDTC": 320000000.0
+      "cdt": 0.0,
+      "ttCDT": 0.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
     },
     {
       "g": "Cốt thép",
@@ -1739,8 +1664,8 @@
       "ttBOQ": 189000000.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
-      "dtc": 10000.0,
-      "ttDTC": 32000000.0
+      "dtc": 0.0,
+      "ttDTC": 0.0
     },
     {
       "g": "Cốt thép",
@@ -1751,8 +1676,8 @@
       "ttBOQ": 3500000.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
-      "dtc": 100.0,
-      "ttDTC": 320000.0
+      "dtc": 0.0,
+      "ttDTC": 0.0
     },
     {
       "g": "Công nhật",
@@ -1821,8 +1746,8 @@
       "u": "cái",
       "bq": 2.0,
       "ttBOQ": 100000000.0,
-      "cdt": 2.0,
-      "ttCDT": 100000000.0,
+      "cdt": 0.0,
+      "ttCDT": 0.0,
       "dtc": 1.0,
       "ttDTC": 12000000.0
     },
