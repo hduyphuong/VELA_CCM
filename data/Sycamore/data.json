@@ -2,13 +2,13 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-08T10:18:42",
+    "generated_at": "2026-06-08T10:29:40",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
   "summary": {
     "boq_total": 66078115228.28174,
-    "budget_total": 30965446715.0,
+    "budget_total": 31918705318.10133,
     "cdt_workdone_total": 14436292198.313572,
     "contractor_executed_total": 1784753725.5,
     "contractor_paid_total": 1772048329.85,
@@ -20,28 +20,28 @@
       {
         "group": "Bể ngầm",
         "boq_value": 126943385.388856,
-        "budget_value": 0,
+        "budget_value": 126943385.388856,
         "cdt_workdone": 126943385.388856,
         "contractor_paid": 0
       },
       {
         "group": "Bệ máy phòng điện",
         "boq_value": 35070524.71358024,
-        "budget_value": 0,
+        "budget_value": 35070524.71358024,
         "cdt_workdone": 13682553.799999999,
         "contractor_paid": 0
       },
       {
         "group": "Bệ móng vận thăng",
         "boq_value": 14000000.0,
-        "budget_value": 0,
+        "budget_value": 14000000.0,
         "cdt_workdone": 7000000.0,
         "contractor_paid": 0
       },
       {
         "group": "Cán nền",
         "boq_value": 93374768.8,
-        "budget_value": 0,
+        "budget_value": 93374768.8,
         "cdt_workdone": 86547982.05000001,
         "contractor_paid": 0
       },
@@ -54,23 +54,30 @@
       },
       {
         "group": "LTBT",
-        "boq_value": 7990849867.341784,
+        "boq_value": 7840392985.8104105,
         "budget_value": 3941786850.0,
-        "cdt_workdone": 2693111329.404254,
+        "cdt_workdone": 2604162052.711497,
+        "contractor_paid": 0
+      },
+      {
+        "group": "LTBT, Diềm mái",
+        "boq_value": 150456881.53137287,
+        "budget_value": 150456881.53137287,
+        "cdt_workdone": 88949276.69275719,
         "contractor_paid": 0
       },
       {
         "group": "Phòng điện",
         "boq_value": 15831261.6,
-        "budget_value": 0,
+        "budget_value": 15831261.6,
         "cdt_workdone": 1252000.0,
         "contractor_paid": 0
       },
       {
         "group": "Trát tường",
-        "boq_value": 28196441475.104,
+        "boq_value": 28149746673.6,
         "budget_value": 17148057680.0,
-        "cdt_workdone": 3269984580.3979154,
+        "cdt_workdone": 3123889562.4539757,
         "contractor_paid": 0
       },
       {
@@ -83,28 +90,35 @@
       {
         "group": "Vật tư phụ",
         "boq_value": 58800000.0,
-        "budget_value": 0,
+        "budget_value": 58800000.0,
         "cdt_workdone": 42160000.0,
         "contractor_paid": 0
       },
       {
         "group": "Vật tư thay thế",
         "boq_value": 193231214.84352002,
-        "budget_value": 0,
+        "budget_value": 193231214.84352002,
         "cdt_workdone": 40061271.471936874,
         "contractor_paid": 0
       },
       {
+        "group": "Xây tô đóng lưới",
+        "boq_value": 50174801.504,
+        "budget_value": 50174801.504,
+        "cdt_workdone": 149578422.94393963,
+        "contractor_paid": 0
+      },
+      {
         "group": "Xây tường",
-        "boq_value": 29138196965.77,
+        "boq_value": 29134716965.77,
         "budget_value": 8933281700.0,
-        "cdt_workdone": 7945645525.020609,
+        "cdt_workdone": 7942162120.020609,
         "contractor_paid": 0
       },
       {
         "group": "Ốp lát",
         "boq_value": 215375764.72,
-        "budget_value": 0,
+        "budget_value": 215375764.72,
         "cdt_workdone": 209903570.78,
         "contractor_paid": 0
       }
@@ -1871,6 +1885,539 @@
       "klV": -15060187.5,
       "ttV": -15060187.5,
       "tlV": -1.0
+    },
+    {
+      "g": "Cán nền",
+      "n": "Cán nền lát gạch",
+      "u": "m2",
+      "kl": 559.762,
+      "tt": 61098022.3,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Cán nền",
+      "n": "Cán nền sàn gỗ",
+      "u": "m2",
+      "kl": 202.77,
+      "tt": 22132345.5,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Cán nền",
+      "n": "Cán nền bồn hoa",
+      "u": "m2",
+      "kl": 92.94,
+      "tt": 10144401.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "n": "Lát gạch nền 300x300mm",
+      "u": "m2",
+      "kl": 35.97,
+      "tt": 5341545.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "n": "Lát gạch nền 300x600mm",
+      "u": "m2",
+      "kl": 101.217,
+      "tt": 14382935.7,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "n": "Lát gạch nền 600x600mm trong nhà",
+      "u": "m2",
+      "kl": 254.26,
+      "tt": 36130346.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "n": "Lát gạch nền 600x600mm hành lang",
+      "u": "m2",
+      "kl": 133.91,
+      "tt": 19028611.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "n": "Lát gạch nền 150x900mm bồn hoa",
+      "u": "m2",
+      "kl": 10.18,
+      "tt": 1642034.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "n": "Ốp gạch tường 100x300mm (Phòng tắm)",
+      "u": "m2",
+      "kl": 19.88825,
+      "tt": 4972062.5,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "n": "Ốp gạch tường 300x600mm (WC)",
+      "u": "m2",
+      "kl": 326.2875,
+      "tt": 52630173.75,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "n": "Ốp gạch tường 400x1200mm (Khu bếp)",
+      "u": "m2",
+      "kl": 23.8799,
+      "tt": 3851827.8699999996,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "n": "Ốp gạch tường 600x600mm (Phòng rác)",
+      "u": "m2",
+      "kl": 10.355,
+      "tt": 1670261.5,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "n": "Ốp gạch tường 600x1200mm (Thang máy)",
+      "u": "m2",
+      "kl": 23.298,
+      "tt": 3757967.4,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "n": "Ốp len chân",
+      "u": "m2",
+      "kl": 43.52,
+      "tt": 11968000.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "n": "Chi phí hỗ trợ thi công tầng mẫu",
+      "u": "lot",
+      "kl": 1.0,
+      "tt": 60000000.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Xây tô đóng lưới",
+      "n": "Xây bậc thang bộ",
+      "u": "m3",
+      "kl": 1.16,
+      "tt": 3479999.9999999995,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Xây tô đóng lưới",
+      "n": "Tô bậc thang bộ",
+      "u": "m2",
+      "kl": 15.69,
+      "tt": 1557317.2259999998,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Xây tô đóng lưới",
+      "n": "Tô đáy diềm mái bê tông hành lang",
+      "u": "m2",
+      "kl": 57.29,
+      "tt": 5686341.865999999,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Xây tô đóng lưới",
+      "n": "Tô chân kicker ban công, hành lang",
+      "u": "md",
+      "kl": 38.78,
+      "tt": 3849124.412,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Xây tô đóng lưới",
+      "n": "Đóng lưới các vị trí của MEP",
+      "u": "m2",
+      "kl": 1863.98,
+      "tt": 35602018.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "LTBT, Diềm mái",
+      "n": "Lanh tô kích thước 230x250mm + Diềm mái 300x250mm",
+      "u": "m",
+      "kl": 31.71,
+      "tt": 14452247.805622282,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "LTBT, Diềm mái",
+      "n": "Lanh tô kích thước 250x250mm + Diềm mái 300x250mm",
+      "u": "m",
+      "kl": 39.9,
+      "tt": 18029337.569988303,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "LTBT, Diềm mái",
+      "n": "Lanh tô kích thước 250x350mm + Diềm mái 300x150mm",
+      "u": "m",
+      "kl": 145.25,
+      "tt": 72264228.34962359,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "LTBT, Diềm mái",
+      "n": "Diềm mái 300x150mm",
+      "u": "m",
+      "kl": 77.0,
+      "tt": 20598284.709887497,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "LTBT, Diềm mái",
+      "n": "Lanh tô treo 180x200mm",
+      "u": "m",
+      "kl": 134.82,
+      "tt": 25112783.0962512,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Bệ móng vận thăng",
+      "n": "Bệ móng vận thăng",
+      "u": "lot",
+      "kl": 2.0,
+      "tt": 14000000.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Bệ máy phòng điện",
+      "n": "Cốp pha cho bệ máy phòng điện",
+      "u": "m2",
+      "kl": 32.882,
+      "tt": 10634038.799999999,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Bệ máy phòng điện",
+      "n": "Bê tông cho bệ máy phòng điện",
+      "u": "m2",
+      "kl": 8.87,
+      "tt": 4114792.9999999995,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Bệ máy phòng điện",
+      "n": "Xoa mặt cho bê tông bệ máy phòng điện",
+      "u": "m2",
+      "kl": 33.2,
+      "tt": 1726400.0000000002,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Bệ máy phòng điện",
+      "n": "Cốt thép cho bệ máy phòng điện",
+      "u": "m2",
+      "kl": 634.60049382716,
+      "tt": 3744142.913580244,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Bệ máy phòng điện",
+      "n": "Khoan cấy thép D10",
+      "u": "m2",
+      "kl": 383.0,
+      "tt": 11738950.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Bệ máy phòng điện",
+      "n": "Khoan cấy thép D12",
+      "u": "m2",
+      "kl": 84.0,
+      "tt": 3112200.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Phòng điện",
+      "n": "Cốp pha cho nền phòng điện",
+      "u": "m2",
+      "kl": 1.464,
+      "tt": 473457.6,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Phòng điện",
+      "n": "Bê tông đá mi cho nền phòng điện",
+      "u": "m2",
+      "kl": 23.83,
+      "tt": 11054737.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Phòng điện",
+      "n": "Xoa mặt Hardener cho nền phòng điện",
+      "u": "m2",
+      "kl": 4.0,
+      "tt": 1252000.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Phòng điện",
+      "n": "Cốt thép cho nền phòng điện",
+      "u": "m2",
+      "kl": 517.13,
+      "tt": 3051067.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Bể ngầm",
+      "n": "Tô vách bể ngầm",
+      "u": "m2",
+      "kl": 828.6244,
+      "tt": 126943385.388856,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Vật tư phụ",
+      "n": "Nẹp nhựa 20x20x1mm",
+      "u": "m2",
+      "kl": 2352.0,
+      "tt": 58800000.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Vật tư thay thế",
+      "n": "Xây tường 100mm bằng gạch đinh đặc",
+      "u": "m2",
+      "kl": 3940.608,
+      "tt": 107539192.32000001,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Vật tư thay thế",
+      "n": "Xây tường 180-230mm bằng gạch đinh đặc",
+      "u": "m2",
+      "kl": 410.0544,
+      "tt": 22380769.152,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Vật tư thay thế",
+      "n": "Xây tường 180-230mm gạch ống 4 lỗ câu gạch đinh đặc",
+      "u": "m2",
+      "kl": 8858.388,
+      "tt": 63311253.371520005,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
     }
   ],
   "WD": [
@@ -3111,7 +3658,7 @@
       "ttDTC": 0.0
     },
     {
-      "g": "Xây tường",
+      "g": "Xây tô đóng lưới",
       "h": "Ngoài HĐ",
       "n": "Xây bậc thang bộ",
       "u": "m3",
@@ -3123,7 +3670,7 @@
       "ttDTC": 0.0
     },
     {
-      "g": "Trát tường",
+      "g": "Xây tô đóng lưới",
       "h": "Ngoài HĐ",
       "n": "Tô bậc thang bộ",
       "u": "m2",
@@ -3135,7 +3682,7 @@
       "ttDTC": 0.0
     },
     {
-      "g": "Trát tường",
+      "g": "Xây tô đóng lưới",
       "h": "Ngoài HĐ",
       "n": "Tô đáy diềm mái bê tông hành lang",
       "u": "m2",
@@ -3147,7 +3694,7 @@
       "ttDTC": 0.0
     },
     {
-      "g": "Trát tường",
+      "g": "Xây tô đóng lưới",
       "h": "Ngoài HĐ",
       "n": "Tô chân kicker ban công, hành lang",
       "u": "md",
@@ -3159,7 +3706,7 @@
       "ttDTC": 0.0
     },
     {
-      "g": "Trát tường",
+      "g": "Xây tô đóng lưới",
       "h": "Ngoài HĐ",
       "n": "Đóng lưới các vị trí của MEP",
       "u": "m2",
@@ -3171,7 +3718,7 @@
       "ttDTC": 0.0
     },
     {
-      "g": "LTBT",
+      "g": "LTBT, Diềm mái",
       "h": "Ngoài HĐ",
       "n": "Lanh tô kích thước 230x250mm + Diềm mái 300x250mm",
       "u": "m",
@@ -3183,7 +3730,7 @@
       "ttDTC": 0.0
     },
     {
-      "g": "LTBT",
+      "g": "LTBT, Diềm mái",
       "h": "Ngoài HĐ",
       "n": "Lanh tô kích thước 250x250mm + Diềm mái 300x250mm",
       "u": "m",
@@ -3195,7 +3742,7 @@
       "ttDTC": 0.0
     },
     {
-      "g": "LTBT",
+      "g": "LTBT, Diềm mái",
       "h": "Ngoài HĐ",
       "n": "Lanh tô kích thước 250x350mm + Diềm mái 300x150mm",
       "u": "m",
@@ -3207,7 +3754,7 @@
       "ttDTC": 0.0
     },
     {
-      "g": "LTBT",
+      "g": "LTBT, Diềm mái",
       "h": "Ngoài HĐ",
       "n": "Diềm mái 300x150mm",
       "u": "m",
@@ -3219,7 +3766,7 @@
       "ttDTC": 0.0
     },
     {
-      "g": "LTBT",
+      "g": "LTBT, Diềm mái",
       "h": "Ngoài HĐ",
       "n": "Lanh tô treo 180x200mm",
       "u": "m",
