@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-08T15:49:45",
+    "generated_at": "2026-06-08T15:50:04",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -10,12 +10,12 @@
     "boq_total": 66078115228.28174,
     "budget_total": 31877946715.0,
     "cdt_workdone_total": 14436292198.313572,
-    "contractor_executed_total": 1825627475.5,
-    "contractor_paid_total": 1812922079.85,
+    "contractor_executed_total": 1904149975.5,
+    "contractor_paid_total": 1891444579.85,
     "contractor_remaining_total": 12705395.650000006,
     "contractor_ps_total": 0,
-    "contractor_count": 6,
-    "payment_rounds_total": 6,
+    "contractor_count": 7,
+    "payment_rounds_total": 7,
     "by_group": [
       {
         "group": "Bể ngầm",
@@ -50,7 +50,14 @@
         "boq_value": 0,
         "budget_value": 1162500000.0,
         "cdt_workdone": 0,
-        "contractor_paid": 1627257062.5
+        "contractor_paid": 1704029562.5
+      },
+      {
+        "group": "Hỗ trợ",
+        "boq_value": 0,
+        "budget_value": 0,
+        "cdt_workdone": 0,
+        "contractor_paid": 1750000.0
       },
       {
         "group": "LTBT",
@@ -784,6 +791,96 @@
       "tl": 1.0,
       "tt": 573750.0,
       "cl": 0.0
+    },
+    {
+      "t": "07. Vũ Đình Hiền",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Công nhật Nam",
+      "u": "công",
+      "k": 52.0,
+      "d": 400000.0,
+      "gt": 20800000.0,
+      "tl": 1.0,
+      "tt": 20800000.0,
+      "cl": 0.0
+    },
+    {
+      "t": "07. Vũ Đình Hiền",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Công nhật Nữ",
+      "u": "công",
+      "k": 48.0,
+      "d": 350000.0,
+      "gt": 16800000.0,
+      "tl": 1.0,
+      "tt": 16800000.0,
+      "cl": 0.0
+    },
+    {
+      "t": "07. Vũ Đình Hiền",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Công nhật Nam",
+      "u": "công",
+      "k": 94.5,
+      "d": 400000.0,
+      "gt": 37800000.0,
+      "tl": 1.0,
+      "tt": 37800000.0,
+      "cl": 0.0
+    },
+    {
+      "t": "07. Vũ Đình Hiền",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Công nhật Nam tăng ca",
+      "u": "giờ",
+      "k": 15.0,
+      "d": 60000.0,
+      "gt": 900000.0,
+      "tl": 1.0,
+      "tt": 900000.0,
+      "cl": 0.0
+    },
+    {
+      "t": "07. Vũ Đình Hiền",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Công nhật Nữ tăng ca",
+      "u": "giờ",
+      "k": 9.0,
+      "d": 52500.0,
+      "gt": 472500.0,
+      "tl": 1.0,
+      "tt": 472500.0,
+      "cl": 0.0
+    },
+    {
+      "t": "07. Vũ Đình Hiền",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Hỗ trợ",
+      "h": "Trong HĐ",
+      "n": "Hỗ trợ nhà trọ 250k/người/tháng",
+      "u": "",
+      "k": 7.0,
+      "d": 250000.0,
+      "gt": 1750000.0,
+      "tl": 1.0,
+      "tt": 1750000.0,
+      "cl": 0.0
     }
   ],
   "NS": [
@@ -890,6 +987,19 @@
       "klV": 0.0,
       "ttV": 0.0,
       "tlV": 0.0
+    },
+    {
+      "g": "Công nhật",
+      "n": "Công nhật Nữ",
+      "u": "công",
+      "kl": 0.0,
+      "tt": 0.0,
+      "klTH": 57.0,
+      "ttTH": 17272500.0,
+      "tdTH": 0.0,
+      "klV": -57.0,
+      "ttV": -17272500.0,
+      "tlV": -1.0
     },
     {
       "g": "LTBT",
