@@ -2,13 +2,13 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-08T16:11:40",
+    "generated_at": "2026-06-08T16:17:28",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
   "summary": {
     "boq_total": 66078115228.28174,
-    "budget_total": 31472909845.0,
+    "budget_total": 31877946715.0,
     "cdt_workdone_total": 14436292198.313572,
     "contractor_executed_total": 1927465850.5,
     "contractor_paid_total": 1902960454.85,
@@ -55,7 +55,7 @@
       {
         "group": "LTBT",
         "boq_value": 7840392985.8104105,
-        "budget_value": 3536749980.0,
+        "budget_value": 3941786850.0,
         "cdt_workdone": 2604162052.711497,
         "contractor_paid": 0
       },
@@ -924,7 +924,7 @@
       "t": "08. Nguyễn Kim Khánh",
       "l": "Lần 1",
       "p": "12-2025",
-      "g": "",
+      "g": "Công nhật",
       "h": "Trong HĐ",
       "n": "Áo",
       "u": "cái",
@@ -939,7 +939,7 @@
       "t": "08. Nguyễn Kim Khánh",
       "l": "Lần 1",
       "p": "12-2025",
-      "g": "",
+      "g": "Công nhật",
       "h": "Trong HĐ",
       "n": "Mũ",
       "u": "cái",
@@ -954,7 +954,7 @@
       "t": "08. Nguyễn Kim Khánh",
       "l": "Lần 1",
       "p": "12-2025",
-      "g": "",
+      "g": "Công nhật",
       "h": "Trong HĐ",
       "n": "Giày",
       "u": "đôi",
@@ -967,32 +967,6 @@
     }
   ],
   "NS": [
-    {
-      "g": "Công nhật",
-      "n": "Đội trưởng",
-      "u": "công",
-      "kl": 0.0,
-      "tt": 0.0,
-      "klTH": 232.5,
-      "ttTH": 127200000.0,
-      "tdTH": 0.0,
-      "klV": -232.5,
-      "ttV": -127200000.0,
-      "tlV": -1.0
-    },
-    {
-      "g": "Công nhật",
-      "n": "Công Nhật Nam",
-      "u": "công",
-      "kl": 0.0,
-      "tt": 0.0,
-      "klTH": 1693.5,
-      "ttTH": 936725000.0,
-      "tdTH": 0.0,
-      "klV": -1693.5,
-      "ttV": -936725000.0,
-      "tlV": -1.0
-    },
     {
       "g": "Xây tường",
       "n": "Xây tường gạch nung dày 80mm, vữa M75",
@@ -1085,17 +1059,30 @@
       "tlV": 0.0
     },
     {
-      "g": "Công nhật",
-      "n": "Công Nhật Nữ",
-      "u": "công",
-      "kl": 0.0,
-      "tt": 0.0,
-      "klTH": 1108.0,
-      "ttTH": 433987500.0,
+      "g": "LTBT",
+      "n": "Chân bê tông cao 80x200",
+      "u": "m",
+      "kl": 36.75,
+      "tt": 1837500.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
       "tdTH": 0.0,
-      "klV": -1108.0,
-      "ttV": -433987500.0,
-      "tlV": -1.0
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "LTBT",
+      "n": "Chân bê tông cao 80x150",
+      "u": "m",
+      "kl": 8959.986,
+      "tt": 403199370.00000006,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
     },
     {
       "g": "LTBT",
