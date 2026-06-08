@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-08T15:19:14",
+    "generated_at": "2026-06-08T15:20:49",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -10,12 +10,12 @@
     "boq_total": 66078115228.28174,
     "budget_total": 31960446715.0,
     "cdt_workdone_total": 14436292198.313572,
-    "contractor_executed_total": 1866501225.5,
-    "contractor_paid_total": 1853795829.85,
+    "contractor_executed_total": 1784753725.5,
+    "contractor_paid_total": 1772048329.85,
     "contractor_remaining_total": 12705395.650000006,
     "contractor_ps_total": 0,
-    "contractor_count": 6,
-    "payment_rounds_total": 6,
+    "contractor_count": 5,
+    "payment_rounds_total": 5,
     "by_group": [
       {
         "group": "Bể ngầm",
@@ -50,7 +50,7 @@
         "boq_value": 0,
         "budget_value": 1245000000.0,
         "cdt_workdone": 0,
-        "contractor_paid": 1593183312.5
+        "contractor_paid": 1586383312.5
       },
       {
         "group": "LTBT",
@@ -739,96 +739,6 @@
       "tl": 1.0,
       "tt": 866250.0,
       "cl": 0.0
-    },
-    {
-      "t": "06. Đồng Văn Nhỏ",
-      "l": "Lần 6",
-      "p": "02-2026",
-      "g": "",
-      "h": "Trong HĐ",
-      "n": "Đội trưởng",
-      "u": "công",
-      "k": 82.0,
-      "d": 450000.0,
-      "gt": 36900000.0,
-      "tl": 1.0,
-      "tt": 36900000.0,
-      "cl": 0.0
-    },
-    {
-      "t": "06. Đồng Văn Nhỏ",
-      "l": "Lần 6",
-      "p": "02-2026",
-      "g": "Công nhật",
-      "h": "Trong HĐ",
-      "n": "Công Nhật Nam",
-      "u": "công",
-      "k": 8.5,
-      "d": 400000.0,
-      "gt": 3400000.0,
-      "tl": 1.0,
-      "tt": 3400000.0,
-      "cl": 0.0
-    },
-    {
-      "t": "06. Đồng Văn Nhỏ",
-      "l": "Lần 6",
-      "p": "02-2026",
-      "g": "",
-      "h": "Trong HĐ",
-      "n": "Đội trưởng",
-      "u": "giờ",
-      "k": 8.5,
-      "d": 67500.0,
-      "gt": 573750.0,
-      "tl": 1.0,
-      "tt": 573750.0,
-      "cl": 0.0
-    },
-    {
-      "t": "06. Đồng Văn Nhỏ",
-      "l": "Lần 6",
-      "p": "02-2026",
-      "g": "",
-      "h": "Trong HĐ",
-      "n": "Đội trưởng",
-      "u": "công",
-      "k": 82.0,
-      "d": 450000.0,
-      "gt": 36900000.0,
-      "tl": 1.0,
-      "tt": 36900000.0,
-      "cl": 0.0
-    },
-    {
-      "t": "06. Đồng Văn Nhỏ",
-      "l": "Lần 6",
-      "p": "02-2026",
-      "g": "Công nhật",
-      "h": "Trong HĐ",
-      "n": "Công Nhật Nam",
-      "u": "công",
-      "k": 8.5,
-      "d": 400000.0,
-      "gt": 3400000.0,
-      "tl": 1.0,
-      "tt": 3400000.0,
-      "cl": 0.0
-    },
-    {
-      "t": "06. Đồng Văn Nhỏ",
-      "l": "Lần 6",
-      "p": "02-2026",
-      "g": "",
-      "h": "Trong HĐ",
-      "n": "Đội trưởng",
-      "u": "giờ",
-      "k": 8.5,
-      "d": 67500.0,
-      "gt": 573750.0,
-      "tl": 1.0,
-      "tt": 573750.0,
-      "cl": 0.0
     }
   ],
   "NS": [
@@ -838,12 +748,12 @@
       "u": "công",
       "kl": 0.0,
       "tt": 0.0,
-      "klTH": 17.0,
-      "ttTH": 6800000.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
       "tdTH": 0.0,
-      "klV": -17.0,
-      "ttV": -6800000.0,
-      "tlV": -1.0
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
     },
     {
       "g": "Xây tường",
