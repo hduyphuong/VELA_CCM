@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-08T15:50:05",
+    "generated_at": "2026-06-08T16:02:48",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -10,8 +10,8 @@
     "boq_total": 66078115228.28174,
     "budget_total": 31877946715.0,
     "cdt_workdone_total": 14436292198.313572,
-    "contractor_executed_total": 1904149975.5,
-    "contractor_paid_total": 1891444579.85,
+    "contractor_executed_total": 1915665850.5,
+    "contractor_paid_total": 1902960454.85,
     "contractor_remaining_total": 12705395.650000006,
     "contractor_ps_total": 0,
     "contractor_count": 7,
@@ -50,14 +50,7 @@
         "boq_value": 0,
         "budget_value": 1162500000.0,
         "cdt_workdone": 0,
-        "contractor_paid": 1704029562.5
-      },
-      {
-        "group": "Hỗ trợ",
-        "boq_value": 0,
-        "budget_value": 0,
-        "cdt_workdone": 0,
-        "contractor_paid": 1750000.0
+        "contractor_paid": 1717295437.5
       },
       {
         "group": "LTBT",
@@ -871,32 +864,34 @@
       "t": "07. Vũ Đình Hiền",
       "l": "Lần 4",
       "p": "01-2026",
-      "g": "Hỗ trợ",
+      "g": "Công nhật",
       "h": "Trong HĐ",
       "n": "Hỗ trợ nhà trọ 250k/người/tháng",
-      "u": "",
+      "u": "lot",
       "k": 7.0,
       "d": 250000.0,
       "gt": 1750000.0,
       "tl": 1.0,
       "tt": 1750000.0,
       "cl": 0.0
+    },
+    {
+      "t": "07. Vũ Đình Hiền",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Phí quản lý công nhật",
+      "u": "lot",
+      "k": 1.0,
+      "d": 11515875.0,
+      "gt": 11515875.0,
+      "tl": 1.0,
+      "tt": 11515875.0,
+      "cl": 0.0
     }
   ],
   "NS": [
-    {
-      "g": "Công nhật",
-      "n": "Công Nhật Nam",
-      "u": "công",
-      "kl": 0.0,
-      "tt": 0.0,
-      "klTH": 0.0,
-      "ttTH": 0.0,
-      "tdTH": 0.0,
-      "klV": 0.0,
-      "ttV": 0.0,
-      "tlV": 0.0
-    },
     {
       "g": "Xây tường",
       "n": "Xây tường gạch nung dày 80mm, vữa M75",
@@ -987,19 +982,6 @@
       "klV": 0.0,
       "ttV": 0.0,
       "tlV": 0.0
-    },
-    {
-      "g": "Công nhật",
-      "n": "Công nhật Nữ",
-      "u": "công",
-      "kl": 0.0,
-      "tt": 0.0,
-      "klTH": 57.0,
-      "ttTH": 17272500.0,
-      "tdTH": 0.0,
-      "klV": -57.0,
-      "ttV": -17272500.0,
-      "tlV": -1.0
     },
     {
       "g": "LTBT",
@@ -1930,12 +1912,12 @@
       "u": "Công",
       "kl": 500.0,
       "tt": 300000000.0,
-      "klTH": 1516.0,
-      "ttTH": 867625000.0,
-      "tdTH": 3.032,
-      "klV": -1016.0,
-      "ttV": -567625000.0,
-      "tlV": -0.654228497334678
+      "klTH": 1677.5,
+      "ttTH": 927125000.0,
+      "tdTH": 3.355,
+      "klV": -1177.5,
+      "ttV": -627125000.0,
+      "tlV": -0.6764190373466361
     },
     {
       "g": "Công nhật",
@@ -1943,12 +1925,12 @@
       "u": "Công",
       "kl": 500.0,
       "tt": 200000000.0,
-      "klTH": 1044.0,
-      "ttTH": 413915000.0,
-      "tdTH": 2.088,
-      "klV": -544.0,
-      "ttV": -213915000.0,
-      "tlV": -0.5168090066801154
+      "klTH": 1101.0,
+      "ttTH": 431187500.0,
+      "tdTH": 2.202,
+      "klV": -601.0,
+      "ttV": -231187500.0,
+      "tlV": -0.5361646615451514
     },
     {
       "g": "Công nhật",
@@ -1965,13 +1947,13 @@
     },
     {
       "g": "Công nhật",
-      "n": "Hỗ trợ chi phí nhà trọ 250k/người/tháng",
+      "n": "Hỗ trợ nhà trọ 250k/người/tháng",
       "u": "lot",
       "kl": 1000.0,
       "tt": 250000000.0,
-      "klTH": 3.0,
-      "ttTH": 750000.0,
-      "tdTH": 0.003,
+      "klTH": 10.0,
+      "ttTH": 2500000.0,
+      "tdTH": 0.01,
       "klV": 0.0,
       "ttV": 0.0,
       "tlV": 0.0
@@ -1982,11 +1964,11 @@
       "u": "lot",
       "kl": 0.0,
       "tt": 0.0,
-      "klTH": 15060187.5,
-      "ttTH": 15060187.5,
+      "klTH": 15060188.5,
+      "ttTH": 26576062.5,
       "tdTH": 0.0,
-      "klV": -15060187.5,
-      "ttV": -15060187.5,
+      "klV": -15060188.5,
+      "ttV": -26576062.5,
       "tlV": -1.0
     },
     {
@@ -3469,8 +3451,8 @@
       "ttBOQ": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
-      "dtc": 1516.0,
-      "ttDTC": 867625000.0
+      "dtc": 1677.5,
+      "ttDTC": 927125000.0
     },
     {
       "g": "Công nhật",
@@ -3481,8 +3463,8 @@
       "ttBOQ": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
-      "dtc": 1044.0,
-      "ttDTC": 413915000.0
+      "dtc": 1101.0,
+      "ttDTC": 431187500.0
     },
     {
       "g": "Công nhật",
@@ -3505,8 +3487,8 @@
       "ttBOQ": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
-      "dtc": 3.0,
-      "ttDTC": 750000.0
+      "dtc": 10.0,
+      "ttDTC": 2500000.0
     },
     {
       "g": "Công nhật",
@@ -3517,8 +3499,8 @@
       "ttBOQ": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
-      "dtc": 15060187.5,
-      "ttDTC": 15060187.5
+      "dtc": 15060188.5,
+      "ttDTC": 26576062.5
     },
     {
       "g": "Cán nền",
