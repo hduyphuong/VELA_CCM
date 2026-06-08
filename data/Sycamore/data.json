@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-08T16:04:21",
+    "generated_at": "2026-06-08T16:06:31",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -10,8 +10,8 @@
     "boq_total": 66078115228.28174,
     "budget_total": 31877946715.0,
     "cdt_workdone_total": 14436292198.313572,
-    "contractor_executed_total": 1915665850.5,
-    "contractor_paid_total": 1902960454.85,
+    "contractor_executed_total": 1956539600.5,
+    "contractor_paid_total": 1943834204.85,
     "contractor_remaining_total": 12705395.650000006,
     "contractor_ps_total": 0,
     "contractor_count": 7,
@@ -50,7 +50,7 @@
         "boq_value": 0,
         "budget_value": 1162500000.0,
         "cdt_workdone": 0,
-        "contractor_paid": 1717295437.5
+        "contractor_paid": 1758169187.5
       },
       {
         "group": "LTBT",
@@ -889,9 +889,80 @@
       "tl": 1.0,
       "tt": 11515875.0,
       "cl": 0.0
+    },
+    {
+      "t": "06. Đồng Văn Nhỏ",
+      "l": "Lần 6",
+      "p": "02-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Đội trưởng",
+      "u": "công",
+      "k": 82.0,
+      "d": 450000.0,
+      "gt": 36900000.0,
+      "tl": 1.0,
+      "tt": 36900000.0,
+      "cl": 0.0
+    },
+    {
+      "t": "06. Đồng Văn Nhỏ",
+      "l": "Lần 6",
+      "p": "02-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Công Nhật Nam",
+      "u": "công",
+      "k": 8.5,
+      "d": 400000.0,
+      "gt": 3400000.0,
+      "tl": 1.0,
+      "tt": 3400000.0,
+      "cl": 0.0
+    },
+    {
+      "t": "06. Đồng Văn Nhỏ",
+      "l": "Lần 6",
+      "p": "02-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Đội trưởng",
+      "u": "giờ",
+      "k": 8.5,
+      "d": 67500.0,
+      "gt": 573750.0,
+      "tl": 1.0,
+      "tt": 573750.0,
+      "cl": 0.0
     }
   ],
   "NS": [
+    {
+      "g": "Công nhật",
+      "n": "Đội trưởng",
+      "u": "công",
+      "kl": 0.0,
+      "tt": 0.0,
+      "klTH": 323.0,
+      "ttTH": 164673750.0,
+      "tdTH": 0.0,
+      "klV": -323.0,
+      "ttV": -164673750.0,
+      "tlV": -1.0
+    },
+    {
+      "g": "Công nhật",
+      "n": "Công Nhật Nam",
+      "u": "công",
+      "kl": 0.0,
+      "tt": 0.0,
+      "klTH": 1686.0,
+      "ttTH": 930525000.0,
+      "tdTH": 0.0,
+      "klV": -1686.0,
+      "ttV": -930525000.0,
+      "tlV": -1.0
+    },
     {
       "g": "Xây tường",
       "n": "Xây tường gạch nung dày 80mm, vữa M75",
@@ -1899,9 +1970,9 @@
       "u": "Công",
       "kl": 500.0,
       "tt": 300000000.0,
-      "klTH": 232.5,
-      "ttTH": 127200000.0,
-      "tdTH": 0.465,
+      "klTH": 323.0,
+      "ttTH": 164673750.0,
+      "tdTH": 0.646,
       "klV": 0.0,
       "ttV": 0.0,
       "tlV": 0.0
@@ -1912,12 +1983,12 @@
       "u": "Công",
       "kl": 500.0,
       "tt": 300000000.0,
-      "klTH": 1677.5,
-      "ttTH": 927125000.0,
-      "tdTH": 3.355,
-      "klV": -1177.5,
-      "ttV": -627125000.0,
-      "tlV": -0.6764190373466361
+      "klTH": 1686.0,
+      "ttTH": 930525000.0,
+      "tdTH": 3.372,
+      "klV": -1186.0,
+      "ttV": -630525000.0,
+      "tlV": -0.6776013540743129
     },
     {
       "g": "Công nhật",
@@ -3439,8 +3510,8 @@
       "ttBOQ": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
-      "dtc": 232.5,
-      "ttDTC": 127200000.0
+      "dtc": 323.0,
+      "ttDTC": 164673750.0
     },
     {
       "g": "Công nhật",
@@ -3451,8 +3522,8 @@
       "ttBOQ": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
-      "dtc": 1677.5,
-      "ttDTC": 927125000.0
+      "dtc": 1686.0,
+      "ttDTC": 930525000.0
     },
     {
       "g": "Công nhật",
