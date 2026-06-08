@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-08T16:26:41",
+    "generated_at": "2026-06-08T16:41:55",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -1070,11 +1070,11 @@
       "cl": 0.0
     },
     {
-      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "t": "Phan Văn Đạt",
       "l": "Lần 3",
       "p": "04-2026",
       "g": "Xây tường",
-      "h": "",
+      "h": "Trong HĐ",
       "n": "Xây tường gạch nung dày 80mm, vữa M75",
       "u": "m2",
       "k": 442.252575,
@@ -1085,11 +1085,11 @@
       "cl": 3759146.8874999955
     },
     {
-      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "t": "Phan Văn Đạt",
       "l": "Lần 3",
       "p": "04-2026",
       "g": "Xây tường",
-      "h": "",
+      "h": "Trong HĐ",
       "n": "Xây tường gạch nung dày 180-230mm, vữa M75",
       "u": "m2",
       "k": 303.227,
@@ -1100,11 +1100,11 @@
       "cl": 4396791.5
     },
     {
-      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "t": "Phan Văn Đạt",
       "l": "Lần 3",
       "p": "04-2026",
       "g": "Xây tường",
-      "h": "",
+      "h": "Trong HĐ",
       "n": "Xây tường gạch đinh dày 80mm, vữa M75",
       "u": "m2",
       "k": 102.8963,
@@ -1115,11 +1115,11 @@
       "cl": 926066.7000000002
     },
     {
-      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "t": "Phan Văn Đạt",
       "l": "Lần 3",
       "p": "04-2026",
       "g": "Xây tường",
-      "h": "",
+      "h": "Trong HĐ",
       "n": "Xây tường gạch đinh dày 180-230 mm, vữa M75",
       "u": "m2",
       "k": 20.04325,
@@ -1130,11 +1130,11 @@
       "cl": 310670.375
     },
     {
-      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "t": "Phan Văn Đạt",
       "l": "Lần 3",
       "p": "04-2026",
       "g": "Hỗ trợ",
-      "h": "",
+      "h": "Trong HĐ",
       "n": "Hỗ trợ nhà trọ 250k/người/tháng",
       "u": "",
       "k": 4.0,
@@ -1145,11 +1145,11 @@
       "cl": 100000.0
     },
     {
-      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "t": "Phan Văn Đạt",
       "l": "Lần 3",
       "p": "04-2026",
       "g": "Hỗ trợ",
-      "h": "",
+      "h": "Trong HĐ",
       "n": "Hỗ trợ xây căn douplex B3,B7 tầng 7",
       "u": "căn",
       "k": 2.0,
@@ -1160,11 +1160,11 @@
       "cl": 400000.0
     },
     {
-      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "t": "Phan Văn Đạt",
       "l": "Lần 3",
       "p": "04-2026",
       "g": "Hỗ trợ",
-      "h": "",
+      "h": "Trong HĐ",
       "n": "Hỗ trợ xây căn B11 dang dở",
       "u": "căn",
       "k": 1.0,
@@ -1175,11 +1175,11 @@
       "cl": 100000.0
     },
     {
-      "t": "BÊN NHẬN THI CÔNG: ĐỘI THI CÔNG PHAN VĂN ĐẠT",
+      "t": "Phan Văn Đạt",
       "l": "Lần 3",
       "p": "04-2026",
       "g": "Nước",
-      "h": "",
+      "h": "Trong HĐ",
       "n": "Tô PKT nước tầng 3",
       "u": "công",
       "k": 1.5,
