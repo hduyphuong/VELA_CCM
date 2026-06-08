@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-08T16:20:29",
+    "generated_at": "2026-06-08T16:25:38",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -10,12 +10,12 @@
     "boq_total": 66078115228.28174,
     "budget_total": 31877946715.0,
     "cdt_workdone_total": 14436292198.313572,
-    "contractor_executed_total": 1927465850.5,
-    "contractor_paid_total": 1914760454.85,
+    "contractor_executed_total": 2436065850.5,
+    "contractor_paid_total": 2423360454.85,
     "contractor_remaining_total": 12705395.650000006,
     "contractor_ps_total": 0,
-    "contractor_count": 8,
-    "payment_rounds_total": 8,
+    "contractor_count": 9,
+    "payment_rounds_total": 9,
     "by_group": [
       {
         "group": "Bể ngầm",
@@ -48,9 +48,9 @@
       {
         "group": "Công nhật",
         "boq_value": 0,
-        "budget_value": 1162500000.0,
+        "budget_value": 3551413150.0,
         "cdt_workdone": 0,
-        "contractor_paid": 1729095437.5
+        "contractor_paid": 2237695437.5
       },
       {
         "group": "LTBT",
@@ -111,7 +111,7 @@
       {
         "group": "Xây tường",
         "boq_value": 29134716965.77,
-        "budget_value": 8933281700.0,
+        "budget_value": 6544368550.0,
         "cdt_workdone": 7942162120.020609,
         "contractor_paid": 0
       },
@@ -964,13 +964,129 @@
       "tl": 1.0,
       "tt": -200000.0,
       "cl": 0.0
+    },
+    {
+      "t": "10. Võ Thị Tiến",
+      "l": "Lần 3",
+      "p": "01-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Công nhật Nam (Cai đội)",
+      "u": "công",
+      "k": 46.0,
+      "d": 600000.0,
+      "gt": 27600000.0,
+      "tl": 1.0,
+      "tt": 27600000.0,
+      "cl": 0.0
+    },
+    {
+      "t": "10. Võ Thị Tiến",
+      "l": "Lần 3",
+      "p": "01-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Công nhật Thợ",
+      "u": "công",
+      "k": 483.0,
+      "d": 600000.0,
+      "gt": 289800000.0,
+      "tl": 1.0,
+      "tt": 289800000.0,
+      "cl": 0.0
+    },
+    {
+      "t": "10. Võ Thị Tiến",
+      "l": "Lần 3",
+      "p": "01-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Công nhật Phụ",
+      "u": "công",
+      "k": 364.0,
+      "d": 400000.0,
+      "gt": 145600000.0,
+      "tl": 1.0,
+      "tt": 145600000.0,
+      "cl": 0.0
+    },
+    {
+      "t": "10. Võ Thị Tiến",
+      "l": "Lần 3",
+      "p": "01-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Công nhật Nam (Cai đội)",
+      "u": "giờ",
+      "k": 67.5,
+      "d": 112500.0,
+      "gt": 7593750.0,
+      "tl": 1.0,
+      "tt": 7593750.0,
+      "cl": 0.0
+    },
+    {
+      "t": "10. Võ Thị Tiến",
+      "l": "Lần 3",
+      "p": "01-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Công nhật Thợ",
+      "u": "giờ",
+      "k": 227.5,
+      "d": 112500.0,
+      "gt": 25593750.0,
+      "tl": 1.0,
+      "tt": 25593750.0,
+      "cl": 0.0
+    },
+    {
+      "t": "10. Võ Thị Tiến",
+      "l": "Lần 3",
+      "p": "01-2026",
+      "g": "Công nhật",
+      "h": "Trong HĐ",
+      "n": "Công nhật Phụ",
+      "u": "giờ",
+      "k": 165.5,
+      "d": 75000.0,
+      "gt": 12412500.0,
+      "tl": 1.0,
+      "tt": 12412500.0,
+      "cl": 0.0
     }
   ],
   "NS": [
     {
-      "g": "Xây tường",
-      "n": "Xây tường gạch nung dày 80mm, vữa M75",
-      "u": "m2",
+      "g": "Công nhật",
+      "n": "Công nhật Nam (Cai đội)",
+      "u": "công",
+      "kl": 0.0,
+      "tt": 0.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Công nhật",
+      "n": "Công nhật Thợ",
+      "u": "công",
+      "kl": 0.0,
+      "tt": 0.0,
+      "klTH": 0.0,
+      "ttTH": 0.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Công nhật",
+      "n": "Công nhật Phụ",
+      "u": "công",
       "kl": 36752.51,
       "tt": 2388913150.0,
       "klTH": 0.0,
@@ -1987,12 +2103,12 @@
       "u": "Công",
       "kl": 500.0,
       "tt": 300000000.0,
-      "klTH": 1693.5,
-      "ttTH": 936725000.0,
-      "tdTH": 3.387,
-      "klV": -1193.5,
-      "ttV": -636725000.0,
-      "tlV": -0.679735247804852
+      "klTH": 1807.0,
+      "ttTH": 971918750.0,
+      "tdTH": 3.614,
+      "klV": -1307.0,
+      "ttV": -671918750.0,
+      "tlV": -0.6913322229867466
     },
     {
       "g": "Công nhật",
@@ -3526,8 +3642,8 @@
       "ttBOQ": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
-      "dtc": 1693.5,
-      "ttDTC": 936725000.0
+      "dtc": 1807.0,
+      "ttDTC": 971918750.0
     },
     {
       "g": "Công nhật",
