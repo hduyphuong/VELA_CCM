@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-08T08:59:56",
+    "generated_at": "2026-06-08T09:05:54",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -25,13 +25,6 @@
         "contractor_paid": 1586383312.5
       },
       {
-        "group": "Khấu trừ",
-        "boq_value": 0,
-        "budget_value": 0,
-        "cdt_workdone": 0,
-        "contractor_paid": -27000000.0
-      },
-      {
         "group": "LTBT",
         "boq_value": 7840392985.8104105,
         "budget_value": 3941786850.0,
@@ -50,7 +43,7 @@
         "boq_value": 0,
         "budget_value": 692320485.0,
         "cdt_workdone": 0,
-        "contractor_paid": 212665017.35
+        "contractor_paid": 185665017.35
       },
       {
         "group": "Xây tường",
@@ -216,7 +209,7 @@
       "t": "01.H.H.Liêm",
       "l": "Lần 8",
       "p": "04-2026",
-      "g": "Khấu trừ",
+      "g": "Vận chuyển",
       "h": "Trong HĐ",
       "n": "Khấu trừ mượn công nhật đội Thanh Mai",
       "u": "lot",
