@@ -2,14 +2,14 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-08T10:07:59",
+    "generated_at": "2026-06-08T10:18:42",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
   "summary": {
-    "boq_total": 65124856625.18041,
+    "boq_total": 66078115228.28174,
     "budget_total": 30965446715.0,
-    "cdt_workdone_total": 13670213735.18608,
+    "cdt_workdone_total": 14436292198.313572,
     "contractor_executed_total": 1784753725.5,
     "contractor_paid_total": 1772048329.85,
     "contractor_remaining_total": 12705395.650000006,
@@ -17,6 +17,34 @@
     "contractor_count": 5,
     "payment_rounds_total": 5,
     "by_group": [
+      {
+        "group": "Bể ngầm",
+        "boq_value": 126943385.388856,
+        "budget_value": 0,
+        "cdt_workdone": 126943385.388856,
+        "contractor_paid": 0
+      },
+      {
+        "group": "Bệ máy phòng điện",
+        "boq_value": 35070524.71358024,
+        "budget_value": 0,
+        "cdt_workdone": 13682553.799999999,
+        "contractor_paid": 0
+      },
+      {
+        "group": "Bệ móng vận thăng",
+        "boq_value": 14000000.0,
+        "budget_value": 0,
+        "cdt_workdone": 7000000.0,
+        "contractor_paid": 0
+      },
+      {
+        "group": "Cán nền",
+        "boq_value": 93374768.8,
+        "budget_value": 0,
+        "cdt_workdone": 86547982.05000001,
+        "contractor_paid": 0
+      },
       {
         "group": "Công nhật",
         "boq_value": 0,
@@ -26,16 +54,23 @@
       },
       {
         "group": "LTBT",
-        "boq_value": 7840392985.8104105,
+        "boq_value": 7990849867.341784,
         "budget_value": 3941786850.0,
-        "cdt_workdone": 2604162052.711497,
+        "cdt_workdone": 2693111329.404254,
+        "contractor_paid": 0
+      },
+      {
+        "group": "Phòng điện",
+        "boq_value": 15831261.6,
+        "budget_value": 0,
+        "cdt_workdone": 1252000.0,
         "contractor_paid": 0
       },
       {
         "group": "Trát tường",
-        "boq_value": 28149746673.6,
+        "boq_value": 28196441475.104,
         "budget_value": 17148057680.0,
-        "cdt_workdone": 3123889562.4539757,
+        "cdt_workdone": 3269984580.3979154,
         "contractor_paid": 0
       },
       {
@@ -46,10 +81,31 @@
         "contractor_paid": 185665017.35
       },
       {
+        "group": "Vật tư phụ",
+        "boq_value": 58800000.0,
+        "budget_value": 0,
+        "cdt_workdone": 42160000.0,
+        "contractor_paid": 0
+      },
+      {
+        "group": "Vật tư thay thế",
+        "boq_value": 193231214.84352002,
+        "budget_value": 0,
+        "cdt_workdone": 40061271.471936874,
+        "contractor_paid": 0
+      },
+      {
         "group": "Xây tường",
-        "boq_value": 29134716965.77,
+        "boq_value": 29138196965.77,
         "budget_value": 8933281700.0,
-        "cdt_workdone": 7942162120.020609,
+        "cdt_workdone": 7945645525.020609,
+        "contractor_paid": 0
+      },
+      {
+        "group": "Ốp lát",
+        "boq_value": 215375764.72,
+        "budget_value": 0,
+        "cdt_workdone": 209903570.78,
         "contractor_paid": 0
       }
     ]
@@ -2873,6 +2929,498 @@
       "ttCDT": 0.0,
       "dtc": 15060187.5,
       "ttDTC": 15060187.5
+    },
+    {
+      "g": "Cán nền",
+      "h": "Ngoài HĐ",
+      "n": "Cán nền lát gạch",
+      "u": "m2",
+      "bq": 559.762,
+      "ttBOQ": 61098022.3,
+      "cdt": 543.687,
+      "ttCDT": 59343436.050000004,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Cán nền",
+      "h": "Ngoài HĐ",
+      "n": "Cán nền sàn gỗ",
+      "u": "m2",
+      "bq": 202.77,
+      "ttBOQ": 22132345.5,
+      "cdt": 202.77,
+      "ttCDT": 22132345.5,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Cán nền",
+      "h": "Ngoài HĐ",
+      "n": "Cán nền bồn hoa",
+      "u": "m2",
+      "bq": 92.94,
+      "ttBOQ": 10144401.0,
+      "cdt": 46.47,
+      "ttCDT": 5072200.5,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "h": "Ngoài HĐ",
+      "n": "Lát gạch nền 300x300mm",
+      "u": "m2",
+      "bq": 35.97,
+      "ttBOQ": 5341545.0,
+      "cdt": 35.97,
+      "ttCDT": 5341545.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "h": "Ngoài HĐ",
+      "n": "Lát gạch nền 300x600mm",
+      "u": "m2",
+      "bq": 101.217,
+      "ttBOQ": 14382935.7,
+      "cdt": 96.627,
+      "ttCDT": 13730696.7,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "h": "Ngoài HĐ",
+      "n": "Lát gạch nền 600x600mm trong nhà",
+      "u": "m2",
+      "bq": 254.26,
+      "ttBOQ": 36130346.0,
+      "cdt": 249.14,
+      "ttCDT": 35402794.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "h": "Ngoài HĐ",
+      "n": "Lát gạch nền 600x600mm hành lang",
+      "u": "m2",
+      "bq": 133.91,
+      "ttBOQ": 19028611.0,
+      "cdt": 133.91,
+      "ttCDT": 19028611.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "h": "Ngoài HĐ",
+      "n": "Lát gạch nền 150x900mm bồn hoa",
+      "u": "m2",
+      "bq": 10.18,
+      "ttBOQ": 1642034.0,
+      "cdt": 10.18,
+      "ttCDT": 1642034.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "h": "Ngoài HĐ",
+      "n": "Ốp gạch tường 100x300mm (Phòng tắm)",
+      "u": "m2",
+      "bq": 19.88825,
+      "ttBOQ": 4972062.5,
+      "cdt": 19.88825,
+      "ttCDT": 4972062.5,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "h": "Ngoài HĐ",
+      "n": "Ốp gạch tường 300x600mm (WC)",
+      "u": "m2",
+      "bq": 326.2875,
+      "ttBOQ": 52630173.75,
+      "cdt": 311.7337,
+      "ttCDT": 50282645.81,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "h": "Ngoài HĐ",
+      "n": "Ốp gạch tường 400x1200mm (Khu bếp)",
+      "u": "m2",
+      "bq": 23.8799,
+      "ttBOQ": 3851827.8699999996,
+      "cdt": 23.8799,
+      "ttCDT": 3851827.8699999996,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "h": "Ngoài HĐ",
+      "n": "Ốp gạch tường 600x600mm (Phòng rác)",
+      "u": "m2",
+      "bq": 10.355,
+      "ttBOQ": 1670261.5,
+      "cdt": 10.355,
+      "ttCDT": 1670261.5,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "h": "Ngoài HĐ",
+      "n": "Ốp gạch tường 600x1200mm (Thang máy)",
+      "u": "m2",
+      "bq": 23.298,
+      "ttBOQ": 3757967.4,
+      "cdt": 23.298,
+      "ttCDT": 3757967.4,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "h": "Ngoài HĐ",
+      "n": "Ốp len chân",
+      "u": "m2",
+      "bq": 43.52,
+      "ttBOQ": 11968000.0,
+      "cdt": 37.175,
+      "ttCDT": 10223125.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Ốp lát",
+      "h": "Ngoài HĐ",
+      "n": "Chi phí hỗ trợ thi công tầng mẫu",
+      "u": "lot",
+      "bq": 1.0,
+      "ttBOQ": 60000000.0,
+      "cdt": 1.0,
+      "ttCDT": 60000000.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Xây tường",
+      "h": "Ngoài HĐ",
+      "n": "Xây bậc thang bộ",
+      "u": "m3",
+      "bq": 1.16,
+      "ttBOQ": 3479999.9999999995,
+      "cdt": 1.161135,
+      "ttCDT": 3483405.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Trát tường",
+      "h": "Ngoài HĐ",
+      "n": "Tô bậc thang bộ",
+      "u": "m2",
+      "bq": 15.69,
+      "ttBOQ": 1557317.2259999998,
+      "cdt": 15.69,
+      "ttCDT": 1557317.2259999998,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Trát tường",
+      "h": "Ngoài HĐ",
+      "n": "Tô đáy diềm mái bê tông hành lang",
+      "u": "m2",
+      "bq": 57.29,
+      "ttBOQ": 5686341.865999999,
+      "cdt": 28.64745,
+      "ttCDT": 2843414.10873,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Trát tường",
+      "h": "Ngoài HĐ",
+      "n": "Tô chân kicker ban công, hành lang",
+      "u": "md",
+      "bq": 38.78,
+      "ttBOQ": 3849124.412,
+      "cdt": 35.75865,
+      "ttCDT": 3549239.10921,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Trát tường",
+      "h": "Ngoài HĐ",
+      "n": "Đóng lưới các vị trí của MEP",
+      "u": "m2",
+      "bq": 1863.98,
+      "ttBOQ": 35602018.0,
+      "cdt": 7232.72499999998,
+      "ttCDT": 138145047.4999996,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "LTBT",
+      "h": "Ngoài HĐ",
+      "n": "Lanh tô kích thước 230x250mm + Diềm mái 300x250mm",
+      "u": "m",
+      "bq": 31.71,
+      "ttBOQ": 14452247.805622282,
+      "cdt": 20.385,
+      "ttCDT": 9290730.732185753,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "LTBT",
+      "h": "Ngoài HĐ",
+      "n": "Lanh tô kích thước 250x250mm + Diềm mái 300x250mm",
+      "u": "m",
+      "bq": 39.9,
+      "ttBOQ": 18029337.569988303,
+      "cdt": 25.65,
+      "ttCDT": 11590288.437849622,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "LTBT",
+      "h": "Ngoài HĐ",
+      "n": "Lanh tô kích thước 250x350mm + Diềm mái 300x150mm",
+      "u": "m",
+      "bq": 145.25,
+      "ttBOQ": 72264228.34962359,
+      "cdt": 93.375,
+      "ttCDT": 46455575.36761516,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "LTBT",
+      "h": "Ngoài HĐ",
+      "n": "Diềm mái 300x150mm",
+      "u": "m",
+      "bq": 77.0,
+      "ttBOQ": 20598284.709887497,
+      "cdt": 49.5,
+      "ttCDT": 13241754.45635625,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "LTBT",
+      "h": "Ngoài HĐ",
+      "n": "Lanh tô treo 180x200mm",
+      "u": "m",
+      "bq": 134.82,
+      "ttBOQ": 25112783.0962512,
+      "cdt": 44.94,
+      "ttCDT": 8370927.6987504,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Bệ móng vận thăng",
+      "h": "Ngoài HĐ",
+      "n": "Bệ móng vận thăng",
+      "u": "lot",
+      "bq": 2.0,
+      "ttBOQ": 14000000.0,
+      "cdt": 1.0,
+      "ttCDT": 7000000.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Bệ máy phòng điện",
+      "h": "Ngoài HĐ",
+      "n": "Cốp pha cho bệ máy phòng điện",
+      "u": "m2",
+      "bq": 32.882,
+      "ttBOQ": 10634038.799999999,
+      "cdt": 32.882,
+      "ttCDT": 10634038.799999999,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Bệ máy phòng điện",
+      "h": "Ngoài HĐ",
+      "n": "Bê tông cho bệ máy phòng điện",
+      "u": "m2",
+      "bq": 8.87,
+      "ttBOQ": 4114792.9999999995,
+      "cdt": 2.85,
+      "ttCDT": 1322115.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Bệ máy phòng điện",
+      "h": "Ngoài HĐ",
+      "n": "Xoa mặt cho bê tông bệ máy phòng điện",
+      "u": "m2",
+      "bq": 33.2,
+      "ttBOQ": 1726400.0000000002,
+      "cdt": 33.2,
+      "ttCDT": 1726400.0000000002,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Bệ máy phòng điện",
+      "h": "Ngoài HĐ",
+      "n": "Cốt thép cho bệ máy phòng điện",
+      "u": "m2",
+      "bq": 634.60049382716,
+      "ttBOQ": 3744142.913580244,
+      "cdt": 0.0,
+      "ttCDT": 0.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Bệ máy phòng điện",
+      "h": "Ngoài HĐ",
+      "n": "Khoan cấy thép D10",
+      "u": "m2",
+      "bq": 383.0,
+      "ttBOQ": 11738950.0,
+      "cdt": 0.0,
+      "ttCDT": 0.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Bệ máy phòng điện",
+      "h": "Ngoài HĐ",
+      "n": "Khoan cấy thép D12",
+      "u": "m2",
+      "bq": 84.0,
+      "ttBOQ": 3112200.0,
+      "cdt": 0.0,
+      "ttCDT": 0.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Phòng điện",
+      "h": "Ngoài HĐ",
+      "n": "Cốp pha cho nền phòng điện",
+      "u": "m2",
+      "bq": 1.464,
+      "ttBOQ": 473457.6,
+      "cdt": 0.0,
+      "ttCDT": 0.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Phòng điện",
+      "h": "Ngoài HĐ",
+      "n": "Bê tông đá mi cho nền phòng điện",
+      "u": "m2",
+      "bq": 23.83,
+      "ttBOQ": 11054737.0,
+      "cdt": 0.0,
+      "ttCDT": 0.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Phòng điện",
+      "h": "Ngoài HĐ",
+      "n": "Xoa mặt Hardener cho nền phòng điện",
+      "u": "m2",
+      "bq": 4.0,
+      "ttBOQ": 1252000.0,
+      "cdt": 4.0,
+      "ttCDT": 1252000.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Phòng điện",
+      "h": "Ngoài HĐ",
+      "n": "Cốt thép cho nền phòng điện",
+      "u": "m2",
+      "bq": 517.13,
+      "ttBOQ": 3051067.0,
+      "cdt": 0.0,
+      "ttCDT": 0.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Bể ngầm",
+      "h": "Ngoài HĐ",
+      "n": "Tô vách bể ngầm",
+      "u": "m2",
+      "bq": 828.6244,
+      "ttBOQ": 126943385.388856,
+      "cdt": 828.6244,
+      "ttCDT": 126943385.388856,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Vật tư phụ",
+      "h": "Ngoài HĐ",
+      "n": "Nẹp nhựa 20x20x1mm",
+      "u": "m2",
+      "bq": 2352.0,
+      "ttBOQ": 58800000.0,
+      "cdt": 1686.4,
+      "ttCDT": 42160000.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Vật tư thay thế",
+      "h": "Ngoài HĐ",
+      "n": "Xây tường 100mm bằng gạch đinh đặc",
+      "u": "m2",
+      "bq": 3940.608,
+      "ttBOQ": 107539192.32000001,
+      "cdt": 0.0,
+      "ttCDT": 0.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Vật tư thay thế",
+      "h": "Ngoài HĐ",
+      "n": "Xây tường 180-230mm bằng gạch đinh đặc",
+      "u": "m2",
+      "bq": 410.0544,
+      "ttBOQ": 22380769.152,
+      "cdt": 0.0,
+      "ttCDT": 0.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Vật tư thay thế",
+      "h": "Ngoài HĐ",
+      "n": "Xây tường 180-230mm gạch ống 4 lỗ câu gạch đinh đặc",
+      "u": "m2",
+      "bq": 8858.388,
+      "ttBOQ": 63311253.371520005,
+      "cdt": 5605.29554500001,
+      "ttCDT": 40061271.471936874,
+      "dtc": 0.0,
+      "ttDTC": 0.0
     }
   ]
 }
