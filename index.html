@@ -819,8 +819,8 @@ function applyData(data) {
     const ttT = rows.reduce((a,r)=>a+(r.tt||0),0);
     const clT = rows.reduce((a,r)=>a+(r.cl||0),0);
     const pctT = pct(ttT, gtT);
-    const nDots = [...new Set(rows.map(r=>r.l))].length;
-    sumDot += nDots;
+    const nDots = Math.max(0, ...rows.map(r=>parseInt((r.l||'').replace(/\D/g,''))||0));
+    sumDot = Math.max(sumDot, nDots);
     const color = parseFloat(pctT)>=100?'#2e7d32':parseFloat(pctT)>=90?'#1565c0':'#e65100';
     const tr = document.createElement('tr');
     tr.innerHTML='<td class="tl"><strong>'+team+'</strong></td>'
