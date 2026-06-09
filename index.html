@@ -1083,17 +1083,17 @@ function _evpBytesToKey(pwd, salt, keySize, ivSize) {
   let m = [];
   let data = pwdWA.concat(saltWA);
 
-  while (m.length * 4 < (keySize + ivSize) / 4) {  // 4 words per iteration (16 bytes)
-    if (m.length === 0) {
-      data = CryptoJS.MD5(data);
-    } else {
-      data = CryptoJS.MD5(m[m.length-1].concat(pwdWA).concat(saltWA));
-    }
-    m.push(data);
+  while (m.length * 16 < (keySize + ivSize)) {  // 16 bytes per iteration
+    const md5Result = CryptoJS.MD5(data);
+    console.log(`EVP m[${m.length}] input:`, CryptoJS.enc.Hex.stringify(data).substring(0, 64));
+    console.log(`EVP m[${m.length}] MD5:`, CryptoJS.enc.Hex.stringify(md5Result));
+    m.push(md5Result);
+    data = md5Result.concat(pwdWA).concat(saltWA);
   }
 
-  // Concatenate hex strings của MD5 hashes
+  // Concatenate hex strings của MD5 hashes (chỉ lấy 16 bytes per hash)
   const ms = m.map(h => CryptoJS.enc.Hex.stringify(h)).join('');
+  console.log('EVP ms concat:', ms);
 
   return {
     key: CryptoJS.enc.Hex.parse(ms.substring(0, keySize*2)),
