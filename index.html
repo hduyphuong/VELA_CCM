@@ -1073,40 +1073,46 @@ function filterTT(){
   el('s_cl').textContent=vnd(sCL);
 }
 
-// ===== AES DECRYPT (CryptoJS-compatible EVP_BytesToKey) =====
+// ===== AES DECRYPT (OpenSSL EVP_BytesToKey via OpenSSL EVP) =====
 function _evpBytesToKey(pwd, salt, keySize, ivSize) {
-  // EVP_BytesToKey: MD5(password+salt) lặp lại để derive key+iv
-  // Tương thích với OpenSSL EVP_BytesToKey (MD5, 1 iteration)
-  const pwdWA = CryptoJS.enc.Utf8.parse(pwd);
-  const saltWA = typeof salt === 'string' ? CryptoJS.enc.Hex.parse(salt) : salt;
+  // OpenSSL EVP_BytesToKey: MD5(password+salt) repeated
+  // salt should be hex string, convert to bytes
+  const pwdBytes = CryptoJS.enc.Utf8.parse(pwd);
+  const saltBytes = typeof salt === 'string' ? CryptoJS.enc.Hex.parse(salt) : salt;
 
-  let resultBytes = [];
-  let data = pwdWA.concat(saltWA);
-
-  while (resultBytes.length < keySize + ivSize) {
-    const md5Hash = CryptoJS.MD5(data);
-    // MD5 returns WordArray, convert to hex string
-    const md5Hex = CryptoJS.enc.Hex.stringify(md5Hash);
-    console.log('DEBUG: md5Hex=', md5Hex, 'length=', md5Hex.length);
-    // Parse hex string to integer array (2 chars per byte)
-    for (let i = 0; i < 32; i += 2) {  // MD5 is always 16 bytes = 32 hex chars
-      if (i < md5Hex.length) {
-        resultBytes.push(parseInt(md5Hex.substring(i, i + 2), 16));
-      }
+  // Use OpenSSL EVP_BytesToKey algorithm
+  let m = [];
+  let i = 0;
+  while (m.length * 16 < keySize + ivSize) {
+    const md5 = CryptoJS.algo.MD5.create();
+    if (i === 0) {
+      md5.update(pwdBytes);
+      md5.update(saltBytes);
+    } else {
+      md5.update(m[i - 1]);
+      md5.update(pwdBytes);
+      md5.update(saltBytes);
     }
-    data = md5Hash.concat(pwdWA).concat(saltWA);
+    m.push(md5.finalize());
+    i++;
   }
 
-  // Extract key and iv from byte array
-  const keyHex = resultBytes.slice(0, keySize).map(b => ('0' + b.toString(16)).slice(-2)).join('');
-  const ivHex = resultBytes.slice(keySize, keySize + ivSize).map(b => ('0' + b.toString(16)).slice(-2)).join('');
+  // Concatenate and extract key/iv
+  let ms = CryptoJS.enc.Hex.stringify(m[0]);
+  if (m.length > 1) {
+    ms += CryptoJS.enc.Hex.stringify(m[1]);
+  }
+  if (m.length > 2) {
+    ms += CryptoJS.enc.Hex.stringify(m[2]);
+  }
 
-  console.log('DEBUG EVP: keyHex=', keyHex);
-  console.log('DEBUG EVP: ivHex=', ivHex);
+  console.log('DEBUG EVP ms:', ms.substring(0, 70));
+  console.log('DEBUG EVP key:', ms.substring(0, 64));
+  console.log('DEBUG EVP iv:', ms.substring(64, 96));
 
   return {
-    key: CryptoJS.enc.Hex.parse(keyHex),
-    iv: CryptoJS.enc.Hex.parse(ivHex)
+    key: CryptoJS.enc.Hex.parse(ms.substring(0, keySize * 2)),
+    iv: CryptoJS.enc.Hex.parse(ms.substring(keySize * 2, keySize * 2 + ivSize * 2))
   };
 }
 
