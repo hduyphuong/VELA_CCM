@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-09T08:14:39",
+    "generated_at": "2026-06-09T08:38:31",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -10,12 +10,12 @@
     "boq_total": 66078115228.28174,
     "budget_total": 31877946715.0,
     "cdt_workdone_total": 14436292198.313572,
-    "contractor_executed_total": 2537642605.125,
-    "contractor_paid_total": 2514779534.0125,
-    "contractor_remaining_total": 22863071.1125,
+    "contractor_executed_total": 2763798903.425,
+    "contractor_paid_total": 2718320202.4825,
+    "contractor_remaining_total": 45478700.94250001,
     "contractor_ps_total": 0,
-    "contractor_count": 10,
-    "payment_rounds_total": 10,
+    "contractor_count": 11,
+    "payment_rounds_total": 11,
     "by_group": [
       {
         "group": "Bể ngầm",
@@ -39,6 +39,13 @@
         "contractor_paid": 0
       },
       {
+        "group": "Cong nhat",
+        "boq_value": 0,
+        "budget_value": 0,
+        "cdt_workdone": 0,
+        "contractor_paid": 3375000.0
+      },
+      {
         "group": "Cán nền",
         "boq_value": 93374768.8,
         "budget_value": 0,
@@ -51,6 +58,13 @@
         "budget_value": 1162500000.0,
         "cdt_workdone": 0,
         "contractor_paid": 2237695437.5
+      },
+      {
+        "group": "Hỗ trợ",
+        "boq_value": 0,
+        "budget_value": 0,
+        "cdt_workdone": 0,
+        "contractor_paid": 12600000.0
       },
       {
         "group": "LTBT",
@@ -102,6 +116,13 @@
         "contractor_paid": 0
       },
       {
+        "group": "Xay tuong",
+        "boq_value": 0,
+        "budget_value": 0,
+        "cdt_workdone": 0,
+        "contractor_paid": 138183118.47
+      },
+      {
         "group": "Xây tô đóng lưới",
         "boq_value": 50174801.504,
         "budget_value": 0,
@@ -113,7 +134,7 @@
         "boq_value": 29134716965.77,
         "budget_value": 8933281700.0,
         "cdt_workdone": 7942162120.020609,
-        "contractor_paid": 91419079.16250001
+        "contractor_paid": 137914789.1625
       },
       {
         "group": "Ốp lát",
@@ -1174,6 +1195,156 @@
       "tl": 0.9,
       "tt": 1485000.0,
       "cl": 165000.0
+    },
+    {
+      "t": "12. Trần Văn Mót",
+      "l": "Lần 2",
+      "p": "04-2026",
+      "g": "Xay tuong",
+      "h": "Trong HĐ",
+      "n": "Xây tường gạch nung dày 80mm, vữa M75",
+      "u": "m2",
+      "k": 680.68186,
+      "d": 80000.0,
+      "gt": 54454548.800000004,
+      "tl": 0.9,
+      "tt": 49009093.92,
+      "cl": 5445454.880000003
+    },
+    {
+      "t": "12. Trần Văn Mót",
+      "l": "Lần 2",
+      "p": "04-2026",
+      "g": "Xay tuong",
+      "h": "Trong HĐ",
+      "n": "Xây tường gạch nung dày 180-230mm, vữa M75",
+      "u": "m2",
+      "k": 762.17115,
+      "d": 130000.0,
+      "gt": 99082249.5,
+      "tl": 0.9,
+      "tt": 89174024.55,
+      "cl": 9908224.950000003
+    },
+    {
+      "t": "12. Trần Văn Mót",
+      "l": "Lần 2",
+      "p": "04-2026",
+      "g": "Xây tường",
+      "h": "Trong HĐ",
+      "n": "Xây tường gạch đinh dày 80mm, vữa M75",
+      "u": "m2",
+      "k": 498.313,
+      "d": 100000.0,
+      "gt": 49831300.0,
+      "tl": 0.9,
+      "tt": 44848170.0,
+      "cl": 4983130.0
+    },
+    {
+      "t": "12. Trần Văn Mót",
+      "l": "Lần 2",
+      "p": "04-2026",
+      "g": "Xây tường",
+      "h": "Trong HĐ",
+      "n": "Xây tường gạch đinh dày 180-230 mm, vữa M75",
+      "u": "m2",
+      "k": 12.204,
+      "d": 150000.0,
+      "gt": 1830600.0,
+      "tl": 0.9,
+      "tt": 1647540.0,
+      "cl": 183060.0
+    },
+    {
+      "t": "12. Trần Văn Mót",
+      "l": "Lần 2",
+      "p": "04-2026",
+      "g": "",
+      "h": "Trong HĐ",
+      "n": "Gác lanh tô cửa",
+      "u": "md",
+      "k": 106.92,
+      "d": 30000.0,
+      "gt": 3207600.0,
+      "tl": 0.9,
+      "tt": 2886840.0,
+      "cl": 320760.0
+    },
+    {
+      "t": "12. Trần Văn Mót",
+      "l": "Lần 2",
+      "p": "04-2026",
+      "g": "Cong nhat",
+      "h": "Trong HĐ",
+      "n": "Hỗ trợ nhà trọ 250k/người/tháng",
+      "u": "",
+      "k": 15.0,
+      "d": 250000.0,
+      "gt": 3750000.0,
+      "tl": 0.9,
+      "tt": 3375000.0,
+      "cl": 375000.0
+    },
+    {
+      "t": "12. Trần Văn Mót",
+      "l": "Lần 2",
+      "p": "04-2026",
+      "g": "Hỗ trợ",
+      "h": "Trong HĐ",
+      "n": "Hỗ trợ xây cầu thang bộ tầng 5, 6, 7 Zone 2",
+      "u": "",
+      "k": 3.0,
+      "d": 2000000.0,
+      "gt": 6000000.0,
+      "tl": 0.9,
+      "tt": 5400000.0,
+      "cl": 600000.0
+    },
+    {
+      "t": "12. Trần Văn Mót",
+      "l": "Lần 2",
+      "p": "04-2026",
+      "g": "Hỗ trợ",
+      "h": "Trong HĐ",
+      "n": "Hỗ trợ xây căn B5 tầng 7",
+      "u": "",
+      "k": 1.0,
+      "d": 2000000.0,
+      "gt": 2000000.0,
+      "tl": 0.9,
+      "tt": 1800000.0,
+      "cl": 200000.0
+    },
+    {
+      "t": "12. Trần Văn Mót",
+      "l": "Lần 2",
+      "p": "04-2026",
+      "g": "Hỗ trợ",
+      "h": "Trong HĐ",
+      "n": "Hỗ trợ xây căn B1 tầng 6",
+      "u": "",
+      "k": 1.0,
+      "d": 2000000.0,
+      "gt": 2000000.0,
+      "tl": 0.9,
+      "tt": 1800000.0,
+      "cl": 200000.0
+    },
+    {
+      "t": "12. Trần Văn Mót",
+      "l": "Lần 2",
+      "p": "04-2026",
+      "g": "Hỗ trợ",
+      "h": "Trong HĐ",
+      "n": "Hỗ trợ xây căn B1, B5 tầng 5",
+      "u": "",
+      "k": 2.0,
+      "d": 2000000.0,
+      "gt": 4000000.0,
+      "tl": 0.9,
+      "tt": 3600000.0,
+      "cl": 400000.0
     }
   ],
   "NS": [
@@ -2826,6 +2997,19 @@
       "tdTH": 0.0,
       "klV": -1.5,
       "ttV": -1650000.0,
+      "tlV": -1.0
+    },
+    {
+      "g": "Xây tường",
+      "n": "Xây tường gạch đinh dày 80mm, vữa M75",
+      "u": "m2",
+      "kl": 0.0,
+      "tt": 0.0,
+      "klTH": 498.313,
+      "ttTH": 49831300.0,
+      "tdTH": 0.0,
+      "klV": -498.313,
+      "ttV": -49831300.0,
       "tlV": -1.0
     }
   ],
