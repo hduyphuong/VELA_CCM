@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CCM Dashboard – VELA E&C</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 <style>
 /* ===== BASE ===== */
 html{font-size:16px;-webkit-text-size-adjust:100%}
@@ -165,6 +166,19 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
   a{text-decoration:none}
   #loadingState,#errorState{display:none!important}
 }
+
+/* ===== AUTH OVERLAY ===== */
+#authOverlay{display:flex;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:9999;align-items:center;justify-content:center}
+.auth-box{background:white;border-radius:12px;padding:2.5rem 2rem;box-shadow:0 10px 40px rgba(0,0,0,.3);width:90%;max-width:400px;text-align:center}
+.auth-logo{font-size:3rem;margin-bottom:1rem}
+.auth-box h3{font-size:1.25rem;color:#1a3a5c;margin-bottom:0.5rem;font-weight:700}
+.auth-box p{font-size:0.875rem;color:#6c757d;margin-bottom:1.5rem}
+.auth-box input{width:100%;padding:0.75rem 1rem;border:1px solid #ced4da;border-radius:6px;font-size:0.875rem;margin-bottom:1rem;box-sizing:border-box;font-family:inherit}
+.auth-box input:focus{outline:none;border-color:#1565c0;box-shadow:0 0 0 3px rgba(21,101,192,.1)}
+.auth-box button{width:100%;padding:0.75rem 1rem;background:#1565c0;color:white;border:none;border-radius:6px;font-size:0.875rem;font-weight:600;cursor:pointer;transition:all .2s}
+.auth-box button:hover{background:#0d47a1;box-shadow:0 2px 8px rgba(21,101,192,.3)}
+.auth-box button:active{transform:translateY(1px)}
+#authError{color:#c62828;font-size:0.75rem;margin-top:0.5rem;display:none}
 </style>
 </head>
 <body>
@@ -201,6 +215,18 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
 <div class="tool-bar">
   <button class="tool-btn btn-print" onclick="window.print()">🖨️ In báo cáo</button>
   <span class="tool-label" id="dataLabel">Đang tải...</span>
+</div>
+
+<!-- AUTH OVERLAY -->
+<div id="authOverlay">
+  <div class="auth-box">
+    <div class="auth-logo">🔐</div>
+    <h3>CCM Dashboard</h3>
+    <p>Nhập mật khẩu để xem báo cáo</p>
+    <input type="password" id="authInput" placeholder="Mật khẩu..." />
+    <button id="authBtn" onclick="doAuth()">Xác nhận</button>
+    <p id="authError">Mật khẩu không đúng</p>
+  </div>
 </div>
 
 <!-- LOADING STATE -->
@@ -559,7 +585,19 @@ async function loadProject(id) {
   try {
     const resp = await fetch('data/' + id + '/data.json');
     if(!resp.ok) throw new Error('HTTP ' + resp.status);
-    const data = await resp.json();
+    const cipher = await resp.json();
+    let data;
+    // Kiểm tra xem có phải ciphertext hay plaintext
+    if(cipher.ct && cipher.iv && cipher.s) {
+      // Đã mã hóa: giải mã
+      const pwd = sessionStorage.getItem('ccm_pwd');
+      if(!pwd) throw new Error('Mất phiên xác thực');
+      const plaintext = _aesDecrypt(cipher, pwd);
+      data = JSON.parse(plaintext);
+    } else {
+      // Plaintext (tương thích với dữ liệu cũ)
+      data = cipher;
+    }
     applyData(data);
     showLoading(false);
     el('p1').classList.add('active');
@@ -1035,8 +1073,83 @@ function filterTT(){
   el('s_cl').textContent=vnd(sCL);
 }
 
+// ===== AES DECRYPT (CryptoJS-compatible EVP_BytesToKey) =====
+function _evpBytesToKey(pwd, salt, keySize, ivSize) {
+  // EVP_BytesToKey: MD5(password+salt) lặp lại để derive key+iv
+  // Tương thích với OpenSSL EVP_BytesToKey (MD5, 1 iteration)
+  const pwdWA = CryptoJS.enc.Utf8.parse(pwd);
+  let m = [];
+  let data = pwdWA.concat(salt);
+  while (m.length * 16 < (keySize + ivSize)) {
+    data = m.length === 0 ? CryptoJS.MD5(data) : CryptoJS.MD5(m[m.length-1].concat(pwdWA).concat(salt));
+    m.push(data);
+  }
+  const ms = CryptoJS.enc.Hex.stringify(m[0]) + (m.length > 1 ? CryptoJS.enc.Hex.stringify(m[1]) : '');
+  return {
+    key: CryptoJS.enc.Hex.parse(ms.substring(0, keySize*2)),
+    iv: CryptoJS.enc.Hex.parse(ms.substring(keySize*2, keySize*2 + ivSize*2))
+  };
+}
+
+function _aesDecrypt(cipher, pwd) {
+  if(!cipher.ct || !cipher.iv || !cipher.s) throw new Error('Invalid cipher format');
+  // Parse salt từ hex string
+  const salt = CryptoJS.enc.Hex.parse(cipher.s);
+  // Derive key từ password + salt bằng EVP_BytesToKey
+  const { key, iv } = _evpBytesToKey(pwd, salt, 32, 16);
+  // Giải mã AES-256-CBC
+  const ciphertext = CryptoJS.enc.Base64.parse(cipher.ct);
+  const decrypted = CryptoJS.AES.decrypt(
+    {ciphertext: ciphertext},
+    key,
+    {iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}
+  );
+  return decrypted.toString(CryptoJS.enc.Utf8);
+}
+
+// ===== AUTH HANDLER =====
+async function doAuth() {
+  const pwd = document.getElementById('authInput').value.trim();
+  if(!pwd) return;
+  const errEl = document.getElementById('authError');
+  errEl.style.display = 'none';
+  try {
+    // Thử decrypt dữ liệu từ dự án đầu tiên có data để verify mật khẩu
+    const resp = await fetch('data/projects.json');
+    const { projects } = await resp.json();
+    const first = projects.find(p => p.has_data);
+    if(!first) throw new Error('Không có dự án nào');
+    const r2 = await fetch('data/' + first.id + '/data.json');
+    const cipher = await r2.json();
+    const decrypted = _aesDecrypt(cipher, pwd);
+    JSON.parse(decrypted); // throws nếu sai mật khẩu hoặc lỗi JSON
+    // Đúng: lưu vào sessionStorage, ẩn overlay, gọi init()
+    sessionStorage.setItem('ccm_pwd', pwd);
+    document.getElementById('authOverlay').style.display = 'none';
+    init();
+  } catch(e) {
+    errEl.style.display = 'block';
+    document.getElementById('authInput').value = '';
+  }
+}
+
+// Thêm Enter key handler
+document.addEventListener('DOMContentLoaded', () => {
+  const authInput = document.getElementById('authInput');
+  if(authInput) {
+    authInput.addEventListener('keypress', (e) => {
+      if(e.key === 'Enter') doAuth();
+    });
+  }
+});
+
 // ===== INIT =====
 async function init() {
+  const pwd = sessionStorage.getItem('ccm_pwd');
+  if(!pwd) {
+    document.getElementById('authOverlay').style.display = 'flex';
+    return;  // doAuth() sẽ gọi lại init() sau khi xác thực
+  }
   showLoading(true);
   try {
     const resp = await fetch('data/projects.json');
@@ -1058,7 +1171,10 @@ async function init() {
   }
 }
 
-init();
+// Gọi init khi page load
+window.addEventListener('load', () => {
+  init();
+});
 </script>
 </body>
 </html>
