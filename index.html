@@ -1116,7 +1116,6 @@ function _aesDecrypt(cipher, pwd) {
   if(!cipher.ct || !cipher.iv || !cipher.s) throw new Error('Invalid cipher format');
   // Derive key từ password + salt (as hex string) bằng EVP_BytesToKey
   const { key, iv } = _evpBytesToKey(pwd, cipher.s, 32, 16);
-  console.log('Decrypt: salt=', cipher.s, 'key=', CryptoJS.enc.Hex.stringify(key).substring(0, 40), '...');
   // Giải mã AES-256-CBC
   const ciphertext = CryptoJS.enc.Base64.parse(cipher.ct);
   const decrypted = CryptoJS.AES.decrypt(
@@ -1125,7 +1124,13 @@ function _aesDecrypt(cipher, pwd) {
     {iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}
   );
   const result = decrypted.toString(CryptoJS.enc.Utf8);
-  console.log('Decrypt result length:', result.length, 'first 50 chars:', result.substring(0, 50));
+  console.log('=== DECRYPT DEBUG ===');
+  console.log('Salt:', cipher.s);
+  console.log('Key:', CryptoJS.enc.Hex.stringify(key));
+  console.log('IV:', CryptoJS.enc.Hex.stringify(iv));
+  console.log('Ciphertext length:', cipher.ct.length);
+  console.log('Decrypted result length:', result.length);
+  console.log('First 100 chars:', result.substring(0, 100));
   return result;
 }
 
