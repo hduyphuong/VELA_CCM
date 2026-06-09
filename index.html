@@ -1136,25 +1136,41 @@ function _aesDecrypt(cipher, pwd) {
 
 // ===== AUTH HANDLER =====
 async function doAuth() {
+  console.log('>>> doAuth START');
   const pwd = document.getElementById('authInput').value.trim();
-  if(!pwd) return;
+  console.log('>>> Password:', pwd);
+  if(!pwd) {
+    console.log('>>> Empty password, returning');
+    return;
+  }
   const errEl = document.getElementById('authError');
   errEl.style.display = 'none';
   try {
-    // Thử decrypt dữ liệu từ dự án đầu tiên có data để verify mật khẩu
+    console.log('>>> Fetching projects.json');
     const resp = await fetch('data/projects.json');
     const { projects } = await resp.json();
+    console.log('>>> Found projects:', projects.length);
     const first = projects.find(p => p.has_data);
+    console.log('>>> First project with data:', first?.id);
     if(!first) throw new Error('Không có dự án nào');
+    console.log('>>> Fetching data/' + first.id + '/data.json');
     const r2 = await fetch('data/' + first.id + '/data.json');
     const cipher = await r2.json();
+    console.log('>>> Cipher keys:', Object.keys(cipher));
+    console.log('>>> Calling _aesDecrypt');
     const decrypted = _aesDecrypt(cipher, pwd);
+    console.log('>>> _aesDecrypt returned, length:', decrypted.length);
+    console.log('>>> Parsing JSON');
     JSON.parse(decrypted); // throws nếu sai mật khẩu hoặc lỗi JSON
+    console.log('>>> JSON parse OK, saving to sessionStorage');
     // Đúng: lưu vào sessionStorage, ẩn overlay, gọi init()
     sessionStorage.setItem('ccm_pwd', pwd);
     document.getElementById('authOverlay').style.display = 'none';
+    console.log('>>> Calling init()');
     init();
   } catch(e) {
+    console.error('>>> CATCH ERROR:', e.message);
+    console.error('>>> Stack:', e.stack);
     errEl.style.display = 'block';
     document.getElementById('authInput').value = '';
   }
