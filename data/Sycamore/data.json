@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-09T11:19:22",
+    "generated_at": "2026-06-09T11:23:16",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -4255,7 +4255,7 @@
     {
       "g": "Công nhật",
       "h": "Trong HĐ",
-      "n": "Hỗ trợ chi phí nhà trọ 250k/người/tháng",
+      "n": "Hỗ trợ nhà trọ 250k/người/tháng",
       "u": "lot",
       "bq": 0.0,
       "ttBOQ": 0.0,
