@@ -1080,24 +1080,26 @@ function _evpBytesToKey(pwd, salt, keySize, ivSize) {
   const pwdWA = CryptoJS.enc.Utf8.parse(pwd);
   const saltWA = typeof salt === 'string' ? CryptoJS.enc.Hex.parse(salt) : salt;
 
-  let m = [];
+  let resultBytes = [];  // Collect raw bytes, not WordArrays
   let data = pwdWA.concat(saltWA);
 
-  while (m.length * 16 < (keySize + ivSize)) {  // 16 bytes per iteration
-    const md5Result = CryptoJS.MD5(data);
-    console.log(`EVP m[${m.length}] input:`, CryptoJS.enc.Hex.stringify(data).substring(0, 64));
-    console.log(`EVP m[${m.length}] MD5:`, CryptoJS.enc.Hex.stringify(md5Result));
-    m.push(md5Result);
-    data = md5Result.concat(pwdWA).concat(saltWA);
+  while (resultBytes.length < keySize + ivSize) {
+    const md5Hash = CryptoJS.MD5(data);
+    // Convert MD5 WordArray to hex string, then to bytes
+    const md5Hex = CryptoJS.enc.Hex.stringify(md5Hash);
+    for (let i = 0; i < md5Hex.length; i += 2) {
+      resultBytes.push(parseInt(md5Hex.substring(i, i + 2), 16));
+    }
+    data = md5Hash.concat(pwdWA).concat(saltWA);
   }
 
-  // Concatenate hex strings của MD5 hashes (chỉ lấy 16 bytes per hash)
-  const ms = m.map(h => CryptoJS.enc.Hex.stringify(h)).join('');
-  console.log('EVP ms concat:', ms);
+  // Extract key and iv from byte array
+  const keyHex = resultBytes.slice(0, keySize).map(b => ('0' + b.toString(16)).slice(-2)).join('');
+  const ivHex = resultBytes.slice(keySize, keySize + ivSize).map(b => ('0' + b.toString(16)).slice(-2)).join('');
 
   return {
-    key: CryptoJS.enc.Hex.parse(ms.substring(0, keySize*2)),
-    iv: CryptoJS.enc.Hex.parse(ms.substring(keySize*2, keySize*2 + ivSize*2))
+    key: CryptoJS.enc.Hex.parse(keyHex),
+    iv: CryptoJS.enc.Hex.parse(ivHex)
   };
 }
 
@@ -1117,34 +1119,25 @@ function _aesDecrypt(cipher, pwd) {
 
 // ===== AUTH HANDLER =====
 async function doAuth() {
-  console.log('doAuth() called');
   const pwd = document.getElementById('authInput').value.trim();
-  console.log('Password entered:', pwd);
   if(!pwd) return;
   const errEl = document.getElementById('authError');
   errEl.style.display = 'none';
   try {
     // Thử decrypt dữ liệu từ dự án đầu tiên có data để verify mật khẩu
-    console.log('Fetching projects.json...');
     const resp = await fetch('data/projects.json');
     const { projects } = await resp.json();
-    console.log('Projects:', projects);
     const first = projects.find(p => p.has_data);
-    console.log('First project with data:', first);
     if(!first) throw new Error('Không có dự án nào');
     const r2 = await fetch('data/' + first.id + '/data.json');
     const cipher = await r2.json();
-    console.log('Cipher format check:', {ct: cipher.ct ? 'yes' : 'no', iv: cipher.iv ? 'yes' : 'no', s: cipher.s ? 'yes' : 'no'});
     const decrypted = _aesDecrypt(cipher, pwd);
-    console.log('Decrypt successful, length:', decrypted.length);
     JSON.parse(decrypted); // throws nếu sai mật khẩu hoặc lỗi JSON
-    console.log('JSON parse successful');
     // Đúng: lưu vào sessionStorage, ẩn overlay, gọi init()
     sessionStorage.setItem('ccm_pwd', pwd);
     document.getElementById('authOverlay').style.display = 'none';
     init();
   } catch(e) {
-    console.error('Auth error:', e.message, e.stack);
     errEl.style.display = 'block';
     document.getElementById('authInput').value = '';
   }
