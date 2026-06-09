@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-09T08:38:31",
+    "generated_at": "2026-06-09T08:39:28",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -10,12 +10,12 @@
     "boq_total": 66078115228.28174,
     "budget_total": 31877946715.0,
     "cdt_workdone_total": 14436292198.313572,
-    "contractor_executed_total": 2763798903.425,
-    "contractor_paid_total": 2718320202.4825,
-    "contractor_remaining_total": 45478700.94250001,
+    "contractor_executed_total": 2763673870.125,
+    "contractor_paid_total": 2718304123.20012,
+    "contractor_remaining_total": 45369746.924880005,
     "contractor_ps_total": 0,
-    "contractor_count": 11,
-    "payment_rounds_total": 11,
+    "contractor_count": 12,
+    "payment_rounds_total": 12,
     "by_group": [
       {
         "group": "Bể ngầm",
@@ -65,6 +65,13 @@
         "budget_value": 0,
         "cdt_workdone": 0,
         "contractor_paid": 12600000.0
+      },
+      {
+        "group": "Khấu trừ",
+        "boq_value": 0,
+        "budget_value": 0,
+        "cdt_workdone": 0,
+        "contractor_paid": -4371885.6
       },
       {
         "group": "LTBT",
@@ -120,7 +127,7 @@
         "boq_value": 0,
         "budget_value": 0,
         "cdt_workdone": 0,
-        "contractor_paid": 138183118.47
+        "contractor_paid": 142701490.76108
       },
       {
         "group": "Xây tô đóng lưới",
@@ -134,7 +141,7 @@
         "boq_value": 29134716965.77,
         "budget_value": 8933281700.0,
         "cdt_workdone": 7942162120.020609,
-        "contractor_paid": 137914789.1625
+        "contractor_paid": 138716723.18904
       },
       {
         "group": "Ốp lát",
@@ -1345,6 +1352,171 @@
       "tl": 0.9,
       "tt": 3600000.0,
       "cl": 400000.0
+    },
+    {
+      "t": "13. Dương Văn Linh",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Xay tuong",
+      "h": "Trong HĐ",
+      "n": "Xây tường gạch nung dày 80mm, vữa M75",
+      "u": "m2",
+      "k": 202.44048499999985,
+      "d": 80000.0,
+      "gt": 16195238.799999988,
+      "tl": 0.1286,
+      "tt": 2082707.7096799982,
+      "cl": 14112531.09031999
+    },
+    {
+      "t": "13. Dương Văn Linh",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Xay tuong",
+      "h": "Trong HĐ",
+      "n": "Xây tường gạch nung dày 180-230mm, vữa M75",
+      "u": "m2",
+      "k": 157.83207500000003,
+      "d": 120000.0,
+      "gt": 18939849.000000004,
+      "tl": 0.1286,
+      "tt": 2435664.5814000005,
+      "cl": 16504184.418600004
+    },
+    {
+      "t": "13. Dương Văn Linh",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Xây tường",
+      "h": "Trong HĐ",
+      "n": "Xây tường gạch đinh dày 80mm, vữa M75",
+      "u": "m2",
+      "k": 55.265210000000025,
+      "d": 90000.0,
+      "gt": 4973868.900000002,
+      "tl": 0.1286,
+      "tt": 639639.5405400002,
+      "cl": 4334229.359460002
+    },
+    {
+      "t": "13. Dương Văn Linh",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Xây tường",
+      "h": "Trong HĐ",
+      "n": "Xây tường gạch đinh dày 180-230 mm, vữa M75",
+      "u": "m2",
+      "k": 8.413400000000003,
+      "d": 150000.0,
+      "gt": 1262010.0000000005,
+      "tl": 0.1286,
+      "tt": 162294.48600000006,
+      "cl": 1099715.5140000004
+    },
+    {
+      "t": "13. Dương Văn Linh",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "",
+      "h": "Trong HĐ",
+      "n": "Thưởng hoàn thiện xong căn",
+      "u": "căn",
+      "k": 7.0,
+      "d": 1000000.0,
+      "gt": 7000000.0,
+      "tl": 0.1286,
+      "tt": 900200.0,
+      "cl": 6099800.0
+    },
+    {
+      "t": "13. Dương Văn Linh",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Khấu trừ",
+      "h": "Trong HĐ",
+      "n": "Khấu trừ tiền ứng của BCH",
+      "u": "ps",
+      "k": -1.0,
+      "d": 30000000.0,
+      "gt": -30000000.0,
+      "tl": 0.1286,
+      "tt": -3857999.9999999995,
+      "cl": -26142000.0
+    },
+    {
+      "t": "13. Dương Văn Linh",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "",
+      "h": "Trong HĐ",
+      "n": "Khối lượng dang dở",
+      "u": "công",
+      "k": -25.0,
+      "d": 500000.0,
+      "gt": -12500000.0,
+      "tl": 0.1286,
+      "tt": -1607500.0,
+      "cl": -10892500.0
+    },
+    {
+      "t": "13. Dương Văn Linh",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "",
+      "h": "Trong HĐ",
+      "n": "Vệ sinh",
+      "u": "công",
+      "k": -4.0,
+      "d": 500000.0,
+      "gt": -2000000.0,
+      "tl": 0.1286,
+      "tt": -257199.99999999997,
+      "cl": -1742800.0
+    },
+    {
+      "t": "13. Dương Văn Linh",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Khấu trừ",
+      "h": "Trong HĐ",
+      "n": "Khấu trừ áo BHLD",
+      "u": "Cái",
+      "k": -34.0,
+      "d": 80000.0,
+      "gt": -2720000.0,
+      "tl": 0.1286,
+      "tt": -349792.0,
+      "cl": -2370208.0
+    },
+    {
+      "t": "13. Dương Văn Linh",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Khấu trừ",
+      "h": "Trong HĐ",
+      "n": "Khấu trừ nón BHLD",
+      "u": "Cái",
+      "k": -12.0,
+      "d": 48000.0,
+      "gt": -576000.0,
+      "tl": 0.1286,
+      "tt": -74073.59999999999,
+      "cl": -501926.4
+    },
+    {
+      "t": "13. Dương Văn Linh",
+      "l": "Lần 4",
+      "p": "01-2026",
+      "g": "Khấu trừ",
+      "h": "Trong HĐ",
+      "n": "Khấu trừ giày BHLD",
+      "u": "Đôi",
+      "k": -7.0,
+      "d": 100000.0,
+      "gt": -700000.0,
+      "tl": 0.1286,
+      "tt": -90020.0,
+      "cl": -609980.0
     }
   ],
   "NS": [
@@ -1354,9 +1526,9 @@
       "u": "m2",
       "kl": 36752.51,
       "tt": 2388913150.0,
-      "klTH": 442.252575,
-      "ttTH": 37591468.875,
-      "tdTH": 0.012033261809873665,
+      "klTH": 802.5251349999999,
+      "ttTH": 72726556.675,
+      "tdTH": 0.02183592726047826,
       "klV": 0.0,
       "ttV": 0.0,
       "tlV": 0.0
@@ -3011,6 +3183,58 @@
       "klV": -498.313,
       "ttV": -49831300.0,
       "tlV": -1.0
+    },
+    {
+      "g": "Khấu trừ",
+      "n": "Khấu trừ tiền ứng của BCH",
+      "u": "ps",
+      "kl": 0.0,
+      "tt": 0.0,
+      "klTH": -1.0,
+      "ttTH": -30000000.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Khấu trừ",
+      "n": "Khấu trừ áo BHLD",
+      "u": "Cái",
+      "kl": 0.0,
+      "tt": 0.0,
+      "klTH": -34.0,
+      "ttTH": -2720000.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Khấu trừ",
+      "n": "Khấu trừ nón BHLD",
+      "u": "Cái",
+      "kl": 0.0,
+      "tt": 0.0,
+      "klTH": -12.0,
+      "ttTH": -576000.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
+    },
+    {
+      "g": "Khấu trừ",
+      "n": "Khấu trừ giày BHLD",
+      "u": "Đôi",
+      "kl": 0.0,
+      "tt": 0.0,
+      "klTH": -7.0,
+      "ttTH": -700000.0,
+      "tdTH": 0.0,
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
     }
   ],
   "WD": [
@@ -3023,8 +3247,8 @@
       "ttBOQ": 7359138839.85,
       "cdt": 11845.619841,
       "ttCDT": 2371907688.862635,
-      "dtc": 442.252575,
-      "ttDTC": 37591468.875
+      "dtc": 802.5251349999999,
+      "ttDTC": 72726556.675
     },
     {
       "g": "Xây tường",
