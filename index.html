@@ -1178,11 +1178,20 @@ async function doAuth() {
 
 // Thêm Enter key handler
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('>>> DOMContentLoaded fired');
+  const authOverlay = document.getElementById('authOverlay');
   const authInput = document.getElementById('authInput');
+  const authBtn = document.getElementById('authBtn');
+  console.log('>>> authOverlay element:', authOverlay ? 'found' : 'NOT FOUND');
+  console.log('>>> authInput element:', authInput ? 'found' : 'NOT FOUND');
+  console.log('>>> authBtn element:', authBtn ? 'found' : 'NOT FOUND');
   if(authInput) {
     authInput.addEventListener('keypress', (e) => {
       if(e.key === 'Enter') doAuth();
     });
+  }
+  if(authBtn) {
+    console.log('>>> authBtn onclick:', authBtn.onclick);
   }
 });
 
