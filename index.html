@@ -1079,17 +1079,27 @@ function _evpBytesToKey(pwd, salt, keySize, ivSize) {
   // Tương thích với OpenSSL EVP_BytesToKey (MD5, 1 iteration)
   const pwdWA = CryptoJS.enc.Utf8.parse(pwd);
   const saltWA = typeof salt === 'string' ? CryptoJS.enc.Hex.parse(salt) : salt;
+  console.log('DEBUG EVP: pwd=', pwd, 'salt_hex=', typeof salt === 'string' ? salt : CryptoJS.enc.Hex.stringify(salt));
+
   let m = [];
   let data = pwdWA.concat(saltWA);
+  console.log('DEBUG EVP: initial data=', CryptoJS.enc.Hex.stringify(data));
+
   while (m.length * 16 < (keySize + ivSize)) {
     if (m.length === 0) {
       data = CryptoJS.MD5(data);
     } else {
       data = CryptoJS.MD5(m[m.length-1].concat(pwdWA).concat(saltWA));
     }
+    console.log(`DEBUG EVP: m[${m.length}]=`, CryptoJS.enc.Hex.stringify(data));
     m.push(data);
   }
+
   const ms = CryptoJS.enc.Hex.stringify(m[0]) + (m.length > 1 ? CryptoJS.enc.Hex.stringify(m[1]) : '');
+  console.log('DEBUG EVP: ms (hex concat)=', ms);
+  console.log('DEBUG EVP: key hex=', ms.substring(0, keySize*2));
+  console.log('DEBUG EVP: iv hex=', ms.substring(keySize*2, keySize*2 + ivSize*2));
+
   return {
     key: CryptoJS.enc.Hex.parse(ms.substring(0, keySize*2)),
     iv: CryptoJS.enc.Hex.parse(ms.substring(keySize*2, keySize*2 + ivSize*2))
