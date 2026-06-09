@@ -1100,6 +1100,9 @@ function _aesDecrypt(cipher, pwd) {
   if(!cipher.ct || !cipher.iv || !cipher.s) throw new Error('Invalid cipher format');
   // Derive key từ password + salt (as hex string) bằng EVP_BytesToKey
   const { key, iv } = _evpBytesToKey(pwd, cipher.s, 32, 16);
+  console.log('DEBUG: Salt hex:', cipher.s);
+  console.log('DEBUG: Key:', CryptoJS.enc.Hex.stringify(key));
+  console.log('DEBUG: IV:', CryptoJS.enc.Hex.stringify(iv));
   // Giải mã AES-256-CBC
   const ciphertext = CryptoJS.enc.Base64.parse(cipher.ct);
   const decrypted = CryptoJS.AES.decrypt(
@@ -1107,7 +1110,10 @@ function _aesDecrypt(cipher, pwd) {
     key,
     {iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}
   );
-  return decrypted.toString(CryptoJS.enc.Utf8);
+  const result = decrypted.toString(CryptoJS.enc.Utf8);
+  console.log('DEBUG: Decrypted length:', result.length);
+  console.log('DEBUG: First 100 chars:', result.substring(0, 100));
+  return result;
 }
 
 // ===== AUTH HANDLER =====
