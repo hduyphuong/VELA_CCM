@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-09T14:01:37",
+    "generated_at": "2026-06-09T14:08:32",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -14,8 +14,8 @@
     "contractor_paid_total": 2910113737.0575,
     "contractor_remaining_total": 71124746.61749998,
     "contractor_ps_total": 38000000.0,
-    "contractor_count": 15,
-    "payment_rounds_total": 15,
+    "contractor_count": 14,
+    "payment_rounds_total": 14,
     "by_group": [
       {
         "group": "Bể ngầm",
@@ -99,13 +99,6 @@
         "boq_value": 193231214.84352002,
         "budget_value": 0,
         "cdt_workdone": 40061271.471936874,
-        "contractor_paid": 0
-      },
-      {
-        "group": "Xay tuong",
-        "boq_value": 0,
-        "budget_value": 0,
-        "cdt_workdone": 0,
         "contractor_paid": 0
       },
       {
@@ -1751,36 +1744,6 @@
       "tl": 1.0,
       "tt": -150000.0,
       "cl": 0.0
-    },
-    {
-      "t": "16. Lê Văn Hiền",
-      "l": "Lần 3",
-      "p": "01-2026",
-      "g": "Xay tuong",
-      "h": "Trong HĐ",
-      "n": "Xây tường gạch nung dày 180-230mm, vữa M75",
-      "u": "m2",
-      "k": 15.545215,
-      "d": 0.0,
-      "gt": 0,
-      "tl": 0.9,
-      "tt": 0.0,
-      "cl": 0.0
-    },
-    {
-      "t": "16. Lê Văn Hiền",
-      "l": "Lần 3",
-      "p": "01-2026",
-      "g": "Xây tường",
-      "h": "Trong HĐ",
-      "n": "Xây tường gạch đinh dày 80mm, vữa M75",
-      "u": "m2",
-      "k": 6.73833,
-      "d": 0.0,
-      "gt": 0,
-      "tl": 0.9,
-      "tt": 0.0,
-      "cl": 0.0
     }
   ],
   "NS": [
@@ -1790,9 +1753,9 @@
       "u": "m2",
       "kl": 36752.51,
       "tt": 2388913150.0,
-      "klTH": 2567.662315,
+      "klTH": 2552.1171,
       "ttTH": 206380630.875,
-      "tdTH": 0.06986359067720817,
+      "tdTH": 0.06944062051816324,
       "klV": 0.0,
       "ttV": 0.0,
       "tlV": 0.0
@@ -3434,19 +3397,6 @@
       "klV": -24.0,
       "ttV": -38000000.0,
       "tlV": -1.0
-    },
-    {
-      "g": "Xây tường",
-      "n": "Xây tường gạch đinh dày 80mm, vữa M75",
-      "u": "m2",
-      "kl": 0.0,
-      "tt": 0.0,
-      "klTH": 6.73833,
-      "ttTH": 0.0,
-      "tdTH": 0.0,
-      "klV": -6.73833,
-      "ttV": 0.0,
-      "tlV": 0.0
     }
   ],
   "WD": [
@@ -3459,7 +3409,7 @@
       "ttBOQ": 7359138839.85,
       "cdt": 11845.619841,
       "ttCDT": 2371907688.862635,
-      "dtc": 2567.662315,
+      "dtc": 2552.1171,
       "ttDTC": 206380630.875
     },
     {
