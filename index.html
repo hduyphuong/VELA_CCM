@@ -1078,10 +1078,15 @@ function _evpBytesToKey(pwd, salt, keySize, ivSize) {
   // EVP_BytesToKey: MD5(password+salt) lặp lại để derive key+iv
   // Tương thích với OpenSSL EVP_BytesToKey (MD5, 1 iteration)
   const pwdWA = CryptoJS.enc.Utf8.parse(pwd);
+  const saltWA = typeof salt === 'string' ? CryptoJS.enc.Hex.parse(salt) : salt;
   let m = [];
-  let data = pwdWA.concat(salt);
+  let data = pwdWA.concat(saltWA);
   while (m.length * 16 < (keySize + ivSize)) {
-    data = m.length === 0 ? CryptoJS.MD5(data) : CryptoJS.MD5(m[m.length-1].concat(pwdWA).concat(salt));
+    if (m.length === 0) {
+      data = CryptoJS.MD5(data);
+    } else {
+      data = CryptoJS.MD5(m[m.length-1].concat(pwdWA).concat(saltWA));
+    }
     m.push(data);
   }
   const ms = CryptoJS.enc.Hex.stringify(m[0]) + (m.length > 1 ? CryptoJS.enc.Hex.stringify(m[1]) : '');
@@ -1093,10 +1098,8 @@ function _evpBytesToKey(pwd, salt, keySize, ivSize) {
 
 function _aesDecrypt(cipher, pwd) {
   if(!cipher.ct || !cipher.iv || !cipher.s) throw new Error('Invalid cipher format');
-  // Parse salt từ hex string
-  const salt = CryptoJS.enc.Hex.parse(cipher.s);
-  // Derive key từ password + salt bằng EVP_BytesToKey
-  const { key, iv } = _evpBytesToKey(pwd, salt, 32, 16);
+  // Derive key từ password + salt (as hex string) bằng EVP_BytesToKey
+  const { key, iv } = _evpBytesToKey(pwd, cipher.s, 32, 16);
   // Giải mã AES-256-CBC
   const ciphertext = CryptoJS.enc.Base64.parse(cipher.ct);
   const decrypted = CryptoJS.AES.decrypt(
