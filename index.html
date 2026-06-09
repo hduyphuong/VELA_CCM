@@ -1106,10 +1106,6 @@ function _evpBytesToKey(pwd, salt, keySize, ivSize) {
     ms += CryptoJS.enc.Hex.stringify(m[2]);
   }
 
-  console.log('DEBUG EVP ms:', ms.substring(0, 70));
-  console.log('DEBUG EVP key:', ms.substring(0, 64));
-  console.log('DEBUG EVP iv:', ms.substring(64, 96));
-
   return {
     key: CryptoJS.enc.Hex.parse(ms.substring(0, keySize * 2)),
     iv: CryptoJS.enc.Hex.parse(ms.substring(keySize * 2, keySize * 2 + ivSize * 2))
