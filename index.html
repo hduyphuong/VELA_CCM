@@ -585,19 +585,7 @@ async function loadProject(id) {
   try {
     const resp = await fetch('data/' + id + '/data.json');
     if(!resp.ok) throw new Error('HTTP ' + resp.status);
-    const cipher = await resp.json();
-    let data;
-    // Kiểm tra xem có phải ciphertext hay plaintext
-    if(cipher.ct && cipher.iv && cipher.s) {
-      // Đã mã hóa: giải mã
-      const pwd = sessionStorage.getItem('ccm_pwd');
-      if(!pwd) throw new Error('Mất phiên xác thực');
-      const plaintext = _aesDecrypt(cipher, pwd);
-      data = JSON.parse(plaintext);
-    } else {
-      // Plaintext (tương thích với dữ liệu cũ)
-      data = cipher;
-    }
+    const data = await resp.json();
     applyData(data);
     showLoading(false);
     el('p1').classList.add('active');
@@ -1073,104 +1061,21 @@ function filterTT(){
   el('s_cl').textContent=vnd(sCL);
 }
 
-// ===== AES DECRYPT (OpenSSL EVP_BytesToKey via OpenSSL EVP) =====
-function _evpBytesToKey(pwd, salt, keySize, ivSize) {
-  // OpenSSL EVP_BytesToKey: MD5(password+salt) repeated
-  // salt should be hex string, convert to bytes
-  const pwdBytes = CryptoJS.enc.Utf8.parse(pwd);
-  const saltBytes = typeof salt === 'string' ? CryptoJS.enc.Hex.parse(salt) : salt;
-
-  // Use OpenSSL EVP_BytesToKey algorithm
-  let m = [];
-  let i = 0;
-  while (m.length * 16 < keySize + ivSize) {
-    const md5 = CryptoJS.algo.MD5.create();
-    if (i === 0) {
-      md5.update(pwdBytes);
-      md5.update(saltBytes);
-    } else {
-      md5.update(m[i - 1]);
-      md5.update(pwdBytes);
-      md5.update(saltBytes);
-    }
-    m.push(md5.finalize());
-    i++;
-  }
-
-  // Concatenate and extract key/iv
-  let ms = CryptoJS.enc.Hex.stringify(m[0]);
-  if (m.length > 1) {
-    ms += CryptoJS.enc.Hex.stringify(m[1]);
-  }
-  if (m.length > 2) {
-    ms += CryptoJS.enc.Hex.stringify(m[2]);
-  }
-
-  return {
-    key: CryptoJS.enc.Hex.parse(ms.substring(0, keySize * 2)),
-    iv: CryptoJS.enc.Hex.parse(ms.substring(keySize * 2, keySize * 2 + ivSize * 2))
-  };
-}
-
-function _aesDecrypt(cipher, pwd) {
-  if(!cipher.ct || !cipher.iv || !cipher.s) throw new Error('Invalid cipher format');
-  // Derive key từ password + salt (as hex string) bằng EVP_BytesToKey
-  const { key, iv } = _evpBytesToKey(pwd, cipher.s, 32, 16);
-  // Giải mã AES-256-CBC
-  const ciphertext = CryptoJS.enc.Base64.parse(cipher.ct);
-  const decrypted = CryptoJS.AES.decrypt(
-    {ciphertext: ciphertext},
-    key,
-    {iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}
-  );
-  const result = decrypted.toString(CryptoJS.enc.Utf8);
-  console.log('=== DECRYPT DEBUG ===');
-  console.log('Salt:', cipher.s);
-  console.log('Key:', CryptoJS.enc.Hex.stringify(key));
-  console.log('IV:', CryptoJS.enc.Hex.stringify(iv));
-  console.log('Ciphertext length:', cipher.ct.length);
-  console.log('Decrypted result length:', result.length);
-  console.log('First 100 chars:', result.substring(0, 100));
-  return result;
-}
+// Mật khẩu dashboard (plaintext comparison)
+const DASHBOARD_PASSWORD = 'velaccm2026';
 
 // ===== AUTH HANDLER =====
-async function doAuth() {
-  console.log('>>> doAuth START');
+function doAuth() {
   const pwd = document.getElementById('authInput').value.trim();
-  console.log('>>> Password:', pwd);
-  if(!pwd) {
-    console.log('>>> Empty password, returning');
-    return;
-  }
   const errEl = document.getElementById('authError');
-  errEl.style.display = 'none';
-  try {
-    console.log('>>> Fetching projects.json');
-    const resp = await fetch('data/projects.json');
-    const { projects } = await resp.json();
-    console.log('>>> Found projects:', projects.length);
-    const first = projects.find(p => p.has_data);
-    console.log('>>> First project with data:', first?.id);
-    if(!first) throw new Error('Không có dự án nào');
-    console.log('>>> Fetching data/' + first.id + '/data.json');
-    const r2 = await fetch('data/' + first.id + '/data.json');
-    const cipher = await r2.json();
-    console.log('>>> Cipher keys:', Object.keys(cipher));
-    console.log('>>> Calling _aesDecrypt');
-    const decrypted = _aesDecrypt(cipher, pwd);
-    console.log('>>> _aesDecrypt returned, length:', decrypted.length);
-    console.log('>>> Parsing JSON');
-    JSON.parse(decrypted); // throws nếu sai mật khẩu hoặc lỗi JSON
-    console.log('>>> JSON parse OK, saving to sessionStorage');
-    // Đúng: lưu vào sessionStorage, ẩn overlay, gọi init()
-    sessionStorage.setItem('ccm_pwd', pwd);
+
+  if (pwd === DASHBOARD_PASSWORD) {
+    // Đúng
+    sessionStorage.setItem('ccm_pwd', 'authenticated');
     document.getElementById('authOverlay').style.display = 'none';
-    console.log('>>> Calling init()');
     init();
-  } catch(e) {
-    console.error('>>> CATCH ERROR:', e.message);
-    console.error('>>> Stack:', e.stack);
+  } else {
+    // Sai
     errEl.style.display = 'block';
     document.getElementById('authInput').value = '';
   }
@@ -1178,38 +1083,21 @@ async function doAuth() {
 
 // Thêm Enter key handler
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('>>> DOMContentLoaded fired');
-  const authOverlay = document.getElementById('authOverlay');
   const authInput = document.getElementById('authInput');
-  const authBtn = document.getElementById('authBtn');
-  console.log('>>> authOverlay element:', authOverlay ? 'found' : 'NOT FOUND');
-  console.log('>>> authInput element:', authInput ? 'found' : 'NOT FOUND');
-  console.log('>>> authBtn element:', authBtn ? 'found' : 'NOT FOUND');
   if(authInput) {
     authInput.addEventListener('keypress', (e) => {
       if(e.key === 'Enter') doAuth();
     });
   }
-  if(authBtn) {
-    console.log('>>> authBtn onclick:', authBtn.onclick);
-  }
 });
 
 // ===== INIT =====
 async function init() {
-  console.log('>>> init() called');
-  const pwd = sessionStorage.getItem('ccm_pwd');
-  console.log('>>> password in sessionStorage:', pwd ? 'YES' : 'NO');
-  if(!pwd) {
-    console.log('>>> showing authOverlay');
-    const overlay = document.getElementById('authOverlay');
-    console.log('>>> authOverlay display before:', overlay.style.display);
-    overlay.style.display = 'flex';
-    console.log('>>> authOverlay display after:', overlay.style.display);
-    console.log('>>> authOverlay computed display:', window.getComputedStyle(overlay).display);
+  const authenticated = sessionStorage.getItem('ccm_pwd');
+  if(!authenticated) {
+    document.getElementById('authOverlay').style.display = 'flex';
     return;  // doAuth() sẽ gọi lại init() sau khi xác thực
   }
-  console.log('>>> password found, loading data');
   showLoading(true);
   try {
     const resp = await fetch('data/projects.json');
@@ -1233,7 +1121,6 @@ async function init() {
 
 // Gọi init khi page load
 window.addEventListener('load', () => {
-  console.log('>>> window load event fired');
   init();
 });
 </script>
