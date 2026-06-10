@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-10T16:49:44",
+    "generated_at": "2026-06-10T17:17:49",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -9203,7 +9203,7 @@
     },
     {
       "g": "Phát sinh giảm",
-      "h": "Trong HĐ",
+      "h": "Ngoài HĐ",
       "n": "Phát sinh giảm",
       "u": "lot",
       "bq": 1.0,
