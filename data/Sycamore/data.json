@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-10T16:05:44",
+    "generated_at": "2026-06-10T16:10:23",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -13,7 +13,7 @@
     "contractor_executed_total": 9110254589.90175,
     "contractor_paid_total": 8497239096.387575,
     "contractor_remaining_total": 613015493.514175,
-    "contractor_ps_total": 265782126.91,
+    "contractor_ps_total": 341643443.41,
     "contractor_count": 35,
     "payment_rounds_total": 35,
     "by_group": [
@@ -92,7 +92,7 @@
         "boq_value": 23085158520.96,
         "budget_value": 17148057680.0,
         "cdt_workdone": 2442133494.225697,
-        "contractor_paid": 1723773778.757575
+        "contractor_paid": 1654409575.9075751
       },
       {
         "group": "Trắc đạc",
@@ -120,7 +120,7 @@
         "boq_value": 38985429.3584,
         "budget_value": 35086886.42256,
         "cdt_workdone": 116887469.2972737,
-        "contractor_paid": 0
+        "contractor_paid": 69364202.85
       },
       {
         "group": "Xây tường",
@@ -2348,8 +2348,8 @@
       "t": "22. Đoàn Thị Sang",
       "l": "Lần 1",
       "p": "04-2026",
-      "g": "Trát tường",
-      "h": "Trong HĐ",
+      "g": "Xây tô đóng lưới",
+      "h": "Ngoài HĐ",
       "n": "Lưới tô tường (Bề rộng 200-300mm).",
       "u": "m2",
       "k": 157.7,
@@ -2423,8 +2423,8 @@
       "t": "23. Trương Yến Ly",
       "l": "Lần 2",
       "p": "04-2026",
-      "g": "Trát tường",
-      "h": "Trong HĐ",
+      "g": "Xây tô đóng lưới",
+      "h": "Ngoài HĐ",
       "n": "Đóng lưới tô tường",
       "u": "m",
       "k": 457.14599999999996,
@@ -2543,8 +2543,8 @@
       "t": "24. Phan Thanh Hải",
       "l": "Lần 2",
       "p": "04-2026",
-      "g": "Trát tường",
-      "h": "Trong HĐ",
+      "g": "Xây tô đóng lưới",
+      "h": "Ngoài HĐ",
       "n": "Đóng lưới tô tường",
       "u": "m2",
       "k": 0.0,
@@ -2888,8 +2888,8 @@
       "t": "29. Hồ Viết Sinh",
       "l": "Lần 8",
       "p": "04-2026",
-      "g": "Trát tường",
-      "h": "Trong HĐ",
+      "g": "Xây tô đóng lưới",
+      "h": "Ngoài HĐ",
       "n": "Lưới trong",
       "u": "md",
       "k": 3111.479999999999,
@@ -4223,8 +4223,8 @@
       "t": "31. Phạm Minh Đức",
       "l": "Lần 1",
       "p": "04-2026",
-      "g": "Trát tường",
-      "h": "Trong HĐ",
+      "g": "Xây tô đóng lưới",
+      "h": "Ngoài HĐ",
       "n": "Lưới tô tường cho công tác ống MEP (Bề rộng 200-300mm)",
       "u": "lot",
       "k": 720.0,
@@ -5288,8 +5288,8 @@
       "t": "32. Cty Tài Đức",
       "l": "Lần 4",
       "p": "03-2026",
-      "g": "Trát tường",
-      "h": "Trong HĐ",
+      "g": "Xây tô đóng lưới",
+      "h": "Ngoài HĐ",
       "n": "Lưới tô tường cho công tác ống MEP (Bề rộng 200-300mm)",
       "u": "lot",
       "k": 4960.0,
@@ -6999,12 +6999,12 @@
       "u": "md",
       "kl": 0.0,
       "tt": 0.0,
-      "klTH": 9406.326,
-      "ttTH": 75861316.5,
+      "klTH": 0.0,
+      "ttTH": 0.0,
       "tdTH": 0.0,
-      "klV": -9406.326,
-      "ttV": -75861316.5,
-      "tlV": -1.0
+      "klV": 0.0,
+      "ttV": 0.0,
+      "tlV": 0.0
     },
     {
       "g": "Trát tường",
@@ -7454,12 +7454,12 @@
       "u": "m2",
       "kl": 1863.98,
       "tt": 25163730.0,
-      "klTH": 0.0,
-      "ttTH": 0.0,
-      "tdTH": 0.0,
-      "klV": 0.0,
-      "ttV": 0.0,
-      "tlV": 0.0
+      "klTH": 9406.326,
+      "ttTH": 75861316.5,
+      "tdTH": 5.046366377321645,
+      "klV": -7542.346,
+      "ttV": -50697586.5,
+      "tlV": -0.6682929962070985
     },
     {
       "g": "LTBT, Diềm mái",
@@ -8586,8 +8586,8 @@
       "ttBOQ": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
-      "dtc": 9406.326,
-      "ttDTC": 75861316.5
+      "dtc": 0.0,
+      "ttDTC": 0.0
     },
     {
       "g": "Vận chuyển",
@@ -8982,8 +8982,8 @@
       "ttBOQ": 27959700.0,
       "cdt": 7232.72499999998,
       "ttCDT": 108490874.9999997,
-      "dtc": 0.0,
-      "ttDTC": 0.0
+      "dtc": 9406.326,
+      "ttDTC": 75861316.5
     },
     {
       "g": "LTBT, Diềm mái",
