@@ -2,12 +2,12 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-10T13:36:03",
+    "generated_at": "2026-06-10T13:40:07",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
   "summary": {
-    "boq_total": 41564564197.09742,
+    "boq_total": 13075571120.95212,
     "budget_total": 31877946715.0,
     "cdt_workdone_total": 8323568292.526591,
     "contractor_executed_total": 9110254589.90175,
@@ -71,6 +71,13 @@
         "boq_value": 104646356.66137607,
         "budget_value": 0,
         "cdt_workdone": 61347612.09597296,
+        "contractor_paid": 0
+      },
+      {
+        "group": "Phát sinh giảm",
+        "boq_value": -28488993076.1453,
+        "budget_value": 0,
+        "cdt_workdone": 0,
         "contractor_paid": 0
       },
       {
@@ -9272,6 +9279,18 @@
       "bq": 8858.388,
       "ttBOQ": 0.0,
       "cdt": 5605.29554500001,
+      "ttCDT": 0.0,
+      "dtc": 0.0,
+      "ttDTC": 0.0
+    },
+    {
+      "g": "Phát sinh giảm",
+      "h": "Ngoài HĐ",
+      "n": "Phát sinh giảm",
+      "u": "lot",
+      "bq": 1.0,
+      "ttBOQ": -28488993076.1453,
+      "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
       "ttDTC": 0.0
