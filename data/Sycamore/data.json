@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-10T15:45:37",
+    "generated_at": "2026-06-10T16:05:44",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -7741,10 +7741,10 @@
       "kl": -0.7,
       "tt": -22769893790.087254,
       "klTH": -0.7,
-      "ttTH": -22769893790.087254,
+      "ttTH": 0.0,
       "tdTH": 1.0,
       "klV": 0.0,
-      "ttV": 0.0,
+      "ttV": -22769893790.087254,
       "tlV": 0.0
     }
   ],
@@ -9211,7 +9211,7 @@
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": -0.7,
-      "ttDTC": -22769893790.087254
+      "ttDTC": 0.0
     }
   ]
 }
