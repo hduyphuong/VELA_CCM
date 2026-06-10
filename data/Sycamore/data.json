@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-10T16:10:34",
+    "generated_at": "2026-06-10T16:25:26",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -7398,6 +7398,19 @@
     },
     {
       "g": "Xây tô đóng lưới",
+      "n": "Đóng lưới các vị trí của MEP",
+      "u": "m2",
+      "kl": 1863.98,
+      "tt": 25163730.0,
+      "klTH": 9406.326,
+      "ttTH": 75861316.5,
+      "tdTH": 5.046366377321645,
+      "klV": -7542.346,
+      "ttV": -50697586.5,
+      "tlV": -0.6682929962070985
+    },
+    {
+      "g": "Xây tô đóng lưới",
       "n": "Xây bậc thang bộ",
       "u": "m3",
       "kl": 1.16,
@@ -7447,19 +7460,6 @@
       "klV": 0.0,
       "ttV": 0.0,
       "tlV": 0.0
-    },
-    {
-      "g": "Xây tô đóng lưới",
-      "n": "Đóng lưới các vị trí của MEP",
-      "u": "m2",
-      "kl": 1863.98,
-      "tt": 25163730.0,
-      "klTH": 9406.326,
-      "ttTH": 75861316.5,
-      "tdTH": 5.046366377321645,
-      "klV": -7542.346,
-      "ttV": -50697586.5,
-      "tlV": -0.6682929962070985
     },
     {
       "g": "LTBT, Diềm mái",
@@ -8928,6 +8928,18 @@
     {
       "g": "Xây tô đóng lưới",
       "h": "Ngoài HĐ",
+      "n": "Đóng lưới các vị trí của MEP",
+      "u": "m2",
+      "bq": 1863.98,
+      "ttBOQ": 27959700.0,
+      "cdt": 7232.72499999998,
+      "ttCDT": 108490874.9999997,
+      "dtc": 9406.326,
+      "ttDTC": 75861316.5
+    },
+    {
+      "g": "Xây tô đóng lưới",
+      "h": "Ngoài HĐ",
       "n": "Xây bậc thang bộ",
       "u": "m3",
       "bq": 1.16,
@@ -8972,18 +8984,6 @@
       "ttCDT": 2971055.351841,
       "dtc": 0.0,
       "ttDTC": 0.0
-    },
-    {
-      "g": "Xây tô đóng lưới",
-      "h": "Ngoài HĐ",
-      "n": "Đóng lưới các vị trí của MEP",
-      "u": "m2",
-      "bq": 1863.98,
-      "ttBOQ": 27959700.0,
-      "cdt": 7232.72499999998,
-      "ttCDT": 108490874.9999997,
-      "dtc": 9406.326,
-      "ttDTC": 75861316.5
     },
     {
       "g": "LTBT, Diềm mái",
