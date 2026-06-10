@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CCM Dashboard – VELA E&C</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 <style>
 /* ===== BASE ===== */
 html{font-size:16px;-webkit-text-size-adjust:100%}
@@ -167,18 +166,6 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
   #loadingState,#errorState{display:none!important}
 }
 
-/* ===== AUTH OVERLAY ===== */
-#authOverlay{display:flex;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:9999;align-items:center;justify-content:center}
-.auth-box{background:white;border-radius:12px;padding:2.5rem 2rem;box-shadow:0 10px 40px rgba(0,0,0,.3);width:90%;max-width:400px;text-align:center}
-.auth-logo{font-size:3rem;margin-bottom:1rem}
-.auth-box h3{font-size:1.25rem;color:#1a3a5c;margin-bottom:0.5rem;font-weight:700}
-.auth-box p{font-size:0.875rem;color:#6c757d;margin-bottom:1.5rem}
-.auth-box input{width:100%;padding:0.75rem 1rem;border:1px solid #ced4da;border-radius:6px;font-size:0.875rem;margin-bottom:1rem;box-sizing:border-box;font-family:inherit}
-.auth-box input:focus{outline:none;border-color:#1565c0;box-shadow:0 0 0 3px rgba(21,101,192,.1)}
-.auth-box button{width:100%;padding:0.75rem 1rem;background:#1565c0;color:white;border:none;border-radius:6px;font-size:0.875rem;font-weight:600;cursor:pointer;transition:all .2s}
-.auth-box button:hover{background:#0d47a1;box-shadow:0 2px 8px rgba(21,101,192,.3)}
-.auth-box button:active{transform:translateY(1px)}
-#authError{color:#c62828;font-size:0.75rem;margin-top:0.5rem;display:none}
 </style>
 </head>
 <body>
@@ -215,18 +202,6 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #1565c
 <div class="tool-bar">
   <button class="tool-btn btn-print" onclick="window.print()">🖨️ In báo cáo</button>
   <span class="tool-label" id="dataLabel">Đang tải...</span>
-</div>
-
-<!-- AUTH OVERLAY -->
-<div id="authOverlay">
-  <div class="auth-box">
-    <div class="auth-logo">🔐</div>
-    <h3>CCM Dashboard</h3>
-    <p>Nhập mật khẩu để xem báo cáo</p>
-    <input type="password" id="authInput" placeholder="Mật khẩu..." />
-    <button id="authBtn" onclick="doAuth()">Xác nhận</button>
-    <p id="authError">Mật khẩu không đúng</p>
-  </div>
 </div>
 
 <!-- LOADING STATE -->
@@ -1061,43 +1036,8 @@ function filterTT(){
   el('s_cl').textContent=vnd(sCL);
 }
 
-// Mật khẩu dashboard (plaintext comparison)
-const DASHBOARD_PASSWORD = 'velaccm2026';
-
-// ===== AUTH HANDLER =====
-function doAuth() {
-  const pwd = document.getElementById('authInput').value.trim();
-  const errEl = document.getElementById('authError');
-
-  if (pwd === DASHBOARD_PASSWORD) {
-    // Đúng
-    sessionStorage.setItem('ccm_pwd', 'authenticated');
-    document.getElementById('authOverlay').style.display = 'none';
-    init();
-  } else {
-    // Sai
-    errEl.style.display = 'block';
-    document.getElementById('authInput').value = '';
-  }
-}
-
-// Thêm Enter key handler
-document.addEventListener('DOMContentLoaded', () => {
-  const authInput = document.getElementById('authInput');
-  if(authInput) {
-    authInput.addEventListener('keypress', (e) => {
-      if(e.key === 'Enter') doAuth();
-    });
-  }
-});
-
 // ===== INIT =====
 async function init() {
-  const authenticated = sessionStorage.getItem('ccm_pwd');
-  if(!authenticated) {
-    document.getElementById('authOverlay').style.display = 'flex';
-    return;  // doAuth() sẽ gọi lại init() sau khi xác thực
-  }
   showLoading(true);
   try {
     const resp = await fetch('data/projects.json');
