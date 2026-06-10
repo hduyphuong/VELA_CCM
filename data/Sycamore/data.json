@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-10T13:40:07",
+    "generated_at": "2026-06-10T13:49:29",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -5343,9 +5343,9 @@
       "g": "Bệ móng vận thăng",
       "h": "Ngoài HĐ",
       "n": "Thi công bệ móng vận thăng",
-      "u": "công",
-      "k": 24.0,
-      "d": 500000.0,
+      "u": "lot",
+      "k": 1.0,
+      "d": 12000000.0,
       "gt": 12000000.0,
       "tl": 0.9,
       "tt": 10800000.0,
@@ -7539,10 +7539,10 @@
       "u": "lot",
       "kl": 2.0,
       "tt": 0.0,
-      "klTH": 24.0,
+      "klTH": 1.0,
       "ttTH": 12000000.0,
-      "tdTH": 12.0,
-      "klV": -22.0,
+      "tdTH": 0.5,
+      "klV": 0.0,
       "ttV": -12000000.0,
       "tlV": -1.0
     },
@@ -9100,7 +9100,7 @@
       "ttBOQ": 14000000.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
-      "dtc": 24.0,
+      "dtc": 1.0,
       "ttDTC": 12000000.0
     },
     {
