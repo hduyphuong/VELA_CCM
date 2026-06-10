@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-10T15:04:21",
+    "generated_at": "2026-06-10T15:22:02",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -113,13 +113,6 @@
         "boq_value": 39984000.0,
         "budget_value": 35985600.0,
         "cdt_workdone": 28668800.0,
-        "contractor_paid": 0
-      },
-      {
-        "group": "Vật tư thay thế",
-        "boq_value": 0,
-        "budget_value": 0,
-        "cdt_workdone": 0,
         "contractor_paid": 0
       },
       {
@@ -7703,45 +7696,6 @@
       "tlV": 0.0
     },
     {
-      "g": "Vật tư thay thế",
-      "n": "Xây tường 100mm bằng gạch đinh đặc",
-      "u": "m2",
-      "kl": 3940.608,
-      "tt": 0.0,
-      "klTH": 0.0,
-      "ttTH": 0.0,
-      "tdTH": 0.0,
-      "klV": 0.0,
-      "ttV": 0.0,
-      "tlV": 0.0
-    },
-    {
-      "g": "Vật tư thay thế",
-      "n": "Xây tường 180-230mm bằng gạch đinh đặc",
-      "u": "m2",
-      "kl": 410.0544,
-      "tt": 0.0,
-      "klTH": 0.0,
-      "ttTH": 0.0,
-      "tdTH": 0.0,
-      "klV": 0.0,
-      "ttV": 0.0,
-      "tlV": 0.0
-    },
-    {
-      "g": "Vật tư thay thế",
-      "n": "Xây tường 180-230mm gạch ống 4 lỗ câu gạch đinh đặc",
-      "u": "m2",
-      "kl": 8858.388,
-      "tt": 0.0,
-      "klTH": 0.0,
-      "ttTH": 0.0,
-      "tdTH": 0.0,
-      "klV": 0.0,
-      "ttV": 0.0,
-      "tlV": 0.0
-    },
-    {
       "g": "Xây tường",
       "n": "Tô PKT nước tầng 3",
       "u": "công",
@@ -9244,42 +9198,6 @@
       "ttBOQ": 39984000.0,
       "cdt": 1686.4,
       "ttCDT": 28668800.0,
-      "dtc": 0.0,
-      "ttDTC": 0.0
-    },
-    {
-      "g": "Vật tư thay thế",
-      "h": "Ngoài HĐ",
-      "n": "Xây tường 100mm bằng gạch đinh đặc",
-      "u": "m2",
-      "bq": 3940.608,
-      "ttBOQ": 0.0,
-      "cdt": 0.0,
-      "ttCDT": 0.0,
-      "dtc": 0.0,
-      "ttDTC": 0.0
-    },
-    {
-      "g": "Vật tư thay thế",
-      "h": "Ngoài HĐ",
-      "n": "Xây tường 180-230mm bằng gạch đinh đặc",
-      "u": "m2",
-      "bq": 410.0544,
-      "ttBOQ": 0.0,
-      "cdt": 0.0,
-      "ttCDT": 0.0,
-      "dtc": 0.0,
-      "ttDTC": 0.0
-    },
-    {
-      "g": "Vật tư thay thế",
-      "h": "Ngoài HĐ",
-      "n": "Xây tường 180-230mm gạch ống 4 lỗ câu gạch đinh đặc",
-      "u": "m2",
-      "bq": 8858.388,
-      "ttBOQ": 0.0,
-      "cdt": 5605.29554500001,
-      "ttCDT": 0.0,
       "dtc": 0.0,
       "ttDTC": 0.0
     },
