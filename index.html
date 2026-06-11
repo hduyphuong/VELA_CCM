@@ -18,7 +18,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;fo
 .header{background:linear-gradient(135deg,#3B2D6F 0%,#E8552A 100%);color:white;padding:0.875rem 1.5rem 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .header-top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:0.5rem;gap:0.75rem;flex-wrap:wrap}
 .header-left{display:flex;align-items:center;gap:0.75rem}
-.header-logo{height:40px;width:auto;flex-shrink:0}
+.header-logo{height:44px;width:auto;flex-shrink:0;mix-blend-mode:screen}
 .header h1{font-size:1.0625rem;font-weight:700}
 .header .sub{font-size:0.6875rem;opacity:.8;margin-top:0.1875rem}
 .header .meta{text-align:right;font-size:0.6875rem;opacity:.85;line-height:1.7;flex-shrink:0}
@@ -107,6 +107,7 @@ tfoot tr{background:#f3f0ff}
 tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552A}
 .grow{background:#fde8e0 !important;font-weight:700}
 .pos{color:#2e7d32}.neg{color:#c62828}
+.vuot-cell{background:#b71c1c !important;color:white !important;font-weight:700}
 
 /* ===== BADGE ===== */
 .badge{display:inline-block;padding:2px 6px;border-radius:8px;font-size:0.625rem;font-weight:600}
@@ -357,7 +358,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <tfoot id="p1DetailTfoot"></tfoot>
     </table>
     </div>
-    <div class="warn">⚠️ <strong>VƯỢT NGÂN SÁCH</strong> chỉ hiển thị các khoản phát sinh ngoài HĐ không có trong ngân sách ban đầu (NS = 0). Phát sinh ngoài HĐ cần có TF/VO CĐT xác nhận trước khi quyết toán.</div>
+    <div class="warn" style="margin-top:0.5rem">⚠️ <strong>VƯỢT NGÂN SÁCH</strong> <span style="color:#b71c1c;font-weight:700">(ô nền đỏ)</span>: KL hoặc giá trị thực hiện vượt ngân sách nội bộ. Cần kiểm tra, lập điều chỉnh ngân sách hoặc phê duyệt bổ sung trước khi quyết toán.</div>
   </div>
 </div><!-- /p1 -->
 
@@ -813,17 +814,18 @@ function applyData(data) {
       let tdKLV, tdGTV, tdTLV;
       const hasVuot = (nsRow.klV != null && nsRow.klV !== 0) || (nsRow.ttV != null && nsRow.ttV !== 0);
       if(hasVuot) {
-        tdKLV = (nsRow.klV != null && nsRow.klV !== 0) ? nsRow.klV.toLocaleString('vi-VN') : '<span style="color:#6c757d">—</span>';
-        tdGTV = (nsRow.ttV != null && nsRow.ttV !== 0) ? '<span class="neg">'+vnd(nsRow.ttV)+'</span>' : '<span style="color:#6c757d">—</span>';
-        // tlV từ Excel thường là tỉ lệ thập phân (0.xx) hoặc số nguyên (xx%)
+        tdKLV = (nsRow.klV != null && nsRow.klV !== 0) ? nsRow.klV.toLocaleString('vi-VN') : '—';
+        tdGTV = (nsRow.ttV != null && nsRow.ttV !== 0) ? vnd(nsRow.ttV) : '—';
         const tlvRaw = nsRow.tlV || 0;
         const tlvPct = tlvRaw > 1 ? tlvRaw.toFixed(1)+'%' : (tlvRaw*100).toFixed(1)+'%';
-        tdTLV = tlvRaw !== 0 ? tlvPct : '<span style="color:#6c757d">—</span>';
+        tdTLV = tlvRaw !== 0 ? tlvPct : '—';
       } else {
         tdKLV = '<span style="color:#6c757d">—</span>';
         tdGTV = '<span style="color:#6c757d">—</span>';
         tdTLV = '<span style="color:#6c757d">—</span>';
       }
+      const vuotCls = hasVuot ? ' class="tr vuot-cell"' : ' class="tr"';
+      const vuotClsTc = hasVuot ? ' class="tc vuot-cell"' : ' class="tc"';
       const tr = document.createElement('tr');
       tr.innerHTML='<td class="tl" style="padding-left:22px">'+row.n+'</td>'
         +'<td class="tc">'+hb+'</td>'
@@ -838,9 +840,9 @@ function applyData(data) {
         +'<td class="tr">'+tdTH+'</td>'
         +'<td class="tr">'+tdTHTT+'</td>'
         +'<td class="tc">'+tdTD+'</td>'
-        +'<td class="tr">'+tdKLV+'</td>'
-        +'<td class="tr">'+tdGTV+'</td>'
-        +'<td class="tc">'+tdTLV+'</td>';
+        +'<td'+vuotCls+'>'+tdKLV+'</td>'
+        +'<td'+vuotCls+'>'+tdGTV+'</td>'
+        +'<td'+vuotClsTc+'>'+tdTLV+'</td>';
       p1DetailBody.appendChild(tr);
     });
   });
@@ -982,10 +984,29 @@ function applyData(data) {
     },
     options:{
       responsive:true,maintainAspectRatio:false,
+      layout:{padding:{top:20}},
       plugins:{legend:{position:'top',labels:{font:{size:11}}},
         tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'%'}}},
       scales:{x:{ticks:{font:{size:10}}},y:{ticks:{font:{size:10},callback:v=>v+'%'}}}
-    }
+    },
+    plugins:[{
+      id:'wdLabels',
+      afterDatasetsDraw(chart){
+        const{ctx,data}=chart;
+        chart.getSortedVisibleDatasetMetas().forEach(meta=>{
+          meta.data.forEach((pt,i)=>{
+            const val=data.datasets[meta.index].data[i]||0;
+            if(val<=0) return;
+            ctx.save();
+            ctx.fillStyle='#1a2332';
+            ctx.font='bold 9px Segoe UI,Arial';
+            ctx.textAlign='center';
+            ctx.fillText(val.toFixed(1)+'%', pt.x, pt.y-4);
+            ctx.restore();
+          });
+        });
+      }
+    }]
   });
 
   // Chart Đội
