@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-11T10:09:07",
+    "generated_at": "2026-06-11T10:10:02",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -60,13 +60,6 @@
         "contractor_paid": 2494601817.0
       },
       {
-        "group": "Công việc khác",
-        "boq_value": 0,
-        "budget_value": 0,
-        "cdt_workdone": 0,
-        "contractor_paid": 5802570.0
-      },
-      {
         "group": "Hỗ trợ",
         "boq_value": 0,
         "budget_value": 350000000.0,
@@ -78,7 +71,7 @@
         "boq_value": 5893619994.408923,
         "budget_value": 3941786850.0,
         "cdt_workdone": 1994839535.4731557,
-        "contractor_paid": 1518664622.3499997
+        "contractor_paid": 1524467192.3499997
       },
       {
         "group": "LTBT, Diềm mái",
@@ -1447,7 +1440,7 @@
       "t": "12. Trần Văn Mót",
       "l": "Lần 2",
       "p": "04-2026",
-      "g": "Công việc khác",
+      "g": "LTBT",
       "h": "Trong HĐ",
       "n": "Gác lanh tô cửa",
       "u": "md",
@@ -7050,11 +7043,11 @@
       "u": "md",
       "kl": 0.0,
       "tt": 0.0,
-      "klTH": 123.18100000000001,
-      "ttTH": 3695430.0,
+      "klTH": 338.091,
+      "ttTH": 10142730.0,
       "tdTH": 0.0,
-      "klV": -123.18100000000001,
-      "ttV": -3695430.0,
+      "klV": -338.091,
+      "ttV": -10142730.0,
       "tlV": -1.0
     },
     {
@@ -8700,8 +8693,8 @@
       "ttBOQ": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
-      "dtc": 123.18100000000001,
-      "ttDTC": 3695430.0
+      "dtc": 338.091,
+      "ttDTC": 10142730.0
     },
     {
       "g": "LTBT",
