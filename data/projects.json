@@ -13,6 +13,13 @@
       "description": "Hòa Phú, Bình Dương, TP. HCM",
       "phase": "Hoàn thiện Xây và Tô",
       "has_data": true
+    },
+    {
+      "id": "Hang Hai",
+      "name": "NOXH Hàng Hải",
+      "description": "78 Trần Hưng Đạo, P. Quy Nhơn, Tỉnh Gia Lai",
+      "phase": "Hoàn thiện Xây tô - Ốp lát",
+      "has_data": false
     }
   ]
 }
