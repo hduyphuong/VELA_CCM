@@ -2,12 +2,12 @@
   "meta": {
     "project_id": "UOA",
     "project_name": "Tòa nhà UOA Tower 2",
-    "generated_at": "2026-06-12T14:06:57",
+    "generated_at": "2026-06-12T14:36:37",
     "source_file": "HDP_UOA_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Phần ngầm"
   },
   "summary": {
-    "boq_total": 0,
+    "boq_total": 25781222400.0,
     "budget_total": 13925078000.0,
     "cdt_workdone_total": 0,
     "contractor_executed_total": 410975000.0,
@@ -1788,10 +1788,12 @@
       "u": "m3",
       "bq": 533.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 220395500.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -1803,10 +1805,12 @@
       "u": "m3",
       "bq": 3795.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 1058425500.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -1818,10 +1822,12 @@
       "u": "m3",
       "bq": 4753.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 1659272300.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -1833,10 +1839,12 @@
       "u": "m3",
       "bq": 5847.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 2041187700.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -1848,10 +1856,12 @@
       "u": "m3",
       "bq": 2274.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 750647400.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -1863,10 +1873,12 @@
       "u": "m3",
       "bq": 256.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 98124800.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -1878,10 +1890,12 @@
       "u": "m3",
       "bq": 130.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 49829000.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -1893,10 +1907,12 @@
       "u": "m3",
       "bq": 12.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 3507600.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -1908,10 +1924,12 @@
       "u": "m3",
       "bq": 285.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 83305500.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -1923,10 +1941,12 @@
       "u": "m3",
       "bq": 286.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 94408600.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -1938,10 +1958,12 @@
       "u": "m2",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -1953,10 +1975,12 @@
       "u": "m2",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 2500.0,
-      "ttDTC": 75000000.0
+      "ttDTC": 75000000.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -1968,10 +1992,12 @@
       "u": "m2",
       "bq": 6704.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 1759800000.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -1983,10 +2009,12 @@
       "u": "m2",
       "bq": 1437.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 344880000.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -1998,10 +2026,12 @@
       "u": "m2",
       "bq": 469.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 123112500.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2013,10 +2043,12 @@
       "u": "m2",
       "bq": 37.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 9712500.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2028,10 +2060,12 @@
       "u": "md",
       "bq": 76.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 1368000.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2043,10 +2077,12 @@
       "u": "md",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2058,10 +2094,12 @@
       "u": "md",
       "bq": 213.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 8775600.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2073,10 +2111,12 @@
       "u": "md",
       "bq": 478.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 29540400.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2088,10 +2128,12 @@
       "u": "m2",
       "bq": 1840.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 366344000.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2103,10 +2145,12 @@
       "u": "m2",
       "bq": 15011.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 3183833100.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2118,10 +2162,12 @@
       "u": "m2",
       "bq": 8401.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 2080927700.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2133,10 +2179,12 @@
       "u": "m2",
       "bq": 2141.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 496069700.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2148,10 +2196,12 @@
       "u": "m2",
       "bq": 76.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 18825200.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2163,10 +2213,12 @@
       "u": "m2",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2178,10 +2230,12 @@
       "u": "md",
       "bq": 3217.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 66270200.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2193,10 +2247,12 @@
       "u": "md",
       "bq": 1331.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 54837200.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2208,10 +2264,12 @@
       "u": "md",
       "bq": 968.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 59822400.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2223,10 +2281,12 @@
       "u": "md",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2238,10 +2298,12 @@
       "u": "Công",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2253,10 +2315,12 @@
       "u": "kg",
       "bq": 522000.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 1827000000.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 10000.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2268,10 +2332,12 @@
       "u": "kg",
       "bq": 1998000.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 6993000000.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 10000.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2283,10 +2349,12 @@
       "u": "kg",
       "bq": 573000.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 2005500000.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 100000.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2298,10 +2366,12 @@
       "u": "kg",
       "bq": 54000.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 189000000.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 10000.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2313,10 +2383,12 @@
       "u": "kg",
       "bq": 1000.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 3500000.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 100.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2328,10 +2400,12 @@
       "u": "Công",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 27.5,
-      "ttDTC": 12375000.0
+      "ttDTC": 12375000.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2343,10 +2417,12 @@
       "u": "Công",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 31.0,
-      "ttDTC": 12400000.0
+      "ttDTC": 12400000.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2358,10 +2434,12 @@
       "u": "Công",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 20.5,
-      "ttDTC": 8200000.0
+      "ttDTC": 8200000.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2373,10 +2451,12 @@
       "u": "Giờ",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 61.5,
-      "ttDTC": 3690000.0
+      "ttDTC": 3690000.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2388,10 +2468,12 @@
       "u": "Người/tháng",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0
+      "ttDTC": 0.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2403,10 +2485,12 @@
       "u": "cái",
       "bq": 2.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 100000000.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 1.0,
-      "ttDTC": 12000000.0
+      "ttDTC": 12000000.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2418,10 +2502,12 @@
       "u": "md",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 18.0,
-      "ttDTC": 9000000.0
+      "ttDTC": 9000000.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2433,10 +2519,12 @@
       "u": "md",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 88.7,
-      "ttDTC": 115310000.0
+      "ttDTC": 115310000.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2448,10 +2536,12 @@
       "u": "công",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 75.0,
-      "ttDTC": 37500000.0
+      "ttDTC": 37500000.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2463,10 +2553,12 @@
       "u": "md",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 106.0,
-      "ttDTC": 26500000.0
+      "ttDTC": 26500000.0,
+      "ttNC_cdt": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
@@ -2478,10 +2570,12 @@
       "u": "md",
       "bq": 0.0,
       "ttBOQ": 0.0,
+      "ttBOQ_R": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 96.0,
-      "ttDTC": 81600000.0
+      "ttDTC": 81600000.0,
+      "ttNC_cdt": 0.0
     }
   ]
 }

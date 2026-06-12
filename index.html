@@ -15,7 +15,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;fo
 .header{background:linear-gradient(135deg,#3B2D6F 0%,#E8552A 100%);color:white;padding:0.75rem 1.5rem 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .header-top{display:flex;justify-content:space-between;align-items:center;padding-bottom:0.5rem;gap:0.75rem;flex-wrap:wrap}
 .header-left{display:flex;align-items:center;gap:0.75rem}
-.header-logo{height:40px;width:auto;flex-shrink:0;background:transparent;mix-blend-mode:multiply}
+.header-logo{height:40px;width:auto;flex-shrink:0;background:transparent;mix-blend-mode:screen;filter:brightness(1.2)}
 .header h1{font-size:1.0625rem;font-weight:700}
 .header .sub{font-size:0.6875rem;opacity:.8;margin-top:0.1875rem}
 .header-right{display:flex;align-items:center;gap:0.625rem;flex-shrink:0}
@@ -218,12 +218,14 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       </div>
     </div>
     <div class="header-right">
-      <div class="meta" id="hdrMeta">
-        <strong id="hdrPeriod">—</strong><br>
-        Lập bởi: <strong>Huỳnh Phương</strong><br>
-        <span id="hdrPhase">—</span>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+        <div class="meta" id="hdrMeta">
+          <strong id="hdrPeriod">—</strong><br>
+          Lập bởi: <strong>Huỳnh Phương</strong><br>
+          <span id="hdrPhase">—</span>
+        </div>
+        <button class="btn-print-hdr" onclick="window.print()">🖨️ In báo cáo</button>
       </div>
-      <button class="btn-print-hdr" onclick="window.print()">🖨️ In báo cáo</button>
     </div>
   </div>
   <div class="project-switcher" id="projectSwitcher"></div>
@@ -663,7 +665,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 
   <div class="grid-2">
     <div class="card mb0">
-      <div class="stitle">Tổng hợp theo cơ cấu</div>
+      <div class="stitle">Tổng hợp sử dụng theo cơ cấu</div>
       <div id="p5CocauWrap">
         <div class="cmp-row"><span class="cmp-label" style="width:160px">Prelim</span><div class="cmp-track"><div class="cmp-fill" id="p5bar_pre" style="width:0%;background:#E8552A"></div></div><span class="cmp-value" id="p5val_pre" style="color:#E8552A">—</span></div>
         <div class="cmp-row"><span class="cmp-label" style="width:160px">Dự phòng</span><div class="cmp-track"><div class="cmp-fill" id="p5bar_dp" style="width:0%;background:#F5A623"></div></div><span class="cmp-value" id="p5val_dp" style="color:#F5A623">—</span></div>
@@ -835,7 +837,8 @@ function applyData(data) {
   const totTT  = TT.reduce((a,r) => a+(r.tt||0), 0);
   const totCL  = TT.reduce((a,r) => a+(r.cl||0), 0);
   const totCDT = s.cdt_workdone_total || 0;
-  const boq    = s.boq_total    || 0;
+  // BOQ = tổng cột R (Thành tiền Tổng) sheet WD — dùng ttBOQ_R thay vì ttBOQ (formula cell trả None)
+  const boq    = WD.reduce((a,r)=>a+(r.ttBOQ_R||r.ttBOQ||0),0) || s.boq_total || 0;
   const nsTotal= s.budget_total || 0;
   const lnDK   = boq - nsTotal;
   const pctLnDK= boq > 0 ? ((lnDK/boq)*100).toFixed(1) : '0';
@@ -981,8 +984,8 @@ function applyData(data) {
     +'<td class="tc" style="color:'+(tot_ln>=0?'#2e7d32':'#c62828')+'">'+(tot_ln>=0?'+':'-')+Math.abs(tot_pctLn)+'%</td>'
     +'<td></td></tr>';
 
-  // --- KPI Page 2: CDT = sum(WD.ttCDT), TH = sum(TT mã NC, gt) ---
-  const p2CDT = WD.reduce((a,r)=>a+(r.ttCDT||0),0);
+  // --- KPI Page 2: CDT = sum(WD.ttNC_cdt) [cột X sheet WD], TH = sum(TT mã NC, gt) ---
+  const p2CDT = WD.reduce((a,r)=>a+(r.ttNC_cdt||r.ttCDT||0),0);
   const p2TH  = thNC_val;
   el('kpi2_cdt').textContent = fmtTy(p2CDT);
   el('kpi2_th').textContent  = fmtTy(p2TH);
