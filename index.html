@@ -213,6 +213,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <div class="sub">CÔNG TY CỔ PHẦN KỸ THUẬT XÂY DỰNG VELA</div>
         <h1>BÁO CÁO QUẢN LÝ THANH QUYẾT TOÁN – TỔ ĐỘI</h1>
         <div class="sub" id="hdrProjectSub">Đang tải dữ liệu...</div>
+        <button class="btn-print-hdr" onclick="window.print()" style="margin-top:0.375rem">🖨️ In báo cáo</button>
       </div>
     </div>
     <div class="header-right">
@@ -221,7 +222,6 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         Lập bởi: <strong>Huỳnh Phương</strong><br>
         <span id="hdrPhase">—</span>
       </div>
-      <button class="btn-print-hdr" onclick="window.print()">🖨️ In báo cáo</button>
     </div>
   </div>
   <div class="project-switcher" id="projectSwitcher"></div>
@@ -270,7 +270,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <div class="kpi-sub" id="kpi1_boq_sub">Hợp đồng gốc + phát sinh duyệt</div>
     </div>
     <div class="kpi-card t">
-      <div class="kpi-label">Ngân sách nội bộ</div>
+      <div class="kpi-label">Ngân sách dự án</div>
       <div class="kpi-value" id="kpi1_ns" style="color:#00796b">—</div>
       <div class="kpi-sub" id="kpi1_ns_sub">Nhân công + Vật tư + Máy</div>
     </div>
@@ -836,7 +836,7 @@ function applyData(data) {
   el('kpi1_boq').textContent = fmtAuto(boq);
   el('kpi1_boq_sub').textContent = 'Hợp đồng gốc + phát sinh duyệt';
   el('kpi1_ns').textContent  = fmtAuto(nsTotal);
-  el('kpi1_ns_sub').textContent  = 'VNĐ – Đơn giá khoán đội';
+  el('kpi1_ns_sub').textContent  = 'VNĐ – Ngân sách dự án';
 
   const lnDKAbs = Math.abs(lnDK);
   el('kpi1_ln_dk').textContent = (lnDK < 0 ? '-' : '') + fmtAuto(lnDKAbs);
@@ -845,7 +845,7 @@ function applyData(data) {
 
   el('kpi1_ln_ht').textContent = (lnHT < 0 ? '-' : '') + fmtAuto(Math.abs(lnHT));
   el('kpi1_ln_ht').style.color = lnHT >= 0 ? '#2e7d32' : '#c62828';
-  el('kpi1_ln_ht_sub').textContent = (lnHT>=0?'+':'-') + Math.abs(pctLnHT) + '% / CĐT XN  |  CĐT – Đội TH';
+  el('kpi1_ln_ht_sub').textContent = (lnHT>=0?'+':'-') + Math.abs(pctLnHT) + '% / CĐT XN  |  CĐT – Chi phí TH';
   el('kpi1_ln_ht_card').style.borderLeftColor = lnHT >= 0 ? '#2e7d32' : '#c62828';
 
   const setBar = (barId, valId, val, base, color, fmt) => {
@@ -878,30 +878,28 @@ function applyData(data) {
       +'<div style="font-size:0.625rem;color:#6c757d;margin:-5px 0 5px 125px">'+r.note+' — '+pctBoq+' BOQ</div>';
   });
 
-  // --- Cơ cấu ngân sách: Nhân công / Vật tư / CPQL BCH / Overhead ---
-  // Phân loại từ NS[]: nhóm theo mã chinh prefix hoặc tên hang_muc
-  const nsNC  = NS.filter(r => /^(CONG_NHAT|CN_|NC_|NHAN_CONG)/i.test(r.mc||'') || /nhân công|cong nhat/i.test(r.n||'')).reduce((a,r)=>a+(r.tt||0),0);
-  const nsVT  = NS.filter(r => /^(VAT_TU|VT_|BE_TONG|BT_|CAPPING|CB_|THEP|TP_)/i.test(r.mc||'') || /vật tư|bê tông|thép|capping/i.test(r.n||'')).reduce((a,r)=>a+(r.tt||0),0);
-  const nsQL  = NS.filter(r => /^(CPQL|QL_|BCH|OH_BCH)/i.test(r.mc||'') || /quản lý|bch|cpql/i.test(r.n||'')).reduce((a,r)=>a+(r.tt||0),0);
-  const nsOH  = NS.filter(r => /^(OVERHEAD|OH_|HOC)/i.test(r.mc||'') || /overhead|gián tiếp/i.test(r.n||'')).reduce((a,r)=>a+(r.tt||0),0);
-  // Nếu chưa có phân loại → dùng nsTotal cho cột đầu
+  // --- Cơ cấu ngân sách: Nhân công lấy từ ô O4 Data-NS (qua summary), còn lại tạm = 0 ---
+  const nsNC = s.ns_nc_val || 0;
+  const nsVT = 0;
+  const nsQL = 0;
+  const nsOH = 0;
   const nsBaseDisp = nsTotal > 0 ? nsTotal : 1;
-  setBar('cmp_nc_bar','cmp_nc_val', nsNC||0, nsBaseDisp, '#1565c0', fmtAuto);
-  setBar('cmp_vt_bar','cmp_vt_val', nsVT||0, nsBaseDisp, '#2e7d32', fmtAuto);
-  setBar('cmp_ql_bar','cmp_ql_val', nsQL||0, nsBaseDisp, '#E8552A', fmtAuto);
-  setBar('cmp_oh_bar','cmp_oh_val', nsOH||0, nsBaseDisp, '#888',    fmtAuto);
+  setBar('cmp_nc_bar','cmp_nc_val', nsNC, nsBaseDisp, '#1565c0', fmtAuto);
+  setBar('cmp_vt_bar','cmp_vt_val', nsVT, nsBaseDisp, '#2e7d32', fmtAuto);
+  setBar('cmp_ql_bar','cmp_ql_val', nsQL, nsBaseDisp, '#E8552A', fmtAuto);
+  setBar('cmp_oh_bar','cmp_oh_val', nsOH, nsBaseDisp, '#888',    fmtAuto);
   el('cmp_ns_total').textContent = fmtAuto(nsTotal);
 
-  // --- Cơ cấu chi phí hiện tại: phân loại TT[] tương tự ---
-  const thNC = TT.filter(r => /^(CONG_NHAT|CN_|NC_|NHAN_CONG)/i.test((r.mc||r.g)||'') || /nhân công|cong nhat/i.test(r.n||'')).reduce((a,r)=>a+(r.gt||0),0);
-  const thVT = TT.filter(r => /^(VAT_TU|VT_|BE_TONG|BT_|CAPPING|CB_|THEP|TP_)/i.test((r.mc||r.g)||'') || /vật tư|bê tông|thép|capping/i.test(r.n||'')).reduce((a,r)=>a+(r.gt||0),0);
-  const thQL = TT.filter(r => /^(CPQL|QL_|BCH|OH_BCH)/i.test((r.mc||r.g)||'') || /quản lý|bch|cpql/i.test(r.n||'')).reduce((a,r)=>a+(r.gt||0),0);
-  const thOH = TT.filter(r => /^(OVERHEAD|OH_|HOC)/i.test((r.mc||r.g)||'') || /overhead|gián tiếp/i.test(r.n||'')).reduce((a,r)=>a+(r.gt||0),0);
+  // --- Cơ cấu chi phí hiện tại: Nhân công lấy từ ô Q4 Data-NS (qua summary), còn lại tạm = 0 ---
+  const thNC = s.ns_th_val || 0;
+  const thVT = 0;
+  const thQL = 0;
+  const thOH = 0;
   const thBase = totTH > 0 ? totTH : 1;
-  setBar('cmpb_nc_bar','cmpb_nc_val', thNC||0, thBase, '#1565c0', fmtAuto);
-  setBar('cmpb_vt_bar','cmpb_vt_val', thVT||0, thBase, '#2e7d32', fmtAuto);
-  setBar('cmpb_ql_bar','cmpb_ql_val', thQL||0, thBase, '#E8552A', fmtAuto);
-  setBar('cmpb_oh_bar','cmpb_oh_val', thOH||0, thBase, '#888',    fmtAuto);
+  setBar('cmpb_nc_bar','cmpb_nc_val', thNC, thBase, '#1565c0', fmtAuto);
+  setBar('cmpb_vt_bar','cmpb_vt_val', thVT, thBase, '#2e7d32', fmtAuto);
+  setBar('cmpb_ql_bar','cmpb_ql_val', thQL, thBase, '#E8552A', fmtAuto);
+  setBar('cmpb_oh_bar','cmpb_oh_val', thOH, thBase, '#888',    fmtAuto);
   el('cmpb_th_total').textContent = fmtAuto(totTH);
 
   // --- Bảng chi tiết cơ cấu theo gói thầu ---
@@ -920,18 +918,21 @@ function applyData(data) {
     const pctLn= cdtV>0 ? ((lnV/cdtV)*100).toFixed(1) : null;
     tot_boq2+=boqV; tot_ns2+=nsV; tot_cdt2+=cdtV; tot_th2+=thV;
 
-    // Trạng thái dựa theo % BOQ
+    // Trạng thái — giống P2 Tổng hợp khối lượng theo gói thầu
+    const thVTT = TT.filter(r=>r.g===g).reduce((a,r)=>a+(r.gt||0),0);
+    const cdtVTT = gWD.reduce((a,r)=>a+(r.ttCDT||0),0);
+    const dtcKL  = NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.klTH||0),0);
+    const cdtKL  = gWD.reduce((a,r)=>a+(r.cdt||0),0);
+    const clKL   = dtcKL - cdtKL;
     let badge;
-    if(pctB===null)
-      badge='<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>';
-    else if(parseFloat(pctB)>=100)
-      badge='<span class="badge" style="background:#e8f5e9;color:#2e7d32;font-size:9px">Hoàn thành</span>';
-    else if(parseFloat(pctB)>=70)
-      badge='<span class="badge bg-b" style="font-size:9px">Đang TH</span>';
-    else if(parseFloat(pctB)>0)
-      badge='<span class="badge bg-v" style="font-size:9px">Mới bắt đầu</span>';
+    if(cdtKL===0 && dtcKL===0)
+      badge='<span class="badge bg-b" style="font-size:9px">Chưa phân công</span>';
+    else if(cdtKL===0 && dtcKL>0)
+      badge='<span class="badge" style="background:#fff3cd;color:#7d3000;font-size:9px">Chưa có KL CĐT</span>';
+    else if(clKL>0)
+      badge='<span class="badge bg-r" style="font-size:9px">Vượt '+pct(clKL,cdtKL)+'%</span>';
     else
-      badge='<span class="badge" style="background:#f1f3f4;color:#6c757d;font-size:9px">Chưa TH</span>';
+      badge='<span class="badge bg-g" style="font-size:9px">Trong hạn</span>';
 
     const lnColor = lnV>=0 ? '#2e7d32' : '#c62828';
     const tr = document.createElement('tr');
@@ -1048,12 +1049,20 @@ function applyData(data) {
     const pctT = pct(ttT, gtT);
     const pctNum = parseFloat(pctT);
     const color = pctNum>=100?'#2e7d32':pctNum>=90?'#E8552A':'#c62828';
-    // Xác định Đợt: lấy đợt cao nhất của đội
+    // Xác định Đợt: nếu Quyết toán → "Quyết toán"; ngược lại lấy số lần cao nhất
     const rounds = rows.map(r=>r.l||'').filter(Boolean);
     const hasQT = rounds.some(r => /quy.t.to.n/i.test(r));
-    const dotLabel = hasQT
-      ? '<span class="badge" style="background:#e8f5e9;color:#2e7d32;font-size:9px">Quyết toán</span>'
-      : '<span style="font-size:0.6875rem">Đang Thực hiện</span>';
+    let dotLabel;
+    if(hasQT) {
+      dotLabel = '<span class="badge" style="background:#e8f5e9;color:#2e7d32;font-size:9px">Quyết toán</span>';
+    } else {
+      // Lấy số lần cao nhất (ví dụ "Lần 8" → 8)
+      const nums = rounds.map(r => { const m=r.match(/\d+/); return m?parseInt(m[0]):0; }).filter(n=>n>0);
+      const maxRound = nums.length>0 ? Math.max(...nums) : null;
+      dotLabel = maxRound!==null
+        ? '<span style="font-size:0.6875rem;font-weight:600">'+maxRound+'</span>'
+        : '<span style="font-size:0.6875rem;color:#6c757d">—</span>';
+    }
     // Trạng thái: chỉ 2 giá trị
     const statusBadge = hasQT
       ? '<span class="badge" style="background:#e8f5e9;color:#2e7d32">Quyết toán</span>'
