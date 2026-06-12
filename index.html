@@ -15,7 +15,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;fo
 .header{background:linear-gradient(135deg,#3B2D6F 0%,#E8552A 100%);color:white;padding:0.75rem 1.5rem 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .header-top{display:flex;justify-content:space-between;align-items:center;padding-bottom:0.5rem;gap:0.75rem;flex-wrap:wrap}
 .header-left{display:flex;align-items:center;gap:0.75rem}
-.header-logo{height:40px;width:auto;flex-shrink:0;filter:drop-shadow(0 0 0 transparent)}
+.header-logo{height:40px;width:auto;flex-shrink:0;background:transparent;mix-blend-mode:multiply}
 .header h1{font-size:1.0625rem;font-weight:700}
 .header .sub{font-size:0.6875rem;opacity:.8;margin-top:0.1875rem}
 .header-right{display:flex;align-items:center;gap:0.625rem;flex-shrink:0}
@@ -91,6 +91,7 @@ th.tl,td.tl{text-align:left}
 tbody tr:nth-child(even){background:#f8f9fa}
 tbody tr:hover{background:#fef3ee}
 tbody td{padding:0.375rem 0.5625rem;border-bottom:1px solid #e9ecef;white-space:nowrap}
+td.wrap{white-space:normal;word-break:break-word}
 td.tr{text-align:right;font-variant-numeric:tabular-nums}
 td.tc{text-align:center}
 tfoot tr{background:#f3f0ff}
@@ -213,7 +214,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <div class="sub">CÔNG TY CỔ PHẦN KỸ THUẬT XÂY DỰNG VELA</div>
         <h1>BÁO CÁO QUẢN LÝ THANH QUYẾT TOÁN – TỔ ĐỘI</h1>
         <div class="sub" id="hdrProjectSub">Đang tải dữ liệu...</div>
-        <button class="btn-print-hdr" onclick="window.print()" style="margin-top:0.375rem">🖨️ In báo cáo</button>
+        <div class="sub" id="hdrSource" style="opacity:.75;margin-top:2px"></div>
       </div>
     </div>
     <div class="header-right">
@@ -222,6 +223,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         Lập bởi: <strong>Huỳnh Phương</strong><br>
         <span id="hdrPhase">—</span>
       </div>
+      <button class="btn-print-hdr" onclick="window.print()">🖨️ In báo cáo</button>
     </div>
   </div>
   <div class="project-switcher" id="projectSwitcher"></div>
@@ -239,7 +241,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <span class="nav-num">4</span>BC Vật tư
     </button>
     <button class="nav-btn" onclick="showPage('p5',this)">
-      <span class="nav-num">5</span>BC Gián tiếp
+      <span class="nav-num">5</span>BC CP Gián tiếp
     </button>
   </nav>
 </div>
@@ -299,8 +301,9 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <div id="p1CocauNS">
         <div class="cmp-row"><span class="cmp-label">Nhân công</span><div class="cmp-track"><div class="cmp-fill" id="cmp_nc_bar" style="width:0%;background:#1565c0"></div></div><span class="cmp-value" id="cmp_nc_val" style="color:#1565c0">—</span></div>
         <div class="cmp-row"><span class="cmp-label">Vật tư</span><div class="cmp-track"><div class="cmp-fill" id="cmp_vt_bar" style="width:0%;background:#2e7d32"></div></div><span class="cmp-value" id="cmp_vt_val" style="color:#2e7d32">—</span></div>
-        <div class="cmp-row"><span class="cmp-label">CPQL BCH</span><div class="cmp-track"><div class="cmp-fill" id="cmp_ql_bar" style="width:0%;background:#E8552A"></div></div><span class="cmp-value" id="cmp_ql_val" style="color:#E8552A">—</span></div>
-        <div class="cmp-row"><span class="cmp-label">Overhead</span><div class="cmp-track"><div class="cmp-fill" id="cmp_oh_bar" style="width:0%;background:#888"></div></div><span class="cmp-value" id="cmp_oh_val" style="color:#495057">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Prelim</span><div class="cmp-track"><div class="cmp-fill" id="cmp_pre_bar" style="width:0%;background:#E8552A"></div></div><span class="cmp-value" id="cmp_pre_val" style="color:#E8552A">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Dự phòng</span><div class="cmp-track"><div class="cmp-fill" id="cmp_dp_bar" style="width:0%;background:#F5A623"></div></div><span class="cmp-value" id="cmp_dp_val" style="color:#F5A623">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Quản lý DN</span><div class="cmp-track"><div class="cmp-fill" id="cmp_qldn_bar" style="width:0%;background:#888"></div></div><span class="cmp-value" id="cmp_qldn_val" style="color:#495057">—</span></div>
       </div>
       <div id="p1CocauNS_total" style="margin-top:8px;padding-top:8px;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;font-size:0.71875rem;font-weight:700">
         <span>Tổng ngân sách</span><span id="cmp_ns_total" style="color:#00796b">—</span>
@@ -312,8 +315,9 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <div id="p1CocauCP">
         <div class="cmp-row"><span class="cmp-label">Nhân công</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_nc_bar" style="width:0%;background:#1565c0"></div></div><span class="cmp-value" id="cmpb_nc_val" style="color:#1565c0">—</span></div>
         <div class="cmp-row"><span class="cmp-label">Vật tư</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_vt_bar" style="width:0%;background:#2e7d32"></div></div><span class="cmp-value" id="cmpb_vt_val" style="color:#2e7d32">—</span></div>
-        <div class="cmp-row"><span class="cmp-label">CPQL BCH</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_ql_bar" style="width:0%;background:#E8552A"></div></div><span class="cmp-value" id="cmpb_ql_val" style="color:#E8552A">—</span></div>
-        <div class="cmp-row"><span class="cmp-label">Overhead</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_oh_bar" style="width:0%;background:#888"></div></div><span class="cmp-value" id="cmpb_oh_val" style="color:#495057">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Prelim</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_pre_bar" style="width:0%;background:#E8552A"></div></div><span class="cmp-value" id="cmpb_pre_val" style="color:#E8552A">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Dự phòng</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_dp_bar" style="width:0%;background:#F5A623"></div></div><span class="cmp-value" id="cmpb_dp_val" style="color:#F5A623">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Quản lý DN</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_qldn_bar" style="width:0%;background:#888"></div></div><span class="cmp-value" id="cmpb_qldn_val" style="color:#495057">—</span></div>
       </div>
       <div id="p1CocauCP_total" style="margin-top:8px;padding-top:8px;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;font-size:0.71875rem;font-weight:700">
         <span>Tổng chi phí TH</span><span id="cmpb_th_total" style="color:#E8552A">—</span>
@@ -512,7 +516,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     <table>
       <thead><tr>
         <th>STT</th><th class="tl">Đội thi công</th><th>Đợt TT</th><th>Thời gian</th>
-        <th class="tl" style="min-width:180px">Nội dung công việc</th>
+        <th class="tl" style="min-width:180px;max-width:280px">Nội dung công việc</th>
         <th>Gói thầu</th><th>HĐ/PS</th><th>ĐVT</th>
         <th>KL</th><th>Đơn giá (VNĐ)</th>
         <th>GT TH (VNĐ)</th><th>Tỉ lệ TT</th>
@@ -564,8 +568,6 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <div class="kpi-sub">NS – GT ORDER</div>
     </div>
   </div>
-
-  <div class="info" style="margin-bottom:0.875rem">ℹ️ <strong>Tab BC Vật tư</strong> đang được phát triển. Dữ liệu sẽ được cập nhật khi có sheet Data-Vật tư trong FILE_BCTQT.</div>
 
   <div class="grid-2">
     <div class="card mb0">
@@ -659,18 +661,13 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     </div>
   </div>
 
-  <div class="info" style="margin-bottom:0.875rem">ℹ️ <strong>BC Gián tiếp</strong> thể hiện chi phí CPQL BCH và Overhead của dự án. Dữ liệu tự động khi có sheet Data-Gián tiếp trong FILE_BCTQT.</div>
-
   <div class="grid-2">
     <div class="card mb0">
       <div class="stitle">Tổng hợp theo cơ cấu</div>
       <div id="p5CocauWrap">
-        <div class="cmp-row"><span class="cmp-label" style="width:160px">Lương BQL công trường</span><div class="cmp-track"><div class="cmp-fill" id="p5bar_luong" style="width:0%;background:#1565c0"></div></div><span class="cmp-value" id="p5val_luong" style="color:#1565c0">—</span></div>
-        <div class="cmp-row"><span class="cmp-label" style="width:160px">Máy móc &amp; thiết bị</span><div class="cmp-track"><div class="cmp-fill" id="p5bar_may" style="width:0%;background:#2e7d32"></div></div><span class="cmp-value" id="p5val_may" style="color:#2e7d32">—</span></div>
-        <div class="cmp-row"><span class="cmp-label" style="width:160px">Vật tư phụ &amp; ANHT</span><div class="cmp-track"><div class="cmp-fill" id="p5bar_vtp" style="width:0%;background:#E8552A"></div></div><span class="cmp-value" id="p5val_vtp" style="color:#E8552A">—</span></div>
-        <div class="cmp-row"><span class="cmp-label" style="width:160px">Điện nước văn phòng</span><div class="cmp-track"><div class="cmp-fill" id="p5bar_dn" style="width:0%;background:#00796b"></div></div><span class="cmp-value" id="p5val_dn" style="color:#00796b">—</span></div>
-        <div class="cmp-row"><span class="cmp-label" style="width:160px">BH CT &amp; Pháp lý</span><div class="cmp-track"><div class="cmp-fill" id="p5bar_bh" style="width:0%;background:#F5A623"></div></div><span class="cmp-value" id="p5val_bh" style="color:#F5A623">—</span></div>
-        <div class="cmp-row"><span class="cmp-label" style="width:160px">HO Overhead</span><div class="cmp-track"><div class="cmp-fill" id="p5bar_ho" style="width:0%;background:#3B2D6F"></div></div><span class="cmp-value" id="p5val_ho" style="color:#3B2D6F">—</span></div>
+        <div class="cmp-row"><span class="cmp-label" style="width:160px">Prelim</span><div class="cmp-track"><div class="cmp-fill" id="p5bar_pre" style="width:0%;background:#E8552A"></div></div><span class="cmp-value" id="p5val_pre" style="color:#E8552A">—</span></div>
+        <div class="cmp-row"><span class="cmp-label" style="width:160px">Dự phòng</span><div class="cmp-track"><div class="cmp-fill" id="p5bar_dp" style="width:0%;background:#F5A623"></div></div><span class="cmp-value" id="p5val_dp" style="color:#F5A623">—</span></div>
+        <div class="cmp-row"><span class="cmp-label" style="width:160px">Quản lý DN</span><div class="cmp-track"><div class="cmp-fill" id="p5bar_qldn" style="width:0%;background:#3B2D6F"></div></div><span class="cmp-value" id="p5val_qldn" style="color:#3B2D6F">—</span></div>
       </div>
       <div style="margin-top:10px;padding-top:8px;border-top:1px solid #e9ecef">
         <div class="tbl-wrap">
@@ -698,7 +695,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   </div>
 
   <div class="card mb0" style="margin-top:0.875rem">
-    <div class="stitle">Bảng chi tiết thanh toán</div>
+    <div class="stitle">Bảng chi tiết sử dụng</div>
     <div class="tbl-wrap">
     <table>
       <thead><tr>
@@ -814,11 +811,26 @@ function applyData(data) {
   const gen = meta.generated_at ? new Date(meta.generated_at) : null;
   el('hdrPeriod').textContent = 'Cập nhật: '
     + (gen ? String(gen.getMonth()+1).padStart(2,'0')+'/'+gen.getFullYear() : '—');
+  if(meta.source_file && gen) {
+    const hh = String(gen.getHours()).padStart(2,'0');
+    const mm2 = String(gen.getMinutes()).padStart(2,'0');
+    const ss = String(gen.getSeconds()).padStart(2,'0');
+    const dd = String(gen.getDate()).padStart(2,'0');
+    const mo = String(gen.getMonth()+1).padStart(2,'0');
+    el('hdrSource').textContent = 'Nguồn: ' + meta.source_file
+      + '  |  ' + hh+':'+mm2+':'+ss+' '+dd+'/'+mo+'/'+gen.getFullYear();
+  }
   el('footerBar').innerHTML = 'VELA E&C &nbsp;|&nbsp; Cost & Contract Management &nbsp;|&nbsp;'
     + ' ' + (meta.project_name||'') + ' &nbsp;|&nbsp; Lập bởi: <strong>Huỳnh Phương</strong>'
     + (gen ? ' &nbsp;|&nbsp; ' + gen.toLocaleDateString('vi-VN') : '');
 
-  // --- Tính tổng ---
+  // --- Helper loc theo ma loai ---
+  const ttByCode  = code => TT.filter(r => r.a === code);
+  const nsByCode  = code => NS.filter(r => r.a === code);
+  const ttByCodes = codes => TT.filter(r => codes.includes(r.a));
+  const nsByCodes = codes => NS.filter(r => codes.includes(r.a));
+
+  // --- Tính tổng toàn bộ ---
   const totTH  = TT.reduce((a,r) => a+(r.gt||0), 0);
   const totTT  = TT.reduce((a,r) => a+(r.tt||0), 0);
   const totCL  = TT.reduce((a,r) => a+(r.cl||0), 0);
@@ -831,6 +843,20 @@ function applyData(data) {
   const pctLnHT= totCDT > 0 ? ((lnHT/totCDT)*100).toFixed(1) : '0';
   const groups = [...new Set([...WD.map(r=>r.g), ...TT.map(r=>r.g)])].filter(Boolean).sort();
   const teams  = [...new Set(TT.map(r=>r.t))].filter(Boolean).sort();
+
+  // --- Cơ cấu NS theo mã loại (cột A Data-NS) ---
+  const nsNC_val  = nsByCode('NC').reduce((a,r)=>a+(r.tt||0),0);
+  const nsVT_val  = nsByCode('VT').reduce((a,r)=>a+(r.tt||0),0);
+  const nsPRE_val = nsByCode('PRE').reduce((a,r)=>a+(r.tt||0),0);
+  const nsDP_val  = nsByCode('DP').reduce((a,r)=>a+(r.tt||0),0);
+  const nsQLDN_val= nsByCode('QLDN').reduce((a,r)=>a+(r.tt||0),0);
+
+  // --- Cơ cấu CP TH theo mã loại (cột A Data-TT) ---
+  const thNC_val  = ttByCode('NC').reduce((a,r)=>a+(r.gt||0),0);
+  const thVT_val  = ttByCode('VT').reduce((a,r)=>a+(r.gt||0),0);
+  const thPRE_val = ttByCode('PRE').reduce((a,r)=>a+(r.gt||0),0);
+  const thDP_val  = ttByCode('DP').reduce((a,r)=>a+(r.gt||0),0);
+  const thQLDN_val= ttByCode('QLDN').reduce((a,r)=>a+(r.gt||0),0);
 
   // --- KPI Page 1 ---
   el('kpi1_boq').textContent = fmtAuto(boq);
@@ -878,28 +904,22 @@ function applyData(data) {
       +'<div style="font-size:0.625rem;color:#6c757d;margin:-5px 0 5px 125px">'+r.note+' — '+pctBoq+' BOQ</div>';
   });
 
-  // --- Cơ cấu ngân sách: Nhân công lấy từ ô O4 Data-NS (qua summary), còn lại tạm = 0 ---
-  const nsNC = s.ns_nc_val || 0;
-  const nsVT = 0;
-  const nsQL = 0;
-  const nsOH = 0;
+  // --- Cơ cấu ngân sách theo mã loại cột A Data-NS ---
   const nsBaseDisp = nsTotal > 0 ? nsTotal : 1;
-  setBar('cmp_nc_bar','cmp_nc_val', nsNC, nsBaseDisp, '#1565c0', fmtAuto);
-  setBar('cmp_vt_bar','cmp_vt_val', nsVT, nsBaseDisp, '#2e7d32', fmtAuto);
-  setBar('cmp_ql_bar','cmp_ql_val', nsQL, nsBaseDisp, '#E8552A', fmtAuto);
-  setBar('cmp_oh_bar','cmp_oh_val', nsOH, nsBaseDisp, '#888',    fmtAuto);
+  setBar('cmp_nc_bar',  'cmp_nc_val',   nsNC_val,   nsBaseDisp, '#1565c0', fmtAuto);
+  setBar('cmp_vt_bar',  'cmp_vt_val',   nsVT_val,   nsBaseDisp, '#2e7d32', fmtAuto);
+  setBar('cmp_pre_bar', 'cmp_pre_val',  nsPRE_val,  nsBaseDisp, '#E8552A', fmtAuto);
+  setBar('cmp_dp_bar',  'cmp_dp_val',   nsDP_val,   nsBaseDisp, '#F5A623', fmtAuto);
+  setBar('cmp_qldn_bar','cmp_qldn_val', nsQLDN_val, nsBaseDisp, '#888',    fmtAuto);
   el('cmp_ns_total').textContent = fmtAuto(nsTotal);
 
-  // --- Cơ cấu chi phí hiện tại: Nhân công lấy từ ô Q4 Data-NS (qua summary), còn lại tạm = 0 ---
-  const thNC = s.ns_th_val || 0;
-  const thVT = 0;
-  const thQL = 0;
-  const thOH = 0;
+  // --- Cơ cấu chi phí hiện tại theo mã loại cột A Data-TT ---
   const thBase = totTH > 0 ? totTH : 1;
-  setBar('cmpb_nc_bar','cmpb_nc_val', thNC, thBase, '#1565c0', fmtAuto);
-  setBar('cmpb_vt_bar','cmpb_vt_val', thVT, thBase, '#2e7d32', fmtAuto);
-  setBar('cmpb_ql_bar','cmpb_ql_val', thQL, thBase, '#E8552A', fmtAuto);
-  setBar('cmpb_oh_bar','cmpb_oh_val', thOH, thBase, '#888',    fmtAuto);
+  setBar('cmpb_nc_bar',  'cmpb_nc_val',   thNC_val,   thBase, '#1565c0', fmtAuto);
+  setBar('cmpb_vt_bar',  'cmpb_vt_val',   thVT_val,   thBase, '#2e7d32', fmtAuto);
+  setBar('cmpb_pre_bar', 'cmpb_pre_val',  thPRE_val,  thBase, '#E8552A', fmtAuto);
+  setBar('cmpb_dp_bar',  'cmpb_dp_val',   thDP_val,   thBase, '#F5A623', fmtAuto);
+  setBar('cmpb_qldn_bar','cmpb_qldn_val', thQLDN_val, thBase, '#888',    fmtAuto);
   el('cmpb_th_total').textContent = fmtAuto(totTH);
 
   // --- Bảng chi tiết cơ cấu theo gói thầu ---
@@ -961,10 +981,12 @@ function applyData(data) {
     +'<td class="tc" style="color:'+(tot_ln>=0?'#2e7d32':'#c62828')+'">'+(tot_ln>=0?'+':'-')+Math.abs(tot_pctLn)+'%</td>'
     +'<td></td></tr>';
 
-  // --- KPI Page 2 ---
-  el('kpi2_cdt').textContent = fmtTy(totCDT);
-  el('kpi2_th').textContent  = fmtTy(totTH);
-  const clVal = totTH - totCDT;
+  // --- KPI Page 2: CDT = sum(WD.ttCDT), TH = sum(TT mã NC, gt) ---
+  const p2CDT = WD.reduce((a,r)=>a+(r.ttCDT||0),0);
+  const p2TH  = thNC_val;
+  el('kpi2_cdt').textContent = fmtTy(p2CDT);
+  el('kpi2_th').textContent  = fmtTy(p2TH);
+  const clVal = p2TH - p2CDT;
   el('kpi2_cl_val').textContent = fmtTy(Math.abs(clVal));
   el('kpi2_cl_val').style.color = clVal > 0 ? '#c62828' : '#2e7d32';
   el('kpi2_cl_card').style.borderLeftColor = clVal > 0 ? '#c62828' : '#2e7d32';
@@ -1018,31 +1040,35 @@ function applyData(data) {
     p2WdGroupBody.appendChild(tr);
   });
 
-  // --- KPI Page 3 ---
-  const totPS  = TT.filter(r => r.h && r.h.includes('Ngoài')).reduce((a,r) => a+(r.gt||0), 0);
-  const pctTT  = pct(totTT, totTH);
-  const pctCLv = (100 - parseFloat(pctTT)).toFixed(1);
+  // --- KPI Page 3: chỉ lấy rows mã NC ---
+  const ttNC = ttByCode('NC');
+  const p3TH = ttNC.reduce((a,r)=>a+(r.gt||0),0);
+  const p3TT = ttNC.reduce((a,r)=>a+(r.tt||0),0);
+  const p3CL = ttNC.reduce((a,r)=>a+(r.cl||0),0);
+  const p3pctTT  = pct(p3TT, p3TH);
+  const p3pctCLv = (100 - parseFloat(p3pctTT)).toFixed(1);
   el('kpi3_phase').textContent = meta.phase || '—';
-  el('kpi3_th').textContent  = vnd(totTH);
-  el('kpi3_tt').textContent  = vnd(totTT);
-  el('kpi3_cl').textContent  = vnd(totCL);
-  el('kpi3_tt_badge').textContent = pctTT + '%';
-  el('kpi3_cl_badge').textContent = pctCLv + '%';
-  el('p3DoiCount').textContent = '(' + teams.length + ' đội)';
+  el('kpi3_th').textContent  = vnd(p3TH);
+  el('kpi3_tt').textContent  = vnd(p3TT);
+  el('kpi3_cl').textContent  = vnd(p3CL);
+  el('kpi3_tt_badge').textContent = p3pctTT + '%';
+  el('kpi3_cl_badge').textContent = p3pctCLv + '%';
+  el('p3DoiCount').textContent = '(' + [...new Set(ttNC.map(r=>r.t))].filter(Boolean).length + ' đội)';
 
-  // NS nhân công = tổng NS (tạm dùng toàn bộ NS vì chưa tách loại)
-  el('kpi3_ns').textContent = fmtAuto(nsTotal);
-  const nsConlai = nsTotal - totTH;
+  // NS nhân công = tổng NS mã NC
+  el('kpi3_ns').textContent = fmtAuto(nsNC_val);
+  const nsConlai = nsNC_val - p3TH;
   el('kpi3_ns_cl').textContent = fmtAuto(Math.abs(nsConlai));
   el('kpi3_ns_cl').style.color = nsConlai >= 0 ? '#2e7d32' : '#c62828';
   el('kpi3_ns_cl_card').style.borderLeftColor = nsConlai >= 0 ? '#2e7d32' : '#c62828';
 
-  // --- Bảng tổng hợp đội P3 ---
+  // --- Bảng tổng hợp đội P3 (chỉ mã NC) ---
   const p3Body  = el('p3DoiBody');
   const p3Tfoot = el('p3DoiTfoot');
   p3Body.innerHTML = '';
-  teams.forEach(team => {
-    const rows = TT.filter(r=>r.t===team);
+  const teamsNC = [...new Set(ttNC.map(r=>r.t))].filter(Boolean).sort();
+  teamsNC.forEach(team => {
+    const rows = ttNC.filter(r=>r.t===team);
     const gtT = rows.reduce((a,r)=>a+(r.gt||0),0);
     const ttT = rows.reduce((a,r)=>a+(r.tt||0),0);
     const clT = rows.reduce((a,r)=>a+(r.cl||0),0);
@@ -1078,10 +1104,10 @@ function applyData(data) {
     p3Body.appendChild(tr);
   });
   p3Tfoot.innerHTML='<tr><td class="tl">TỔNG</td><td></td>'
-    +'<td class="tr">'+vnd(totTH)+'</td>'
-    +'<td class="tr">'+vnd(totTT)+'</td>'
-    +'<td class="tr neg">'+vnd(totCL)+'</td>'
-    +'<td class="tc"><strong>'+pctTT+'%</strong></td>'
+    +'<td class="tr">'+vnd(p3TH)+'</td>'
+    +'<td class="tr">'+vnd(p3TT)+'</td>'
+    +'<td class="tr neg">'+vnd(p3CL)+'</td>'
+    +'<td class="tc"><strong>'+p3pctTT+'%</strong></td>'
     +'<td></td></tr>';
 
   // --- Repopulate filter dropdowns ---
@@ -1099,9 +1125,13 @@ function applyData(data) {
     return a.localeCompare(b);
   });
   buildMs('ms2', periods, filterWD);
-  repopSel('f3Doi', teams);
-  repopSel('f3Lan', [...new Set(TT.map(r=>r.l).filter(Boolean))].sort());
-  repopSel('f3Period', periods);
+  repopSel('f3Doi', teamsNC);
+  repopSel('f3Lan', [...new Set(ttNC.map(r=>r.l).filter(Boolean))].sort());
+  repopSel('f3Period', [...new Set(ttNC.map(r=>r.p).filter(Boolean))].sort((a,b)=>{
+    const pa=a.split('-'),pb=b.split('-');
+    if(pa.length===2&&pb.length===2){return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);}
+    return a.localeCompare(b);
+  }));
 
   // --- Chart Monthly ---
   const monthMap = {};
@@ -1161,28 +1191,122 @@ function applyData(data) {
     }]
   });
 
-  // --- KPI Page 5: BC Gián tiếp (placeholder — data từ Data-Gián tiếp khi có) ---
-  // Tạm dùng nsQL + nsOH từ NS[] làm ngân sách gián tiếp
-  const nsGT = (nsQL||0) + (nsOH||0);
-  const thGT = (thQL||0) + (thOH||0);
-  const nsGTCL = nsGT - thGT;
-  el('kpi5_used').textContent = fmtAuto(thGT);
-  el('kpi5_tt').textContent = fmtAuto(thGT);
-  el('kpi5_tt_badge').textContent = '—';
-  el('kpi5_ns').textContent = fmtAuto(nsGT||nsTotal);
-  el('kpi5_ns_cl').textContent = (nsGTCL < 0 ? '-' : '') + fmtAuto(Math.abs(nsGTCL));
-  el('kpi5_ns_cl').style.color = nsGTCL >= 0 ? '#2e7d32' : '#c62828';
-  el('kpi5_ns_cl_card').style.borderLeftColor = nsGTCL >= 0 ? '#2e7d32' : '#c62828';
+  // --- KPI Page 4: BC Vật tư (mã VT) ---
+  const p4TH  = ttByCode('VT').reduce((a,r)=>a+(r.gt||0),0);
+  const p4TT  = ttByCode('VT').reduce((a,r)=>a+(r.tt||0),0);
+  const p4CL  = ttByCode('VT').reduce((a,r)=>a+(r.cl||0),0);
+  const p4pctTT = pct(p4TT, p4TH);
+  const p4pctCL = (100-parseFloat(p4pctTT)).toFixed(1);
+  el('kpi4_order').textContent = fmtAuto(p4TH);
+  el('kpi4_tt').textContent    = fmtAuto(p4TT);
+  el('kpi4_tt_badge').textContent = p4pctTT + '%';
+  el('kpi4_chua_tt').textContent  = fmtAuto(p4CL);
+  el('kpi4_chua_badge').textContent = p4pctCL + '%';
+  el('kpi4_ns').textContent = fmtAuto(nsVT_val);
+  const p4NSconlai = nsVT_val - p4TH;
+  el('kpi4_ns_cl').textContent = fmtAuto(Math.abs(p4NSconlai));
+  el('kpi4_ns_cl').style.color = p4NSconlai >= 0 ? '#2e7d32' : '#c62828';
+  el('kpi4_ns_cl_card').style.borderLeftColor = p4NSconlai >= 0 ? '#2e7d32' : '#c62828';
 
-  // Biểu đồ gián tiếp hàng tháng (dùng TT[] lọc CPQL/OH nếu có, không thì placeholder)
+  // Bảng đối chiếu NS VT từ NS[] mã VT
+  const p4DcBody = el('p4DcBody');
+  p4DcBody.innerHTML = '';
+  const nsVTrows = nsByCode('VT');
+  if(nsVTrows.length === 0) {
+    p4DcBody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu vật tư</td></tr>';
+  } else {
+    nsVTrows.forEach(r => {
+      const klNS = r.kl||0;
+      const klDaNhap = 0; // Chua co du lieu "Da nhap"
+      const clKL = klDaNhap - klNS;
+      const vuotPct = klNS > 0 && clKL > 0 ? ((clKL/klNS)*100).toFixed(0) : null;
+      const ghiChu = clKL < 0 || klNS === 0
+        ? '<span style="color:#2e7d32;font-weight:600">Trong hạn</span>'
+        : '<span style="color:#c62828;font-weight:600">'+vuotPct+'% Vượt</span>';
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td class="tl wrap" style="max-width:200px">'+(r.n||'—')+'</td>'
+        +'<td class="tc">'+(r.u||'—')+'</td>'
+        +'<td class="tr">'+(klNS>0?klNS.toLocaleString('vi-VN'):'—')+'</td>'
+        +'<td class="tr">—</td>'
+        +'<td class="tr '+(clKL>0?'neg':clKL<0?'pos':'')+'">—</td>'
+        +'<td class="tc">'+(vuotPct?'<span style="color:#c62828">'+vuotPct+'%</span>':'<span style="color:#6c757d">—</span>')+'</td>'
+        +'<td class="tr">—</td>'
+        +'<td class="tc">'+ghiChu+'</td>';
+      p4DcBody.appendChild(tr);
+    });
+  }
+
+  // --- KPI Page 5: BC CP Gián tiếp (mã PRE + DP + QLDN) ---
+  const GT_CODES = ['PRE','DP','QLDN'];
+  const p5TH  = ttByCodes(GT_CODES).reduce((a,r)=>a+(r.gt||0),0);
+  const p5TT  = ttByCodes(GT_CODES).reduce((a,r)=>a+(r.tt||0),0);
+  const p5NS  = nsByCodes(GT_CODES).reduce((a,r)=>a+(r.tt||0),0);
+  const p5NSconlai = p5NS - p5TH;
+  el('kpi5_used').textContent = fmtAuto(p5TH);
+  el('kpi5_tt').textContent   = fmtAuto(p5TT);
+  el('kpi5_tt_badge').textContent = p5TH > 0 ? pct(p5TT,p5TH)+'%' : '—';
+  el('kpi5_ns').textContent   = fmtAuto(p5NS);
+  el('kpi5_ns_cl').textContent = (p5NSconlai < 0 ? '-' : '') + fmtAuto(Math.abs(p5NSconlai));
+  el('kpi5_ns_cl').style.color = p5NSconlai >= 0 ? '#2e7d32' : '#c62828';
+  el('kpi5_ns_cl_card').style.borderLeftColor = p5NSconlai >= 0 ? '#2e7d32' : '#c62828';
+
+  // Cơ cấu gián tiếp: thanh bar PRE/DP/QLDN
+  const p5Base = p5TH > 0 ? p5TH : 1;
+  setBar('p5bar_pre', 'p5val_pre', thPRE_val,  p5Base, '#E8552A', fmtAuto);
+  setBar('p5bar_dp',  'p5val_dp',  thDP_val,   p5Base, '#F5A623', fmtAuto);
+  setBar('p5bar_qldn','p5val_qldn',thQLDN_val, p5Base, '#3B2D6F', fmtAuto);
+
+  // Bảng tổng hợp theo cơ cấu P5
+  const p5CocauBody = el('p5CocauBody');
+  const p5CocauTfoot = el('p5CocauTfoot');
+  p5CocauBody.innerHTML = '';
+  const p5Rows = [
+    {label:'Prelim', code:'PRE', color:'#E8552A', th:thPRE_val, ns:nsPRE_val},
+    {label:'Dự phòng', code:'DP', color:'#F5A623', th:thDP_val, ns:nsDP_val},
+    {label:'Quản lý DN', code:'QLDN', color:'#3B2D6F', th:thQLDN_val, ns:nsQLDN_val},
+  ];
+  p5Rows.forEach(row => {
+    const pctNS = row.ns > 0 ? ((row.th/row.ns)*100).toFixed(1) : null;
+    const conlai = row.ns - row.th;
+    const vuot = conlai < 0;
+    const statusBadge = pctNS === null ? '<span class="badge bg-b">Chưa PS</span>'
+      : vuot ? '<span class="badge bg-r">Vượt NS</span>'
+      : '<span class="badge bg-g">Trong hạn</span>';
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td class="tl"><strong style="color:'+row.color+'">'+row.label+'</strong></td>'
+      +'<td class="tr">'+(row.ns>0?fmtAuto(row.ns):'—')+'</td>'
+      +'<td class="tr">'+(row.th>0?fmtAuto(row.th):'—')+'</td>'
+      +'<td class="tc">'+(pctNS!==null?pctNS+'%':'—')+'</td>'
+      +'<td class="tr '+(vuot?'neg':'pos')+'">'+(row.ns>0?fmtAuto(Math.abs(conlai)):'—')+'</td>'
+      +'<td class="tc">'+statusBadge+'</td>';
+    p5CocauBody.appendChild(tr);
+  });
+  p5CocauTfoot.innerHTML = '<tr><td class="tl">TỔNG CỘNG</td>'
+    +'<td class="tr">'+fmtAuto(p5NS)+'</td>'
+    +'<td class="tr">'+fmtAuto(p5TH)+'</td>'
+    +'<td class="tc">'+(p5NS>0?((p5TH/p5NS)*100).toFixed(1)+'%':'—')+'</td>'
+    +'<td class="tr '+(p5NSconlai<0?'neg':'pos')+'">'+fmtAuto(Math.abs(p5NSconlai))+'</td>'
+    +'<td></td></tr>';
+
+  // Biểu đồ gián tiếp hàng tháng (TT mã PRE+DP+QLDN)
+  const gtMonthMap = {};
+  ttByCodes(GT_CODES).forEach(r => {
+    const mo = r.p || 'N/A';
+    if(!gtMonthMap[mo]) gtMonthMap[mo] = 0;
+    gtMonthMap[mo] += (r.gt||0);
+  });
+  const gtMonths = Object.keys(gtMonthMap).sort((a,b)=>{
+    const pa=a.split('-'),pb=b.split('-');
+    if(pa.length===2&&pb.length===2){return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);}
+    return a.localeCompare(b);
+  });
   if(chartGTInst){ chartGTInst.destroy(); chartGTInst=null; }
   chartGTInst = new Chart(el('chartGianTiep').getContext('2d'),{
     type:'bar',
     data:{
-      labels: sortedMonths.length > 0 ? sortedMonths : ['Chưa có dữ liệu'],
+      labels: gtMonths.length > 0 ? gtMonths : ['Chưa có dữ liệu'],
       datasets:[
-        {label:'NS/tháng', data: sortedMonths.map(()=>0), backgroundColor:'rgba(21,101,192,.4)', borderColor:'#1565c0',borderWidth:1},
-        {label:'TH tháng', data: sortedMonths.map(()=>0), backgroundColor:'rgba(46,125,50,.6)', borderColor:'#2e7d32',borderWidth:1},
+        {label:'CP gián tiếp TH', data: gtMonths.map(m=>gtMonthMap[m]||0), backgroundColor:'rgba(59,45,111,.75)', borderColor:'#3B2D6F',borderWidth:1},
       ]
     },
     options:{
@@ -1320,7 +1444,8 @@ function filterTT(){
   const pv=el('f3Period') ? el('f3Period').value : '';
   const tb=el('ttBody'); tb.innerHTML='';
   let stt=0,sTH=0,sTT=0,sCL=0;
-  TT.forEach(r=>{
+  // Chi hien thi rows ma NC (Nhan cong)
+  TT.filter(r=>r.a==='NC').forEach(r=>{
     if(dv&&r.t!==dv) return;
     if(lv&&r.l!==lv) return;
     if(hv&&r.h!==hv) return;
@@ -1334,7 +1459,7 @@ function filterTT(){
       +'<td class="tl"><strong>'+r.t+'</strong></td>'
       +'<td class="tc">'+(r.l||'—')+'</td>'
       +'<td class="tc">'+(r.p||'—')+'</td>'
-      +'<td class="tl">'+(r.n||'—')+'</td>'
+      +'<td class="tl wrap" style="max-width:280px">'+(r.n||'—')+'</td>'
       +'<td class="tc">'+(r.g||'—')+'</td>'
       +'<td class="tc">'+hb+'</td>'
       +'<td class="tc">'+(r.u||'—')+'</td>'
