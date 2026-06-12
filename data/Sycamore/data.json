@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-12T21:06:25",
+    "generated_at": "2026-06-12T21:39:19",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -13710,7 +13710,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "VT",
       "hm": "HOÀN THIỆN",
       "g": "Vật tư chính",
       "mc": "VTC",
@@ -13729,7 +13729,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "VT",
       "hm": "HOÀN THIỆN",
       "g": "Vật tư chính",
       "mc": "VTC",
@@ -13748,7 +13748,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "VT",
       "hm": "HOÀN THIỆN",
       "g": "Vật tư chính",
       "mc": "VTC",
@@ -14660,7 +14660,7 @@
       "tlV": 0.0
     },
     {
-      "a": "",
+      "a": "OT",
       "hm": "HOÀN THIỆN",
       "g": "Giảm giá",
       "mc": "GIAM_GIA",
