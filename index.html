@@ -364,7 +364,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     <div class="kpi-card g">
       <div class="kpi-label">Giá trị CĐT xác nhận (Lũy kế)</div>
       <div class="kpi-value" id="kpi2_cdt" style="color:#2e7d32">—</div>
-      <div class="kpi-sub">VNĐ – IPC xác nhận</div>
+      <div class="kpi-sub" id="kpi2_ipc_sub">VNĐ – IPC xác nhận</div>
     </div>
     <div class="kpi-card o">
       <div class="kpi-label">Đội đã thực hiện</div>
@@ -941,6 +941,13 @@ function applyData(data) {
   p1CocauBody.innerHTML = '';
   const hmListNS = [];
   NS.forEach(r => { if(r.g && !hmListNS.includes(r.g)) hmListNS.push(r.g); });
+  // Thêm hạng mục từ WD mà không có trong NS (Vật tư chính mct=VT, Giảm giá/Phát sinh giảm mct=OT)
+  WD.forEach(r => { if(r.g && !hmListNS.includes(r.g)) hmListNS.push(r.g); });
+  // Giá trị tổng dự án cho hạng mục mct=VT (Vật tư chính):
+  // BOQ = vl_boq_total (ô O4 sheet WD — TỔNG CỘNG col O, không tính từng row vì công thức)
+  // CDT = sum TOÀN BỘ ttVL_cdt của WD (col W, mọi mct) — bao gồm cả NC rows có VL_cdt
+  const vl_boq_proj = s.vl_boq_total || 0;
+  const vl_cdt_proj = WD.reduce((a,r)=>a+(r.ttVL_cdt||0),0);
   let tot_boq2=0, tot_ns2=0, tot_cdt2=0, tot_th2=0;
   let p1Stt = 0;
 
@@ -971,22 +978,29 @@ function applyData(data) {
     const wdNC  = wdRows.filter(r=>(r.mct||'').toUpperCase()==='NC');
     const wdVT  = wdRows.filter(r=>(r.mct||'').toUpperCase()==='VT');
     const wdOT  = wdRows.filter(r=>(r.mct||'').toUpperCase()==='OT');
-    const wdOther = wdRows.filter(r=>!['NC','VT','OT'].includes((r.mct||'').toUpperCase()));
-    // NC BOQ = sum ttNC_boq (col P); VT BOQ = sum ttVL_boq (col O)
-    // Trừ OT: theo định nghĩa "trừ đi giá trị ở cột P/O tương ứng với dòng OT"
-    // → NC BOQ = sum(NC rows col P) - sum(OT rows col P)
-    // → VT BOQ = sum(VT rows col O) - sum(OT rows col O)
-    const ncBOQ = wdNC.reduce((a,r)=>a+(r.ttNC_boq||0),0) - wdOT.reduce((a,r)=>a+(r.ttNC_boq||0),0);
-    const vtBOQ = wdVT.reduce((a,r)=>a+(r.ttVL_boq||0),0) - wdOT.reduce((a,r)=>a+(r.ttVL_boq||0),0);
-    const otBOQ = wdOT.reduce((a,r)=>a+(r.ttBOQ_R||0),0);
-    const otherBOQ = wdOther.reduce((a,r)=>a+(r.ttBOQ_R||0),0);
-    const boqV = ncBOQ + vtBOQ + otBOQ + otherBOQ;
-    // CDT: NC→col X, VT→col W, OT→col Z
-    const ncCDT = wdNC.reduce((a,r)=>a+(r.ttNC_cdt||0),0);
-    const vtCDT = wdVT.reduce((a,r)=>a+(r.ttVL_cdt||0),0);
-    const otCDT = wdOT.reduce((a,r)=>a+(r.ttCDT_Z||r.ttCDT||0),0);
-    const otherCDT = wdOther.reduce((a,r)=>a+(r.ttCDT||0),0);
-    const cdtV = ncCDT + vtCDT + otCDT + otherCDT;
+    // wdEmpty = rows có mct rỗng (Vật tư chính — không phân loại NC/OT)
+    const wdEmpty = wdRows.filter(r=>!r.mct);
+    // Nếu hạng mục này có row mct=VT trong WD → đây là hạng mục "Vật tư chính"
+    // BOQ dùng vl_boq_proj (ô O4 TỔNG CỘNG col O sheet WD), CDT dùng vl_cdt_proj (sum toàn bộ col W)
+    const isVTGroup = wdVT.length > 0;
+    let boqV, cdtV;
+    if(isVTGroup) {
+      boqV = vl_boq_proj;
+      cdtV = vl_cdt_proj;
+    } else {
+      // NC BOQ = sum(NC rows col P) - sum(OT rows col P): trừ phần NC của OT
+      const ncBOQ = wdNC.reduce((a,r)=>a+(r.ttNC_boq||0),0) - wdOT.reduce((a,r)=>a+(r.ttNC_boq||0),0);
+      // VT BOQ = sum(mct-rỗng rows col O) - sum(OT rows col O): vật tư chính BOQ trừ phần VT của OT
+      const vtBOQ = wdEmpty.reduce((a,r)=>a+(r.ttVL_boq||r.ttBOQ_R||0),0) - wdOT.reduce((a,r)=>a+(r.ttVL_boq||0),0);
+      // OT BOQ = sum(OT rows col R): giảm giá + phát sinh giảm (âm)
+      const otBOQ = wdOT.reduce((a,r)=>a+(r.ttBOQ_R||0),0);
+      boqV = ncBOQ + vtBOQ + otBOQ;
+      // CDT: NC→col X (ttNC_cdt), VT (mct rỗng)→col W (ttVL_cdt), OT→col Z (ttCDT_Z)
+      const ncCDT = wdNC.reduce((a,r)=>a+(r.ttNC_cdt||0),0);
+      const vtCDT = wdEmpty.reduce((a,r)=>a+(r.ttVL_cdt||0),0);
+      const otCDT = wdOT.reduce((a,r)=>a+(r.ttCDT_Z||r.ttCDT||0),0);
+      cdtV = ncCDT + vtCDT + otCDT;
+    }
     const nsV  = nsRows.reduce((a,r)=>a+(r.tt||0),0);
     const thV  = TT.filter(r=>r.g===hmVal).reduce((a,r)=>a+(r.gt||0),0);
     const lnV  = cdtV - thV;
@@ -1010,14 +1024,15 @@ function applyData(data) {
     p1Stt++;
     const lnColor = lnV>=0 ? '#2e7d32' : '#c62828';
     const tr = document.createElement('tr');
+    const fmtCell = v => v!==0 ? '<span style="color:'+(v<0?'#c62828':'inherit')+'">'+vnd(v)+'</span>' : '<span style="color:#6c757d">—</span>';
     tr.innerHTML = '<td class="tc">'+p1Stt+'</td>'
       +'<td class="tl"><strong>'+hmVal+'</strong></td>'
-      +'<td class="tr">'+(boqV>0?vnd(boqV):'<span style="color:#6c757d">—</span>')+'</td>'
-      +'<td class="tr">'+(nsV>0?vnd(nsV):'<span style="color:#6c757d">—</span>')+'</td>'
-      +'<td class="tr">'+(cdtV>0?vnd(cdtV):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr">'+fmtCell(boqV)+'</td>'
+      +'<td class="tr">'+fmtCell(nsV)+'</td>'
+      +'<td class="tr">'+fmtCell(cdtV)+'</td>'
       +'<td class="tr">'+(thV>0?vnd(thV):'<span style="color:#6c757d">—</span>')+'</td>'
       +'<td class="tc">'+(pctB!==null?'<div class="prog"><div class="prog-fill" style="width:'+Math.min(parseFloat(pctB),100)+'%;background:#2e7d32"></div></div><small>'+pctB+'%</small>':'<span style="font-size:9px;color:#E8552A">Ngoài HĐ</span>')+'</td>'
-      +'<td class="tr" style="color:'+lnColor+';font-weight:600">'+(cdtV>0?fmtAuto(Math.abs(lnV)):'—')+'</td>'
+      +'<td class="tr" style="color:'+lnColor+';font-weight:600">'+(cdtV!==0?fmtAuto(Math.abs(lnV)):'—')+'</td>'
       +'<td class="tc" style="color:'+lnColor+'">'+(pctLn!==null?(lnV>=0?'+':'-')+Math.abs(pctLn)+'%':'—')+'</td>'
       +'<td class="tc">'+badge+'</td>';
     p1CocauBody.appendChild(tr);
@@ -1040,6 +1055,8 @@ function applyData(data) {
   const p2CDT = s.cdt_nc_total || WD.reduce((a,r)=>a+(r.ttNC_cdt||r.ttCDT||0),0);
   const p2TH  = thNC_val;
   el('kpi2_cdt').textContent = fmtTy(p2CDT);
+  // IPC hiện tại: đọc từ summary.current_ipc (được xác định từ header row 7 sheet WD)
+  if(s.current_ipc) el('kpi2_ipc_sub').textContent = 'VNĐ – Đến ' + s.current_ipc;
   el('kpi2_th').textContent  = fmtTy(p2TH);
   const clVal = p2TH - p2CDT;
   el('kpi2_cl_val').textContent = fmtTy(Math.abs(clVal));
@@ -1057,9 +1074,9 @@ function applyData(data) {
   // --- Bảng so sánh KL hạng mục P2 (chỉ Mã CT = NC, theo thứ tự NS.g) ---
   const p2WdGroupBody = el('p2WdGroupBody');
   p2WdGroupBody.innerHTML = '';
-  // Danh sách hạng mục từ NS, lọc chỉ mã NC, theo thứ tự xuất hiện
+  // Danh sách hạng mục từ WD col C (g), lọc chỉ mã CT = NC (col F), theo thứ tự xuất hiện
   const hmListNC = [];
-  NS.filter(r=>r.a==='NC').forEach(r=>{ if(r.g&&!hmListNC.includes(r.g)) hmListNC.push(r.g); });
+  WD.filter(r=>(r.mct||'').toUpperCase()==='NC').forEach(r=>{ if(r.g&&!hmListNC.includes(r.g)) hmListNC.push(r.g); });
   let p2Stt = 0;
   hmListNC.forEach(g => {
     const gWD = WD.filter(r => r.g===g);
