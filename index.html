@@ -791,7 +791,7 @@ function buildProjectSwitcher(projects) {
 async function loadProject(id) {
   showLoading(true);
   try {
-    const resp = await fetch('data/' + id + '/data.json');
+    const resp = await fetch('data/' + id + '/data.json?v=' + Date.now());
     if(!resp.ok) throw new Error('HTTP ' + resp.status);
     const data = await resp.json();
     applyData(data, id);
