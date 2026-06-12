@@ -2,12 +2,13 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-12T23:06:49",
+    "generated_at": "2026-06-12T23:15:27",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
   "summary": {
     "boq_total": 19373867141.19976,
+    "vl_boq_total": 7698296020.247618,
     "budget_total": 17419408724.791183,
     "cdt_total": 14135421313.661812,
     "cdt_workdone_total": 14135421313.661814,
@@ -176,7 +177,8 @@
       }
     ],
     "ns_nc_val": 5870731176,
-    "ns_th_val": 15431534125
+    "ns_th_val": 15431534125,
+    "current_ipc": "IPC 05"
   },
   "TT": [
     {
