@@ -836,13 +836,16 @@ function applyData(data) {
   const totTH  = TT.reduce((a,r) => a+(r.gt||0), 0);
   const totTT  = TT.reduce((a,r) => a+(r.tt||0), 0);
   const totCL  = TT.reduce((a,r) => a+(r.cl||0), 0);
-  const totCDT = s.cdt_workdone_total || 0;
   // BOQ = từ dòng TỔNG CỘNG sheet WD col R (chính xác tuyệt đối, không bị filter row)
-  const boq    = s.boq_total || WD.reduce((a,r)=>a+(r.ttBOQ_R||r.ttBOQ||0),0);
-  const nsTotal= s.budget_total || 0;
+  const boq     = s.boq_total || WD.reduce((a,r)=>a+(r.ttBOQ_R||r.ttBOQ||0),0);
+  const nsTotal = s.budget_total || 0;
+  // P1 So sánh: CĐT xác nhận = col Z sheet WD TỔNG CỘNG (TT CDT tổng)
+  const totCDT  = s.cdt_total || s.cdt_workdone_total || 0;
+  // P1 So sánh: Chi phí TH = col Q sheet NS TỔNG CỘNG (TT thực hiện)
+  const chiPhiTH = s.chi_phi_th_total || totTH;
   const lnDK   = boq - nsTotal;
   const pctLnDK= boq > 0 ? ((lnDK/boq)*100).toFixed(1) : '0';
-  const lnHT   = totCDT - totTH;
+  const lnHT   = totCDT - chiPhiTH;
   const pctLnHT= totCDT > 0 ? ((lnHT/totCDT)*100).toFixed(1) : '0';
   const groups = [...new Set([...WD.map(r=>r.g), ...TT.map(r=>r.g)])].filter(Boolean).sort();
   const teams  = [...new Set(TT.map(r=>r.t))].filter(Boolean).sort();
@@ -888,11 +891,11 @@ function applyData(data) {
   // --- Bảng so sánh giá trị (cột 1) — compare bars theo mẫu 260612 ---
   const base0 = boq > 0 ? boq : 1;
   const cmpBarsData = [
-    {label:'BOQ (CĐT)', val:boq,    color:'#3B2D6F', note:'Hợp đồng gốc + PS duyệt'},
-    {label:'Ngân sách', val:nsTotal, color:'#00796b', note:'Đơn giá khoán nội bộ'},
-    {label:'CĐT xác nhận', val:totCDT, color:'#2e7d32', note:'IPC lũy kế'},
-    {label:'Chi phí TH', val:totTH,  color:'#E8552A', note:'GT theo hồ sơ TT'},
-    {label:'Đã TT',       val:totTT,  color:'#888',    note:'Đã chi trả cho đội'},
+    {label:'BOQ (CĐT)', val:boq,       color:'#3B2D6F', note:'Hợp đồng gốc + PS duyệt'},
+    {label:'Ngân sách', val:nsTotal,   color:'#00796b', note:'Đơn giá khoán nội bộ'},
+    {label:'CĐT xác nhận', val:totCDT, color:'#2e7d32', note:'IPC lũy kế (TT CDT tổng)'},
+    {label:'Chi phí TH', val:chiPhiTH, color:'#E8552A', note:'TT thực hiện (NS col Q)'},
+    {label:'Đã TT',       val:totTT,   color:'#888',    note:'Đã chi trả cho đội'},
   ];
   const p1CmpBars = el('p1CmpBars');
   p1CmpBars.innerHTML = '';
