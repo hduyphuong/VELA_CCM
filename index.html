@@ -188,8 +188,9 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   body{background:white;color:black}
   .header{position:relative;box-shadow:none;background:#3B2D6F!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .project-switcher,.nav-bar,.filter-bar{display:none!important}
-  .page{display:block!important;page-break-before:always;padding:0;width:100%}
-  .page:first-of-type{page-break-before:auto}
+  /* Chỉ in tab đang active */
+  .page{display:none!important}
+  .page.active{display:block!important;padding:0;width:100%}
   .card{box-shadow:none;border:1px solid #dee2e6;margin-bottom:0.5rem}
   .chart-box{height:200px!important}
   .kpi-4,.kpi-5,.kpi-3{grid-template-columns:repeat(4,1fr)}
@@ -212,7 +213,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <img src="logo-velaenc-260612.png" alt="VELA E&C" class="header-logo" onerror="this.style.display='none'">
       <div>
         <div class="sub">CÔNG TY CỔ PHẦN KỸ THUẬT XÂY DỰNG VELA</div>
-        <h1>BÁO CÁO QUẢN LÝ THANH QUYẾT TOÁN – TỔ ĐỘI</h1>
+        <h1>VELA CCM | KIỂM SOÁT CHI PHÍ VÀ KHỐI LƯỢNG</h1>
         <div class="sub" id="hdrProjectSub">Đang tải dữ liệu...</div>
         <div class="sub" id="hdrSource" style="opacity:.75;margin-top:2px"></div>
       </div>
@@ -327,20 +328,21 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     </div>
   </div>
 
-  <!-- Bảng chi tiết cơ cấu theo gói thầu -->
+  <!-- Bảng giá trị chi tiết theo hạng mục -->
   <div class="card mb0">
-    <div class="stitle">Bảng chi tiết cơ cấu theo gói thầu</div>
+    <div class="stitle">Bảng giá trị chi tiết theo hạng mục</div>
     <div class="tbl-wrap">
     <table>
       <thead>
         <tr>
-          <th class="tl">Cơ cấu / Gói thầu</th>
+          <th>STT</th>
+          <th class="tl">Hạng mục</th>
           <th>Giá trị BOQ</th>
           <th>Ngân sách</th>
           <th>GT CĐT xác nhận</th>
-          <th>Chi phí TH (Đội)</th>
+          <th>Chi phí TH</th>
           <th>% BOQ</th>
-          <th>LN (tỷ)</th>
+          <th>LN (VNĐ)</th>
           <th>% LN</th>
           <th>Trạng thái</th>
         </tr>
@@ -378,11 +380,12 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   </div>
 
   <div class="card">
-    <div class="stitle">Tổng hợp khối lượng theo gói thầu</div>
+    <div class="stitle">So sánh khối lượng theo hạng mục</div>
     <div class="tbl-wrap">
     <table>
       <thead><tr>
-        <th class="tl">Gói thầu / Hạng mục</th>
+        <th>STT</th>
+        <th class="tl">Hạng mục</th>
         <th>ĐVT</th>
         <th>KL BOQ</th>
         <th>KL CĐT xác nhận</th>
@@ -475,25 +478,25 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 
   <div class="grid-2">
     <div class="card mb0">
+      <div class="stitle">Sản lượng thanh toán hàng tháng</div>
+      <div class="chart-box" style="height:260px"><canvas id="chartMonthly"></canvas></div>
+    </div>
+    <div class="card mb0">
       <div class="stitle">Tổng hợp theo đội thi công <span id="p3DoiCount" style="font-weight:400;font-size:0.6875rem;color:#6c757d;text-transform:none;letter-spacing:0;border:none;padding:0;margin-left:4px"></span></div>
       <div class="tbl-wrap">
       <table>
         <thead><tr>
           <th class="tl">Đội</th><th>Đợt</th>
-          <th>GT TH (VNĐ)</th>
-          <th>Đã TT (VNĐ)</th>
-          <th>Còn lại (VNĐ)</th>
+          <th class="sort-btn" onclick="sortP3('gt')" title="Sắp xếp GT TH">GT TH <span id="sortP3_gt_icon" class="sort-icon">⇅</span></th>
+          <th>Đã TT</th>
+          <th class="sort-btn" onclick="sortP3('cl')" title="Sắp xếp Còn lại">Còn lại <span id="sortP3_cl_icon" class="sort-icon">⇅</span></th>
           <th>% TT</th>
-          <th>Trạng thái</th>
+          <th class="sort-btn" onclick="sortP3('status')" title="Sắp xếp Trạng thái">Trạng thái <span id="sortP3_status_icon" class="sort-icon">⇅</span></th>
         </tr></thead>
         <tbody id="p3DoiBody"></tbody>
         <tfoot id="p3DoiTfoot"></tfoot>
       </table>
       </div>
-    </div>
-    <div class="card mb0">
-      <div class="stitle">Sản lượng thanh toán hàng tháng</div>
-      <div class="chart-box" style="height:260px"><canvas id="chartMonthly"></canvas></div>
     </div>
   </div>
 
@@ -733,6 +736,9 @@ let WD = [], TT = [], NS = [];
 let chartMonthlyInst = null;
 let chartGTInst = null;
 let wdSortDir = 0;
+let p3SortField = null;
+let p3SortDir = 0;
+let p3DoiDataCache = [];
 
 // ===== UTILS =====
 const vnd    = n => Math.round(n||0).toLocaleString('vi-VN');
@@ -877,7 +883,7 @@ function applyData(data) {
 
   el('kpi1_ln_ht').textContent = (lnHT < 0 ? '-' : '') + fmtAuto(Math.abs(lnHT));
   el('kpi1_ln_ht').style.color = lnHT >= 0 ? '#2e7d32' : '#c62828';
-  el('kpi1_ln_ht_sub').textContent = (lnHT>=0?'+':'-') + Math.abs(pctLnHT) + '% / CĐT XN  |  CĐT – Chi phí TH';
+  el('kpi1_ln_ht_sub').textContent = (lnHT>=0?'+':'-') + Math.abs(pctLnHT) + '% / CĐT XN  |  CĐT XN – Chi phí TH';
   el('kpi1_ln_ht_card').style.borderLeftColor = lnHT >= 0 ? '#2e7d32' : '#c62828';
 
   const setBar = (barId, valId, val, base, color, fmt) => {
@@ -928,28 +934,34 @@ function applyData(data) {
   setBar('cmpb_qldn_bar','cmpb_qldn_val', thQLDN_val, thBase, '#888',    fmtAuto);
   el('cmpb_th_total').textContent = fmtAuto(totTH);
 
-  // --- Bảng chi tiết cơ cấu theo gói thầu ---
+  // --- Bảng giá trị chi tiết theo hạng mục (P1) ---
+  // Hạng mục lấy từ NS[].g (Gói thầu = cột C Data-NS), sắp xếp theo thứ tự xuất hiện
   const p1CocauBody  = el('p1CocauBody');
   const p1CocauTfoot = el('p1CocauTfoot');
   p1CocauBody.innerHTML = '';
+  // Lấy danh sách Hạng mục theo thứ tự xuất hiện trong NS (cột C = g)
+  const hmListNS = [];
+  NS.forEach(r => { if(r.g && !hmListNS.includes(r.g)) hmListNS.push(r.g); });
   let tot_boq2=0, tot_ns2=0, tot_cdt2=0, tot_th2=0;
-  groups.forEach(g => {
-    const gWD  = WD.filter(r=>r.g===g);
-    const boqV = gWD.reduce((a,r)=>a+(r.ttBOQ_R||r.ttBOQ||0),0);
-    const cdtV = gWD.reduce((a,r)=>a+(r.ttCDT||0),0);
-    const nsV  = NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0);
-    const thV  = TT.filter(r=>r.g===g).reduce((a,r)=>a+(r.gt||0),0);
+  let p1Stt = 0;
+  hmListNS.forEach(hmVal => {
+    const nsRows = NS.filter(r=>r.g===hmVal);
+    // BOQ: từ WD, phân theo mct: NC→ttNC (col X WD dòng), VT→ttBOQ (col O WD), khác→ttBOQ_R
+    const wdRows = WD.filter(r=>r.g===hmVal);
+    // Tính BOQ theo quy tắc mục 3: NC→sum ttNC_boq, VT→sum ttVT_boq, OT→sum ttBOQ_R
+    // WD hiện tại chưa có phân chia NC/VT per row → dùng tổng ttBOQ_R thực tế từ WD
+    const boqV = wdRows.reduce((a,r)=>a+(r.ttBOQ_R||r.ttBOQ||0),0);
+    const cdtV = wdRows.reduce((a,r)=>a+(r.ttCDT||0),0);
+    const nsV  = nsRows.reduce((a,r)=>a+(r.tt||0),0);
+    const thV  = TT.filter(r=>r.g===hmVal).reduce((a,r)=>a+(r.gt||0),0);
     const lnV  = cdtV - thV;
     const pctB = boqV>0 ? ((cdtV/boqV)*100).toFixed(1) : null;
     const pctLn= cdtV>0 ? ((lnV/cdtV)*100).toFixed(1) : null;
     tot_boq2+=boqV; tot_ns2+=nsV; tot_cdt2+=cdtV; tot_th2+=thV;
 
-    // Trạng thái — giống P2 Tổng hợp khối lượng theo gói thầu
-    const thVTT = TT.filter(r=>r.g===g).reduce((a,r)=>a+(r.gt||0),0);
-    const cdtVTT = gWD.reduce((a,r)=>a+(r.ttCDT||0),0);
-    const dtcKL  = NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.klTH||0),0);
-    const cdtKL  = gWD.reduce((a,r)=>a+(r.cdt||0),0);
-    const clKL   = dtcKL - cdtKL;
+    const dtcKL = nsRows.reduce((a,r)=>a+(r.klTH||0),0);
+    const cdtKL = wdRows.reduce((a,r)=>a+(r.cdt||0),0);
+    const clKL  = dtcKL - cdtKL;
     let badge;
     if(cdtKL===0 && dtcKL===0)
       badge='<span class="badge bg-b" style="font-size:9px">Chưa phân công</span>';
@@ -960,15 +972,17 @@ function applyData(data) {
     else
       badge='<span class="badge bg-g" style="font-size:9px">Trong hạn</span>';
 
+    p1Stt++;
     const lnColor = lnV>=0 ? '#2e7d32' : '#c62828';
     const tr = document.createElement('tr');
-    tr.innerHTML = '<td class="tl"><strong>'+g+'</strong></td>'
+    tr.innerHTML = '<td class="tc">'+p1Stt+'</td>'
+      +'<td class="tl"><strong>'+hmVal+'</strong></td>'
       +'<td class="tr">'+(boqV>0?vnd(boqV):'<span style="color:#6c757d">—</span>')+'</td>'
       +'<td class="tr">'+(nsV>0?vnd(nsV):'<span style="color:#6c757d">—</span>')+'</td>'
       +'<td class="tr">'+(cdtV>0?vnd(cdtV):'<span style="color:#6c757d">—</span>')+'</td>'
       +'<td class="tr">'+(thV>0?vnd(thV):'<span style="color:#6c757d">—</span>')+'</td>'
       +'<td class="tc">'+(pctB!==null?'<div class="prog"><div class="prog-fill" style="width:'+Math.min(parseFloat(pctB),100)+'%;background:#2e7d32"></div></div><small>'+pctB+'%</small>':'<span style="font-size:9px;color:#E8552A">Ngoài HĐ</span>')+'</td>'
-      +'<td class="tr" style="color:'+lnColor+';font-weight:600">'+(cdtV>0?fmtTy(Math.abs(lnV)):'—')+'</td>'
+      +'<td class="tr" style="color:'+lnColor+';font-weight:600">'+(cdtV>0?fmtAuto(Math.abs(lnV)):'—')+'</td>'
       +'<td class="tc" style="color:'+lnColor+'">'+(pctLn!==null?(lnV>=0?'+':'-')+Math.abs(pctLn)+'%':'—')+'</td>'
       +'<td class="tc">'+badge+'</td>';
     p1CocauBody.appendChild(tr);
@@ -977,13 +991,13 @@ function applyData(data) {
   const tot_pctLn = tot_cdt2>0 ? ((tot_ln/tot_cdt2)*100).toFixed(1) : '0';
   const tot_pctB  = tot_boq2>0 ? ((tot_cdt2/tot_boq2)*100).toFixed(1) : '—';
   p1CocauTfoot.innerHTML = '<tr>'
-    +'<td class="tl">TỔNG CỘNG</td>'
+    +'<td></td><td class="tl">TỔNG CỘNG</td>'
     +'<td class="tr">'+vnd(tot_boq2)+'</td>'
     +'<td class="tr">'+vnd(tot_ns2)+'</td>'
     +'<td class="tr">'+vnd(tot_cdt2)+'</td>'
     +'<td class="tr">'+vnd(tot_th2)+'</td>'
     +'<td class="tc"><strong>'+tot_pctB+'%</strong></td>'
-    +'<td class="tr" style="color:'+(tot_ln>=0?'#2e7d32':'#c62828')+'">'+fmtTy(Math.abs(tot_ln))+'</td>'
+    +'<td class="tr" style="color:'+(tot_ln>=0?'#2e7d32':'#c62828')+'">'+fmtAuto(Math.abs(tot_ln))+'</td>'
     +'<td class="tc" style="color:'+(tot_ln>=0?'#2e7d32':'#c62828')+'">'+(tot_ln>=0?'+':'-')+Math.abs(tot_pctLn)+'%</td>'
     +'<td></td></tr>';
 
@@ -1005,16 +1019,21 @@ function applyData(data) {
     el('kpi2_cl_badge').className = 'kpi-badge bg-g';
   }
 
-  // --- Bảng tổng hợp KL gói P2 (với cột Tiến độ CĐT/ĐTC) ---
+  // --- Bảng so sánh KL hạng mục P2 (chỉ Mã CT = NC, theo thứ tự NS.g) ---
   const p2WdGroupBody = el('p2WdGroupBody');
   p2WdGroupBody.innerHTML = '';
-  groups.forEach(g => {
+  // Danh sách hạng mục từ NS, lọc chỉ mã NC, theo thứ tự xuất hiện
+  const hmListNC = [];
+  NS.filter(r=>r.a==='NC').forEach(r=>{ if(r.g&&!hmListNC.includes(r.g)) hmListNC.push(r.g); });
+  let p2Stt = 0;
+  hmListNC.forEach(g => {
     const gWD = WD.filter(r => r.g===g);
     const boqKLg  = gWD.reduce((a,r)=>a+(r.bq||0),0);
     const cdtKLg  = gWD.reduce((a,r)=>a+(r.cdt||0),0);
-    const dtcKLg  = NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.klTH||0),0);
+    const nsRowsNC = NS.filter(r=>r.g===g && r.a==='NC');
+    const dtcKLg  = nsRowsNC.reduce((a,r)=>a+(r.klTH||0),0);
     const cl = dtcKLg - cdtKLg;
-    const units = [...new Set(gWD.map(r=>r.u).filter(Boolean))];
+    const units = [...new Set(nsRowsNC.map(r=>r.u).filter(Boolean))];
     const u = units[0]||'—';
     const pctCDT = boqKLg>0 ? Math.min((cdtKLg/boqKLg)*100, 100) : 0;
     const pctDTC = boqKLg>0 ? Math.min((dtcKLg/boqKLg)*100, 100) : 0;
@@ -1034,8 +1053,10 @@ function applyData(data) {
         +'<div><div class="pbar-wrap"><div class="pbar-track"><div class="pbar-fill" style="width:'+pctDTC.toFixed(0)+'%;background:#1565c0"></div></div><span class="pbar-label" style="color:#1565c0">'+pctDTC.toFixed(0)+'%</span></div></div>'
       : '<span style="font-size:9px;color:#E8552A">Ngoài HĐ</span>';
 
+    p2Stt++;
     const tr = document.createElement('tr');
-    tr.innerHTML='<td class="tl"><strong>'+g+'</strong></td>'
+    tr.innerHTML='<td class="tc">'+p2Stt+'</td>'
+      +'<td class="tl"><strong>'+g+'</strong></td>'
       +'<td class="tc">'+u+'</td>'
       +'<td class="tr">'+(boqKLg>0?boqKLg.toLocaleString('vi-VN'):'—')+'</td>'
       +'<td class="tr">'+(cdtKLg>0?cdtKLg.toLocaleString('vi-VN'):'—')+'</td>'
@@ -1054,24 +1075,26 @@ function applyData(data) {
   const p3pctTT  = pct(p3TT, p3TH);
   const p3pctCLv = (100 - parseFloat(p3pctTT)).toFixed(1);
   el('kpi3_phase').textContent = meta.phase || '—';
-  el('kpi3_th').textContent  = vnd(p3TH);
-  el('kpi3_tt').textContent  = vnd(p3TT);
-  el('kpi3_cl').textContent  = vnd(p3CL);
+  el('kpi3_th').textContent  = fmtAuto(p3TH);
+  el('kpi3_tt').textContent  = fmtAuto(p3TT);
+  el('kpi3_cl').textContent  = fmtAuto(p3CL);
   el('kpi3_tt_badge').textContent = p3pctTT + '%';
   el('kpi3_cl_badge').textContent = p3pctCLv + '%';
   el('p3DoiCount').textContent = '(' + [...new Set(ttNC.map(r=>r.t))].filter(Boolean).length + ' đội)';
 
   // NS nhân công = tổng NS mã NC
   el('kpi3_ns').textContent = fmtAuto(nsNC_val);
+  el('kpi3_ns').style.color = '#00796b';
   const nsConlai = nsNC_val - p3TH;
   el('kpi3_ns_cl').textContent = fmtAuto(Math.abs(nsConlai));
   el('kpi3_ns_cl').style.color = nsConlai >= 0 ? '#2e7d32' : '#c62828';
   el('kpi3_ns_cl_card').style.borderLeftColor = nsConlai >= 0 ? '#2e7d32' : '#c62828';
 
   // --- Bảng tổng hợp đội P3 (chỉ mã NC) ---
-  const p3Body  = el('p3DoiBody');
   const p3Tfoot = el('p3DoiTfoot');
-  p3Body.innerHTML = '';
+  p3DoiDataCache = [];
+  p3SortField = null; p3SortDir = 0;
+  ['gt','cl','status'].forEach(f => { const ic=el('sortP3_'+f+'_icon'); if(ic) ic.textContent='⇅'; });
   const teamsNC = [...new Set(ttNC.map(r=>r.t))].filter(Boolean).sort();
   teamsNC.forEach(team => {
     const rows = ttNC.filter(r=>r.t===team);
@@ -1081,38 +1104,36 @@ function applyData(data) {
     const pctT = pct(ttT, gtT);
     const pctNum = parseFloat(pctT);
     const color = pctNum>=100?'#2e7d32':pctNum>=90?'#E8552A':'#c62828';
-    // Xác định Đợt: nếu Quyết toán → "Quyết toán"; ngược lại lấy số lần cao nhất
     const rounds = rows.map(r=>r.l||'').filter(Boolean);
     const hasQT = rounds.some(r => /quy.t.to.n/i.test(r));
     let dotLabel;
     if(hasQT) {
       dotLabel = '<span class="badge" style="background:#e8f5e9;color:#2e7d32;font-size:9px">Quyết toán</span>';
     } else {
-      // Lấy số lần cao nhất (ví dụ "Lần 8" → 8)
       const nums = rounds.map(r => { const m=r.match(/\d+/); return m?parseInt(m[0]):0; }).filter(n=>n>0);
       const maxRound = nums.length>0 ? Math.max(...nums) : null;
       dotLabel = maxRound!==null
         ? '<span style="font-size:0.6875rem;font-weight:600">'+maxRound+'</span>'
         : '<span style="font-size:0.6875rem;color:#6c757d">—</span>';
     }
-    // Trạng thái: chỉ 2 giá trị
     const statusBadge = hasQT
       ? '<span class="badge" style="background:#e8f5e9;color:#2e7d32">Quyết toán</span>'
       : '<span class="badge bg-b">Đang Thực hiện</span>';
     const tr = document.createElement('tr');
     tr.innerHTML='<td class="tl"><strong>'+team+'</strong></td>'
       +'<td class="tc">'+dotLabel+'</td>'
-      +'<td class="tr">'+vnd(gtT)+'</td>'
-      +'<td class="tr pos">'+vnd(ttT)+'</td>'
-      +'<td class="tr '+(clT>0?'neg':'')+'">'+vnd(clT)+'</td>'
+      +'<td class="tr">'+fmtAuto(gtT)+'</td>'
+      +'<td class="tr pos">'+fmtAuto(ttT)+'</td>'
+      +'<td class="tr '+(clT>0?'neg':'')+'">'+fmtAuto(clT)+'</td>'
       +'<td class="tc"><div class="prog"><div class="prog-fill" style="width:'+Math.min(pctNum,100)+'%;background:'+color+'"></div></div><small>'+pctT+'%</small></td>'
       +'<td class="tc">'+statusBadge+'</td>';
-    p3Body.appendChild(tr);
+    p3DoiDataCache.push({gtT, clT, statusOrder: hasQT?0:1, trEl: tr});
   });
+  renderP3DoiTable();
   p3Tfoot.innerHTML='<tr><td class="tl">TỔNG</td><td></td>'
-    +'<td class="tr">'+vnd(p3TH)+'</td>'
-    +'<td class="tr">'+vnd(p3TT)+'</td>'
-    +'<td class="tr neg">'+vnd(p3CL)+'</td>'
+    +'<td class="tr">'+fmtAuto(p3TH)+'</td>'
+    +'<td class="tr">'+fmtAuto(p3TT)+'</td>'
+    +'<td class="tr neg">'+fmtAuto(p3CL)+'</td>'
     +'<td class="tc"><strong>'+p3pctTT+'%</strong></td>'
     +'<td></td></tr>';
 
@@ -1154,14 +1175,20 @@ function applyData(data) {
     }
     return a.localeCompare(b);
   });
+  // Tính lũy kế GT thực hiện
+  let cumGT = 0;
+  const cumulativeGT = sortedMonths.map(m => { cumGT += monthMap[m].gt; return cumGT; });
+  const fmtChartVal = v => v >= 1e8 ? (v/1e9).toFixed(2)+'tỷ' : (v/1e6).toFixed(0)+'tr';
+
   if(chartMonthlyInst){ chartMonthlyInst.destroy(); chartMonthlyInst=null; }
   chartMonthlyInst = new Chart(el('chartMonthly').getContext('2d'),{
     type:'bar',
     data:{
       labels: sortedMonths,
       datasets:[
-        {label:'GT thực hiện',data:sortedMonths.map(m=>monthMap[m].gt), backgroundColor:'rgba(232,85,42,.75)',borderColor:'#E8552A',borderWidth:1},
-        {label:'Đã thanh toán',data:sortedMonths.map(m=>monthMap[m].tt), backgroundColor:'rgba(59,45,111,.8)', borderColor:'#3B2D6F',borderWidth:1},
+        {label:'GT thực hiện',data:sortedMonths.map(m=>monthMap[m].gt), backgroundColor:'rgba(232,85,42,.75)',borderColor:'#E8552A',borderWidth:1, yAxisID:'y'},
+        {label:'Đã thanh toán',data:sortedMonths.map(m=>monthMap[m].tt), backgroundColor:'rgba(59,45,111,.8)', borderColor:'#3B2D6F',borderWidth:1, yAxisID:'y'},
+        {label:'Lũy kế GT TH',data:cumulativeGT, type:'line', borderColor:'#F5A623', backgroundColor:'rgba(245,166,35,.1)', borderWidth:2, pointRadius:3, fill:false, tension:0.3, yAxisID:'y2'},
       ]
     },
     options:{
@@ -1173,7 +1200,8 @@ function applyData(data) {
       },
       scales:{
         x:{ticks:{font:{size:10}}},
-        y:{ticks:{font:{size:10},callback:v=>(v/1e6).toFixed(0)+'tr'}}
+        y:{ticks:{font:{size:10},callback:v=>fmtChartVal(v)}, title:{display:false}},
+        y2:{position:'right', ticks:{font:{size:10},callback:v=>fmtChartVal(v)}, grid:{drawOnChartArea:false}}
       }
     },
     plugins:[{
@@ -1181,10 +1209,11 @@ function applyData(data) {
       afterDatasetsDraw(chart){
         const{ctx,data}=chart;
         chart.getSortedVisibleDatasetMetas().forEach(meta=>{
+          if(meta.index===2) return; // bỏ qua line lũy kế
           meta.data.forEach((pt,i)=>{
             const val=data.datasets[meta.index].data[i]||0;
             if(val<=0) return;
-            const label=(val/1e6).toFixed(1)+'tr';
+            const label=fmtChartVal(val);
             ctx.save();
             ctx.fillStyle='#1a2332';
             ctx.font='bold 9px Segoe UI,Arial';
@@ -1380,6 +1409,35 @@ function sortWD(field) {
   wdSortDir = wdSortDir === 1 ? -1 : 1;
   el('sortWD_icon').textContent = wdSortDir === 1 ? '↓' : '↑';
   filterWD();
+}
+
+// ===== SORT P3 =====
+function sortP3(field) {
+  if(p3SortField === field) {
+    p3SortDir = p3SortDir === 1 ? -1 : 1;
+  } else {
+    p3SortField = field; p3SortDir = 1;
+  }
+  ['gt','cl','status'].forEach(f => {
+    const ic = el('sortP3_'+f+'_icon');
+    if(ic) ic.textContent = (f===p3SortField) ? (p3SortDir===1?'↓':'↑') : '⇅';
+  });
+  renderP3DoiTable();
+}
+function renderP3DoiTable() {
+  const p3Body  = el('p3DoiBody');
+  if(!p3Body) return;
+  let rows = [...p3DoiDataCache];
+  if(p3SortField) {
+    rows.sort((a,b) => {
+      if(p3SortField==='gt')     return p3SortDir*(a.gtT-b.gtT);
+      if(p3SortField==='cl')     return p3SortDir*(a.clT-b.clT);
+      if(p3SortField==='status') return p3SortDir*(a.statusOrder-b.statusOrder);
+      return 0;
+    });
+  }
+  p3Body.innerHTML = '';
+  rows.forEach(d => { p3Body.appendChild(d.trEl); });
 }
 
 // ===== FILTER WD =====
