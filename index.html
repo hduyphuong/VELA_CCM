@@ -932,7 +932,7 @@ function applyData(data) {
   let tot_boq2=0, tot_ns2=0, tot_cdt2=0, tot_th2=0;
   groups.forEach(g => {
     const gWD  = WD.filter(r=>r.g===g);
-    const boqV = gWD.reduce((a,r)=>a+(r.ttBOQ||0),0);
+    const boqV = gWD.reduce((a,r)=>a+(r.ttBOQ_R||r.ttBOQ||0),0);
     const cdtV = gWD.reduce((a,r)=>a+(r.ttCDT||0),0);
     const nsV  = NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0);
     const thV  = TT.filter(r=>r.g===g).reduce((a,r)=>a+(r.gt||0),0);
