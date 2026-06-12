@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "UOA",
     "project_name": "Tòa nhà UOA Tower 2",
-    "generated_at": "2026-06-12T14:36:37",
+    "generated_at": "2026-06-12T14:57:45",
     "source_file": "HDP_UOA_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Phần ngầm"
   },
@@ -10,6 +10,7 @@
     "boq_total": 25781222400.0,
     "budget_total": 13925078000.0,
     "cdt_workdone_total": 0,
+    "cdt_nc_total": 0,
     "contractor_executed_total": 410975000.0,
     "contractor_paid_total": 396455000.0,
     "contractor_remaining_total": 14520000.0,

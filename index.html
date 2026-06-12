@@ -837,8 +837,8 @@ function applyData(data) {
   const totTT  = TT.reduce((a,r) => a+(r.tt||0), 0);
   const totCL  = TT.reduce((a,r) => a+(r.cl||0), 0);
   const totCDT = s.cdt_workdone_total || 0;
-  // BOQ = tổng cột R (Thành tiền Tổng) sheet WD — dùng ttBOQ_R thay vì ttBOQ (formula cell trả None)
-  const boq    = WD.reduce((a,r)=>a+(r.ttBOQ_R||r.ttBOQ||0),0) || s.boq_total || 0;
+  // BOQ = từ dòng TỔNG CỘNG sheet WD col R (chính xác tuyệt đối, không bị filter row)
+  const boq    = s.boq_total || WD.reduce((a,r)=>a+(r.ttBOQ_R||r.ttBOQ||0),0);
   const nsTotal= s.budget_total || 0;
   const lnDK   = boq - nsTotal;
   const pctLnDK= boq > 0 ? ((lnDK/boq)*100).toFixed(1) : '0';
@@ -984,8 +984,8 @@ function applyData(data) {
     +'<td class="tc" style="color:'+(tot_ln>=0?'#2e7d32':'#c62828')+'">'+(tot_ln>=0?'+':'-')+Math.abs(tot_pctLn)+'%</td>'
     +'<td></td></tr>';
 
-  // --- KPI Page 2: CDT = sum(WD.ttNC_cdt) [cột X sheet WD], TH = sum(TT mã NC, gt) ---
-  const p2CDT = WD.reduce((a,r)=>a+(r.ttNC_cdt||r.ttCDT||0),0);
+  // --- KPI Page 2: CDT = từ dòng TỔNG CỘNG sheet WD col X (chính xác tuyệt đối)
+  const p2CDT = s.cdt_nc_total || WD.reduce((a,r)=>a+(r.ttNC_cdt||r.ttCDT||0),0);
   const p2TH  = thNC_val;
   el('kpi2_cdt').textContent = fmtTy(p2CDT);
   el('kpi2_th').textContent  = fmtTy(p2TH);
