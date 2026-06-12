@@ -939,19 +939,54 @@ function applyData(data) {
   const p1CocauBody  = el('p1CocauBody');
   const p1CocauTfoot = el('p1CocauTfoot');
   p1CocauBody.innerHTML = '';
-  // Lấy danh sách Hạng mục theo thứ tự xuất hiện trong NS (cột C = g)
   const hmListNS = [];
   NS.forEach(r => { if(r.g && !hmListNS.includes(r.g)) hmListNS.push(r.g); });
   let tot_boq2=0, tot_ns2=0, tot_cdt2=0, tot_th2=0;
   let p1Stt = 0;
+
+  // Helper tính BOQ và CDT theo quy tắc mct (NC/VT/OT) per dòng WD
+  const calcBOQ = r => {
+    const mct = (r.mct||'').toUpperCase();
+    if(mct==='NC') {
+      // NC: col P (ttNC_boq) - trừ OT (OT không có trong cùng nhóm NC, logic: chỉ lấy NC rows)
+      return r.ttNC_boq || 0;
+    } else if(mct==='VT') {
+      return r.ttVL_boq || 0;
+    } else {
+      // OT hoặc blank → col R (ttBOQ_R)
+      return r.ttBOQ_R || 0;
+    }
+  };
+  const calcCDT = r => {
+    const mct = (r.mct||'').toUpperCase();
+    if(mct==='NC') return r.ttNC_cdt || 0;
+    if(mct==='VT') return r.ttVL_cdt || 0;
+    return r.ttCDT_Z || r.ttCDT || 0; // OT → col Z
+  };
+
   hmListNS.forEach(hmVal => {
     const nsRows = NS.filter(r=>r.g===hmVal);
-    // BOQ: từ WD, phân theo mct: NC→ttNC (col X WD dòng), VT→ttBOQ (col O WD), khác→ttBOQ_R
     const wdRows = WD.filter(r=>r.g===hmVal);
-    // Tính BOQ theo quy tắc mục 3: NC→sum ttNC_boq, VT→sum ttVT_boq, OT→sum ttBOQ_R
-    // WD hiện tại chưa có phân chia NC/VT per row → dùng tổng ttBOQ_R thực tế từ WD
-    const boqV = wdRows.reduce((a,r)=>a+(r.ttBOQ_R||r.ttBOQ||0),0);
-    const cdtV = wdRows.reduce((a,r)=>a+(r.ttCDT||0),0);
+    // BOQ theo mct per dòng; OT rows tổng từ WD riêng
+    const wdNC  = wdRows.filter(r=>(r.mct||'').toUpperCase()==='NC');
+    const wdVT  = wdRows.filter(r=>(r.mct||'').toUpperCase()==='VT');
+    const wdOT  = wdRows.filter(r=>(r.mct||'').toUpperCase()==='OT');
+    const wdOther = wdRows.filter(r=>!['NC','VT','OT'].includes((r.mct||'').toUpperCase()));
+    // NC BOQ = sum ttNC_boq (col P); VT BOQ = sum ttVL_boq (col O)
+    // Trừ OT: theo định nghĩa "trừ đi giá trị ở cột P/O tương ứng với dòng OT"
+    // → NC BOQ = sum(NC rows col P) - sum(OT rows col P)
+    // → VT BOQ = sum(VT rows col O) - sum(OT rows col O)
+    const ncBOQ = wdNC.reduce((a,r)=>a+(r.ttNC_boq||0),0) - wdOT.reduce((a,r)=>a+(r.ttNC_boq||0),0);
+    const vtBOQ = wdVT.reduce((a,r)=>a+(r.ttVL_boq||0),0) - wdOT.reduce((a,r)=>a+(r.ttVL_boq||0),0);
+    const otBOQ = wdOT.reduce((a,r)=>a+(r.ttBOQ_R||0),0);
+    const otherBOQ = wdOther.reduce((a,r)=>a+(r.ttBOQ_R||0),0);
+    const boqV = ncBOQ + vtBOQ + otBOQ + otherBOQ;
+    // CDT: NC→col X, VT→col W, OT→col Z
+    const ncCDT = wdNC.reduce((a,r)=>a+(r.ttNC_cdt||0),0);
+    const vtCDT = wdVT.reduce((a,r)=>a+(r.ttVL_cdt||0),0);
+    const otCDT = wdOT.reduce((a,r)=>a+(r.ttCDT_Z||r.ttCDT||0),0);
+    const otherCDT = wdOther.reduce((a,r)=>a+(r.ttCDT||0),0);
+    const cdtV = ncCDT + vtCDT + otCDT + otherCDT;
     const nsV  = nsRows.reduce((a,r)=>a+(r.tt||0),0);
     const thV  = TT.filter(r=>r.g===hmVal).reduce((a,r)=>a+(r.gt||0),0);
     const lnV  = cdtV - thV;
@@ -1175,9 +1210,15 @@ function applyData(data) {
     }
     return a.localeCompare(b);
   });
-  // Tính lũy kế GT thực hiện
+  // Tính lũy kế GT thực hiện — chỉ mã NC (cột I Data-TT, field a='NC')
+  const monthMapNC = {};
+  TT.filter(r=>r.a==='NC').forEach(r => {
+    const mo = r.p || 'N/A';
+    if(!monthMapNC[mo]) monthMapNC[mo] = 0;
+    monthMapNC[mo] += (r.gt||0);
+  });
   let cumGT = 0;
-  const cumulativeGT = sortedMonths.map(m => { cumGT += monthMap[m].gt; return cumGT; });
+  const cumulativeGT = sortedMonths.map(m => { cumGT += (monthMapNC[m]||0); return cumGT; });
   const fmtChartVal = v => v >= 1e8 ? (v/1e9).toFixed(2)+'tỷ' : (v/1e6).toFixed(0)+'tr';
 
   if(chartMonthlyInst){ chartMonthlyInst.destroy(); chartMonthlyInst=null; }
