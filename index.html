@@ -1266,7 +1266,9 @@ function filterWD(){
       const hasPeriod = TT.some(t => selectedPeriods.includes(t.p) && t.g===r.g && t.n===r.n);
       if(!hasPeriod) return;
     }
-    const nsRow = NS.find(n => n.g===r.g && n.n===r.n) || {};
+    // Join WD-NS theo mc+mp (chinh xac hon g+n)
+    const nsRow = NS.find(n => n.mc&&r.mc&&n.mc===r.mc&&n.mp===r.mp)
+                || NS.find(n => n.g===r.g && n.n===r.n) || {};
     let dtcKL;
     if(selectedPeriods.length > 0) {
       dtcKL = TT.filter(t=>t.g===r.g&&t.n===r.n&&selectedPeriods.includes(t.p)).reduce((a,t)=>a+(t.k||0),0);

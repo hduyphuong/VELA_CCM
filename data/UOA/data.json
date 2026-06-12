@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "UOA",
     "project_name": "Tòa nhà UOA Tower 2",
-    "generated_at": "2026-06-12T12:51:34",
+    "generated_at": "2026-06-12T12:57:38",
     "source_file": "HDP_UOA_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Phần ngầm"
   },
@@ -60,15 +60,18 @@
         "contractor_paid": 12000000.0
       }
     ],
-    "ns_nc_val": 0.0,
-    "ns_th_val": 0.0
+    "ns_nc_val": 13925078000,
+    "ns_th_val": 630290000
   },
   "TT": [
     {
       "t": "01. Lê Hải Dương",
       "l": "Lần 1",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_LDAT",
       "h": "Ngoài HĐ",
       "n": "Làm đất đổ bê tông lót",
       "u": "m2",
@@ -83,7 +86,10 @@
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 1",
       "p": "04-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_DTRUONG",
       "h": "Trong HĐ",
       "n": "Công nhật đội trưởng",
       "u": "công",
@@ -98,7 +104,10 @@
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 1",
       "p": "04-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Trong HĐ",
       "n": "Công nhật nam",
       "u": "công",
@@ -113,7 +122,10 @@
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 1",
       "p": "04-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NU",
       "h": "Trong HĐ",
       "n": "Công nhật nữ",
       "u": "công",
@@ -128,7 +140,10 @@
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 1",
       "p": "04-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_TC",
       "h": "Trong HĐ",
       "n": "Công nhật đội trưởng tăng ca",
       "u": "giờ",
@@ -143,7 +158,10 @@
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 1",
       "p": "04-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_TC",
       "h": "Trong HĐ",
       "n": "Công nhật nam tăng ca",
       "u": "giờ",
@@ -158,7 +176,10 @@
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 1",
       "p": "04-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_TC",
       "h": "Trong HĐ",
       "n": "Công nhật nữ tăng ca",
       "u": "giờ",
@@ -173,7 +194,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 1",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_CPBT",
       "h": "Ngoài HĐ",
       "n": "Coppha, bê tông dầm capping beam",
       "u": "md",
@@ -188,7 +212,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 1",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_CTCPBT",
       "h": "Ngoài HĐ",
       "n": "Cốt thép,Coppha, bê tông dầm capping beam",
       "u": "md",
@@ -203,7 +230,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 1",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Ngoài HĐ",
       "n": "Vệ sinh thép chờ",
       "u": "Công",
@@ -218,7 +248,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 1",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Ngoài HĐ",
       "n": "Đục rãnh thanh trương nở",
       "u": "Công",
@@ -233,7 +266,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 1",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Ngoài HĐ",
       "n": "Công tác lan can an toàn",
       "u": "Công",
@@ -248,7 +284,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_CTCPBT",
       "h": "Ngoài HĐ",
       "n": "Cốt thép,Coppha, bê tông dầm capping beam",
       "u": "md",
@@ -263,7 +302,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Móng cẩu tháp",
+      "mc": "MONG_CAUTHAP",
+      "mp": "MONG_CT",
       "h": "Trong HĐ",
       "n": "Cốt thép,Coppha, bê tông móng cẩu tháp",
       "u": "cái",
@@ -278,7 +320,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Ngoài HĐ",
       "n": "Vệ sinh thép chờ, nhấn thép D32",
       "u": "Công",
@@ -293,7 +338,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Ngoài HĐ",
       "n": "Đục rãnh thanh trương nở",
       "u": "Công",
@@ -308,7 +356,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Ngoài HĐ",
       "n": "Thay đổi thiết kế mương thép trục 7-8",
       "u": "Công",
@@ -323,7 +374,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Ngoài HĐ",
       "n": "Công tác lan can an toàn",
       "u": "Công",
@@ -338,7 +392,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Ngoài HĐ",
       "n": "Vệ sinh thép chờ, nhấn thép D32",
       "u": "Công",
@@ -353,7 +410,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Ngoài HĐ",
       "n": "Đục rãnh thanh trương nở",
       "u": "Công",
@@ -368,7 +428,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Ngoài HĐ",
       "n": "Công tác lan can an toàn",
       "u": "Công",
@@ -383,7 +446,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 3",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_CTCPBT",
       "h": "Ngoài HĐ",
       "n": "Cốt thép,Coppha, bê tông dầm capping beam",
       "u": "md",
@@ -398,7 +464,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 3",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_SDAM",
       "h": "Ngoài HĐ",
       "n": "Sửa dầm capping Beam",
       "u": "md",
@@ -413,7 +482,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 3",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Ngoài HĐ",
       "n": "Ngày 18/05/2026 gia công lắp đặt mương nước",
       "u": "công",
@@ -428,7 +500,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 3",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Ngoài HĐ",
       "n": "Ngày 12/05/2026 Sửa thép dầm capping beam",
       "u": "công",
@@ -443,7 +518,10 @@
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 3",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Ngoài HĐ",
       "n": "Đục rãnh thanh trương nỡ",
       "u": "công",
@@ -458,7 +536,10 @@
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_DTRUONG",
       "h": "Trong HĐ",
       "n": "Công nhật đội trưởng",
       "u": "công",
@@ -473,7 +554,10 @@
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Trong HĐ",
       "n": "Công nhật nam",
       "u": "công",
@@ -488,7 +572,10 @@
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NU",
       "h": "Trong HĐ",
       "n": "Công nhật nữ",
       "u": "công",
@@ -503,7 +590,10 @@
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_TC",
       "h": "Trong HĐ",
       "n": "Công nhật đội trưởng tăng ca",
       "u": "giờ",
@@ -518,7 +608,10 @@
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_TC",
       "h": "Trong HĐ",
       "n": "Công nhật nam tăng ca",
       "u": "giờ",
@@ -533,7 +626,10 @@
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 2",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_TC",
       "h": "Trong HĐ",
       "n": "Công nhật nữ tăng ca",
       "u": "giờ",
@@ -548,7 +644,10 @@
       "t": "04. Lê Hồng Sơn",
       "l": "Lần 1",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CP_LHS",
       "h": "Ngoài HĐ",
       "n": "Công nhật đi cây chống ngày 26/05",
       "u": "công",
@@ -563,7 +662,10 @@
       "t": "04. Lê Hồng Sơn",
       "l": "Lần 1",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CP_LHS",
       "h": "Ngoài HĐ",
       "n": "Công nhật đi cây chống ngày 27/05",
       "u": "công",
@@ -578,7 +680,10 @@
       "t": "04. Lê Hồng Sơn",
       "l": "Lần 1",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CP_LHS",
       "h": "Ngoài HĐ",
       "n": "Công nhật đi cây chống ngày 28/05",
       "u": "công",
@@ -593,7 +698,10 @@
       "t": "04. Lê Hồng Sơn",
       "l": "Lần 1",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CP_LHS",
       "h": "Ngoài HĐ",
       "n": "Công nhật đi cây chống ngày 29/05",
       "u": "công",
@@ -608,7 +716,10 @@
       "t": "05. Nguyễn Tuấn Em",
       "l": "Lần 1",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_SDAM",
       "h": "Ngoài HĐ",
       "n": "Sửa thép dầm capping beam",
       "u": "md",
@@ -623,7 +734,10 @@
       "t": "05. Nguyễn Tuấn Em",
       "l": "Lần 1",
       "p": "05-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_LD_THEP",
       "h": "Ngoài HĐ",
       "n": "GCLD cốt thép dầm capping beam",
       "u": "md",
@@ -638,7 +752,10 @@
       "t": "05. Nguyễn Tuấn Em",
       "l": "Lần 2",
       "p": "06-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_DCOC",
       "h": "Trong HĐ",
       "n": "Cốt thép đài cọc",
       "u": "kg",
@@ -653,7 +770,10 @@
       "t": "05. Nguyễn Tuấn Em",
       "l": "Lần 2",
       "p": "06-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_DSAN",
       "h": "Trong HĐ",
       "n": "Cốt thép Dầm sàn và đỉnh tường hầm",
       "u": "kg",
@@ -668,7 +788,10 @@
       "t": "05. Nguyễn Tuấn Em",
       "l": "Lần 2",
       "p": "06-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_CVACH",
       "h": "Trong HĐ",
       "n": "Cốt thép cột vách lõi thang bể nước",
       "u": "kg",
@@ -683,7 +806,10 @@
       "t": "05. Nguyễn Tuấn Em",
       "l": "Lần 2",
       "p": "06-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_RDOC_CT",
       "h": "Trong HĐ",
       "n": "Cốt thép ram dốc cầu thang bồn cây tường lan can tường ngăn",
       "u": "kg",
@@ -698,7 +824,10 @@
       "t": "05. Nguyễn Tuấn Em",
       "l": "Lần 2",
       "p": "06-2026",
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_HOGA",
       "h": "Trong HĐ",
       "n": "Cốt thép hố ga hố thu",
       "u": "kg",
@@ -712,7 +841,12 @@
   ],
   "NS": [
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_LOT",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Bê tông lót cho đài cọc và hầm 4",
       "u": "m3",
       "kl": 533.0,
@@ -725,7 +859,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_DCOC",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Bê tông đài cọc",
       "u": "m3",
       "kl": 3795.0,
@@ -738,7 +877,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_DSAN_B123",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Bê tông dầm, sàn các tầng hầm 1,2,3",
       "u": "m3",
       "kl": 4753.0,
@@ -751,7 +895,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_DSAN_B41",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Bê tông dầm, sàn tầng hầm 4 và tầng 1, dầm đỉnh tường vây",
       "u": "m3",
       "kl": 5847.0,
@@ -764,7 +913,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_CVACH",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Bê tông cột, vách bê tông, lõi thang từ tầng hầm 4 đến tầng hầm 1",
       "u": "m3",
       "kl": 2274.0,
@@ -777,7 +931,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_RDOC_CT",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Bê tông ram dốc, cầu thang, bồn cây, tường lan can, tường ngăn",
       "u": "m3",
       "kl": 256.0,
@@ -790,7 +949,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_RDOC_B1",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Bê tông ram dốc xuống tầng hầm 1",
       "u": "m3",
       "kl": 130.0,
@@ -803,7 +967,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_HOGA",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Bê tông hố ga, hố thu",
       "u": "m3",
       "kl": 12.0,
@@ -816,7 +985,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_BE",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Bê tông bể nước, bể tự hoại",
       "u": "m3",
       "kl": 285.0,
@@ -829,7 +1003,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_DAP",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Bê tông đắp",
       "u": "m3",
       "kl": 286.0,
@@ -842,7 +1021,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "XOA_BT",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Xoa nền, làm mặt bê tông chống nứt",
       "u": "m2",
       "kl": 0.0,
@@ -855,7 +1039,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_LDAT",
+      "mct": "",
+      "hdps": "Ngoài HĐ",
       "n": "Làm đất đổ bê tông lót",
       "u": "m2",
       "kl": 0.0,
@@ -868,7 +1057,12 @@
       "tlV": -1.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_DSAN_T1",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn dầm, sàn, dầm đỉnh tường hầm",
       "u": "m2",
       "kl": 6704.0,
@@ -881,7 +1075,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CVACH_T1",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn cột, vách bê tông, lõi thang",
       "u": "m2",
       "kl": 1437.0,
@@ -894,7 +1093,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_RDOC_CT_T1",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn ram dốc, cầu thang, bồn cây, tường lan can, tường ngăn",
       "u": "m2",
       "kl": 469.0,
@@ -907,7 +1111,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_HOGA_T1",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn hố ga, hố thu",
       "u": "m2",
       "kl": 37.0,
@@ -920,7 +1129,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN50_T1",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở ≤50mm",
       "u": "md",
       "kl": 76.0,
@@ -933,7 +1147,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN100_T1",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở ≤100mm",
       "u": "md",
       "kl": 0.0,
@@ -946,7 +1165,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN200_T1",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở ≤200mm",
       "u": "md",
       "kl": 213.0,
@@ -959,7 +1183,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN300_T1",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở ≤300mm",
       "u": "md",
       "kl": 478.0,
@@ -972,7 +1201,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_DCOC",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn đài cọc",
       "u": "m2",
       "kl": 1840.0,
@@ -985,7 +1219,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_DSAN_B",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn dầm và sàn B1 đến B3 (coffa đất)",
       "u": "m2",
       "kl": 15011.0,
@@ -998,7 +1237,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CVACH_B",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn cột, vách bê tông, lõi thang, bể nước",
       "u": "m2",
       "kl": 8401.0,
@@ -1011,7 +1255,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_RDOC_CT_B",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn ram dốc, cầu thang, bồn cây, tường lan can, tường ngăn",
       "u": "m2",
       "kl": 2141.0,
@@ -1024,7 +1273,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_HOGA_B",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn hố ga, hố thu",
       "u": "m2",
       "kl": 76.0,
@@ -1037,7 +1291,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN50_B",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤50mm",
       "u": "m2",
       "kl": 0.0,
@@ -1050,7 +1309,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN100_B",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤100mm",
       "u": "md",
       "kl": 3217.0,
@@ -1063,7 +1327,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN200_B",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤200mm",
       "u": "md",
       "kl": 1331.0,
@@ -1076,7 +1345,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN300_B",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤300mm",
       "u": "md",
       "kl": 968.0,
@@ -1089,7 +1363,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN400_B",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤400mm",
       "u": "md",
       "kl": 0.0,
@@ -1102,7 +1381,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_DCOC",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Cốt thép đài cọc",
       "u": "kg",
       "kl": 522000.0,
@@ -1115,7 +1399,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_DSAN",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Cốt thép dầm, sàn và dầm đỉnh tường hầm",
       "u": "kg",
       "kl": 1998000.0,
@@ -1128,7 +1417,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_CVACH",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Cốt thép cột, vách bê tông, lõi thang, bể nước",
       "u": "kg",
       "kl": 573000.0,
@@ -1141,7 +1435,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_RDOC_CT",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Cốt thép ram dốc, cầu thang, bồn cây, tường lan can, tường ngăn",
       "u": "kg",
       "kl": 54000.0,
@@ -1154,7 +1453,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_HOGA",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Cốt thép hố ga, hố thu",
       "u": "kg",
       "kl": 1000.0,
@@ -1167,7 +1471,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_DTRUONG",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Công nhật đội trưởng",
       "u": "Công",
       "kl": 180.0,
@@ -1180,7 +1489,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Công nhật nam",
       "u": "Công",
       "kl": 180.0,
@@ -1193,7 +1507,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NU",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Công nhật nữ",
       "u": "Công",
       "kl": 180.0,
@@ -1206,7 +1525,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_TC",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Chi phí tăng ca",
       "u": "Giờ",
       "kl": 540.0,
@@ -1219,7 +1543,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_HTRO_NHA",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Hỗ trợ chi phí nhà trọ",
       "u": "Người/tháng",
       "kl": 18.0,
@@ -1232,7 +1561,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CP_LHS",
+      "mct": "Lê Hồng Sơn",
+      "hdps": "Ngoài HĐ",
       "n": "Phát sinh công nhật (ngoài PVCV với Tung Feng)",
       "u": "Công",
       "kl": 0.0,
@@ -1245,7 +1579,12 @@
       "tlV": -1.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Móng cẩu tháp",
+      "mc": "MONG_CAUTHAP",
+      "mp": "MONG_CT",
+      "mct": "",
+      "hdps": "Trong HĐ",
       "n": "Nhân công cốt thép,Coppha, đổ bê tông móng cẩu tháp",
       "u": "cái",
       "kl": 2.0,
@@ -1258,7 +1597,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_CPBT",
+      "mct": "",
+      "hdps": "Ngoài HĐ",
       "n": "Coppha, bê tông dầm capping beam",
       "u": "md",
       "kl": 154.2,
@@ -1271,7 +1615,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_CTCPBT",
+      "mct": "",
+      "hdps": "Ngoài HĐ",
       "n": "Cốt thép,Coppha, bê tông dầm capping beam",
       "u": "md",
       "kl": 154.2,
@@ -1284,7 +1633,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
+      "mct": "",
+      "hdps": "Ngoài HĐ",
       "n": "Công nhật phục vụ công tác capping beam",
       "u": "công",
       "kl": 0.0,
@@ -1297,7 +1651,12 @@
       "tlV": -1.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_SDAM",
+      "mct": "",
+      "hdps": "Ngoài HĐ",
       "n": "Sửa dầm capping Beam",
       "u": "md",
       "kl": 308.4,
@@ -1310,7 +1669,12 @@
       "tlV": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_LD_THEP",
+      "mct": "",
+      "hdps": "Ngoài HĐ",
       "n": "GCLD cốt thép dầm capping beam",
       "u": "md",
       "kl": 154.2,
@@ -1325,7 +1689,10 @@
   ],
   "WD": [
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_LOT",
       "h": "Trong HĐ",
       "n": "Bê tông lót cho đài cọc và hầm 4",
       "u": "m3",
@@ -1337,7 +1704,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_DCOC",
       "h": "Trong HĐ",
       "n": "Bê tông đài cọc",
       "u": "m3",
@@ -1349,7 +1719,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_DSAN_B123",
       "h": "Trong HĐ",
       "n": "Bê tông dầm, sàn các tầng hầm 1,2,3",
       "u": "m3",
@@ -1361,7 +1734,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_DSAN_B41",
       "h": "Trong HĐ",
       "n": "Bê tông dầm, sàn tầng hầm 4 và tầng 1, dầm đỉnh tường vây",
       "u": "m3",
@@ -1373,7 +1749,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_CVACH",
       "h": "Trong HĐ",
       "n": "Bê tông cột, vách bê tông, lõi thang từ tầng hầm 4 đến tầng hầm 1",
       "u": "m3",
@@ -1385,7 +1764,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_RDOC_CT",
       "h": "Trong HĐ",
       "n": "Bê tông ram dốc, cầu thang, bồn cây, tường lan can, tường ngăn",
       "u": "m3",
@@ -1397,7 +1779,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_RDOC_B1",
       "h": "Trong HĐ",
       "n": "Bê tông ram dốc xuống tầng hầm 1",
       "u": "m3",
@@ -1409,7 +1794,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_HOGA",
       "h": "Trong HĐ",
       "n": "Bê tông hố ga, hố thu",
       "u": "m3",
@@ -1421,7 +1809,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_BE",
       "h": "Trong HĐ",
       "n": "Bê tông bể nước, bể tự hoại",
       "u": "m3",
@@ -1433,7 +1824,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_DAP",
       "h": "Trong HĐ",
       "n": "Bê tông đắp",
       "u": "m3",
@@ -1445,7 +1839,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "XOA_BT",
       "h": "Trong HĐ",
       "n": "Xoa nền, làm mặt bê tông chống nứt",
       "u": "m2",
@@ -1457,7 +1854,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Bê tông",
+      "mc": "BE_TONG",
+      "mp": "BT_LDAT",
       "h": "Ngoài HĐ",
       "n": "Làm đất đổ bê tông lót",
       "u": "m2",
@@ -1469,7 +1869,10 @@
       "ttDTC": 75000000.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_DSAN_T1",
       "h": "Trong HĐ",
       "n": "Ván khuôn dầm, sàn, dầm đỉnh tường hầm",
       "u": "m2",
@@ -1481,7 +1884,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CVACH_T1",
       "h": "Trong HĐ",
       "n": "Ván khuôn cột, vách bê tông, lõi thang",
       "u": "m2",
@@ -1493,7 +1899,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_RDOC_CT_T1",
       "h": "Trong HĐ",
       "n": "Ván khuôn ram dốc, cầu thang, bồn cây, tường lan can, tường ngăn",
       "u": "m2",
@@ -1505,7 +1914,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_HOGA_T1",
       "h": "Trong HĐ",
       "n": "Ván khuôn hố ga, hố thu",
       "u": "m2",
@@ -1517,7 +1929,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN50_T1",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở ≤50mm",
       "u": "md",
@@ -1529,7 +1944,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN100_T1",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở ≤100mm",
       "u": "md",
@@ -1541,7 +1959,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN200_T1",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở ≤200mm",
       "u": "md",
@@ -1553,7 +1974,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN300_T1",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở ≤300mm",
       "u": "md",
@@ -1565,7 +1989,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_DCOC",
       "h": "Trong HĐ",
       "n": "Ván khuôn đài cọc",
       "u": "m2",
@@ -1577,7 +2004,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_DSAN_B",
       "h": "Trong HĐ",
       "n": "Ván khuôn dầm và sàn B1 đến B3 (coffa đất)",
       "u": "m2",
@@ -1589,7 +2019,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CVACH_B",
       "h": "Trong HĐ",
       "n": "Ván khuôn cột, vách bê tông, lõi thang, bể nước",
       "u": "m2",
@@ -1601,7 +2034,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_RDOC_CT_B",
       "h": "Trong HĐ",
       "n": "Ván khuôn ram dốc, cầu thang, bồn cây, tường lan can, tường ngăn",
       "u": "m2",
@@ -1613,7 +2049,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_HOGA_B",
       "h": "Trong HĐ",
       "n": "Ván khuôn hố ga, hố thu",
       "u": "m2",
@@ -1625,7 +2064,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN50_B",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤50mm",
       "u": "m2",
@@ -1637,7 +2079,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN100_B",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤100mm",
       "u": "md",
@@ -1649,7 +2094,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN200_B",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤200mm",
       "u": "md",
@@ -1661,7 +2109,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN300_B",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤300mm",
       "u": "md",
@@ -1673,7 +2124,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CSAN400_B",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤400mm",
       "u": "md",
@@ -1685,7 +2139,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
+      "mc": "COP_PHA",
+      "mp": "CP_CONGNHAT",
       "h": "Ngoài HĐ",
       "n": "Phát sinh công nhật (ngoài PVCV với Tung Feng)",
       "u": "Công",
@@ -1697,7 +2154,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_DCOC",
       "h": "Trong HĐ",
       "n": "Cốt thép đài cọc",
       "u": "kg",
@@ -1709,7 +2169,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_DSAN",
       "h": "Trong HĐ",
       "n": "Cốt thép dầm, sàn và dầm đỉnh tường hầm",
       "u": "kg",
@@ -1721,7 +2184,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_CVACH",
       "h": "Trong HĐ",
       "n": "Cốt thép cột, vách bê tông, lõi thang, bể nước",
       "u": "kg",
@@ -1733,7 +2199,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_RDOC_CT",
       "h": "Trong HĐ",
       "n": "Cốt thép ram dốc, cầu thang, bồn cây, tường lan can, tường ngăn",
       "u": "kg",
@@ -1745,7 +2214,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
+      "mc": "COT_THEP",
+      "mp": "CT_HOGA",
       "h": "Trong HĐ",
       "n": "Cốt thép hố ga, hố thu",
       "u": "kg",
@@ -1757,7 +2229,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_DTRUONG",
       "h": "Trong HĐ",
       "n": "Công nhật đội trưởng",
       "u": "Công",
@@ -1769,7 +2244,10 @@
       "ttDTC": 12375000.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Trong HĐ",
       "n": "Công nhật nam",
       "u": "Công",
@@ -1781,7 +2259,10 @@
       "ttDTC": 12400000.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NU",
       "h": "Trong HĐ",
       "n": "Công nhật nữ",
       "u": "Công",
@@ -1793,7 +2274,10 @@
       "ttDTC": 8200000.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_TC",
       "h": "Trong HĐ",
       "n": "Chi phí tăng ca",
       "u": "Giờ",
@@ -1805,7 +2289,10 @@
       "ttDTC": 3690000.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Công nhật",
+      "mc": "CONG_NHAT",
+      "mp": "CN_HTRO_NHA",
       "h": "Trong HĐ",
       "n": "Hỗ trợ chi phí nhà trọ",
       "u": "Người/tháng",
@@ -1817,7 +2304,10 @@
       "ttDTC": 0.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Móng cẩu tháp",
+      "mc": "MONG_CAUTHAP",
+      "mp": "MONG_CT",
       "h": "Trong HĐ",
       "n": "Nhân công cốt thép,Coppha, đổ bê tông móng cẩu tháp",
       "u": "cái",
@@ -1829,7 +2319,10 @@
       "ttDTC": 12000000.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_CPBT",
       "h": "Ngoài HĐ",
       "n": "Coppha, bê tông dầm capping beam",
       "u": "md",
@@ -1841,7 +2334,10 @@
       "ttDTC": 9000000.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_CTCPBT",
       "h": "Ngoài HĐ",
       "n": "Cốt thép,Coppha, bê tông dầm capping beam",
       "u": "md",
@@ -1853,7 +2349,10 @@
       "ttDTC": 115310000.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CONG_NHAT",
+      "mp": "CN_NAM",
       "h": "Ngoài HĐ",
       "n": "Công nhật phục vụ công tác capping beam",
       "u": "công",
@@ -1865,7 +2364,10 @@
       "ttDTC": 37500000.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_SDAM",
       "h": "Ngoài HĐ",
       "n": "Sửa dầm capping Beam",
       "u": "md",
@@ -1877,7 +2379,10 @@
       "ttDTC": 26500000.0
     },
     {
+      "hm": "PHẦN NGẦM",
       "g": "Capping beam",
+      "mc": "CAPPING_BEAM",
+      "mp": "CB_LD_THEP",
       "h": "Ngoài HĐ",
       "n": "GCLD cốt thép dầm capping beam",
       "u": "md",
