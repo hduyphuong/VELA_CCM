@@ -7,21 +7,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 /* ===== VELA COLOR PALETTE ===== */
-/* Primary: cam #E8552A | Navy: #3B2D6F | Accent: #F5A623 */
-
-/* ===== BASE ===== */
 html{font-size:16px;-webkit-text-size-adjust:100%}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;font-size:0.8125rem;line-height:1.5;-webkit-font-smoothing:antialiased}
 
 /* ===== HEADER ===== */
-.header{background:linear-gradient(135deg,#3B2D6F 0%,#E8552A 100%);color:white;padding:0.875rem 1.5rem 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.header-top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:0.5rem;gap:0.75rem;flex-wrap:wrap}
+.header{background:linear-gradient(135deg,#3B2D6F 0%,#E8552A 100%);color:white;padding:0.75rem 1.5rem 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.header-top{display:flex;justify-content:space-between;align-items:center;padding-bottom:0.5rem;gap:0.75rem;flex-wrap:wrap}
 .header-left{display:flex;align-items:center;gap:0.75rem}
-.header-logo{height:44px;width:auto;flex-shrink:0;mix-blend-mode:screen}
+.header-logo{height:40px;width:auto;flex-shrink:0;filter:drop-shadow(0 0 0 transparent)}
 .header h1{font-size:1.0625rem;font-weight:700}
 .header .sub{font-size:0.6875rem;opacity:.8;margin-top:0.1875rem}
-.header .meta{text-align:right;font-size:0.6875rem;opacity:.85;line-height:1.7;flex-shrink:0}
+.header-right{display:flex;align-items:center;gap:0.625rem;flex-shrink:0}
+.header .meta{text-align:right;font-size:0.6875rem;opacity:.85;line-height:1.7}
+.btn-print-hdr{display:inline-flex;align-items:center;gap:0.3rem;padding:0.375rem 0.875rem;border:1.5px solid rgba(255,255,255,.7);border-radius:5px;font-size:0.6875rem;font-weight:600;color:white;background:rgba(255,255,255,.15);cursor:pointer;white-space:nowrap;transition:all .2s}
+.btn-print-hdr:hover{background:rgba(255,255,255,.3);border-color:white}
 
 /* ===== PROJECT SWITCHER ===== */
 .project-switcher{display:flex;gap:4px;padding:0.375rem 0 0;overflow-x:auto;scrollbar-width:none}
@@ -41,13 +41,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;fo
 .nav-num{display:inline-flex;align-items:center;justify-content:center;width:1.125rem;height:1.125rem;border-radius:50%;font-size:0.625rem;font-weight:700;background:rgba(255,255,255,.25);margin-right:0.375rem}
 .nav-btn.active .nav-num{background:#E8552A;color:white}
 
-/* ===== TOOL BAR ===== */
-.tool-bar{display:flex;gap:0.5rem;padding:0.5rem 1.5rem;background:white;border-bottom:1px solid #dee2e6;flex-wrap:wrap;align-items:center}
-.tool-btn{display:inline-flex;align-items:center;justify-content:center;gap:0.375rem;padding:0.5rem 1.125rem;min-height:2.5rem;border:none;border-radius:6px;font-size:0.71875rem;font-weight:600;cursor:pointer;transition:all .2s}
-.btn-print{background:#3B2D6F;color:white;box-shadow:0 1px 3px rgba(0,0,0,.2)}
-.btn-print:hover{background:#2a1f56;box-shadow:0 2px 6px rgba(0,0,0,.25)}
-.tool-label{font-size:0.6875rem;color:#6c757d;margin-left:auto}
-
 /* ===== LOADING / ERROR ===== */
 #loadingState,#errorState{display:none;padding:3rem 1.5rem;text-align:center;color:#6c757d;font-size:0.875rem}
 #loadingState .spin{display:inline-block;width:2rem;height:2rem;border:3px solid #dee2e6;border-top-color:#E8552A;border-radius:50%;animation:spin .7s linear infinite;margin-bottom:0.75rem}
@@ -60,8 +53,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;fo
 
 /* ===== KPI ===== */
 .kpi-row{display:grid;gap:0.75rem;margin-bottom:1.125rem;width:100%}
-.kpi-2x4{grid-template-columns:repeat(4,1fr)}
-.kpi-6{grid-template-columns:repeat(6,1fr)}
 .kpi-4{grid-template-columns:repeat(4,1fr)}
 .kpi-5{grid-template-columns:repeat(5,1fr)}
 .kpi-3{grid-template-columns:repeat(3,1fr)}
@@ -69,6 +60,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;fo
 .kpi-card.g{border-left-color:#2e7d32}.kpi-card.o{border-left-color:#E8552A}
 .kpi-card.r{border-left-color:#c62828}.kpi-card.p{border-left-color:#3B2D6F}
 .kpi-card.t{border-left-color:#00796b}.kpi-card.v{border-left-color:#F5A623}
+.kpi-card.b{border-left-color:#1565c0}
 .kpi-label{font-size:0.625rem;color:#6c757d;text-transform:uppercase;letter-spacing:.5px;margin-bottom:0.25rem}
 .kpi-value{font-size:1.125rem;font-weight:700;line-height:1.2}
 .kpi-sub{font-size:0.625rem;color:#6c757d;margin-top:0.125rem}
@@ -77,12 +69,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;fo
 .bg-r{background:#f8d7da;color:#721c24}.bg-b{background:#cce5ff;color:#004085}
 .bg-p{background:#e8d5f5;color:#3B2D6F}.bg-t{background:#b2dfdb;color:#00352e}
 .bg-v{background:#fff3cd;color:#7d3000}
-/* Lợi nhuận badges */
-.ln-pos{background:#d1e7dd;color:#0f5132}
-.ln-neg{background:#f8d7da;color:#721c24}
 
 /* ===== GRID ===== */
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem;width:100%}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.875rem;margin-bottom:0.875rem;width:100%}
 .grid-6040{display:grid;grid-template-columns:60fr 40fr;gap:0.875rem;margin-bottom:0.875rem;width:100%}
 .grid-4060{display:grid;grid-template-columns:40fr 60fr;gap:0.875rem;margin-bottom:0.875rem;width:100%}
 .card{background:white;border-radius:9px;padding:1rem 1.125rem;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:0.875rem;width:100%}
@@ -121,6 +111,12 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 .prog{background:#e9ecef;border-radius:6px;height:6px;overflow:hidden;width:70px;margin:2px auto 0}
 .prog-fill{height:100%;border-radius:6px}
 
+/* ===== PROGRESS BAR (inline) ===== */
+.pbar-wrap{display:flex;align-items:center;gap:6px;min-width:120px}
+.pbar-track{flex:1;height:7px;background:#e9ecef;border-radius:4px;overflow:hidden}
+.pbar-fill{height:100%;border-radius:4px}
+.pbar-label{font-size:0.6875rem;font-weight:600;min-width:36px;text-align:right}
+
 /* ===== FILTER ===== */
 .filter-bar{display:flex;gap:0.625rem;align-items:center;margin-bottom:0.75rem;flex-wrap:wrap}
 .filter-bar label{font-size:0.6875rem;font-weight:600;color:#495057}
@@ -141,20 +137,28 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 .ms-clear{padding:5px 10px;font-size:11px;color:#E8552A;cursor:pointer;border-top:1px solid #dee2e6;text-align:center}
 .ms-clear:hover{background:#fef3ee}
 
+/* ===== COMPARE BAR (bảng cơ cấu) ===== */
+.cmp-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.cmp-label{font-size:0.71875rem;color:#495057;width:140px;flex-shrink:0}
+.cmp-track{flex:1;height:11px;background:#e9ecef;border-radius:4px;overflow:hidden}
+.cmp-fill{height:100%;border-radius:4px}
+.cmp-value{font-size:0.71875rem;font-weight:600;width:80px;text-align:right;flex-shrink:0}
+
 /* ===== WARN / INFO ===== */
 .warn{background:#fff3cd;border-left:3px solid #F5A623;border-radius:6px;padding:0.5625rem 0.8125rem;font-size:0.6875rem;color:#6d4c00;margin-top:0.625rem;line-height:1.6}
 .info{background:#ede9ff;border-left:3px solid #3B2D6F;border-radius:6px;padding:0.5625rem 0.8125rem;font-size:0.6875rem;color:#3B2D6F;margin-top:0.625rem;line-height:1.6}
+.alert-r{background:#fde8e0;border-left:3px solid #E8552A;border-radius:6px;padding:0.5625rem 0.8125rem;font-size:0.6875rem;color:#7d3000;margin-top:0.625rem;line-height:1.6}
 
 .chart-box{position:relative}
 .footer{text-align:center;font-size:0.625rem;color:#6c757d;padding:0.875rem}
+.data-label-bar{font-size:0.6875rem;color:#6c757d;text-align:right;margin-top:0.25rem}
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:1024px){
-  .kpi-2x4{grid-template-columns:repeat(2,1fr)}
-  .kpi-6{grid-template-columns:repeat(3,1fr)}
-  .kpi-5{grid-template-columns:repeat(3,1fr)}
+  .kpi-4,.kpi-5{grid-template-columns:repeat(2,1fr)}
   .grid-6040,.grid-4060{grid-template-columns:1fr}
   .header .meta{display:none}
+  .grid-3{grid-template-columns:1fr}
 }
 @media(max-width:768px){
   html{font-size:15px}
@@ -162,12 +166,9 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   .header-logo{height:28px}
   .header h1{font-size:0.9375rem}
   .nav-btn{padding:0.5rem 0.75rem;font-size:0.625rem;min-height:2.5rem}
-  .tool-bar{padding:0.5rem 0.75rem;gap:0.375rem}
-  .tool-btn{padding:0.5rem 0.75rem;font-size:0.6875rem}
-  .tool-label{display:none}
   .page{padding:0.75rem 0.625rem}
   .card{padding:0.75rem 0.875rem}
-  .kpi-2x4,.kpi-6,.kpi-5,.kpi-4{grid-template-columns:repeat(2,1fr)}
+  .kpi-4,.kpi-5,.kpi-3{grid-template-columns:repeat(2,1fr)}
   .kpi-value{font-size:1rem}
   .grid-2,.grid-6040,.grid-4060{grid-template-columns:1fr}
   .filter-bar select{min-height:2.75rem;font-size:0.875rem}
@@ -176,7 +177,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   tbody td{padding:0.375rem 0.5rem}
 }
 @media(max-width:480px){
-  .kpi-2x4,.kpi-6,.kpi-5,.kpi-4{grid-template-columns:1fr 1fr}
+  .kpi-4,.kpi-5,.kpi-3{grid-template-columns:1fr 1fr}
   .nav-btn .nav-num{display:none}
 }
 
@@ -185,19 +186,19 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   html{font-size:11pt}
   body{background:white;color:black}
   .header{position:relative;box-shadow:none;background:#3B2D6F!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .project-switcher,.nav-bar,.tool-bar,.filter-bar{display:none!important}
+  .project-switcher,.nav-bar,.filter-bar{display:none!important}
   .page{display:block!important;page-break-before:always;padding:0;width:100%}
   .page:first-of-type{page-break-before:auto}
   .card{box-shadow:none;border:1px solid #dee2e6;margin-bottom:0.5rem}
   .chart-box{height:200px!important}
-  .kpi-2x4{grid-template-columns:repeat(4,1fr)}
-  .kpi-6,.kpi-5{grid-template-columns:repeat(3,1fr)}
-  .kpi-4{grid-template-columns:repeat(4,1fr)}
-  .grid-2,.grid-6040,.grid-4060{grid-template-columns:1fr 1fr}
+  .kpi-4,.kpi-5,.kpi-3{grid-template-columns:repeat(4,1fr)}
+  .grid-2,.grid-6040,.grid-4060,.grid-3{grid-template-columns:1fr 1fr}
   thead tr{background:#3B2D6F!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .grow{background:#fde8e0!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .vuot-cell{background:#b71c1c!important;color:white!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   a{text-decoration:none}
   #loadingState,#errorState{display:none!important}
+  .btn-print-hdr{display:none!important}
 }
 </style>
 </head>
@@ -214,10 +215,13 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <div class="sub" id="hdrProjectSub">Đang tải dữ liệu...</div>
       </div>
     </div>
-    <div class="meta" id="hdrMeta">
-      <strong id="hdrPeriod">—</strong><br>
-      Lập bởi: <strong>Huỳnh Phương</strong><br>
-      <span id="hdrPhase">—</span>
+    <div class="header-right">
+      <div class="meta" id="hdrMeta">
+        <strong id="hdrPeriod">—</strong><br>
+        Lập bởi: <strong>Huỳnh Phương</strong><br>
+        <span id="hdrPhase">—</span>
+      </div>
+      <button class="btn-print-hdr" onclick="window.print()">🖨️ In báo cáo</button>
     </div>
   </div>
   <div class="project-switcher" id="projectSwitcher"></div>
@@ -231,13 +235,10 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     <button class="nav-btn" onclick="showPage('p3',this)">
       <span class="nav-num">3</span>BC Thanh toán ĐTC
     </button>
+    <button class="nav-btn" onclick="showPage('p4',this)">
+      <span class="nav-num">4</span>BC Vật tư
+    </button>
   </nav>
-</div>
-
-<!-- TOOL BAR -->
-<div class="tool-bar">
-  <button class="tool-btn btn-print" onclick="window.print()">🖨️ In báo cáo</button>
-  <span class="tool-label" id="dataLabel">Đang tải...</span>
 </div>
 
 <!-- LOADING STATE -->
@@ -258,108 +259,94 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 <!-- ============================================================ -->
 <div id="p1" class="page active">
 
-  <!-- Hàng 1: BOQ | NS | LN DỰ KIẾN | % LN DK -->
-  <div class="kpi-row kpi-2x4">
+  <!-- KPI: 4 thẻ -->
+  <div class="kpi-row kpi-4">
     <div class="kpi-card">
       <div class="kpi-label">Giá trị BOQ</div>
       <div class="kpi-value" id="kpi1_boq">—</div>
-      <div class="kpi-sub">VNĐ – Hợp đồng với CĐT</div>
+      <div class="kpi-sub" id="kpi1_boq_sub">Hợp đồng gốc + phát sinh duyệt</div>
     </div>
     <div class="kpi-card t">
       <div class="kpi-label">Ngân sách nội bộ</div>
       <div class="kpi-value" id="kpi1_ns" style="color:#00796b">—</div>
-      <div class="kpi-sub">VNĐ – Đơn giá khoán đội</div>
+      <div class="kpi-sub" id="kpi1_ns_sub">Nhân công + Vật tư + Máy</div>
     </div>
     <div class="kpi-card v">
       <div class="kpi-label">LN Dự kiến</div>
       <div class="kpi-value" id="kpi1_ln_dk">—</div>
-      <div class="kpi-sub">BOQ – Ngân sách</div>
-    </div>
-    <div class="kpi-card v">
-      <div class="kpi-label">% LN Dự kiến</div>
-      <div class="kpi-value" id="kpi1_pct_ln_dk">—</div>
-      <div class="kpi-sub">LN DK / Giá trị BOQ</div>
-    </div>
-  </div>
-
-  <!-- Hàng 2: CĐT XÁC NHẬN | ĐỘI ĐÃ TH | LN HIỆN TẠI | % LN HT -->
-  <div class="kpi-row kpi-2x4">
-    <div class="kpi-card g">
-      <div class="kpi-label">Giá trị CĐT xác nhận</div>
-      <div class="kpi-value" id="kpi1_cdt" style="color:#2e7d32">—</div>
-      <div class="kpi-sub">VNĐ – IPC lũy kế</div>
-      <span class="kpi-badge bg-g" id="kpi1_cdt_badge">—</span>
-    </div>
-    <div class="kpi-card o">
-      <div class="kpi-label">Đội đã thực hiện</div>
-      <div class="kpi-value" id="kpi1_th" style="color:#E8552A">—</div>
-      <div class="kpi-sub">VNĐ – Theo hồ sơ TT</div>
+      <div class="kpi-sub" id="kpi1_ln_dk_sub">BOQ – Ngân sách</div>
     </div>
     <div class="kpi-card" id="kpi1_ln_ht_card">
-      <div class="kpi-label">LN Hiện tại</div>
+      <div class="kpi-label">LN Hiện tại (EAC)</div>
       <div class="kpi-value" id="kpi1_ln_ht">—</div>
-      <div class="kpi-sub">CĐT xác nhận – Đội TH</div>
-    </div>
-    <div class="kpi-card" id="kpi1_pct_ln_ht_card">
-      <div class="kpi-label">% LN Hiện tại</div>
-      <div class="kpi-value" id="kpi1_pct_ln_ht">—</div>
-      <div class="kpi-sub">LN HT / CĐT xác nhận</div>
+      <div class="kpi-sub" id="kpi1_ln_ht_sub">CĐT xác nhận – Đội TH</div>
     </div>
   </div>
 
-  <div class="grid-6040">
+  <!-- 2 bảng cơ cấu: ngân sách | chi phí hiện tại -->
+  <div class="grid-2">
     <div class="card mb0">
-      <div class="stitle">Biểu đồ so sánh Ngân sách – CĐT Workdone – Đã TT cho đội</div>
-      <div class="chart-box" style="height:270px"><canvas id="chartP1"></canvas></div>
+      <div class="stitle">Bảng cơ cấu ngân sách</div>
+      <div id="p1CocauNS">
+        <div class="cmp-row"><span class="cmp-label">Ngân sách nội bộ</span><div class="cmp-track"><div class="cmp-fill" id="cmp_ns_bar" style="width:100%;background:#00796b"></div></div><span class="cmp-value" id="cmp_ns_val" style="color:#00796b">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">CĐT đã xác nhận</span><div class="cmp-track"><div class="cmp-fill" id="cmp_cdt_bar" style="width:0%;background:#2e7d32"></div></div><span class="cmp-value" id="cmp_cdt_val" style="color:#2e7d32">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Chi phí đội TH</span><div class="cmp-track"><div class="cmp-fill" id="cmp_th_bar" style="width:0%;background:#E8552A"></div></div><span class="cmp-value" id="cmp_th_val" style="color:#E8552A">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Đã thanh toán</span><div class="cmp-track"><div class="cmp-fill" id="cmp_tt_bar" style="width:0%;background:#3B2D6F"></div></div><span class="cmp-value" id="cmp_tt_val" style="color:#3B2D6F">—</span></div>
+      </div>
     </div>
     <div class="card mb0">
-      <div class="stitle">Tiến độ thực hiện theo gói thầu</div>
-      <div class="tbl-wrap">
-      <table>
-        <thead><tr>
-          <th class="tl">Gói thầu</th>
-          <th>BOQ (tỷ)</th>
-          <th>CĐT WD (tỷ)</th>
-          <th>% BOQ</th>
-          <th>Ngân sách (tỷ)</th>
-          <th>TT đội (tỷ)</th>
-        </tr></thead>
-        <tbody id="p1GoiBody"></tbody>
-        <tfoot id="p1GoiTfoot"></tfoot>
-      </table>
+      <div class="stitle">Bảng cơ cấu chi phí hiện tại</div>
+      <div id="p1CocauCP">
+        <div class="cmp-row"><span class="cmp-label">BOQ (CĐT)</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_boq_bar" style="width:100%;background:#3B2D6F"></div></div><span class="cmp-value" id="cmpb_boq_val" style="color:#3B2D6F">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Ngân sách nội bộ</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_ns_bar" style="width:0%;background:#00796b"></div></div><span class="cmp-value" id="cmpb_ns_val" style="color:#00796b">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">CĐT xác nhận</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_cdt_bar" style="width:0%;background:#2e7d32"></div></div><span class="cmp-value" id="cmpb_cdt_val" style="color:#2e7d32">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Chi phí thực tế</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_th_bar" style="width:0%;background:#E8552A"></div></div><span class="cmp-value" id="cmpb_th_val" style="color:#E8552A">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Đã thanh toán</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_tt_bar" style="width:0%;background:#888"></div></div><span class="cmp-value" id="cmpb_tt_val" style="color:#495057">—</span></div>
       </div>
     </div>
   </div>
 
+  <!-- Bảng so sánh giá trị -->
   <div class="card">
-    <div class="stitle">Bảng tổng hợp giá trị chi tiết</div>
+    <div class="stitle">Bảng so sánh giá trị</div>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th class="tl">Chỉ tiêu</th>
+        <th>Giá trị (VNĐ)</th>
+        <th>Tỷ trọng</th>
+        <th>So với BOQ</th>
+        <th>Ghi chú</th>
+      </tr></thead>
+      <tbody id="p1CmpBody"></tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- Bảng chi tiết cơ cấu theo gói thầu -->
+  <div class="card mb0">
+    <div class="stitle">Bảng chi tiết cơ cấu theo gói thầu</div>
     <div class="tbl-wrap">
     <table>
       <thead>
         <tr>
-          <th class="tl" rowspan="2" style="min-width:160px">Hạng mục / Gói thầu</th>
-          <th rowspan="2">HĐ/PS</th>
-          <th rowspan="2">ĐVT</th>
-          <th colspan="2" style="background:#1e3a6e">GIÁ TRỊ BOQ</th>
-          <th colspan="3" style="background:#1b5e20">CĐT WORKDONE</th>
-          <th colspan="2" style="background:#00695c">NGÂN SÁCH</th>
-          <th colspan="3" style="background:#3B2D6F">THANH TOÁN ĐỘI</th>
-          <th colspan="3" style="background:#b71c1c">VƯỢT NGÂN SÁCH</th>
-        </tr>
-        <tr>
-          <th style="background:#1e3a6e">KL</th><th style="background:#1e3a6e">Giá trị (VNĐ)</th>
-          <th style="background:#1b5e20">KL LK</th><th style="background:#1b5e20">Giá trị (VNĐ)</th><th style="background:#1b5e20">% BOQ</th>
-          <th style="background:#00695c">KL</th><th style="background:#00695c">Giá trị (VNĐ)</th>
-          <th style="background:#3B2D6F">KL TT</th><th style="background:#3B2D6F">GT TH (VNĐ)</th><th style="background:#3B2D6F">TD TH</th>
-          <th style="background:#b71c1c">KL vượt</th><th style="background:#b71c1c">GT vượt (VNĐ)</th><th style="background:#b71c1c">TL vượt</th>
+          <th class="tl">Cơ cấu / Gói thầu</th>
+          <th>Giá trị BOQ</th>
+          <th>Ngân sách</th>
+          <th>GT CĐT xác nhận</th>
+          <th>Chi phí TH (Đội)</th>
+          <th>% BOQ</th>
+          <th>LN (tỷ)</th>
+          <th>% LN</th>
+          <th>Trạng thái</th>
         </tr>
       </thead>
-      <tbody id="p1DetailBody"></tbody>
-      <tfoot id="p1DetailTfoot"></tfoot>
+      <tbody id="p1CocauBody"></tbody>
+      <tfoot id="p1CocauTfoot"></tfoot>
     </table>
     </div>
-    <div class="warn" style="margin-top:0.5rem">⚠️ <strong>VƯỢT NGÂN SÁCH</strong> <span style="color:#b71c1c;font-weight:700">(ô nền đỏ)</span>: KL hoặc giá trị thực hiện vượt ngân sách nội bộ. Cần kiểm tra, lập điều chỉnh ngân sách hoặc phê duyệt bổ sung trước khi quyết toán.</div>
   </div>
+
 </div><!-- /p1 -->
 
 <!-- ============================================================ -->
@@ -386,35 +373,27 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     </div>
   </div>
 
-  <div class="grid-4060">
-    <div class="card mb0">
-      <div class="stitle">Tổng hợp khối lượng theo gói thầu</div>
-      <div class="tbl-wrap">
-      <table>
-        <thead><tr>
-          <th class="tl">Gói thầu / Hạng mục</th>
-          <th>ĐVT</th>
-          <th>KL BOQ</th>
-          <th>KL CĐT xác nhận</th>
-          <th>KL xác nhận ĐTC</th>
-          <th>Chênh lệch KL</th>
-          <th>Trạng thái</th>
-        </tr></thead>
-        <tbody id="p2WdGroupBody"></tbody>
-      </table>
-      </div>
-      <div class="info">ℹ️ <strong>Chênh lệch âm</strong> = ĐTC chưa thực hiện đến mức CĐT đã xác nhận. <strong>Chênh lệch dương</strong> = ĐTC vượt KL CĐT xác nhận – cần kiểm tra.</div>
+  <div class="card">
+    <div class="stitle">Tổng hợp khối lượng theo gói thầu</div>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th class="tl">Gói thầu / Hạng mục</th>
+        <th>ĐVT</th>
+        <th>KL BOQ</th>
+        <th>KL CĐT xác nhận</th>
+        <th>KL xác nhận ĐTC</th>
+        <th style="min-width:160px">Tiến độ CĐT / ĐTC</th>
+        <th>Chênh lệch KL</th>
+        <th>Trạng thái</th>
+      </tr></thead>
+      <tbody id="p2WdGroupBody"></tbody>
+    </table>
     </div>
-    <div class="card mb0">
-      <div class="stitle">Biểu đồ so sánh Workdone giữa CĐT và ĐTC (% hoàn thành theo BOQ)</div>
-      <div class="chart-box" style="height:260px"><canvas id="chartWD"></canvas></div>
-      <div style="font-size:10px;color:#6c757d;margin-top:6px;text-align:center">
-        Gói ngoài HĐ không có BOQ – không thể hiện trên biểu đồ % BOQ
-      </div>
-    </div>
+    <div class="info">ℹ️ <strong>Chênh lệch âm</strong> = ĐTC chưa đạt mức CĐT xác nhận. <strong>Chênh lệch dương</strong> = ĐTC vượt KL CĐT – cần kiểm tra.</div>
   </div>
 
-  <div class="card">
+  <div class="card mb0">
     <div class="stitle">Chi tiết so sánh workdone CĐT và đội thi công</div>
     <div class="filter-bar">
       <label>Gói thầu:</label>
@@ -462,14 +441,9 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 
   <div class="kpi-row kpi-5">
     <div class="kpi-card">
-      <div class="kpi-label">Số đội thi công</div>
-      <div class="kpi-value" id="kpi3_ndoi">—</div>
-      <div class="kpi-sub" id="kpi3_phase">—</div>
-    </div>
-    <div class="kpi-card">
       <div class="kpi-label">Tổng GT thực hiện</div>
       <div class="kpi-value" id="kpi3_th">—</div>
-      <div class="kpi-sub">VNĐ</div>
+      <div class="kpi-sub" id="kpi3_phase">—</div>
     </div>
     <div class="kpi-card g">
       <div class="kpi-label">Đã thanh toán</div>
@@ -483,18 +457,35 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <div class="kpi-sub">VNĐ</div>
       <span class="kpi-badge bg-r" id="kpi3_cl_badge">—</span>
     </div>
-    <div class="kpi-card p">
-      <div class="kpi-label">Phát sinh ngoài HĐ</div>
-      <div class="kpi-value" id="kpi3_ps" style="color:#3B2D6F">—</div>
-      <div class="kpi-sub">VNĐ</div>
-      <span class="kpi-badge bg-p" id="kpi3_ps_badge">—</span>
+    <div class="kpi-card t">
+      <div class="kpi-label">Ngân sách (Nhân công)</div>
+      <div class="kpi-value" id="kpi3_ns" style="color:#00796b">—</div>
+      <div class="kpi-sub">VNĐ – Ngân sách khoán đội</div>
+    </div>
+    <div class="kpi-card" id="kpi3_ns_cl_card">
+      <div class="kpi-label">NS còn lại</div>
+      <div class="kpi-value" id="kpi3_ns_cl">—</div>
+      <div class="kpi-sub">Ngân sách – GT TH</div>
     </div>
   </div>
 
   <div class="grid-2">
     <div class="card mb0">
-      <div class="stitle">Biểu đồ thanh toán theo đội (Đã TT vs Còn lại)</div>
-      <div class="chart-box" style="height:260px"><canvas id="chartDoi"></canvas></div>
+      <div class="stitle">Tổng hợp theo đội thi công <span id="p3DoiCount" style="font-weight:400;font-size:0.6875rem;color:#6c757d;text-transform:none;letter-spacing:0;border:none;padding:0;margin-left:4px"></span></div>
+      <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th class="tl">Đội</th><th>Đợt</th>
+          <th>GT TH (VNĐ)</th>
+          <th>Đã TT (VNĐ)</th>
+          <th>Còn lại (VNĐ)</th>
+          <th>% TT</th>
+          <th>Trạng thái</th>
+        </tr></thead>
+        <tbody id="p3DoiBody"></tbody>
+        <tfoot id="p3DoiTfoot"></tfoot>
+      </table>
+      </div>
     </div>
     <div class="card mb0">
       <div class="stitle">Sản lượng thanh toán hàng tháng</div>
@@ -502,24 +493,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     </div>
   </div>
 
-  <div class="card">
-    <div class="stitle">Tổng hợp theo đội thi công</div>
-    <div class="tbl-wrap">
-    <table>
-      <thead><tr>
-        <th class="tl">Đội</th><th>Đợt</th>
-        <th>GT TH (VNĐ)</th>
-        <th>Đã TT (VNĐ)</th>
-        <th>Còn lại (VNĐ)</th>
-        <th>% TT</th>
-      </tr></thead>
-      <tbody id="p3DoiBody"></tbody>
-      <tfoot id="p3DoiTfoot"></tfoot>
-    </table>
-    </div>
-  </div>
-
-  <div class="card">
+  <div class="card mb0">
     <div class="stitle">Chi tiết thanh toán từng đợt</div>
     <div class="filter-bar">
       <label>Đội:</label>
@@ -558,6 +532,106 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   </div>
 </div><!-- /p3 -->
 
+<!-- ============================================================ -->
+<!-- PAGE 4: BC VẬT TƯ                                            -->
+<!-- ============================================================ -->
+<div id="p4" class="page">
+
+  <div class="kpi-row kpi-5">
+    <div class="kpi-card">
+      <div class="kpi-label">Tổng giá trị ORDER</div>
+      <div class="kpi-value" id="kpi4_order">—</div>
+      <div class="kpi-sub">VNĐ – Đã phát lệnh mua</div>
+    </div>
+    <div class="kpi-card g">
+      <div class="kpi-label">Đã thanh toán</div>
+      <div class="kpi-value" id="kpi4_tt" style="color:#2e7d32">—</div>
+      <div class="kpi-sub">VNĐ</div>
+      <span class="kpi-badge bg-g" id="kpi4_tt_badge">—</span>
+    </div>
+    <div class="kpi-card r">
+      <div class="kpi-label">Chưa thanh toán</div>
+      <div class="kpi-value" id="kpi4_chua_tt" style="color:#c62828">—</div>
+      <div class="kpi-sub">VNĐ</div>
+      <span class="kpi-badge bg-r" id="kpi4_chua_badge">—</span>
+    </div>
+    <div class="kpi-card t">
+      <div class="kpi-label">Ngân sách vật tư</div>
+      <div class="kpi-value" id="kpi4_ns" style="color:#00796b">—</div>
+      <div class="kpi-sub">VNĐ</div>
+    </div>
+    <div class="kpi-card" id="kpi4_ns_cl_card">
+      <div class="kpi-label">NS còn lại</div>
+      <div class="kpi-value" id="kpi4_ns_cl">—</div>
+      <div class="kpi-sub">NS – GT ORDER</div>
+    </div>
+  </div>
+
+  <div class="info" style="margin-bottom:0.875rem">ℹ️ <strong>Tab BC Vật tư</strong> đang được phát triển. Dữ liệu sẽ được cập nhật khi có sheet Data-Vật tư trong FILE_BCTQT.</div>
+
+  <div class="grid-2">
+    <div class="card mb0">
+      <div class="stitle">Tổng hợp theo nhà cung cấp</div>
+      <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th class="tl">Nhà cung cấp</th>
+          <th>GT đặt hàng</th>
+          <th>Đã thanh toán</th>
+          <th>Chưa TT</th>
+          <th>% TT</th>
+          <th>Trạng thái</th>
+        </tr></thead>
+        <tbody id="p4NccBody">
+          <tr><td colspan="6" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="card mb0">
+      <div class="stitle">Bảng tổng hợp vật tư</div>
+      <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th class="tl">Vật tư</th>
+          <th>ĐVT</th>
+          <th>Đã nhập</th>
+          <th>Đã dùng</th>
+          <th>Còn lại</th>
+          <th>Giá trị nhập</th>
+          <th>Ghi chú</th>
+        </tr></thead>
+        <tbody id="p4VtBody">
+          <tr><td colspan="7" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb0">
+    <div class="stitle">Đối chiếu nhập hàng với ngân sách</div>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th class="tl">Vật tư</th>
+        <th>ĐVT</th>
+        <th>Ngân sách</th>
+        <th>Đã nhập</th>
+        <th>KL chênh lệch</th>
+        <th>% Vượt</th>
+        <th>Giá trị vượt</th>
+        <th>Ghi chú</th>
+      </tr></thead>
+      <tbody id="p4DcBody">
+        <tr><td colspan="8" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+</div><!-- /p4 -->
+
 <div class="footer" id="footerBar">
   VELA E&C &nbsp;|&nbsp; Cost & Contract Management &nbsp;|&nbsp; Lập bởi: <strong>Huỳnh Phương</strong>
 </div>
@@ -566,8 +640,8 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 <script>
 // ===== STATE =====
 let WD = [], TT = [], NS = [];
-let chartP1Inst = null, chartWDInst = null, chartDoiInst = null, chartMonthlyInst = null;
-let wdSortDir = 0; // 0=none, 1=desc, -1=asc
+let chartMonthlyInst = null;
+let wdSortDir = 0;
 
 // ===== UTILS =====
 const vnd    = n => Math.round(n||0).toLocaleString('vi-VN');
@@ -588,7 +662,7 @@ function showPage(id, btn) {
 function showLoading(on) {
   el('loadingState').style.display = on ? 'block' : 'none';
   el('errorState').style.display = 'none';
-  if(on) ['p1','p2','p3'].forEach(id => el(id).classList.remove('active'));
+  if(on) ['p1','p2','p3','p4'].forEach(id => el(id).classList.remove('active'));
 }
 function showError(msg) {
   el('loadingState').style.display = 'none';
@@ -651,58 +725,141 @@ function applyData(data) {
   el('footerBar').innerHTML = 'VELA E&C &nbsp;|&nbsp; Cost & Contract Management &nbsp;|&nbsp;'
     + ' ' + (meta.project_name||'') + ' &nbsp;|&nbsp; Lập bởi: <strong>Huỳnh Phương</strong>'
     + (gen ? ' &nbsp;|&nbsp; ' + gen.toLocaleDateString('vi-VN') : '');
-  el('dataLabel').textContent = 'Nguồn: ' + (meta.source_file||'—')
-    + '  |  Cập nhật: ' + (gen ? gen.toLocaleString('vi-VN') : '—');
 
   // --- Tính tổng ---
   const totTH  = TT.reduce((a,r) => a+(r.gt||0), 0);
   const totTT  = TT.reduce((a,r) => a+(r.tt||0), 0);
   const totCL  = TT.reduce((a,r) => a+(r.cl||0), 0);
-  const totPS  = TT.filter(r => r.h && r.h.includes('Ngoài')).reduce((a,r) => a+(r.gt||0), 0);
   const totCDT = s.cdt_workdone_total || 0;
   const boq    = s.boq_total    || 0;
   const nsTotal= s.budget_total || 0;
-
-  const pctTT   = pct(totTT, totTH);
-  const pctCLv  = (100 - parseFloat(pctTT)).toFixed(1);
-  const pctPS   = pct(totPS, totTH);
-  const pctCDTv = pct(totCDT, boq);
-
-  // --- Lợi nhuận ---
-  const lnDuKien = boq - nsTotal;
-  const pctLnDK  = boq > 0 ? ((lnDuKien / boq) * 100).toFixed(1) : 0;
-  const lnHienTai = totCDT - totTH;
-  const pctLnHT  = totCDT > 0 ? ((lnHienTai / totCDT) * 100).toFixed(1) : 0;
-
-  // Danh sách gói thầu (union WD + TT)
+  const lnDK   = boq - nsTotal;
+  const pctLnDK= boq > 0 ? ((lnDK/boq)*100).toFixed(1) : '0';
+  const lnHT   = totCDT - totTH;
+  const pctLnHT= totCDT > 0 ? ((lnHT/totCDT)*100).toFixed(1) : '0';
   const groups = [...new Set([...WD.map(r=>r.g), ...TT.map(r=>r.g)])].filter(Boolean).sort();
   const teams  = [...new Set(TT.map(r=>r.t))].filter(Boolean).sort();
 
   // --- KPI Page 1 ---
   el('kpi1_boq').textContent = fmtAuto(boq);
+  el('kpi1_boq_sub').textContent = 'Hợp đồng gốc + phát sinh duyệt';
   el('kpi1_ns').textContent  = fmtAuto(nsTotal);
-  el('kpi1_cdt').textContent = fmtAuto(totCDT);
-  el('kpi1_cdt_badge').textContent = pctCDTv + '% BOQ';
-  el('kpi1_th').textContent  = fmtAuto(totTH);
+  el('kpi1_ns_sub').textContent  = 'VNĐ – Đơn giá khoán đội';
 
-  // LN dự kiến
-  el('kpi1_ln_dk').textContent = fmtAuto(Math.abs(lnDuKien));
-  el('kpi1_ln_dk').style.color = lnDuKien >= 0 ? '#2e7d32' : '#c62828';
-  el('kpi1_pct_ln_dk').textContent = (lnDuKien >= 0 ? '+' : '-') + Math.abs(pctLnDK) + '%';
-  el('kpi1_pct_ln_dk').style.color = lnDuKien >= 0 ? '#2e7d32' : '#c62828';
+  const lnDKAbs = Math.abs(lnDK);
+  el('kpi1_ln_dk').textContent = fmtAuto(lnDKAbs);
+  el('kpi1_ln_dk').style.color = lnDK >= 0 ? '#2e7d32' : '#c62828';
+  el('kpi1_ln_dk_sub').textContent = (lnDK>=0?'+':'-') + Math.abs(pctLnDK) + '% / BOQ  |  BOQ – Ngân sách';
 
-  // LN hiện tại
-  el('kpi1_ln_ht').textContent = fmtAuto(Math.abs(lnHienTai));
-  el('kpi1_ln_ht').style.color = lnHienTai >= 0 ? '#2e7d32' : '#c62828';
-  el('kpi1_pct_ln_ht').textContent = (lnHienTai >= 0 ? '+' : '-') + Math.abs(pctLnHT) + '%';
-  el('kpi1_pct_ln_ht').style.color = lnHienTai >= 0 ? '#2e7d32' : '#c62828';
-  el('kpi1_ln_ht_card').style.borderLeftColor = lnHienTai >= 0 ? '#2e7d32' : '#c62828';
-  el('kpi1_pct_ln_ht_card').style.borderLeftColor = lnHienTai >= 0 ? '#2e7d32' : '#c62828';
+  el('kpi1_ln_ht').textContent = fmtAuto(Math.abs(lnHT));
+  el('kpi1_ln_ht').style.color = lnHT >= 0 ? '#2e7d32' : '#c62828';
+  el('kpi1_ln_ht_sub').textContent = (lnHT>=0?'+':'-') + Math.abs(pctLnHT) + '% / CĐT XN  |  CĐT – Đội TH';
+  el('kpi1_ln_ht_card').style.borderLeftColor = lnHT >= 0 ? '#2e7d32' : '#c62828';
+
+  // --- Bảng cơ cấu ngân sách (bên trái) ---
+  // base = nsTotal (ngân sách = 100%)
+  const base1 = nsTotal > 0 ? nsTotal : 1;
+  const setBar = (barId, valId, val, base, color, fmt) => {
+    const pctW = Math.min((val/base)*100, 100);
+    el(barId).style.width = pctW + '%';
+    el(barId).style.background = color;
+    el(valId).textContent = fmt(val);
+    el(valId).style.color = color;
+  };
+  setBar('cmp_ns_bar','cmp_ns_val', nsTotal, base1, '#00796b', fmtAuto);
+  setBar('cmp_cdt_bar','cmp_cdt_val', totCDT, base1, '#2e7d32', fmtAuto);
+  setBar('cmp_th_bar','cmp_th_val', totTH, base1, '#E8552A', fmtAuto);
+  setBar('cmp_tt_bar','cmp_tt_val', totTT, base1, '#3B2D6F', fmtAuto);
+
+  // --- Bảng cơ cấu chi phí hiện tại (bên phải, base = BOQ) ---
+  const base2 = boq > 0 ? boq : 1;
+  el('cmpb_boq_bar').style.width = '100%'; el('cmpb_boq_val').textContent = fmtAuto(boq);
+  setBar('cmpb_ns_bar','cmpb_ns_val', nsTotal, base2, '#00796b', fmtAuto);
+  setBar('cmpb_cdt_bar','cmpb_cdt_val', totCDT, base2, '#2e7d32', fmtAuto);
+  setBar('cmpb_th_bar','cmpb_th_val', totTH, base2, '#E8552A', fmtAuto);
+  setBar('cmpb_tt_bar','cmpb_tt_val', totTT, base2, '#888', fmtAuto);
+
+  // --- Bảng so sánh giá trị ---
+  const p1CmpBody = el('p1CmpBody');
+  p1CmpBody.innerHTML = '';
+  const cmpRows = [
+    {label:'Giá trị BOQ', val:boq, color:'#3B2D6F', note:'Hợp đồng gốc + phát sinh duyệt'},
+    {label:'Ngân sách nội bộ', val:nsTotal, color:'#00796b', note:'Đơn giá khoán đội'},
+    {label:'Giá trị CĐT xác nhận', val:totCDT, color:'#2e7d32', note:'IPC lũy kế đã xác nhận'},
+    {label:'Chi phí đã thực hiện', val:totTH, color:'#E8552A', note:'GT thực hiện theo hồ sơ TT'},
+    {label:'Đã thanh toán', val:totTT, color:'#3B2D6F', note:'Đã chi trả cho đội'},
+  ];
+  cmpRows.forEach(r => {
+    const pctBoq = boq > 0 ? ((r.val/boq)*100).toFixed(1)+'%' : '—';
+    const pctTotal = (nsTotal+boq) > 0 ? ((r.val/(nsTotal>0?nsTotal:boq))*100).toFixed(1)+'%' : '—';
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td class="tl" style="font-weight:600;color:'+r.color+'">'+r.label+'</td>'
+      +'<td class="tr" style="font-weight:600">'+vnd(r.val)+'</td>'
+      +'<td class="tc">'+pctTotal+'</td>'
+      +'<td class="tc">'+pctBoq+'</td>'
+      +'<td class="tl" style="color:#6c757d;font-size:0.6875rem">'+r.note+'</td>';
+    p1CmpBody.appendChild(tr);
+  });
+
+  // --- Bảng chi tiết cơ cấu theo gói thầu ---
+  const p1CocauBody  = el('p1CocauBody');
+  const p1CocauTfoot = el('p1CocauTfoot');
+  p1CocauBody.innerHTML = '';
+  let tot_boq2=0, tot_ns2=0, tot_cdt2=0, tot_th2=0;
+  groups.forEach(g => {
+    const gWD  = WD.filter(r=>r.g===g);
+    const boqV = gWD.reduce((a,r)=>a+(r.ttBOQ||0),0);
+    const cdtV = gWD.reduce((a,r)=>a+(r.ttCDT||0),0);
+    const nsV  = NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0);
+    const thV  = TT.filter(r=>r.g===g).reduce((a,r)=>a+(r.gt||0),0);
+    const lnV  = cdtV - thV;
+    const pctB = boqV>0 ? ((cdtV/boqV)*100).toFixed(1) : null;
+    const pctLn= cdtV>0 ? ((lnV/cdtV)*100).toFixed(1) : null;
+    tot_boq2+=boqV; tot_ns2+=nsV; tot_cdt2+=cdtV; tot_th2+=thV;
+
+    // Trạng thái dựa theo % BOQ
+    let badge;
+    if(pctB===null)
+      badge='<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>';
+    else if(parseFloat(pctB)>=100)
+      badge='<span class="badge" style="background:#e8f5e9;color:#2e7d32;font-size:9px">Hoàn thành</span>';
+    else if(parseFloat(pctB)>=70)
+      badge='<span class="badge bg-b" style="font-size:9px">Đang TH</span>';
+    else if(parseFloat(pctB)>0)
+      badge='<span class="badge bg-v" style="font-size:9px">Mới bắt đầu</span>';
+    else
+      badge='<span class="badge" style="background:#f1f3f4;color:#6c757d;font-size:9px">Chưa TH</span>';
+
+    const lnColor = lnV>=0 ? '#2e7d32' : '#c62828';
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td class="tl"><strong>'+g+'</strong></td>'
+      +'<td class="tr">'+(boqV>0?vnd(boqV):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr">'+(nsV>0?vnd(nsV):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr">'+(cdtV>0?vnd(cdtV):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr">'+(thV>0?vnd(thV):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tc">'+(pctB!==null?'<div class="prog"><div class="prog-fill" style="width:'+Math.min(parseFloat(pctB),100)+'%;background:#2e7d32"></div></div><small>'+pctB+'%</small>':'<span style="font-size:9px;color:#E8552A">Ngoài HĐ</span>')+'</td>'
+      +'<td class="tr" style="color:'+lnColor+';font-weight:600">'+(cdtV>0?fmtTy(Math.abs(lnV)):'—')+'</td>'
+      +'<td class="tc" style="color:'+lnColor+'">'+(pctLn!==null?(lnV>=0?'+':'-')+Math.abs(pctLn)+'%':'—')+'</td>'
+      +'<td class="tc">'+badge+'</td>';
+    p1CocauBody.appendChild(tr);
+  });
+  const tot_ln = tot_cdt2 - tot_th2;
+  const tot_pctLn = tot_cdt2>0 ? ((tot_ln/tot_cdt2)*100).toFixed(1) : '0';
+  const tot_pctB  = tot_boq2>0 ? ((tot_cdt2/tot_boq2)*100).toFixed(1) : '—';
+  p1CocauTfoot.innerHTML = '<tr>'
+    +'<td class="tl">TỔNG CỘNG</td>'
+    +'<td class="tr">'+vnd(tot_boq2)+'</td>'
+    +'<td class="tr">'+vnd(tot_ns2)+'</td>'
+    +'<td class="tr">'+vnd(tot_cdt2)+'</td>'
+    +'<td class="tr">'+vnd(tot_th2)+'</td>'
+    +'<td class="tc"><strong>'+tot_pctB+'%</strong></td>'
+    +'<td class="tr" style="color:'+(tot_ln>=0?'#2e7d32':'#c62828')+'">'+fmtTy(Math.abs(tot_ln))+'</td>'
+    +'<td class="tc" style="color:'+(tot_ln>=0?'#2e7d32':'#c62828')+'">'+(tot_ln>=0?'+':'-')+Math.abs(tot_pctLn)+'%</td>'
+    +'<td></td></tr>';
 
   // --- KPI Page 2 ---
   el('kpi2_cdt').textContent = fmtTy(totCDT);
   el('kpi2_th').textContent  = fmtTy(totTH);
-
   const clVal = totTH - totCDT;
   el('kpi2_cl_val').textContent = fmtTy(Math.abs(clVal));
   el('kpi2_cl_val').style.color = clVal > 0 ? '#c62828' : '#2e7d32';
@@ -716,145 +873,7 @@ function applyData(data) {
     el('kpi2_cl_badge').className = 'kpi-badge bg-g';
   }
 
-  // --- KPI Page 3 ---
-  el('kpi3_ndoi').textContent = teams.length + ' đội';
-  el('kpi3_phase').textContent = meta.phase || '—';
-  el('kpi3_th').textContent  = vnd(totTH);
-  el('kpi3_tt').textContent  = vnd(totTT);
-  el('kpi3_cl').textContent  = vnd(totCL);
-  el('kpi3_ps').textContent  = vnd(totPS);
-  el('kpi3_tt_badge').textContent = pctTT + '%';
-  el('kpi3_cl_badge').textContent = pctCLv + '%';
-  el('kpi3_ps_badge').textContent = pctPS + '%';
-
-  // --- Bảng gói thầu P1 ---
-  const p1GoiBody  = el('p1GoiBody');
-  const p1GoiTfoot = el('p1GoiTfoot');
-  p1GoiBody.innerHTML = '';
-  let allBOQ=0, allNS=0, allTT2=0;
-  const bgMap = {};
-  (s.by_group||[]).forEach(g => { bgMap[g.group] = g; });
-  groups.forEach(g => {
-    const bg   = bgMap[g] || {};
-    const boqV = bg.boq_value    || 0;
-    const nsV  = bg.budget_value || 0;
-    const cdtV = bg.cdt_workdone || 0;
-    const ttV  = TT.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0);
-    allBOQ+=boqV; allNS+=nsV; allTT2+=ttV;
-    const pBar = boqV>0&&cdtV>0
-      ? '<div class="prog"><div class="prog-fill" style="width:'+Math.min((cdtV/boqV)*100,100)+'%;background:#E8552A"></div></div><small>'+((cdtV/boqV)*100).toFixed(1)+'%</small>'
-      : boqV>0&&cdtV===0
-        ? '<span style="color:#6c757d">—</span>'
-        : '<span style="font-size:9px;color:#E8552A">Ngoài HĐ</span>';
-    const tr = document.createElement('tr');
-    tr.innerHTML = '<td class="tl"><strong>'+g+'</strong></td>'
-      +'<td class="tr">'+(boqV>0?(boqV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>'
-      +'<td class="tr">'+(cdtV>0?(cdtV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>'
-      +'<td class="tc">'+pBar+'</td>'
-      +'<td class="tr">'+(nsV>0?(nsV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>'
-      +'<td class="tr">'+(ttV>0?(ttV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>';
-    p1GoiBody.appendChild(tr);
-  });
-  p1GoiTfoot.innerHTML = '<tr><td class="tl">TỔNG</td>'
-    +'<td class="tr">'+(allBOQ>0?(allBOQ/1e9).toFixed(3):'—')+'</td>'
-    +'<td class="tr" style="color:#6c757d">—</td>'
-    +'<td class="tc"><strong>'+pctCDTv+'%</strong></td>'
-    +'<td class="tr">'+(allNS>0?(allNS/1e9).toFixed(3):'—')+'</td>'
-    +'<td class="tr"><strong>'+(allTT2/1e9).toFixed(3)+'</strong></td></tr>';
-
-  // --- Bảng chi tiết P1 ---
-  const p1DetailBody  = el('p1DetailBody');
-  const p1DetailTfoot = el('p1DetailTfoot');
-  p1DetailBody.innerHTML = '';
-  const nsMap = {};
-  NS.forEach(r => { const key = (r.g||'')+'|'+(r.n||''); nsMap[key] = r; });
-
-  let totBOQ2=0, totCDT2=0, totNS2=0, totTH2=0;
-  groups.forEach(g => {
-    const gWD = WD.filter(r=>r.g===g);
-    const gTT = TT.filter(r=>r.g===g);
-    if(gWD.length===0 && gTT.length===0) return;
-
-    const sumBoqG  = gWD.reduce((a,r)=>a+(r.ttBOQ||0),0);
-    const sumCdtG  = gWD.reduce((a,r)=>a+(r.ttCDT||0),0);
-    const sumNsG   = NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0);
-    const sumThG   = gTT.reduce((a,r)=>a+(r.gt||0),0);
-    totBOQ2+=sumBoqG; totCDT2+=sumCdtG; totNS2+=sumNsG; totTH2+=sumThG;
-
-    const pctBoqG = sumBoqG>0?((sumCdtG/sumBoqG)*100).toFixed(1)+'%':'<span style="font-size:9px;color:#E8552A">Ngoài HĐ</span>';
-    const grpRow = document.createElement('tr');
-    grpRow.className='grow';
-    grpRow.innerHTML='<td class="tl" colspan="3">📁 '+g+'</td>'
-      +'<td class="tr">'+(gWD.reduce((a,r)=>a+(r.bq||0),0)>0?gWD.reduce((a,r)=>a+(r.bq||0),0).toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-      +'<td class="tr">'+(sumBoqG>0?vnd(sumBoqG):'<span style="color:#6c757d">—</span>')+'</td>'
-      +'<td class="tr">'+(gWD.reduce((a,r)=>a+(r.cdt||0),0)>0?gWD.reduce((a,r)=>a+(r.cdt||0),0).toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-      +'<td class="tr">'+(sumCdtG>0?vnd(sumCdtG):'<span style="color:#6c757d">—</span>')+'</td>'
-      +'<td class="tc">'+pctBoqG+'</td>'
-      +'<td class="tr" style="color:#6c757d">—</td>'
-      +'<td class="tr">'+(sumNsG>0?vnd(sumNsG):'<span style="color:#6c757d">—</span>')+'</td>'
-      +'<td class="tr" style="color:#6c757d">—</td>'
-      +'<td class="tr">'+(sumThG>0?vnd(sumThG):'<span style="color:#6c757d">—</span>')+'</td>'
-      +'<td class="tc" style="color:#6c757d">—</td>'
-      +'<td class="tr" style="color:#6c757d">—</td>'
-      +'<td class="tr" style="color:#6c757d">—</td>'
-      +'<td class="tc" style="color:#6c757d">—</td>';
-    p1DetailBody.appendChild(grpRow);
-
-    gWD.forEach(row => {
-      if(!row.n && !row.u) return;
-      const nsRow = nsMap[(row.g||'')+'|'+(row.n||'')] || {};
-      const hb = row.h&&row.h.includes('Ngoài')
-        ? '<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>'
-        : '<span class="badge bg-b" style="font-size:9px">Trong HĐ</span>';
-      const pctR = row.bq>0&&row.cdt>0?((row.cdt/row.bq)*100).toFixed(1)+'%':'—';
-      const tdTH   = nsRow.klTH>0?vnd(nsRow.klTH):'<span style="color:#6c757d">—</span>';
-      const tdTHTT = nsRow.ttTH>0?vnd(nsRow.ttTH):'<span style="color:#6c757d">—</span>';
-      const tdTD   = nsRow.tdTH>0?(nsRow.tdTH*100).toFixed(1)+'%':'<span style="color:#6c757d">—</span>';
-      // VƯỢT NGÂN SÁCH: lấy trực tiếp từ NS[].klV / ttV / tlV (cột S,T,U Data-Ngân sách)
-      let tdKLV, tdGTV, tdTLV;
-      const hasVuot = (nsRow.klV != null && nsRow.klV !== 0) || (nsRow.ttV != null && nsRow.ttV !== 0);
-      if(hasVuot) {
-        tdKLV = (nsRow.klV != null && nsRow.klV !== 0) ? nsRow.klV.toLocaleString('vi-VN') : '—';
-        tdGTV = (nsRow.ttV != null && nsRow.ttV !== 0) ? vnd(nsRow.ttV) : '—';
-        const tlvRaw = nsRow.tlV || 0;
-        const tlvPct = tlvRaw > 1 ? tlvRaw.toFixed(1)+'%' : (tlvRaw*100).toFixed(1)+'%';
-        tdTLV = tlvRaw !== 0 ? tlvPct : '—';
-      } else {
-        tdKLV = '<span style="color:#6c757d">—</span>';
-        tdGTV = '<span style="color:#6c757d">—</span>';
-        tdTLV = '<span style="color:#6c757d">—</span>';
-      }
-      const vuotCls = hasVuot ? ' class="tr vuot-cell"' : ' class="tr"';
-      const vuotClsTc = hasVuot ? ' class="tc vuot-cell"' : ' class="tc"';
-      const tr = document.createElement('tr');
-      tr.innerHTML='<td class="tl" style="padding-left:22px">'+row.n+'</td>'
-        +'<td class="tc">'+hb+'</td>'
-        +'<td class="tc">'+(row.u||'—')+'</td>'
-        +'<td class="tr">'+(row.bq>0?row.bq.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tr">'+(row.ttBOQ>0?vnd(row.ttBOQ):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tr">'+(row.cdt>0?row.cdt.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tr">'+(row.ttCDT>0?vnd(row.ttCDT):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tc">'+pctR+'</td>'
-        +'<td class="tr">'+(nsRow.kl>0?nsRow.kl.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tr">'+(nsRow.tt>0?vnd(nsRow.tt):'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tr">'+tdTH+'</td>'
-        +'<td class="tr">'+tdTHTT+'</td>'
-        +'<td class="tc">'+tdTD+'</td>'
-        +'<td'+vuotCls+'>'+tdKLV+'</td>'
-        +'<td'+vuotCls+'>'+tdGTV+'</td>'
-        +'<td'+vuotClsTc+'>'+tdTLV+'</td>';
-      p1DetailBody.appendChild(tr);
-    });
-  });
-  p1DetailTfoot.innerHTML='<tr><td class="tl" colspan="3">TỔNG CỘNG</td>'
-    +'<td class="tr">—</td><td class="tr">'+vnd(totBOQ2)+'</td>'
-    +'<td class="tr">—</td><td class="tr">'+vnd(totCDT2)+'</td>'
-    +'<td class="tc">'+pctCDTv+'%</td>'
-    +'<td class="tr">—</td><td class="tr">'+vnd(totNS2)+'</td>'
-    +'<td class="tr">—</td><td class="tr">'+vnd(totTH2)+'</td>'
-    +'<td class="tc">—</td><td class="tr">—</td><td class="tr">—</td><td class="tc">—</td></tr>';
-
-  // --- Bảng tổng hợp KL gói P2 ---
+  // --- Bảng tổng hợp KL gói P2 (với cột Tiến độ CĐT/ĐTC) ---
   const p2WdGroupBody = el('p2WdGroupBody');
   p2WdGroupBody.innerHTML = '';
   groups.forEach(g => {
@@ -865,6 +884,9 @@ function applyData(data) {
     const cl = dtcKLg - cdtKLg;
     const units = [...new Set(gWD.map(r=>r.u).filter(Boolean))];
     const u = units[0]||'—';
+    const pctCDT = boqKLg>0 ? Math.min((cdtKLg/boqKLg)*100, 100) : 0;
+    const pctDTC = boqKLg>0 ? Math.min((dtcKLg/boqKLg)*100, 100) : 0;
+    const hasBOQ = boqKLg > 0;
     let badge;
     if(cdtKLg===0 && dtcKLg===0)
       badge='<span class="badge bg-b">Chưa phân công</span>';
@@ -874,22 +896,47 @@ function applyData(data) {
       badge='<span class="badge bg-r">Vượt '+(pct(cl,cdtKLg))+'%</span>';
     else
       badge='<span class="badge bg-g">Trong hạn</span>';
+
+    const tdProgress = hasBOQ
+      ? '<div style="margin-bottom:3px"><div class="pbar-wrap"><div class="pbar-track"><div class="pbar-fill" style="width:'+pctCDT.toFixed(0)+'%;background:#2e7d32"></div></div><span class="pbar-label" style="color:#2e7d32">'+pctCDT.toFixed(0)+'%</span></div></div>'
+        +'<div><div class="pbar-wrap"><div class="pbar-track"><div class="pbar-fill" style="width:'+pctDTC.toFixed(0)+'%;background:#1565c0"></div></div><span class="pbar-label" style="color:#1565c0">'+pctDTC.toFixed(0)+'%</span></div></div>'
+      : '<span style="font-size:9px;color:#E8552A">Ngoài HĐ</span>';
+
     const tr = document.createElement('tr');
     tr.innerHTML='<td class="tl"><strong>'+g+'</strong></td>'
       +'<td class="tc">'+u+'</td>'
       +'<td class="tr">'+(boqKLg>0?boqKLg.toLocaleString('vi-VN'):'—')+'</td>'
       +'<td class="tr">'+(cdtKLg>0?cdtKLg.toLocaleString('vi-VN'):'—')+'</td>'
       +'<td class="tr">'+(dtcKLg>0?dtcKLg.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td>'+tdProgress+'</td>'
       +'<td class="tr '+(cl>0?'neg':cl<0?'pos':'')+'">'+((cl!==0)?cl.toLocaleString('vi-VN'):'—')+'</td>'
       +'<td class="tc">'+badge+'</td>';
     p2WdGroupBody.appendChild(tr);
   });
 
+  // --- KPI Page 3 ---
+  const totPS  = TT.filter(r => r.h && r.h.includes('Ngoài')).reduce((a,r) => a+(r.gt||0), 0);
+  const pctTT  = pct(totTT, totTH);
+  const pctCLv = (100 - parseFloat(pctTT)).toFixed(1);
+  el('kpi3_phase').textContent = meta.phase || '—';
+  el('kpi3_th').textContent  = vnd(totTH);
+  el('kpi3_tt').textContent  = vnd(totTT);
+  el('kpi3_cl').textContent  = vnd(totCL);
+  el('kpi3_tt_badge').textContent = pctTT + '%';
+  el('kpi3_cl_badge').textContent = pctCLv + '%';
+  el('p3DoiCount').textContent = '(' + teams.length + ' đội)';
+
+  // NS nhân công = tổng NS (tạm dùng toàn bộ NS vì chưa tách loại)
+  el('kpi3_ns').textContent = fmtAuto(nsTotal);
+  const nsConlai = nsTotal - totTH;
+  el('kpi3_ns_cl').textContent = fmtAuto(Math.abs(nsConlai));
+  el('kpi3_ns_cl').style.color = nsConlai >= 0 ? '#2e7d32' : '#c62828';
+  el('kpi3_ns_cl_card').style.borderLeftColor = nsConlai >= 0 ? '#2e7d32' : '#c62828';
+
   // --- Bảng tổng hợp đội P3 ---
   const p3Body  = el('p3DoiBody');
   const p3Tfoot = el('p3DoiTfoot');
   p3Body.innerHTML = '';
-  let sumDot=0;
   teams.forEach(team => {
     const rows = TT.filter(r=>r.t===team);
     const gtT = rows.reduce((a,r)=>a+(r.gt||0),0);
@@ -897,22 +944,34 @@ function applyData(data) {
     const clT = rows.reduce((a,r)=>a+(r.cl||0),0);
     const pctT = pct(ttT, gtT);
     const nDots = Math.max(0, ...rows.map(r=>parseInt((r.l||'').replace(/\D/g,''))||0));
-    sumDot += nDots;
-    const color = parseFloat(pctT)>=100?'#2e7d32':parseFloat(pctT)>=90?'#E8552A':'#c62828';
+    const pctNum = parseFloat(pctT);
+    const color = pctNum>=100?'#2e7d32':pctNum>=90?'#E8552A':'#c62828';
+    // Trạng thái
+    let statusBadge;
+    if(clT<=0)
+      statusBadge='<span class="badge" style="background:#e8f5e9;color:#2e7d32">Đã TT đủ</span>';
+    else if(pctNum>=90)
+      statusBadge='<span class="badge" style="background:#fff3cd;color:#7d3000">Còn nhỏ</span>';
+    else if(pctNum>=50)
+      statusBadge='<span class="badge bg-b">Đang TT</span>';
+    else
+      statusBadge='<span class="badge bg-r">Chậm TT</span>';
     const tr = document.createElement('tr');
     tr.innerHTML='<td class="tl"><strong>'+team+'</strong></td>'
       +'<td class="tc">'+nDots+'</td>'
       +'<td class="tr">'+vnd(gtT)+'</td>'
       +'<td class="tr pos">'+vnd(ttT)+'</td>'
       +'<td class="tr '+(clT>0?'neg':'')+'">'+vnd(clT)+'</td>'
-      +'<td class="tc"><div class="prog"><div class="prog-fill" style="width:'+Math.min(parseFloat(pctT),100)+'%;background:'+color+'"></div></div><small>'+pctT+'%</small></td>';
+      +'<td class="tc"><div class="prog"><div class="prog-fill" style="width:'+Math.min(pctNum,100)+'%;background:'+color+'"></div></div><small>'+pctT+'%</small></td>'
+      +'<td class="tc">'+statusBadge+'</td>';
     p3Body.appendChild(tr);
   });
-  p3Tfoot.innerHTML='<tr><td class="tl">TỔNG</td><td class="tc">'+sumDot+'</td>'
+  p3Tfoot.innerHTML='<tr><td class="tl">TỔNG</td><td class="tc">'+teams.length+'</td>'
     +'<td class="tr">'+vnd(totTH)+'</td>'
     +'<td class="tr">'+vnd(totTT)+'</td>'
     +'<td class="tr neg">'+vnd(totCL)+'</td>'
-    +'<td class="tc"><strong>'+pctTT+'%</strong></td></tr>';
+    +'<td class="tc"><strong>'+pctTT+'%</strong></td>'
+    +'<td></td></tr>';
 
   // --- Repopulate filter dropdowns ---
   function repopSel(selId, vals) {
@@ -923,7 +982,6 @@ function applyData(data) {
     sel.value = vals.includes(prev) ? prev : '';
   }
   repopSel('f2Goi', [...new Set(WD.map(r=>r.g).filter(Boolean))].sort());
-  // Multi-select Thời gian cho P2
   const periods = [...new Set(TT.map(r=>r.p).filter(Boolean))].sort((a,b)=>{
     const pa=a.split('-'),pb=b.split('-');
     if(pa.length===2&&pb.length===2){return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);}
@@ -934,129 +992,7 @@ function applyData(data) {
   repopSel('f3Lan', [...new Set(TT.map(r=>r.l).filter(Boolean))].sort());
   repopSel('f3Period', periods);
 
-  // --- Charts ---
-  const nsGroupData  = groups.map(g => NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0));
-  const cdtGroupData = groups.map(g => WD.filter(r=>r.g===g).reduce((a,r)=>a+(r.ttCDT||0),0));
-  const ttGroupData  = groups.map(g => TT.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0));
-
-  if(chartP1Inst){ chartP1Inst.destroy(); chartP1Inst=null; }
-  chartP1Inst = new Chart(el('chartP1').getContext('2d'),{
-    type:'bar',
-    data:{
-      labels: groups,
-      datasets:[
-        {label:'Ngân sách nội bộ',  data:nsGroupData,  backgroundColor:'rgba(0,121,107,.7)', borderColor:'#00796b',borderWidth:1},
-        {label:'CĐT Workdone',      data:cdtGroupData, backgroundColor:'rgba(46,125,50,.8)', borderColor:'#2e7d32',borderWidth:1},
-        {label:'Đã TT cho đội',     data:ttGroupData,  backgroundColor:'rgba(59,45,111,.8)', borderColor:'#3B2D6F',borderWidth:1},
-      ]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{position:'top',labels:{font:{size:11}}},
-        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toLocaleString('vi-VN')+' VNĐ'}}},
-      scales:{x:{ticks:{font:{size:10}}},y:{ticks:{font:{size:10},callback:v=>(v/1e9).toFixed(2)+'tỷ'}}}
-    }
-  });
-
-  // Chart WD
-  const wdGroups = groups.filter(g => WD.some(r=>r.g===g&&r.bq>0));
-  const pctCDTBoq = wdGroups.map(g=>{
-    const items=WD.filter(r=>r.g===g&&(r.bq||0)>0);
-    const sb=items.reduce((a,r)=>a+(r.bq||0),0);
-    const sc=items.reduce((a,r)=>a+(r.cdt||0),0);
-    return sb>0?parseFloat(((sc/sb)*100).toFixed(2)):0;
-  });
-  const pctDTCBoq = wdGroups.map(g=>{
-    const items=WD.filter(r=>r.g===g&&(r.bq||0)>0);
-    const sb=items.reduce((a,r)=>a+(r.bq||0),0);
-    const sd=items.reduce((a,r)=>a+(r.dtc||0),0);
-    return sb>0?parseFloat(((sd/sb)*100).toFixed(2)):0;
-  });
-  if(chartWDInst){ chartWDInst.destroy(); chartWDInst=null; }
-  chartWDInst = new Chart(el('chartWD').getContext('2d'),{
-    type:'bar',
-    data:{
-      labels: wdGroups,
-      datasets:[
-        {label:'% CĐT xác nhận / BOQ',  data:pctCDTBoq, backgroundColor:'rgba(46,125,50,.8)', borderColor:'#2e7d32',borderWidth:1},
-        {label:'% ĐTC thực hiện / BOQ', data:pctDTCBoq, backgroundColor:'rgba(232,85,42,.75)',borderColor:'#E8552A',borderWidth:1},
-      ]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      layout:{padding:{top:20}},
-      plugins:{legend:{position:'top',labels:{font:{size:11}}},
-        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'%'}}},
-      scales:{x:{ticks:{font:{size:10}}},y:{ticks:{font:{size:10},callback:v=>v+'%'}}}
-    },
-    plugins:[{
-      id:'wdLabels',
-      afterDatasetsDraw(chart){
-        const{ctx,data}=chart;
-        chart.getSortedVisibleDatasetMetas().forEach(meta=>{
-          meta.data.forEach((pt,i)=>{
-            const val=data.datasets[meta.index].data[i]||0;
-            if(val<=0) return;
-            ctx.save();
-            ctx.fillStyle='#1a2332';
-            ctx.font='bold 9px Segoe UI,Arial';
-            ctx.textAlign='center';
-            ctx.fillText(val.toFixed(1)+'%', pt.x, pt.y-4);
-            ctx.restore();
-          });
-        });
-      }
-    }]
-  });
-
-  // Chart Đội
-  const paidByTeam = teams.map(t => TT.filter(r=>r.t===t).reduce((a,r)=>a+(r.tt||0),0));
-  const remByTeam  = teams.map(t => TT.filter(r=>r.t===t).reduce((a,r)=>a+(r.cl||0),0));
-  if(chartDoiInst){ chartDoiInst.destroy(); chartDoiInst=null; }
-  chartDoiInst = new Chart(el('chartDoi').getContext('2d'),{
-    type:'bar',
-    data:{
-      labels: teams,
-      datasets:[
-        {label:'Đã thanh toán',data:paidByTeam,backgroundColor:'rgba(46,125,50,.85)', borderColor:'#2e7d32',borderWidth:1},
-        {label:'Còn lại',      data:remByTeam, backgroundColor:'rgba(232,85,42,.75)',  borderColor:'#E8552A',borderWidth:1},
-      ]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{
-        legend:{position:'top',labels:{font:{size:11}}},
-        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toLocaleString('vi-VN')+' VNĐ'}}
-      },
-      scales:{
-        x:{stacked:true,ticks:{font:{size:10}}},
-        y:{stacked:true,ticks:{font:{size:10},callback:v=>(v/1e6).toFixed(0)+'tr'}}
-      }
-    },
-    plugins:[{
-      id:'datalabels',
-      afterDatasetsDraw(chart){
-        const{ctx,data}=chart;
-        const metas=chart.getSortedVisibleDatasetMetas();
-        teams.forEach((_,i)=>{
-          let total=0,topY=null;
-          metas.forEach(meta=>{
-            const pt=meta.data[i];
-            if(pt){ total+=data.datasets[meta.index].data[i]||0; if(topY===null||pt.y<topY)topY=pt.y; }
-          });
-          if(total>0&&topY!==null){
-            ctx.save();ctx.fillStyle='#1a2332';ctx.font='bold 10px Segoe UI,Arial';
-            ctx.textAlign='center';
-            ctx.fillText((total/1e6).toFixed(1)+'tr',metas[0].data[i].x,topY-5);
-            ctx.restore();
-          }
-        });
-      }
-    }]
-  });
-
-  // Chart Monthly (sản lượng hàng tháng)
-  // Group TT theo cột p (thời gian = cột D Data-TT, format MM-YYYY)
+  // --- Chart Monthly ---
   const monthMap = {};
   TT.forEach(r => {
     const mo = r.p || 'N/A';
@@ -1065,12 +1001,9 @@ function applyData(data) {
     monthMap[mo].tt += (r.tt||0);
   });
   const sortedMonths = Object.keys(monthMap).sort((a,b) => {
-    // sort theo MM-YYYY
     const pa = a.split('-'); const pb = b.split('-');
     if(pa.length===2 && pb.length===2) {
-      const da = new Date(+pa[1], +pa[0]-1);
-      const db = new Date(+pb[1], +pb[0]-1);
-      return da - db;
+      return new Date(+pa[1], +pa[0]-1) - new Date(+pb[1], +pb[0]-1);
     }
     return a.localeCompare(b);
   });
@@ -1099,8 +1032,7 @@ function applyData(data) {
     plugins:[{
       id:'monthlyLabels',
       afterDatasetsDraw(chart){
-        const{ctx,data,chartArea}=chart;
-        // Vẽ label trên đỉnh từng thanh của mỗi dataset
+        const{ctx,data}=chart;
         chart.getSortedVisibleDatasetMetas().forEach(meta=>{
           meta.data.forEach((pt,i)=>{
             const val=data.datasets[meta.index].data[i]||0;
@@ -1120,7 +1052,6 @@ function applyData(data) {
 
   wdSortDir = 0;
   el('sortWD_icon').textContent = '⇅';
-  // Clear multi-select period P2
   const ms2items = el('ms2Items');
   if(ms2items) ms2items.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.checked=false);
   updateMsLabel('ms2');
@@ -1147,13 +1078,11 @@ function buildMs(msId, vals, onChangeFn) {
 function toggleMs(msId) {
   const dd = el(msId);
   dd.classList.toggle('open');
-  // Đóng dropdown khác
   document.querySelectorAll('.ms-dropdown.open').forEach(d => { if(d.id!==msId) d.classList.remove('open'); });
 }
 function clearMs(msId) {
   el(msId+'Items').querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked=false);
   updateMsLabel(msId);
-  // Gọi filter tương ứng
   if(msId==='ms2') filterWD();
 }
 function updateMsLabel(msId) {
@@ -1165,7 +1094,6 @@ function updateMsLabel(msId) {
 function getMsSelected(msId) {
   return [...el(msId+'Items').querySelectorAll('input:checked')].map(c=>c.value);
 }
-// Đóng dropdown khi click ra ngoài
 document.addEventListener('click', e => {
   if(!e.target.closest('.ms-wrap')) {
     document.querySelectorAll('.ms-dropdown.open').forEach(d=>d.classList.remove('open'));
@@ -1182,22 +1110,18 @@ function sortWD(field) {
 // ===== FILTER WD =====
 function filterWD(){
   const gv=el('f2Goi').value, hv=el('f2Hd').value;
-  const selectedPeriods = getMsSelected('ms2'); // multi-select periods
+  const selectedPeriods = getMsSelected('ms2');
   const tb=el('wdBody'); tb.innerHTML='';
-
-  // Build filtered list
   let rows = [];
   WD.forEach(r=>{
     if(!r.n && !r.u) return;
     if(gv&&r.g!==gv) return;
     if(hv&&r.h!==hv) return;
-    // Filter theo thời gian (multi-select): kiểm tra xem có bản ghi TT nào với p trong selectedPeriods
     if(selectedPeriods.length > 0) {
       const hasPeriod = TT.some(t => selectedPeriods.includes(t.p) && t.g===r.g && t.n===r.n);
       if(!hasPeriod) return;
     }
     const nsRow = NS.find(n => n.g===r.g && n.n===r.n) || {};
-    // Tính KL ĐTC: nếu có filter period thì tính theo các period đã chọn, không thì dùng klTH tổng
     let dtcKL;
     if(selectedPeriods.length > 0) {
       dtcKL = TT.filter(t=>t.g===r.g&&t.n===r.n&&selectedPeriods.includes(t.p)).reduce((a,t)=>a+(t.k||0),0);
@@ -1207,12 +1131,9 @@ function filterWD(){
     const cl = dtcKL - (r.cdt||0);
     rows.push({r, nsRow, dtcKL, cl});
   });
-
-  // Sort
   if(wdSortDir !== 0) {
     rows.sort((a,b) => wdSortDir * (a.cl - b.cl));
   }
-
   let stt=0;
   rows.forEach(({r, nsRow, dtcKL, cl})=>{
     stt++;
