@@ -794,7 +794,7 @@ async function loadProject(id) {
     const resp = await fetch('data/' + id + '/data.json');
     if(!resp.ok) throw new Error('HTTP ' + resp.status);
     const data = await resp.json();
-    applyData(data);
+    applyData(data, id);
     showLoading(false);
     el('p1').classList.add('active');
     document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i===0));
@@ -805,7 +805,7 @@ async function loadProject(id) {
 }
 
 // ===== APPLY DATA =====
-function applyData(data) {
+function applyData(data, projectId) {
   WD = data.WD || [];
   TT = data.TT || [];
   NS = data.NS || [];
@@ -939,13 +939,16 @@ function applyData(data) {
   const p1CocauBody  = el('p1CocauBody');
   const p1CocauTfoot = el('p1CocauTfoot');
   p1CocauBody.innerHTML = '';
+  const isSycamore = (projectId||'').toUpperCase() === 'SYCAMORE';
   const hmListNS = [];
   NS.forEach(r => { if(r.g && !hmListNS.includes(r.g)) hmListNS.push(r.g); });
-  // Thêm hạng mục từ WD mà không có trong NS (Vật tư chính mct=VT, Giảm giá/Phát sinh giảm mct=OT)
-  WD.forEach(r => { if(r.g && !hmListNS.includes(r.g)) hmListNS.push(r.g); });
-  // Giá trị tổng dự án cho hạng mục mct=VT (Vật tư chính):
-  // BOQ = vl_boq_total (ô O4 sheet WD — TỔNG CỘNG col O, không tính từng row vì công thức)
-  // CDT = sum TOÀN BỘ ttVL_cdt của WD (col W, mọi mct) — bao gồm cả NC rows có VL_cdt
+  // Sycamore: thêm hạng mục từ WD không có trong NS (Vật tư chính mct=VT, Giảm giá/Phát sinh giảm mct=OT)
+  if(isSycamore) {
+    WD.forEach(r => { if(r.g && !hmListNS.includes(r.g)) hmListNS.push(r.g); });
+  }
+  // Sycamore: giá trị tổng dự án cho hạng mục mct=VT (Vật tư chính)
+  // BOQ = vl_boq_total (ô O4 sheet WD — TỔNG CỘNG col O)
+  // CDT = sum TOÀN BỘ ttVL_cdt của WD (col W, mọi mct)
   const vl_boq_proj = s.vl_boq_total || 0;
   const vl_cdt_proj = WD.reduce((a,r)=>a+(r.ttVL_cdt||0),0);
   let tot_boq2=0, tot_ns2=0, tot_cdt2=0, tot_th2=0;
@@ -980,9 +983,9 @@ function applyData(data) {
     const wdOT  = wdRows.filter(r=>(r.mct||'').toUpperCase()==='OT');
     // wdEmpty = rows có mct rỗng (Vật tư chính — không phân loại NC/OT)
     const wdEmpty = wdRows.filter(r=>!r.mct);
-    // Nếu hạng mục này có row mct=VT trong WD → đây là hạng mục "Vật tư chính"
-    // BOQ dùng vl_boq_proj (ô O4 TỔNG CỘNG col O sheet WD), CDT dùng vl_cdt_proj (sum toàn bộ col W)
-    const isVTGroup = wdVT.length > 0;
+    // Sycamore: hạng mục có row mct=VT → "Vật tư chính", dùng giá trị tổng dự án
+    // BOQ = vl_boq_proj (ô O4), CDT = vl_cdt_proj (sum toàn bộ col W)
+    const isVTGroup = isSycamore && wdVT.length > 0;
     let boqV, cdtV;
     if(isVTGroup) {
       boqV = vl_boq_proj;
