@@ -1015,14 +1015,14 @@ function applyData(data, projectId) {
     const cdtKL = wdRows.reduce((a,r)=>a+(r.cdt||0),0);
     const clKL  = dtcKL - cdtKL;
     let badge;
-    if(cdtKL===0 && dtcKL===0)
-      badge='<span class="badge bg-b" style="font-size:9px">Chưa phân công</span>';
-    else if(cdtKL===0 && dtcKL>0)
-      badge='<span class="badge" style="background:#fff3cd;color:#7d3000;font-size:9px">Chưa có KL CĐT</span>';
-    else if(clKL>0)
-      badge='<span class="badge bg-r" style="font-size:9px">Vượt '+pct(clKL,cdtKL)+'%</span>';
+    if(lnV > 0)
+      badge='<span class="badge bg-g" style="font-size:9px">✅ Lãi</span>';
+    else if(lnV < 0)
+      badge='<span class="badge bg-r" style="font-size:9px">❌ Lỗ</span>';
+    else if(cdtV === 0)
+      badge='<span class="badge bg-b" style="font-size:9px">⏳ Chưa có Doanh thu</span>';
     else
-      badge='<span class="badge bg-g" style="font-size:9px">Trong hạn</span>';
+      badge='<span class="badge" style="background:#fff3cd;color:#7d3000;font-size:9px">⚠️ Chưa ghi nhận chi phí</span>';
 
     p1Stt++;
     const lnColor = lnV>=0 ? '#2e7d32' : '#c62828';
