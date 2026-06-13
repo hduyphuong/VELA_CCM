@@ -2,12 +2,13 @@
   "meta": {
     "project_id": "UOA",
     "project_name": "Tòa nhà UOA Tower 2",
-    "generated_at": "2026-06-12T19:29:52",
+    "generated_at": "2026-06-13T08:13:12",
     "source_file": "HDP_UOA_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Phần ngầm"
   },
   "summary": {
     "boq_total": 25781222400.0,
+    "vl_boq_total": null,
     "budget_total": 13925078000.0,
     "cdt_total": 0,
     "cdt_workdone_total": 0,
@@ -22,7 +23,7 @@
     "by_group": [
       {
         "group": "Bê tông",
-        "boq_value": 0,
+        "boq_value": 6059103900.0,
         "budget_value": 1346450000.0,
         "cdt_workdone": 0,
         "contractor_paid": 67500000.0
@@ -43,32 +44,33 @@
       },
       {
         "group": "Cốp pha",
-        "boq_value": 0,
+        "boq_value": 8604118500.0,
         "budget_value": 4184798000.0,
         "cdt_workdone": 0,
         "contractor_paid": 0
       },
       {
         "group": "Cốt thép",
-        "boq_value": 0,
+        "boq_value": 11018000000.0,
         "budget_value": 7555200000.0,
         "cdt_workdone": 0,
         "contractor_paid": 0
       },
       {
         "group": "Móng cẩu tháp",
-        "boq_value": 0,
+        "boq_value": 100000000.0,
         "budget_value": 100000000.0,
         "cdt_workdone": 0,
         "contractor_paid": 12000000.0
       }
     ],
     "ns_nc_val": 13925078000,
-    "ns_th_val": 630290000
+    "ns_th_val": 630290000,
+    "current_ipc": "IPC 01"
   },
   "TT": [
     {
-      "a": "NC",
+      "a": "",
       "t": "01. Lê Hải Dương",
       "l": "Lần 1",
       "p": "05-2026",
@@ -87,7 +89,7 @@
       "cl": 7500000.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 1",
       "p": "04-2026",
@@ -106,7 +108,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 1",
       "p": "04-2026",
@@ -125,7 +127,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 1",
       "p": "04-2026",
@@ -144,7 +146,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 1",
       "p": "04-2026",
@@ -163,7 +165,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 1",
       "p": "04-2026",
@@ -182,7 +184,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 1",
       "p": "04-2026",
@@ -201,7 +203,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 1",
       "p": "05-2026",
@@ -220,7 +222,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 1",
       "p": "05-2026",
@@ -239,7 +241,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 1",
       "p": "05-2026",
@@ -258,7 +260,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 1",
       "p": "05-2026",
@@ -277,7 +279,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 1",
       "p": "05-2026",
@@ -296,7 +298,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
@@ -315,7 +317,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
@@ -334,7 +336,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
@@ -353,7 +355,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
@@ -372,7 +374,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
@@ -391,7 +393,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
@@ -410,7 +412,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
@@ -429,7 +431,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
@@ -448,7 +450,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 2",
       "p": "05-2026",
@@ -467,7 +469,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 3",
       "p": "05-2026",
@@ -486,7 +488,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 3",
       "p": "05-2026",
@@ -505,7 +507,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 3",
       "p": "05-2026",
@@ -524,7 +526,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 3",
       "p": "05-2026",
@@ -543,7 +545,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "03. Nguyễn Minh Hiếu",
       "l": "Lần 3",
       "p": "05-2026",
@@ -562,7 +564,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 2",
       "p": "05-2026",
@@ -581,7 +583,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 2",
       "p": "05-2026",
@@ -600,7 +602,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 2",
       "p": "05-2026",
@@ -619,7 +621,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 2",
       "p": "05-2026",
@@ -638,7 +640,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 2",
       "p": "05-2026",
@@ -657,7 +659,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "02. Phạm Thị Đỏ",
       "l": "Lần 2",
       "p": "05-2026",
@@ -676,7 +678,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "Lê Hồng sơn",
       "t": "04. Lê Hồng Sơn",
       "l": "Lần 1",
       "p": "05-2026",
@@ -695,7 +697,7 @@
       "cl": 480000.0
     },
     {
-      "a": "NC",
+      "a": "Lê Hồng sơn",
       "t": "04. Lê Hồng Sơn",
       "l": "Lần 1",
       "p": "05-2026",
@@ -714,7 +716,7 @@
       "cl": 540000.0
     },
     {
-      "a": "NC",
+      "a": "Lê Hồng sơn",
       "t": "04. Lê Hồng Sơn",
       "l": "Lần 1",
       "p": "05-2026",
@@ -733,7 +735,7 @@
       "cl": 360000.0
     },
     {
-      "a": "NC",
+      "a": "Lê Hồng sơn",
       "t": "04. Lê Hồng Sơn",
       "l": "Lần 1",
       "p": "05-2026",
@@ -752,7 +754,7 @@
       "cl": 360000.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "05. Nguyễn Tuấn Em",
       "l": "Lần 1",
       "p": "05-2026",
@@ -771,7 +773,7 @@
       "cl": 1200000.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "05. Nguyễn Tuấn Em",
       "l": "Lần 1",
       "p": "05-2026",
@@ -790,7 +792,7 @@
       "cl": 4080000.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "05. Nguyễn Tuấn Em",
       "l": "Lần 2",
       "p": "06-2026",
@@ -809,7 +811,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "05. Nguyễn Tuấn Em",
       "l": "Lần 2",
       "p": "06-2026",
@@ -828,7 +830,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "05. Nguyễn Tuấn Em",
       "l": "Lần 2",
       "p": "06-2026",
@@ -847,7 +849,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "05. Nguyễn Tuấn Em",
       "l": "Lần 2",
       "p": "06-2026",
@@ -866,7 +868,7 @@
       "cl": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "t": "05. Nguyễn Tuấn Em",
       "l": "Lần 2",
       "p": "06-2026",
@@ -887,7 +889,7 @@
   ],
   "NS": [
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
@@ -906,7 +908,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
@@ -925,7 +927,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
@@ -944,7 +946,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
@@ -963,7 +965,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
@@ -982,7 +984,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
@@ -1001,7 +1003,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
@@ -1020,7 +1022,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
@@ -1039,7 +1041,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
@@ -1058,7 +1060,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
@@ -1077,7 +1079,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
@@ -1096,7 +1098,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
@@ -1115,7 +1117,7 @@
       "tlV": -1.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1134,7 +1136,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1153,7 +1155,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1172,7 +1174,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1191,7 +1193,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1210,7 +1212,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1229,7 +1231,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1248,7 +1250,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1267,7 +1269,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1286,7 +1288,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1305,7 +1307,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1324,7 +1326,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1343,7 +1345,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1362,7 +1364,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1381,7 +1383,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1400,7 +1402,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1419,7 +1421,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1438,7 +1440,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
@@ -1457,7 +1459,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
       "mc": "COT_THEP",
@@ -1476,7 +1478,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
       "mc": "COT_THEP",
@@ -1495,7 +1497,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
       "mc": "COT_THEP",
@@ -1514,7 +1516,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
       "mc": "COT_THEP",
@@ -1533,7 +1535,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
       "mc": "COT_THEP",
@@ -1552,7 +1554,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Công nhật",
       "mc": "CONG_NHAT",
@@ -1571,7 +1573,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Công nhật",
       "mc": "CONG_NHAT",
@@ -1590,7 +1592,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Công nhật",
       "mc": "CONG_NHAT",
@@ -1609,7 +1611,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Công nhật",
       "mc": "CONG_NHAT",
@@ -1628,7 +1630,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Công nhật",
       "mc": "CONG_NHAT",
@@ -1647,7 +1649,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "Lê Hồng Sơn",
       "hm": "PHẦN NGẦM",
       "g": "Công nhật",
       "mc": "CONG_NHAT",
@@ -1666,7 +1668,7 @@
       "tlV": -1.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Móng cẩu tháp",
       "mc": "MONG_CAUTHAP",
@@ -1685,7 +1687,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Capping beam",
       "mc": "CAPPING_BEAM",
@@ -1704,7 +1706,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Capping beam",
       "mc": "CAPPING_BEAM",
@@ -1723,7 +1725,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Capping beam",
       "mc": "CONG_NHAT",
@@ -1742,7 +1744,7 @@
       "tlV": -1.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Capping beam",
       "mc": "CAPPING_BEAM",
@@ -1761,7 +1763,7 @@
       "tlV": 0.0
     },
     {
-      "a": "NC",
+      "a": "",
       "hm": "PHẦN NGẦM",
       "g": "Capping beam",
       "mc": "CAPPING_BEAM",
@@ -1786,799 +1788,987 @@
       "g": "Bê tông",
       "mc": "BE_TONG",
       "mp": "BT_LOT",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Bê tông lót cho đài cọc và hầm 4",
       "u": "m3",
       "bq": 533.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 140445500.0,
       "ttBOQ_R": 220395500.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
       "mp": "BT_DCOC",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Bê tông đài cọc",
       "u": "m3",
       "bq": 3795.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 489175500.0,
       "ttBOQ_R": 1058425500.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
       "mp": "BT_DSAN_B123",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Bê tông dầm, sàn các tầng hầm 1,2,3",
       "u": "m3",
       "bq": 4753.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 946322300.0,
       "ttBOQ_R": 1659272300.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
       "mp": "BT_DSAN_B41",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Bê tông dầm, sàn tầng hầm 4 và tầng 1, dầm đỉnh tường vây",
       "u": "m3",
       "bq": 5847.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 1164137700.0,
       "ttBOQ_R": 2041187700.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
       "mp": "BT_CVACH",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Bê tông cột, vách bê tông, lõi thang từ tầng hầm 4 đến tầng hầm 1",
       "u": "m3",
       "bq": 2274.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 409547400.0,
       "ttBOQ_R": 750647400.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
       "mp": "BT_RDOC_CT",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Bê tông ram dốc, cầu thang, bồn cây, tường lan can, tường ngăn",
       "u": "m3",
       "bq": 256.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 59724800.0,
       "ttBOQ_R": 98124800.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
       "mp": "BT_RDOC_B1",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Bê tông ram dốc xuống tầng hầm 1",
       "u": "m3",
       "bq": 130.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 30329000.0,
       "ttBOQ_R": 49829000.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
       "mp": "BT_HOGA",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Bê tông hố ga, hố thu",
       "u": "m3",
       "bq": 12.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 1707600.0,
       "ttBOQ_R": 3507600.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
       "mp": "BT_BE",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Bê tông bể nước, bể tự hoại",
       "u": "m3",
       "bq": 285.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 40555500.0,
       "ttBOQ_R": 83305500.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
       "mp": "BT_DAP",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Bê tông đắp",
       "u": "m3",
       "bq": 286.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 51508600.0,
       "ttBOQ_R": 94408600.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
       "mp": "XOA_BT",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Xoa nền, làm mặt bê tông chống nứt",
       "u": "m2",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Bê tông",
       "mc": "BE_TONG",
       "mp": "BT_LDAT",
+      "mct": "",
       "h": "Ngoài HĐ",
       "n": "Làm đất đổ bê tông lót",
       "u": "m2",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 2500.0,
-      "ttDTC": 75000000.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 75000000.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_DSAN_T1",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn dầm, sàn, dầm đỉnh tường hầm",
       "u": "m2",
       "bq": 6704.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 1759800000.0,
       "ttBOQ_R": 1759800000.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_CVACH_T1",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn cột, vách bê tông, lõi thang",
       "u": "m2",
       "bq": 1437.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 344880000.0,
       "ttBOQ_R": 344880000.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_RDOC_CT_T1",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn ram dốc, cầu thang, bồn cây, tường lan can, tường ngăn",
       "u": "m2",
       "bq": 469.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 123112500.0,
       "ttBOQ_R": 123112500.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_HOGA_T1",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn hố ga, hố thu",
       "u": "m2",
       "bq": 37.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 9712500.0,
       "ttBOQ_R": 9712500.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_CSAN50_T1",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở ≤50mm",
       "u": "md",
       "bq": 76.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 1368000.0,
       "ttBOQ_R": 1368000.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_CSAN100_T1",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở ≤100mm",
       "u": "md",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_CSAN200_T1",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở ≤200mm",
       "u": "md",
       "bq": 213.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 8775600.0,
       "ttBOQ_R": 8775600.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_CSAN300_T1",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở ≤300mm",
       "u": "md",
       "bq": 478.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 29540400.0,
       "ttBOQ_R": 29540400.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_DCOC",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn đài cọc",
       "u": "m2",
       "bq": 1840.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 366344000.0,
       "ttBOQ_R": 366344000.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_DSAN_B",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn dầm và sàn B1 đến B3 (coffa đất)",
       "u": "m2",
       "bq": 15011.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 3183833100.0,
       "ttBOQ_R": 3183833100.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_CVACH_B",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn cột, vách bê tông, lõi thang, bể nước",
       "u": "m2",
       "bq": 8401.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 2080927700.0,
       "ttBOQ_R": 2080927700.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_RDOC_CT_B",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn ram dốc, cầu thang, bồn cây, tường lan can, tường ngăn",
       "u": "m2",
       "bq": 2141.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 496069700.0,
       "ttBOQ_R": 496069700.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_HOGA_B",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn hố ga, hố thu",
       "u": "m2",
       "bq": 76.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 18825200.0,
       "ttBOQ_R": 18825200.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_CSAN50_B",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤50mm",
       "u": "m2",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_CSAN100_B",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤100mm",
       "u": "md",
       "bq": 3217.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 66270200.0,
       "ttBOQ_R": 66270200.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_CSAN200_B",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤200mm",
       "u": "md",
       "bq": 1331.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 54837200.0,
       "ttBOQ_R": 54837200.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_CSAN300_B",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤300mm",
       "u": "md",
       "bq": 968.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 59822400.0,
       "ttBOQ_R": 59822400.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_CSAN400_B",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Ván khuôn cạnh sàn, sàn nhấn, rãnh, lỗ mở, bê tông lót ≤400mm",
       "u": "md",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốp pha",
       "mc": "COP_PHA",
       "mp": "CP_CONGNHAT",
+      "mct": "",
       "h": "Ngoài HĐ",
       "n": "Phát sinh công nhật (ngoài PVCV với Tung Feng)",
       "u": "Công",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
       "mc": "COT_THEP",
       "mp": "CT_DCOC",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Cốt thép đài cọc",
       "u": "kg",
       "bq": 522000.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 1827000000.0,
       "ttBOQ_R": 1827000000.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 10000.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
       "mc": "COT_THEP",
       "mp": "CT_DSAN",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Cốt thép dầm, sàn và dầm đỉnh tường hầm",
       "u": "kg",
       "bq": 1998000.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 6993000000.0,
       "ttBOQ_R": 6993000000.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 10000.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
       "mc": "COT_THEP",
       "mp": "CT_CVACH",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Cốt thép cột, vách bê tông, lõi thang, bể nước",
       "u": "kg",
       "bq": 573000.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 2005500000.0,
       "ttBOQ_R": 2005500000.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 100000.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
       "mc": "COT_THEP",
       "mp": "CT_RDOC_CT",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Cốt thép ram dốc, cầu thang, bồn cây, tường lan can, tường ngăn",
       "u": "kg",
       "bq": 54000.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 189000000.0,
       "ttBOQ_R": 189000000.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 10000.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Cốt thép",
       "mc": "COT_THEP",
       "mp": "CT_HOGA",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Cốt thép hố ga, hố thu",
       "u": "kg",
       "bq": 1000.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 3500000.0,
       "ttBOQ_R": 3500000.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 100.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Công nhật",
       "mc": "CONG_NHAT",
       "mp": "CN_DTRUONG",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Công nhật đội trưởng",
       "u": "Công",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 27.5,
-      "ttDTC": 12375000.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 12375000.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Công nhật",
       "mc": "CONG_NHAT",
       "mp": "CN_NAM",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Công nhật nam",
       "u": "Công",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 31.0,
-      "ttDTC": 12400000.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 12400000.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Công nhật",
       "mc": "CONG_NHAT",
       "mp": "CN_NU",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Công nhật nữ",
       "u": "Công",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 20.5,
-      "ttDTC": 8200000.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 8200000.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Công nhật",
       "mc": "CONG_NHAT",
       "mp": "CN_TC",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Chi phí tăng ca",
       "u": "Giờ",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 61.5,
-      "ttDTC": 3690000.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 3690000.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Công nhật",
       "mc": "CONG_NHAT",
       "mp": "CN_HTRO_NHA",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Hỗ trợ chi phí nhà trọ",
       "u": "Người/tháng",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 0.0,
-      "ttDTC": 0.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 0.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Móng cẩu tháp",
       "mc": "MONG_CAUTHAP",
       "mp": "MONG_CT",
+      "mct": "",
       "h": "Trong HĐ",
       "n": "Nhân công cốt thép,Coppha, đổ bê tông móng cẩu tháp",
       "u": "cái",
       "bq": 2.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 100000000.0,
       "ttBOQ_R": 100000000.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 1.0,
-      "ttDTC": 12000000.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 12000000.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Capping beam",
       "mc": "CAPPING_BEAM",
       "mp": "CB_CPBT",
+      "mct": "",
       "h": "Ngoài HĐ",
       "n": "Coppha, bê tông dầm capping beam",
       "u": "md",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 18.0,
-      "ttDTC": 9000000.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 9000000.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Capping beam",
       "mc": "CAPPING_BEAM",
       "mp": "CB_CTCPBT",
+      "mct": "",
       "h": "Ngoài HĐ",
       "n": "Cốt thép,Coppha, bê tông dầm capping beam",
       "u": "md",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 88.7,
-      "ttDTC": 115310000.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 115310000.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Capping beam",
       "mc": "CONG_NHAT",
       "mp": "CN_NAM",
+      "mct": "",
       "h": "Ngoài HĐ",
       "n": "Công nhật phục vụ công tác capping beam",
       "u": "công",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 75.0,
-      "ttDTC": 37500000.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 37500000.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Capping beam",
       "mc": "CAPPING_BEAM",
       "mp": "CB_SDAM",
+      "mct": "",
       "h": "Ngoài HĐ",
       "n": "Sửa dầm capping Beam",
       "u": "md",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 106.0,
-      "ttDTC": 26500000.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 26500000.0
     },
     {
       "hm": "PHẦN NGẦM",
       "g": "Capping beam",
       "mc": "CAPPING_BEAM",
       "mp": "CB_LD_THEP",
+      "mct": "",
       "h": "Ngoài HĐ",
       "n": "GCLD cốt thép dầm capping beam",
       "u": "md",
       "bq": 0.0,
-      "ttBOQ": 0.0,
+      "ttVL_boq": 0.0,
+      "ttNC_boq": 0.0,
       "ttBOQ_R": 0.0,
+      "ttVL_cdt": 0.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
       "cdt": 0.0,
       "ttCDT": 0.0,
       "dtc": 96.0,
-      "ttDTC": 81600000.0,
-      "ttNC_cdt": 0.0
+      "ttDTC": 81600000.0
     }
   ]
 }
