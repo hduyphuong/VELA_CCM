@@ -182,6 +182,12 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   .nav-btn .nav-num{display:none}
 }
 
+/* ===== PRINT TAB NAME ===== */
+#printTabName{display:none}
+@media print{
+  #printTabName{display:block;font-size:0.75rem;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.04em;padding:0.25rem 1.5rem 0.375rem;background:rgba(0,0,0,.15)}
+}
+
 /* ===== PRINT ===== */
 @media print{
   html{font-size:11pt}
@@ -230,6 +236,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     </div>
   </div>
   <div class="project-switcher" id="projectSwitcher"></div>
+  <div id="printTabName"></div>
   <nav class="nav-bar">
     <button class="nav-btn active" onclick="showPage('p1',this)">
       <span class="nav-num">1</span>BC Tài chính
@@ -753,6 +760,7 @@ function showPage(id, btn) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   el(id).classList.add('active');
   btn.classList.add('active');
+  el('printTabName').textContent = btn.textContent.trim();
 }
 
 // ===== LOADING STATES =====
@@ -798,6 +806,8 @@ async function loadProject(id) {
     showLoading(false);
     el('p1').classList.add('active');
     document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i===0));
+    const firstBtn = document.querySelector('.nav-btn');
+    if(firstBtn) el('printTabName').textContent = firstBtn.textContent.trim();
   } catch(e) {
     showLoading(false);
     showError('Không tải được dữ liệu dự án ' + id + '. (' + e.message + ')');
