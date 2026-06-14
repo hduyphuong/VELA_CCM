@@ -1036,18 +1036,18 @@ function applyData(data, projectId) {
     const cdtKL = wdRows.reduce((a,r)=>a+(r.cdt||0),0);
     const clKL  = dtcKL - cdtKL;
     let badge;
-    if(lnV > 0)
+    if(cdtV === 0 && thV === 0)
+      badge='<span class="badge" style="background:#e9ecef;color:#6c757d;font-size:9px">⚪ Chưa phát sinh</span>';
+    else if(cdtV === 0 && thV !== 0)
+      badge='<span class="badge" style="background:#fff9c4;color:#7d5a00;font-size:9px">🟡 Chưa ghi nhận doanh thu</span>';
+    else if(cdtV !== 0 && thV === 0)
+      badge='<span class="badge" style="background:#fff3e0;color:#7d3000;font-size:9px">🟠 Chưa ghi nhận chi phí</span>';
+    else if(lnV > 0)
       badge='<span class="badge bg-g" style="font-size:9px">🟢 Có lãi</span>';
     else if(lnV < 0)
       badge='<span class="badge bg-r" style="font-size:9px">🔴 Lỗ</span>';
-    else if(cdtV === 0 && thV === 0)
-      badge='<span class="badge" style="background:#e9ecef;color:#6c757d;font-size:9px">⚪ Chưa phát sinh</span>';
-    else if(cdtV !== 0 && thV !== 0)
-      badge='<span class="badge bg-b" style="font-size:9px">🔵 Hòa vốn</span>';
-    else if(cdtV === 0)
-      badge='<span class="badge" style="background:#fff9c4;color:#7d5a00;font-size:9px">🟡 Chưa ghi nhận doanh thu</span>';
     else
-      badge='<span class="badge" style="background:#fff3e0;color:#7d3000;font-size:9px">🟠 Chưa ghi nhận chi phí</span>';
+      badge='<span class="badge bg-b" style="font-size:9px">🔵 Hòa vốn</span>';
 
     p1Stt++;
     const lnColor = lnV>=0 ? '#2e7d32' : '#c62828';
