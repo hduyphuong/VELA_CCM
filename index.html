@@ -994,25 +994,23 @@ function applyData(data, projectId) {
     // wdEmpty = rows có mct rỗng (Vật tư chính — không phân loại NC/OT)
     const wdEmpty = wdRows.filter(r=>!r.mct);
     let boqV, cdtV;
-    // Sycamore: phân loại theo ao (cột AO) — ưu tiên trên mct
-    // ao=VT  → BOQ = sum ttVL_boq (col O), CDT = sum ttVL_cdt (col W)
-    // ao=GG  → BOQ = sum ttBOQ_R  (col R), CDT = sum ttCDT_Z  (col Z)
-    // ao=PSG → BOQ = sum ttBOQ_R  (col R), CDT = sum ttCDT_Z  (col Z)
-    const aoVals = [...new Set(wdRows.map(r=>(r.ao||'').toUpperCase()).filter(Boolean))];
-    const aoOnly = aoVals.length === 1 ? aoVals[0] : '';
+    // Sycamore: phân loại theo mct (cột F) — lấy giá trị mct đầu tiên khác rỗng trong nhóm
+    // mct=VT  → BOQ = sum ttVL_boq (col O), CDT = sum ttVL_cdt (col W)
+    // mct=GG  → BOQ = sum ttBOQ_R  (col R), CDT = sum ttCDT_Z  (col Z)
+    // mct=PSG → BOQ = sum ttBOQ_R  (col R), CDT = sum ttCDT_Z  (col Z)
+    const mctGroup = ((wdRows.find(r=>r.mct)||{}).mct||'').toUpperCase();
     if(isSycamore && wdRows.length > 0) {
-      // Sycamore: phân loại theo ao (cột AO) — ưu tiên cao hơn mct
-      // ao=VT  → BOQ = sum ttVL_boq (col O), CDT = sum ttVL_cdt (col W) — áp dụng cho cả mct=NC lẫn mct=rỗng
-      // ao=GG  → BOQ = sum ttBOQ_R  (col R), CDT = sum ttCDT_Z  (col Z)
-      // ao=PSG → BOQ = sum ttBOQ_R  (col R), CDT = sum ttCDT_Z  (col Z)
-      if(aoOnly === 'VT') {
+      if(mctGroup === 'VT') {
         boqV = wdRows.reduce((a,r)=>a+(r.ttVL_boq||0),0);
         cdtV = wdRows.reduce((a,r)=>a+(r.ttVL_cdt||0),0);
-      } else if(aoOnly === 'GG' || aoOnly === 'PSG') {
+      } else if(mctGroup === 'GG' || mctGroup === 'PSG') {
         boqV = wdRows.reduce((a,r)=>a+(r.ttBOQ_R||0),0);
         cdtV = wdRows.reduce((a,r)=>a+(r.ttCDT_Z||0),0);
+      } else if(mctGroup === 'NC') {
+        boqV = wdRows.reduce((a,r)=>a+(r.ttNC_boq||0),0);
+        cdtV = wdRows.reduce((a,r)=>a+(r.ttNC_cdt||0),0);
       } else {
-        // Fallback: logic chung
+        // Fallback
         boqV = wdRows.reduce((a,r)=>a+(r.ttBOQ_R||0),0);
         cdtV = wdRows.reduce((a,r)=>a+(r.ttCDT_Z||0),0);
       }
