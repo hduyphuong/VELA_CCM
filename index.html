@@ -994,19 +994,18 @@ function applyData(data, projectId) {
     // wdEmpty = rows có mct rỗng (Vật tư chính — không phân loại NC/OT)
     const wdEmpty = wdRows.filter(r=>!r.mct);
     let boqV, cdtV;
-    // Sycamore: dùng mct (cột F) và ao (cột AO) để xác định nguồn cột đúng
-    // mct=NC → BOQ = sum ttNC_boq (col P), CDT = sum ttNC_cdt (col X)
-    // ao=VT  → BOQ = sum ttVL_boq  (col O), CDT = sum ttVL_cdt  (col W)
-    // ao=GG  → BOQ = sum ttCDT_Z   (col Z), CDT = sum ttCDT_Z   (col Z)
-    // ao=PSG → BOQ = sum ttCDT_Z   (col Z), CDT = sum ttCDT_Z   (col Z)
+    // Sycamore: phân loại theo ao (cột AO) — ưu tiên trên mct
+    // ao=VT  → BOQ = sum ttVL_boq (col O), CDT = sum ttVL_cdt (col W)
+    // ao=GG  → BOQ = sum ttBOQ_R  (col R), CDT = sum ttCDT_Z  (col Z)
+    // ao=PSG → BOQ = sum ttBOQ_R  (col R), CDT = sum ttCDT_Z  (col Z)
     const aoVals = [...new Set(wdRows.map(r=>(r.ao||'').toUpperCase()).filter(Boolean))];
     const aoOnly = aoVals.length === 1 ? aoVals[0] : '';
     if(isSycamore && wdRows.length > 0) {
-      if(wdNC.length > 0) {
-        // Hạng mục NC thông thường
-        boqV = wdNC.reduce((a,r)=>a+(r.ttNC_boq||0),0);
-        cdtV = wdNC.reduce((a,r)=>a+(r.ttNC_cdt||0),0);
-      } else if(aoOnly === 'VT') {
+      // Sycamore: phân loại theo ao (cột AO) — ưu tiên cao hơn mct
+      // ao=VT  → BOQ = sum ttVL_boq (col O), CDT = sum ttVL_cdt (col W) — áp dụng cho cả mct=NC lẫn mct=rỗng
+      // ao=GG  → BOQ = sum ttBOQ_R  (col R), CDT = sum ttCDT_Z  (col Z)
+      // ao=PSG → BOQ = sum ttBOQ_R  (col R), CDT = sum ttCDT_Z  (col Z)
+      if(aoOnly === 'VT') {
         boqV = wdRows.reduce((a,r)=>a+(r.ttVL_boq||0),0);
         cdtV = wdRows.reduce((a,r)=>a+(r.ttVL_cdt||0),0);
       } else if(aoOnly === 'GG' || aoOnly === 'PSG') {
