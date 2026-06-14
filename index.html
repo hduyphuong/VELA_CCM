@@ -994,14 +994,18 @@ function applyData(data, projectId) {
     // wdEmpty = rows có mct rỗng (Vật tư chính — không phân loại NC/OT)
     const wdEmpty = wdRows.filter(r=>!r.mct);
     let boqV, cdtV;
-    // Sycamore: dùng mc để xác định nguồn cột đúng theo từng hạng mục
-    // VTC → col O (ttVL_boq / ttVL_cdt); GIAM_GIA / PS_GIAM → col R (ttBOQ_R) / col Z (ttCDT_Z)
-    if(isSycamore && wdRows.length > 0) {
-      const mcFirst = (wdRows[0].mc||'').toUpperCase();
-      if(mcFirst === 'VTC') {
+    // Sycamore: dùng field `ao` (cột AO sheet WD) để xác định nguồn cột đúng
+    // Chỉ áp dụng khi toàn bộ wdRows của nhóm đều không có mct=NC (nhóm đặc thù VT/GG/PSG)
+    // ao=VT  → Vật tư chính: BOQ = sum ttVL_boq (col O), CDT = sum ttVL_cdt (col W)
+    // ao=GG  → Giảm giá:     BOQ = sum ttBOQ_R (col R), CDT = sum ttCDT_Z (col Z)
+    // ao=PSG → Phát sinh giảm: BOQ = sum ttBOQ_R (col R), CDT = sum ttCDT_Z (col Z)
+    const aoVals = [...new Set(wdRows.map(r=>(r.ao||'').toUpperCase()).filter(Boolean))];
+    const aoOnly = aoVals.length === 1 ? aoVals[0] : '';
+    if(isSycamore && wdRows.length > 0 && aoOnly && !wdNC.length) {
+      if(aoOnly === 'VT') {
         boqV = wdRows.reduce((a,r)=>a+(r.ttVL_boq||0),0);
         cdtV = wdRows.reduce((a,r)=>a+(r.ttVL_cdt||0),0);
-      } else if(mcFirst === 'GIAM_GIA' || mcFirst === 'PS_GIAM') {
+      } else if(aoOnly === 'GG' || aoOnly === 'PSG') {
         boqV = wdRows.reduce((a,r)=>a+(r.ttBOQ_R||0),0);
         cdtV = wdRows.reduce((a,r)=>a+(r.ttCDT_Z||r.ttCDT||0),0);
       } else {
