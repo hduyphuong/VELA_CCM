@@ -1515,23 +1515,50 @@ function applyData(data, projectId) {
     if(pa.length===2&&pb.length===2){return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);}
     return a.localeCompare(b);
   });
+  let gtCum = 0;
+  const gtCumData = gtMonths.map(m=>{ gtCum+=gtMonthMap[m]||0; return gtCum; });
   if(chartGTInst){ chartGTInst.destroy(); chartGTInst=null; }
   chartGTInst = new Chart(el('chartGianTiep').getContext('2d'),{
     type:'bar',
     data:{
       labels: gtMonths.length > 0 ? gtMonths : ['Chưa có dữ liệu'],
       datasets:[
-        {label:'CP gián tiếp TH', data: gtMonths.map(m=>gtMonthMap[m]||0), backgroundColor:'rgba(59,45,111,.75)', borderColor:'#3B2D6F',borderWidth:1},
+        {label:'CP gián tiếp TH', data: gtMonths.map(m=>gtMonthMap[m]||0), backgroundColor:'rgba(59,45,111,.75)', borderColor:'#3B2D6F', borderWidth:1, yAxisID:'y'},
+        {label:'Lũy kế CP gián tiếp', data: gtCumData, type:'line', borderColor:'#F5A623', backgroundColor:'rgba(245,166,35,.1)', borderWidth:2, pointRadius:3, fill:false, tension:0.3, yAxisID:'y2'},
       ]
     },
     options:{
-      responsive:true,maintainAspectRatio:false,
+      responsive:true, maintainAspectRatio:false,
+      layout:{padding:{top:18}},
       plugins:{
         legend:{position:'top',labels:{font:{size:11}}},
         tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toLocaleString('vi-VN')+' VNĐ'}}
       },
-      scales:{x:{ticks:{font:{size:10}}},y:{ticks:{font:{size:10},callback:v=>(v/1e6).toFixed(0)+'tr'}}}
-    }
+      scales:{
+        x:{ticks:{font:{size:10}}},
+        y:{ticks:{font:{size:10}, callback:v=>fmtChartVal(v)}},
+        y2:{position:'right', ticks:{font:{size:10}, callback:v=>fmtChartVal(v)}, grid:{drawOnChartArea:false}}
+      }
+    },
+    plugins:[{
+      id:'gtMonthlyLabels',
+      afterDatasetsDraw(chart){
+        const{ctx,data}=chart;
+        chart.getSortedVisibleDatasetMetas().forEach(meta=>{
+          if(meta.index===1) return;
+          meta.data.forEach((pt,i)=>{
+            const val=data.datasets[meta.index].data[i]||0;
+            if(val<=0) return;
+            ctx.save();
+            ctx.fillStyle='#1a2332';
+            ctx.font='bold 9px Segoe UI,Arial';
+            ctx.textAlign='center';
+            ctx.fillText(fmtChartVal(val), pt.x, pt.y-4);
+            ctx.restore();
+          });
+        });
+      }
+    }]
   });
 
   wdSortDir = 0;
