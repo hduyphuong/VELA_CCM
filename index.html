@@ -1332,6 +1332,38 @@ function applyData(data, projectId) {
   el('kpi4_ns_cl').style.color = p4NSconlai >= 0 ? '#2e7d32' : '#c62828';
   el('kpi4_ns_cl_card').style.borderLeftColor = p4NSconlai >= 0 ? '#2e7d32' : '#c62828';
 
+  // Bảng tổng hợp theo nhà cung cấp (TT[] mã VT, group theo t = cột B Nhà thầu)
+  const p4NccBody = el('p4NccBody');
+  p4NccBody.innerHTML = '';
+  const nccMap = {};
+  ttByCode('VT').forEach(r => {
+    const ncc = (r.t||'').trim() || '(Không rõ)';
+    if(!nccMap[ncc]) nccMap[ncc] = {gt:0, tt:0, cl:0};
+    nccMap[ncc].gt += r.gt||0;
+    nccMap[ncc].tt += r.tt||0;
+    nccMap[ncc].cl += r.cl||0;
+  });
+  const nccList = Object.entries(nccMap).sort((a,b) => b[1].gt - a[1].gt);
+  if(nccList.length === 0) {
+    p4NccBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+  } else {
+    nccList.forEach(([ncc, v]) => {
+      const pctTT = v.gt > 0 ? ((v.tt/v.gt)*100).toFixed(0) : null;
+      const status = pctTT === null ? '<span style="color:#6c757d">—</span>'
+        : +pctTT >= 100 ? '<span style="color:#2e7d32;font-weight:600">Đã TT đủ</span>'
+        : +pctTT > 0    ? '<span style="color:#F5A623;font-weight:600">Còn nợ</span>'
+        :                  '<span style="color:#c62828;font-weight:600">Chưa TT</span>';
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td class="tl wrap" style="max-width:180px">'+ncc+'</td>'
+        +'<td class="tr">'+fmtAuto(v.gt)+'</td>'
+        +'<td class="tr">'+fmtAuto(v.tt)+'</td>'
+        +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
+        +'<td class="tc">'+(pctTT!==null?pctTT+'%':'—')+'</td>'
+        +'<td class="tc">'+status+'</td>';
+      p4NccBody.appendChild(tr);
+    });
+  }
+
   // Bảng đối chiếu NS VT từ NS[] mã VT
   const p4DcBody = el('p4DcBody');
   p4DcBody.innerHTML = '';
