@@ -950,10 +950,13 @@ function applyData(data, projectId) {
   const p1CocauTfoot = el('p1CocauTfoot');
   p1CocauBody.innerHTML = '';
   const isSycamore = (projectId||'').toUpperCase() === 'SYCAMORE';
+  // useMctLogic: dùng mct-based logic nếu WD có rows với mct khác rỗng và khác NC
+  // (cấu trúc: nhiều detail rows mct=None + 1 summary row với mct thực VT/GG/PRE/PSG...)
+  const useMctLogic = isSycamore || WD.some(r => r.mct && (r.mct+'').toUpperCase() !== 'NC');
   const hmListNS = [];
   NS.forEach(r => { if(r.g && !hmListNS.includes(r.g)) hmListNS.push(r.g); });
-  // Sycamore: thêm hạng mục từ WD không có trong NS (Vật tư chính mct=VT, Giảm giá/Phát sinh giảm mct=OT)
-  if(isSycamore) {
+  // useMctLogic: thêm hạng mục từ WD không có trong NS (Vật tư chính mct=VT, Giảm giá mct=GG...)
+  if(useMctLogic) {
     WD.forEach(r => { if(r.g && !hmListNS.includes(r.g)) hmListNS.push(r.g); });
   }
   // Sycamore: giá trị tổng dự án cho hạng mục mct=VT (Vật tư chính)
@@ -999,7 +1002,7 @@ function applyData(data, projectId) {
     // mct=GG  → BOQ = sum ttBOQ_R  (col R), CDT = sum ttCDT_Z  (col Z)
     // mct=PSG → BOQ = sum ttBOQ_R  (col R), CDT = sum ttCDT_Z  (col Z)
     const mctGroup = ((wdRows.find(r=>r.mct)||{}).mct||'').toUpperCase();
-    if(isSycamore && wdRows.length > 0) {
+    if(useMctLogic && wdRows.length > 0) {
       if(mctGroup === 'VT') {
         boqV = wdRows.reduce((a,r)=>a+(r.ttVL_boq||0),0);
         cdtV = wdRows.reduce((a,r)=>a+(r.ttVL_cdt||0),0);
