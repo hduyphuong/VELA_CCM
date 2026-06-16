@@ -2,18 +2,18 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-16T13:13:16",
+    "generated_at": "2026-06-16T13:20:21",
     "source_file": "HDP_SCM_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
   "summary": {
     "boq_total": 19373867141.199745,
     "vl_boq_total": 7178667993.973764,
-    "budget_total": 17419408724.791183,
+    "budget_total": 44749097248.51406,
     "cdt_total": 14135421313.661818,
     "cdt_workdone_total": 14135421313.661816,
     "cdt_nc_total": 8323568292.526592,
-    "chi_phi_th_total": 14009002880.10325,
+    "chi_phi_th_total": 3814913221.91,
     "contractor_executed_total": 14009002880.10325,
     "contractor_paid_total": 13399551141.455925,
     "contractor_remaining_total": 609451738.647325,
@@ -108,7 +108,7 @@
       {
         "group": "Phát sinh giảm",
         "boq_value": -45304248087.082,
-        "budget_value": -40645287024.822876,
+        "budget_value": -13315598501.099998,
         "cdt_workdone": 0,
         "contractor_paid": 0
       },
@@ -176,7 +176,7 @@
         "contractor_paid": 140118587.275
       }
     ],
-    "ns_nc_val": 5870731176,
+    "ns_nc_val": 33200419700,
     "ns_th_val": 15957144114,
     "current_ipc": "IPC 05"
   },
@@ -15584,12 +15584,12 @@
       "n": "Phát sinh giảm nhân công",
       "u": "lot",
       "kl": -0.7,
-      "tt": -23252147870.087254,
+      "tt": 0.0,
       "klTH": 0.0,
       "ttTH": 0.0,
       "tdTH": 0.0,
       "klV": -0.7,
-      "ttV": -23252147870.087254,
+      "ttV": 0.0,
       "tlV": 0.0
     },
     {
@@ -15603,12 +15603,12 @@
       "n": "Phát sinh giảm prelim",
       "u": "lot",
       "kl": -0.7,
-      "tt": -2064635999.9999998,
+      "tt": 0.0,
       "klTH": 0.0,
       "ttTH": 0.0,
       "tdTH": 0.0,
       "klV": -0.7,
-      "ttV": -2064635999.9999998,
+      "ttV": 0.0,
       "tlV": 0.0
     },
     {
@@ -15622,12 +15622,12 @@
       "n": "Phát sinh giảm dự phòng",
       "u": "lot",
       "kl": -0.7,
-      "tt": -1118280363.1309035,
+      "tt": 0.0,
       "klTH": 0.0,
       "ttTH": 0.0,
       "tdTH": 0.0,
       "klV": -0.7,
-      "ttV": -1118280363.1309035,
+      "ttV": 0.0,
       "tlV": 0.0
     },
     {
@@ -15641,12 +15641,12 @@
       "n": "Phát sinh giảm quản lý DN",
       "u": "lot",
       "kl": -0.7,
-      "tt": -894624290.5047228,
+      "tt": 0.0,
       "klTH": 0.0,
       "ttTH": 0.0,
       "tdTH": 0.0,
       "klV": -0.7,
-      "ttV": -894624290.5047228,
+      "ttV": 0.0,
       "tlV": 0.0
     },
     {
