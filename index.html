@@ -628,11 +628,11 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <thead><tr>
         <th class="tl">Vật tư</th>
         <th>ĐVT</th>
-        <th>Ngân sách</th>
-        <th>Đã nhập</th>
+        <th>KL Ngân sách</th>
+        <th>KL Đã nhập</th>
         <th>KL chênh lệch</th>
-        <th>% Vượt</th>
-        <th>Giá trị vượt</th>
+        <th>% Vượt KL</th>
+        <th>GT Đã nhập</th>
         <th>Ghi chú</th>
       </tr></thead>
       <tbody id="p4DcBody">
@@ -1340,21 +1340,26 @@ function applyData(data, projectId) {
     p4DcBody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu vật tư</td></tr>';
   } else {
     nsVTrows.forEach(r => {
-      const klNS = r.kl||0;
-      const klDaNhap = 0; // Chua co du lieu "Da nhap"
-      const clKL = klDaNhap - klNS;
+      const klNS    = r.kl||0;
+      const klDaNhap = r.klTH||0;  // cột P Data-Ngân sách: KL thực hiện (xác nhận DTC)
+      const clKL    = klDaNhap - klNS;
       const vuotPct = klNS > 0 && clKL > 0 ? ((clKL/klNS)*100).toFixed(0) : null;
-      const ghiChu = clKL < 0 || klNS === 0
-        ? '<span style="color:#2e7d32;font-weight:600">Trong hạn</span>'
-        : '<span style="color:#c62828;font-weight:600">'+vuotPct+'% Vượt</span>';
+      const ghiChu  = klNS === 0
+        ? '<span style="color:#6c757d">—</span>'
+        : clKL <= 0
+          ? '<span style="color:#2e7d32;font-weight:600">Trong hạn</span>'
+          : '<span style="color:#c62828;font-weight:600">'+vuotPct+'% Vượt</span>';
+      const ttNS    = r.tt||0;
+      const ttDaNhap = r.ttTH||0;  // cột Q Data-Ngân sách: TT thực hiện
+      const clTT    = ttDaNhap - ttNS;
       const tr = document.createElement('tr');
       tr.innerHTML = '<td class="tl wrap" style="max-width:200px">'+(r.n||'—')+'</td>'
         +'<td class="tc">'+(r.u||'—')+'</td>'
         +'<td class="tr">'+(klNS>0?klNS.toLocaleString('vi-VN'):'—')+'</td>'
-        +'<td class="tr">—</td>'
-        +'<td class="tr '+(clKL>0?'neg':clKL<0?'pos':'')+'">—</td>'
+        +'<td class="tr">'+(klDaNhap>0?klDaNhap.toLocaleString('vi-VN'):'—')+'</td>'
+        +'<td class="tr '+(clKL>0?'neg':clKL<0?'pos':'')+'">'+( klNS>0||klDaNhap>0 ? (clKL>=0?'+':'')+clKL.toLocaleString('vi-VN') : '—' )+'</td>'
         +'<td class="tc">'+(vuotPct?'<span style="color:#c62828">'+vuotPct+'%</span>':'<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tr">—</td>'
+        +'<td class="tr">'+(ttDaNhap>0?fmtAuto(ttDaNhap):'—')+'</td>'
         +'<td class="tc">'+ghiChu+'</td>';
       p4DcBody.appendChild(tr);
     });
