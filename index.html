@@ -680,7 +680,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 
   <div class="card mb0" style="margin-top:0.875rem">
     <div class="stitle" style="display:flex;align-items:center;justify-content:space-between">
-      <span>Bảng chi tiết sử dụng</span>
+      <span style="text-align:left">Bảng chi tiết sử dụng</span>
       <div id="p5FilterBtns" style="display:flex;gap:6px;flex-wrap:wrap"></div>
     </div>
     <div class="tbl-wrap">
@@ -689,6 +689,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <th style="width:36px">STT</th>
         <th style="width:80px">Loại</th>
         <th class="tl" style="min-width:200px">Nội dung công việc</th>
+        <th style="width:64px">Đợt TT</th>
         <th style="width:72px">Tháng</th>
         <th>Nhà thầu / NCC</th>
         <th>GT Thực hiện</th>
@@ -698,7 +699,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <th style="width:100px">Trạng thái</th>
       </tr></thead>
       <tbody id="p5DetailBody">
-        <tr><td colspan="10" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+        <tr><td colspan="11" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
       </tbody>
       <tfoot id="p5DetailFoot"></tfoot>
     </table>
@@ -1660,7 +1661,7 @@ function renderP5Detail(code) {
   );
   body.innerHTML = '';
   if(rows.length === 0) {
-    body.innerHTML = '<tr><td colspan="10" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+    body.innerHTML = '<tr><td colspan="11" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
     if(foot) foot.innerHTML = '';
     return;
   }
@@ -1691,6 +1692,7 @@ function renderP5Detail(code) {
     tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(i+1)+'</td>'
       +'<td class="tc"><span style="background:'+color+';color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;white-space:nowrap">'+label+'</span></td>'
       +'<td class="tl wrap" style="max-width:220px">'+(r.n||'—')+'</td>'
+      +'<td class="tc" style="color:#5c6b7a;font-size:11px">'+(r.l||'—')+'</td>'
       +'<td class="tc" style="color:#5c6b7a;font-size:11px">'+(r.p||'—')+'</td>'
       +'<td class="tl" style="font-size:11px;max-width:160px">'+(r.t||'—')+'</td>'
       +'<td class="tr">'+(gt?fmtAuto(gt):'—')+'</td>'
@@ -1704,7 +1706,7 @@ function renderP5Detail(code) {
   if(foot) {
     const totalPct = totalGT > 0 ? ((totalTT/totalGT)*100).toFixed(0)+'%' : '—';
     foot.innerHTML = '<tr style="font-weight:700;background:#f0f0f0">'
-      +'<td colspan="5" class="tl" style="padding-left:8px">TỔNG CỘNG ('+rows.length+' mục)</td>'
+      +'<td colspan="6" class="tl" style="padding-left:8px">TỔNG CỘNG ('+rows.length+' mục)</td>'
       +'<td class="tr">'+fmtAuto(totalGT)+'</td>'
       +'<td class="tr">'+fmtAuto(totalTT)+'</td>'
       +'<td class="tr '+(totalCL>0?'neg':totalCL<0?'pos':'')+'">'+fmtAuto(totalCL)+'</td>'
