@@ -1507,10 +1507,6 @@ function applyData(data, projectId) {
         +'</div>';
     });
   }
-  // Backward compat cho setBar calls cũ (nếu còn)
-  const thPRE_val = thValMap['PRE']||0, thDP_val = thValMap['DP']||0, thQLDN_val = thValMap['QLDN']||0;
-  const nsPRE_val = nsValMap['PRE']||0, nsDP_val = nsValMap['DP']||0, nsQLDN_val = nsValMap['QLDN']||0;
-
   // Bảng tổng hợp theo cơ cấu P5 — render động từ COCAU_LIST trừ NC/VT
   const p5CocauBody = el('p5CocauBody');
   const p5CocauTfoot = el('p5CocauTfoot');
