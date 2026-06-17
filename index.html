@@ -862,12 +862,14 @@ function applyData(data, projectId) {
     return 'hsl('+(h%360)+',55%,40%)';
   }
 
-  // Tổng hợp giá trị theo mã cho NS và TT
+  // Tổng hợp giá trị theo mã cho NS và TT — tính trên toàn COCAU_LIST trước
   const nsValMap = {}, thValMap = {};
   COCAU_LIST.forEach(c => {
     nsValMap[c.ma] = nsByCode(c.ma).reduce((a,r)=>a+(r.tt||0),0);
     thValMap[c.ma] = ttByCode(c.ma).reduce((a,r)=>a+(r.gt||0),0);
   });
+  // Chỉ hiển thị mã có đề cập trong Data-Ngân sách (col F) — nếu không có dữ liệu thì bỏ
+  const COCAU_LIST_ACTIVE = COCAU_LIST.filter(c => (nsValMap[c.ma]||0) > 0 || (thValMap[c.ma]||0) > 0);
   // Giữ lại biến cũ để không hỏng các phần dùng sau
   const nsNC_val  = nsValMap['NC']  || 0;
   const nsVT_val  = nsValMap['VT']  || 0;
@@ -926,11 +928,11 @@ function applyData(data, projectId) {
       +'<div style="font-size:0.625rem;color:#6c757d;margin:-5px 0 5px 125px">'+r.note+' — '+pctBoq+' BOQ</div>';
   });
 
-  // --- Cơ cấu ngân sách: render động từ COCAU_LIST ---
+  // --- Cơ cấu ngân sách: render động từ COCAU_LIST_ACTIVE ---
   const nsBaseDisp = nsTotal > 0 ? nsTotal : 1;
   const p1CocauNS = el('p1CocauNS');
   p1CocauNS.innerHTML = '';
-  COCAU_LIST.forEach(c => {
+  COCAU_LIST_ACTIVE.forEach(c => {
     const val = nsValMap[c.ma] || 0;
     const pw  = Math.min((val/nsBaseDisp)*100, 100).toFixed(1);
     const clr = cocauColor(c.ma);
@@ -942,11 +944,11 @@ function applyData(data, projectId) {
   });
   el('cmp_ns_total').textContent = fmtAuto(nsTotal);
 
-  // --- Cơ cấu chi phí hiện tại: render động từ COCAU_LIST ---
+  // --- Cơ cấu chi phí hiện tại: render động từ COCAU_LIST_ACTIVE ---
   const thBase = totTH > 0 ? totTH : 1;
   const p1CocauCP = el('p1CocauCP');
   p1CocauCP.innerHTML = '';
-  COCAU_LIST.forEach(c => {
+  COCAU_LIST_ACTIVE.forEach(c => {
     const val = thValMap[c.ma] || 0;
     const pw  = Math.min((val/thBase)*100, 100).toFixed(1);
     const clr = cocauColor(c.ma);
@@ -1477,7 +1479,7 @@ function applyData(data, projectId) {
   }
 
   // --- KPI Page 5: BC CP Gián tiếp — dùng tất cả mã trừ NC và VT ---
-  const GT_CODES = COCAU_LIST.filter(c => c.ma !== 'NC' && c.ma !== 'VT').map(c => c.ma);
+  const GT_CODES = COCAU_LIST_ACTIVE.filter(c => c.ma !== 'NC' && c.ma !== 'VT').map(c => c.ma);
   const p5TH  = ttByCodes(GT_CODES).reduce((a,r)=>a+(r.gt||0),0);
   const p5TT  = ttByCodes(GT_CODES).reduce((a,r)=>a+(r.tt||0),0);
   const p5NS  = nsByCodes(GT_CODES).reduce((a,r)=>a+(r.tt||0),0);
