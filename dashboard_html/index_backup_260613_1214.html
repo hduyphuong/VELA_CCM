@@ -182,12 +182,6 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   .nav-btn .nav-num{display:none}
 }
 
-/* ===== PRINT TAB NAME ===== */
-#printTabName{display:none}
-@media print{
-  #printTabName{display:block;font-size:0.75rem;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.04em;padding:0.25rem 1.5rem 0.375rem;background:rgba(0,0,0,.15)}
-}
-
 /* ===== PRINT ===== */
 @media print{
   html{font-size:11pt}
@@ -236,7 +230,6 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     </div>
   </div>
   <div class="project-switcher" id="projectSwitcher"></div>
-  <div id="printTabName"></div>
   <nav class="nav-bar">
     <button class="nav-btn active" onclick="showPage('p1',this)">
       <span class="nav-num">1</span>BC Tài chính
@@ -308,16 +301,28 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     <!-- CƠ CẤU NGÂN SÁCH -->
     <div class="card mb0">
       <div class="stitle">Cơ cấu ngân sách</div>
-      <div id="p1CocauNS"></div>
-      <div style="margin-top:8px;padding-top:8px;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;font-size:0.71875rem;font-weight:700">
+      <div id="p1CocauNS">
+        <div class="cmp-row"><span class="cmp-label">Nhân công</span><div class="cmp-track"><div class="cmp-fill" id="cmp_nc_bar" style="width:0%;background:#1565c0"></div></div><span class="cmp-value" id="cmp_nc_val" style="color:#1565c0">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Vật tư</span><div class="cmp-track"><div class="cmp-fill" id="cmp_vt_bar" style="width:0%;background:#2e7d32"></div></div><span class="cmp-value" id="cmp_vt_val" style="color:#2e7d32">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Prelim</span><div class="cmp-track"><div class="cmp-fill" id="cmp_pre_bar" style="width:0%;background:#E8552A"></div></div><span class="cmp-value" id="cmp_pre_val" style="color:#E8552A">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Dự phòng</span><div class="cmp-track"><div class="cmp-fill" id="cmp_dp_bar" style="width:0%;background:#F5A623"></div></div><span class="cmp-value" id="cmp_dp_val" style="color:#F5A623">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Quản lý DN</span><div class="cmp-track"><div class="cmp-fill" id="cmp_qldn_bar" style="width:0%;background:#888"></div></div><span class="cmp-value" id="cmp_qldn_val" style="color:#495057">—</span></div>
+      </div>
+      <div id="p1CocauNS_total" style="margin-top:8px;padding-top:8px;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;font-size:0.71875rem;font-weight:700">
         <span>Tổng ngân sách</span><span id="cmp_ns_total" style="color:#00796b">—</span>
       </div>
     </div>
     <!-- CƠ CẤU CHI PHÍ HIỆN TẠI -->
     <div class="card mb0">
       <div class="stitle">Cơ cấu chi phí hiện tại</div>
-      <div id="p1CocauCP"></div>
-      <div style="margin-top:8px;padding-top:8px;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;font-size:0.71875rem;font-weight:700">
+      <div id="p1CocauCP">
+        <div class="cmp-row"><span class="cmp-label">Nhân công</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_nc_bar" style="width:0%;background:#1565c0"></div></div><span class="cmp-value" id="cmpb_nc_val" style="color:#1565c0">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Vật tư</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_vt_bar" style="width:0%;background:#2e7d32"></div></div><span class="cmp-value" id="cmpb_vt_val" style="color:#2e7d32">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Prelim</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_pre_bar" style="width:0%;background:#E8552A"></div></div><span class="cmp-value" id="cmpb_pre_val" style="color:#E8552A">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Dự phòng</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_dp_bar" style="width:0%;background:#F5A623"></div></div><span class="cmp-value" id="cmpb_dp_val" style="color:#F5A623">—</span></div>
+        <div class="cmp-row"><span class="cmp-label">Quản lý DN</span><div class="cmp-track"><div class="cmp-fill" id="cmpb_qldn_bar" style="width:0%;background:#888"></div></div><span class="cmp-value" id="cmpb_qldn_val" style="color:#495057">—</span></div>
+      </div>
+      <div id="p1CocauCP_total" style="margin-top:8px;padding-top:8px;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;font-size:0.71875rem;font-weight:700">
         <span>Tổng chi phí TH</span><span id="cmpb_th_total" style="color:#E8552A">—</span>
       </div>
     </div>
@@ -589,8 +594,23 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       </div>
     </div>
     <div class="card mb0">
-      <div class="stitle">Sản lượng thanh toán hàng tháng</div>
-      <div class="chart-box" style="height:280px"><canvas id="chartVTMonthly"></canvas></div>
+      <div class="stitle">Bảng tổng hợp vật tư</div>
+      <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th class="tl">Vật tư</th>
+          <th>ĐVT</th>
+          <th>Đã nhập</th>
+          <th>Đã dùng</th>
+          <th>Còn lại</th>
+          <th>Giá trị nhập</th>
+          <th>Ghi chú</th>
+        </tr></thead>
+        <tbody id="p4VtBody">
+          <tr><td colspan="7" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+        </tbody>
+      </table>
+      </div>
     </div>
   </div>
 
@@ -599,20 +619,17 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     <div class="tbl-wrap">
     <table>
       <thead><tr>
-        <th style="width:36px">STT</th>
         <th class="tl">Vật tư</th>
         <th>ĐVT</th>
-        <th>KL Ngân sách</th>
-        <th>KL Đã nhập</th>
-        <th>KL Chênh lệch</th>
-        <th>% Vượt KL</th>
-        <th>Giá trị Ngân sách</th>
-        <th>GT Đã nhập</th>
-        <th>GT Chênh lệch</th>
+        <th>Ngân sách</th>
+        <th>Đã nhập</th>
+        <th>KL chênh lệch</th>
+        <th>% Vượt</th>
+        <th>Giá trị vượt</th>
         <th>Ghi chú</th>
       </tr></thead>
       <tbody id="p4DcBody">
-        <tr><td colspan="11" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+        <tr><td colspan="8" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
       </tbody>
     </table>
     </div>
@@ -652,7 +669,11 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   <div class="grid-2">
     <div class="card mb0">
       <div class="stitle">Tổng hợp sử dụng theo cơ cấu</div>
-      <div id="p5CocauBars"></div>
+      <div id="p5CocauWrap">
+        <div class="cmp-row"><span class="cmp-label" style="width:160px">Prelim</span><div class="cmp-track"><div class="cmp-fill" id="p5bar_pre" style="width:0%;background:#E8552A"></div></div><span class="cmp-value" id="p5val_pre" style="color:#E8552A">—</span></div>
+        <div class="cmp-row"><span class="cmp-label" style="width:160px">Dự phòng</span><div class="cmp-track"><div class="cmp-fill" id="p5bar_dp" style="width:0%;background:#F5A623"></div></div><span class="cmp-value" id="p5val_dp" style="color:#F5A623">—</span></div>
+        <div class="cmp-row"><span class="cmp-label" style="width:160px">Quản lý DN</span><div class="cmp-track"><div class="cmp-fill" id="p5bar_qldn" style="width:0%;background:#3B2D6F"></div></div><span class="cmp-value" id="p5val_qldn" style="color:#3B2D6F">—</span></div>
+      </div>
       <div style="margin-top:10px;padding-top:8px;border-top:1px solid #e9ecef">
         <div class="tbl-wrap">
         <table>
@@ -679,28 +700,25 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   </div>
 
   <div class="card mb0" style="margin-top:0.875rem">
-    <div class="stitle" style="display:flex;align-items:center;justify-content:space-between">
-      <span>Bảng chi tiết sử dụng</span>
-      <div id="p5FilterBtns" style="display:flex;gap:6px;flex-wrap:wrap"></div>
-    </div>
+    <div class="stitle">Bảng chi tiết sử dụng</div>
     <div class="tbl-wrap">
     <table>
       <thead><tr>
-        <th style="width:36px">STT</th>
-        <th style="width:80px">Loại</th>
-        <th class="tl" style="min-width:200px">Nội dung công việc</th>
-        <th style="width:72px">Tháng</th>
-        <th>Nhà thầu / NCC</th>
-        <th>GT Thực hiện</th>
-        <th>Đã thanh toán</th>
-        <th>Còn lại</th>
-        <th style="width:72px">% TT</th>
-        <th style="width:100px">Trạng thái</th>
+        <th>STT</th>
+        <th class="tl">Nhóm</th>
+        <th class="tl" style="min-width:180px">Nội dung</th>
+        <th>Tháng</th>
+        <th>NS/tháng (tr.đ)</th>
+        <th>TH tháng (tr.đ)</th>
+        <th>+/−</th>
+        <th>NS lũy kế</th>
+        <th>TH lũy kế</th>
+        <th style="min-width:90px">% Sử dụng</th>
+        <th>Trạng thái</th>
       </tr></thead>
       <tbody id="p5DetailBody">
-        <tr><td colspan="10" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+        <tr><td colspan="11" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
       </tbody>
-      <tfoot id="p5DetailFoot"></tfoot>
     </table>
     </div>
   </div>
@@ -714,10 +732,9 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 <!-- ============================= SCRIPTS ============================= -->
 <script>
 // ===== STATE =====
-let WD = [], TT = [], NS = [], COCAU = [];
+let WD = [], TT = [], NS = [];
 let chartMonthlyInst = null;
 let chartGTInst = null;
-let chartVTMonthlyInst = null;
 let wdSortDir = 0;
 let p3SortField = null;
 let p3SortDir = 0;
@@ -736,7 +753,6 @@ function showPage(id, btn) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   el(id).classList.add('active');
   btn.classList.add('active');
-  el('printTabName').textContent = btn.textContent.trim();
 }
 
 // ===== LOADING STATES =====
@@ -782,8 +798,6 @@ async function loadProject(id) {
     showLoading(false);
     el('p1').classList.add('active');
     document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i===0));
-    const firstBtn = document.querySelector('.nav-btn');
-    if(firstBtn) el('printTabName').textContent = firstBtn.textContent.trim();
   } catch(e) {
     showLoading(false);
     showError('Không tải được dữ liệu dự án ' + id + '. (' + e.message + ')');
@@ -795,7 +809,6 @@ function applyData(data, projectId) {
   WD = data.WD || [];
   TT = data.TT || [];
   NS = data.NS || [];
-  COCAU = data.cocau || [];
   const s    = data.summary || {};
   const meta = data.meta    || {};
 
@@ -843,42 +856,19 @@ function applyData(data, projectId) {
   const groups = [...new Set([...WD.map(r=>r.g), ...TT.map(r=>r.g)])].filter(Boolean).sort();
   const teams  = [...new Set(TT.map(r=>r.t))].filter(Boolean).sort();
 
-  // --- Cơ cấu theo mã loại: lấy danh sách từ COCAU (sheet data col F+G) ---
-  // Fallback: nếu không có COCAU, dùng danh sách cứng
-  const COCAU_LIST = COCAU.length > 0 ? COCAU : [
-    {ma:'NC',noi_dung:'Nhân công'}, {ma:'VT',noi_dung:'Vật tư'},
-    {ma:'PRE',noi_dung:'Chi phí Prelims'}, {ma:'DP',noi_dung:'Chi phí dự phòng'},
-    {ma:'QLDN',noi_dung:'CP Quản lý DN'},
-  ];
-  // Bảng màu theo mã (cố định cho các mã phổ biến, sinh ngẫu nhiên cho mã lạ)
-  const COCAU_COLORS = {
-    NC:'#1565c0', VT:'#2e7d32', PRE:'#E8552A', DP:'#F5A623',
-    QLDN:'#3B2D6F', DT:'#9C27B0', GG:'#c62828', PSG:'#795548', TT:'#607D8B',
-  };
-  function cocauColor(ma) {
-    if(COCAU_COLORS[ma]) return COCAU_COLORS[ma];
-    // sinh màu từ hash của mã
-    let h = 0; for(let i=0;i<ma.length;i++) h = (h*31+ma.charCodeAt(i))&0xffff;
-    return 'hsl('+(h%360)+',55%,40%)';
-  }
+  // --- Cơ cấu NS theo mã loại (cột A Data-NS) ---
+  const nsNC_val  = nsByCode('NC').reduce((a,r)=>a+(r.tt||0),0);
+  const nsVT_val  = nsByCode('VT').reduce((a,r)=>a+(r.tt||0),0);
+  const nsPRE_val = nsByCode('PRE').reduce((a,r)=>a+(r.tt||0),0);
+  const nsDP_val  = nsByCode('DP').reduce((a,r)=>a+(r.tt||0),0);
+  const nsQLDN_val= nsByCode('QLDN').reduce((a,r)=>a+(r.tt||0),0);
 
-  // Tổng hợp giá trị theo mã cho NS và TT
-  const nsValMap = {}, thValMap = {};
-  COCAU_LIST.forEach(c => {
-    nsValMap[c.ma] = nsByCode(c.ma).reduce((a,r)=>a+(r.tt||0),0);
-    thValMap[c.ma] = ttByCode(c.ma).reduce((a,r)=>a+(r.gt||0),0);
-  });
-  // Giữ lại biến cũ để không hỏng các phần dùng sau
-  const nsNC_val  = nsValMap['NC']  || 0;
-  const nsVT_val  = nsValMap['VT']  || 0;
-  const nsPRE_val = nsValMap['PRE'] || 0;
-  const nsDP_val  = nsValMap['DP']  || 0;
-  const nsQLDN_val= nsValMap['QLDN']|| 0;
-  const thNC_val  = thValMap['NC']  || 0;
-  const thVT_val  = thValMap['VT']  || 0;
-  const thPRE_val = thValMap['PRE'] || 0;
-  const thDP_val  = thValMap['DP']  || 0;
-  const thQLDN_val= thValMap['QLDN']|| 0;
+  // --- Cơ cấu CP TH theo mã loại (cột A Data-TT) ---
+  const thNC_val  = ttByCode('NC').reduce((a,r)=>a+(r.gt||0),0);
+  const thVT_val  = ttByCode('VT').reduce((a,r)=>a+(r.gt||0),0);
+  const thPRE_val = ttByCode('PRE').reduce((a,r)=>a+(r.gt||0),0);
+  const thDP_val  = ttByCode('DP').reduce((a,r)=>a+(r.gt||0),0);
+  const thQLDN_val= ttByCode('QLDN').reduce((a,r)=>a+(r.gt||0),0);
 
   // --- KPI Page 1 ---
   el('kpi1_boq').textContent = fmtAuto(boq);
@@ -926,36 +916,22 @@ function applyData(data, projectId) {
       +'<div style="font-size:0.625rem;color:#6c757d;margin:-5px 0 5px 125px">'+r.note+' — '+pctBoq+' BOQ</div>';
   });
 
-  // --- Cơ cấu ngân sách: render động từ COCAU_LIST ---
+  // --- Cơ cấu ngân sách theo mã loại cột A Data-NS ---
   const nsBaseDisp = nsTotal > 0 ? nsTotal : 1;
-  const p1CocauNS = el('p1CocauNS');
-  p1CocauNS.innerHTML = '';
-  COCAU_LIST.forEach(c => {
-    const val = nsValMap[c.ma] || 0;
-    const pw  = Math.min((val/nsBaseDisp)*100, 100).toFixed(1);
-    const clr = cocauColor(c.ma);
-    p1CocauNS.innerHTML += '<div class="cmp-row">'
-      +'<span class="cmp-label">'+c.noi_dung+'</span>'
-      +'<div class="cmp-track"><div class="cmp-fill" style="width:'+pw+'%;background:'+clr+'"></div></div>'
-      +'<span class="cmp-value" style="color:'+clr+'">'+fmtAuto(val)+'</span>'
-      +'</div>';
-  });
+  setBar('cmp_nc_bar',  'cmp_nc_val',   nsNC_val,   nsBaseDisp, '#1565c0', fmtAuto);
+  setBar('cmp_vt_bar',  'cmp_vt_val',   nsVT_val,   nsBaseDisp, '#2e7d32', fmtAuto);
+  setBar('cmp_pre_bar', 'cmp_pre_val',  nsPRE_val,  nsBaseDisp, '#E8552A', fmtAuto);
+  setBar('cmp_dp_bar',  'cmp_dp_val',   nsDP_val,   nsBaseDisp, '#F5A623', fmtAuto);
+  setBar('cmp_qldn_bar','cmp_qldn_val', nsQLDN_val, nsBaseDisp, '#888',    fmtAuto);
   el('cmp_ns_total').textContent = fmtAuto(nsTotal);
 
-  // --- Cơ cấu chi phí hiện tại: render động từ COCAU_LIST ---
+  // --- Cơ cấu chi phí hiện tại theo mã loại cột A Data-TT ---
   const thBase = totTH > 0 ? totTH : 1;
-  const p1CocauCP = el('p1CocauCP');
-  p1CocauCP.innerHTML = '';
-  COCAU_LIST.forEach(c => {
-    const val = thValMap[c.ma] || 0;
-    const pw  = Math.min((val/thBase)*100, 100).toFixed(1);
-    const clr = cocauColor(c.ma);
-    p1CocauCP.innerHTML += '<div class="cmp-row">'
-      +'<span class="cmp-label">'+c.noi_dung+'</span>'
-      +'<div class="cmp-track"><div class="cmp-fill" style="width:'+pw+'%;background:'+clr+'"></div></div>'
-      +'<span class="cmp-value" style="color:'+clr+'">'+fmtAuto(val)+'</span>'
-      +'</div>';
-  });
+  setBar('cmpb_nc_bar',  'cmpb_nc_val',   thNC_val,   thBase, '#1565c0', fmtAuto);
+  setBar('cmpb_vt_bar',  'cmpb_vt_val',   thVT_val,   thBase, '#2e7d32', fmtAuto);
+  setBar('cmpb_pre_bar', 'cmpb_pre_val',  thPRE_val,  thBase, '#E8552A', fmtAuto);
+  setBar('cmpb_dp_bar',  'cmpb_dp_val',   thDP_val,   thBase, '#F5A623', fmtAuto);
+  setBar('cmpb_qldn_bar','cmpb_qldn_val', thQLDN_val, thBase, '#888',    fmtAuto);
   el('cmpb_th_total').textContent = fmtAuto(totTH);
 
   // --- Bảng giá trị chi tiết theo hạng mục (P1) ---
@@ -964,13 +940,10 @@ function applyData(data, projectId) {
   const p1CocauTfoot = el('p1CocauTfoot');
   p1CocauBody.innerHTML = '';
   const isSycamore = (projectId||'').toUpperCase() === 'SYCAMORE';
-  // useMctLogic: dùng mct-based logic nếu WD có rows với mct khác rỗng và khác NC
-  // (cấu trúc: nhiều detail rows mct=None + 1 summary row với mct thực VT/GG/PRE/PSG...)
-  const useMctLogic = isSycamore || WD.some(r => r.mct && (r.mct+'').toUpperCase() !== 'NC');
   const hmListNS = [];
   NS.forEach(r => { if(r.g && !hmListNS.includes(r.g)) hmListNS.push(r.g); });
-  // useMctLogic: thêm hạng mục từ WD không có trong NS (Vật tư chính mct=VT, Giảm giá mct=GG...)
-  if(useMctLogic) {
+  // Sycamore: thêm hạng mục từ WD không có trong NS (Vật tư chính mct=VT, Giảm giá/Phát sinh giảm mct=OT)
+  if(isSycamore) {
     WD.forEach(r => { if(r.g && !hmListNS.includes(r.g)) hmListNS.push(r.g); });
   }
   // Sycamore: giá trị tổng dự án cho hạng mục mct=VT (Vật tư chính)
@@ -1010,33 +983,22 @@ function applyData(data, projectId) {
     const wdOT  = wdRows.filter(r=>(r.mct||'').toUpperCase()==='OT');
     // wdEmpty = rows có mct rỗng (Vật tư chính — không phân loại NC/OT)
     const wdEmpty = wdRows.filter(r=>!r.mct);
+    // Sycamore: hạng mục có row mct=VT → "Vật tư chính", dùng giá trị tổng dự án
+    // BOQ = vl_boq_proj (ô O4), CDT = vl_cdt_proj (sum toàn bộ col W)
+    const isVTGroup = isSycamore && wdVT.length > 0;
     let boqV, cdtV;
-    // Sycamore: phân loại theo mct (cột F) — lấy giá trị mct đầu tiên khác rỗng trong nhóm
-    // mct=VT  → BOQ = sum ttVL_boq (col O), CDT = sum ttVL_cdt (col W)
-    // mct=GG  → BOQ = sum ttBOQ_R  (col R), CDT = sum ttCDT_Z  (col Z)
-    // mct=PSG → BOQ = sum ttBOQ_R  (col R), CDT = sum ttCDT_Z  (col Z)
-    const mctGroup = ((wdRows.find(r=>r.mct)||{}).mct||'').toUpperCase();
-    if(useMctLogic && wdRows.length > 0) {
-      if(mctGroup === 'VT') {
-        boqV = wdRows.reduce((a,r)=>a+(r.ttVL_boq||0),0);
-        cdtV = wdRows.reduce((a,r)=>a+(r.ttVL_cdt||0),0);
-      } else if(mctGroup === 'GG' || mctGroup === 'PSG') {
-        boqV = wdRows.reduce((a,r)=>a+(r.ttBOQ_R||0),0);
-        cdtV = wdRows.reduce((a,r)=>a+(r.ttCDT_Z||0),0);
-      } else if(mctGroup === 'NC') {
-        boqV = wdRows.reduce((a,r)=>a+(r.ttNC_boq||0),0);
-        cdtV = wdRows.reduce((a,r)=>a+(r.ttNC_cdt||0),0);
-      } else {
-        // Fallback
-        boqV = wdRows.reduce((a,r)=>a+(r.ttBOQ_R||0),0);
-        cdtV = wdRows.reduce((a,r)=>a+(r.ttCDT_Z||0),0);
-      }
+    if(isVTGroup) {
+      boqV = vl_boq_proj;
+      cdtV = vl_cdt_proj;
     } else {
-      // Logic chung cho các dự án khác
+      // NC BOQ = sum(NC rows col P) - sum(OT rows col P): trừ phần NC của OT
       const ncBOQ = wdNC.reduce((a,r)=>a+(r.ttNC_boq||0),0) - wdOT.reduce((a,r)=>a+(r.ttNC_boq||0),0);
+      // VT BOQ = sum(mct-rỗng rows col O) - sum(OT rows col O): vật tư chính BOQ trừ phần VT của OT
       const vtBOQ = wdEmpty.reduce((a,r)=>a+(r.ttVL_boq||r.ttBOQ_R||0),0) - wdOT.reduce((a,r)=>a+(r.ttVL_boq||0),0);
+      // OT BOQ = sum(OT rows col R): giảm giá + phát sinh giảm (âm)
       const otBOQ = wdOT.reduce((a,r)=>a+(r.ttBOQ_R||0),0);
       boqV = ncBOQ + vtBOQ + otBOQ;
+      // CDT: NC→col X (ttNC_cdt), VT (mct rỗng)→col W (ttVL_cdt), OT→col Z (ttCDT_Z)
       const ncCDT = wdNC.reduce((a,r)=>a+(r.ttNC_cdt||0),0);
       const vtCDT = wdEmpty.reduce((a,r)=>a+(r.ttVL_cdt||0),0);
       const otCDT = wdOT.reduce((a,r)=>a+(r.ttCDT_Z||r.ttCDT||0),0);
@@ -1053,18 +1015,14 @@ function applyData(data, projectId) {
     const cdtKL = wdRows.reduce((a,r)=>a+(r.cdt||0),0);
     const clKL  = dtcKL - cdtKL;
     let badge;
-    if(cdtV === 0 && thV === 0)
-      badge='<span class="badge" style="background:#e9ecef;color:#6c757d;font-size:9px">⚪ Chưa phát sinh</span>';
-    else if(cdtV === 0 && thV !== 0)
-      badge='<span class="badge" style="background:#fff9c4;color:#7d5a00;font-size:9px">🟡 Chưa ghi nhận doanh thu</span>';
-    else if(cdtV !== 0 && thV === 0)
-      badge='<span class="badge" style="background:#fff3e0;color:#7d3000;font-size:9px">🟠 Chưa ghi nhận chi phí</span>';
-    else if(lnV > 0)
-      badge='<span class="badge bg-g" style="font-size:9px">🟢 Có lãi</span>';
+    if(lnV > 0)
+      badge='<span class="badge bg-g" style="font-size:9px">✅ Lãi</span>';
     else if(lnV < 0)
-      badge='<span class="badge bg-r" style="font-size:9px">🔴 Lỗ</span>';
+      badge='<span class="badge bg-r" style="font-size:9px">❌ Lỗ</span>';
+    else if(cdtV === 0)
+      badge='<span class="badge bg-b" style="font-size:9px">⏳ Chưa có Doanh thu</span>';
     else
-      badge='<span class="badge bg-b" style="font-size:9px">🔵 Hòa vốn</span>';
+      badge='<span class="badge" style="background:#fff3cd;color:#7d3000;font-size:9px">⚠️ Chưa ghi nhận chi phí</span>';
 
     p1Stt++;
     const lnColor = lnV>=0 ? '#2e7d32' : '#c62828';
@@ -1346,138 +1304,36 @@ function applyData(data, projectId) {
   el('kpi4_ns_cl').style.color = p4NSconlai >= 0 ? '#2e7d32' : '#c62828';
   el('kpi4_ns_cl_card').style.borderLeftColor = p4NSconlai >= 0 ? '#2e7d32' : '#c62828';
 
-  // Chart sản lượng thanh toán hàng tháng (TT[] mã VT)
-  const vtMonthMap = {};
-  ttByCode('VT').forEach(r => {
-    const mo = r.p || 'N/A';
-    if(!vtMonthMap[mo]) vtMonthMap[mo] = {gt:0, tt:0};
-    vtMonthMap[mo].gt += r.gt||0;
-    vtMonthMap[mo].tt += r.tt||0;
-  });
-  const vtMonths = Object.keys(vtMonthMap).sort((a,b)=>{
-    const pa=a.split('-'), pb=b.split('-');
-    if(pa.length===2&&pb.length===2) return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);
-    return a.localeCompare(b);
-  });
-  let vtCumGT = 0;
-  const vtCumData = vtMonths.map(m=>{ vtCumGT+=vtMonthMap[m].gt; return vtCumGT; });
-  if(chartVTMonthlyInst){ chartVTMonthlyInst.destroy(); chartVTMonthlyInst=null; }
-  chartVTMonthlyInst = new Chart(el('chartVTMonthly').getContext('2d'),{
-    type:'bar',
-    data:{
-      labels: vtMonths.length > 0 ? vtMonths : ['Chưa có dữ liệu'],
-      datasets:[
-        {label:'GT thực hiện VT', data: vtMonths.map(m=>vtMonthMap[m].gt), backgroundColor:'rgba(232,85,42,.75)', borderColor:'#E8552A', borderWidth:1, yAxisID:'y'},
-        {label:'Đã thanh toán VT', data: vtMonths.map(m=>vtMonthMap[m].tt), backgroundColor:'rgba(59,45,111,.8)',  borderColor:'#3B2D6F', borderWidth:1, yAxisID:'y'},
-        {label:'Lũy kế GT TH', data: vtCumData, type:'line', borderColor:'#F5A623', backgroundColor:'rgba(245,166,35,.1)', borderWidth:2, pointRadius:3, fill:false, tension:0.3, yAxisID:'y2'},
-      ]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      layout:{padding:{top:18}},
-      plugins:{
-        legend:{position:'top',labels:{font:{size:11}}},
-        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toLocaleString('vi-VN')+' VNĐ'}}
-      },
-      scales:{
-        x:{ticks:{font:{size:10}}},
-        y:{ticks:{font:{size:10}, callback:v=>fmtChartVal(v)}},
-        y2:{position:'right', ticks:{font:{size:10}, callback:v=>fmtChartVal(v)}, grid:{drawOnChartArea:false}}
-      }
-    },
-    plugins:[{
-      id:'vtMonthlyLabels',
-      afterDatasetsDraw(chart){
-        const{ctx,data}=chart;
-        chart.getSortedVisibleDatasetMetas().forEach(meta=>{
-          if(meta.index===2) return;
-          meta.data.forEach((pt,i)=>{
-            const val=data.datasets[meta.index].data[i]||0;
-            if(val<=0) return;
-            ctx.save();
-            ctx.fillStyle='#1a2332';
-            ctx.font='bold 9px Segoe UI,Arial';
-            ctx.textAlign='center';
-            ctx.fillText(fmtChartVal(val), pt.x, pt.y-4);
-            ctx.restore();
-          });
-        });
-      }
-    }]
-  });
-
-  // Bảng tổng hợp theo nhà cung cấp (TT[] mã VT, group theo t = cột B Nhà thầu)
-  const p4NccBody = el('p4NccBody');
-  p4NccBody.innerHTML = '';
-  const nccMap = {};
-  ttByCode('VT').forEach(r => {
-    const ncc = (r.t||'').trim() || '(Không rõ)';
-    if(!nccMap[ncc]) nccMap[ncc] = {gt:0, tt:0, cl:0};
-    nccMap[ncc].gt += r.gt||0;
-    nccMap[ncc].tt += r.tt||0;
-    nccMap[ncc].cl += r.cl||0;
-  });
-  const nccList = Object.entries(nccMap).sort((a,b) => b[1].gt - a[1].gt);
-  if(nccList.length === 0) {
-    p4NccBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
-  } else {
-    nccList.forEach(([ncc, v]) => {
-      const pctTT = v.gt > 0 ? ((v.tt/v.gt)*100).toFixed(0) : null;
-      const status = pctTT === null ? '<span style="color:#6c757d">—</span>'
-        : +pctTT >= 100 ? '<span style="color:#2e7d32;font-weight:600">Đã TT đủ</span>'
-        : +pctTT > 0    ? '<span style="color:#F5A623;font-weight:600">Còn nợ</span>'
-        :                  '<span style="color:#c62828;font-weight:600">Chưa TT</span>';
-      const tr = document.createElement('tr');
-      tr.innerHTML = '<td class="tl wrap" style="max-width:180px">'+ncc+'</td>'
-        +'<td class="tr">'+fmtAuto(v.gt)+'</td>'
-        +'<td class="tr">'+fmtAuto(v.tt)+'</td>'
-        +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
-        +'<td class="tc">'+(pctTT!==null?pctTT+'%':'—')+'</td>'
-        +'<td class="tc">'+status+'</td>';
-      p4NccBody.appendChild(tr);
-    });
-  }
-
   // Bảng đối chiếu NS VT từ NS[] mã VT
   const p4DcBody = el('p4DcBody');
   p4DcBody.innerHTML = '';
   const nsVTrows = nsByCode('VT');
   if(nsVTrows.length === 0) {
-    p4DcBody.innerHTML = '<tr><td colspan="11" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu vật tư</td></tr>';
+    p4DcBody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu vật tư</td></tr>';
   } else {
-    nsVTrows.forEach((r, idx) => {
-      const klNS     = r.kl||0;
-      const klDaNhap = r.klTH||0;   // cột P Data-Ngân sách: KL thực hiện xác nhận DTC
-      const clKL     = klDaNhap - klNS;
-      const vuotPct  = klNS > 0 && clKL > 0 ? ((clKL/klNS)*100).toFixed(0) : null;
-      const ghiChu   = klNS === 0
-        ? '<span style="color:#6c757d">—</span>'
-        : clKL <= 0
-          ? '<span style="color:#2e7d32;font-weight:600">Trong hạn</span>'
-          : '<span style="color:#c62828;font-weight:600">'+vuotPct+'% Vượt</span>';
-      const ttNS     = r.tt||0;     // cột O Data-Ngân sách: TT ngân sách
-      const ttDaNhap = r.ttTH||0;   // cột Q Data-Ngân sách: TT thực hiện
-      const clTT     = ttDaNhap - ttNS;
-      const fmtKL    = v => v !== 0 ? v.toLocaleString('vi-VN') : '—';
-      const fmtCL    = v => (v >= 0 ? '+' : '') + v.toLocaleString('vi-VN');
+    nsVTrows.forEach(r => {
+      const klNS = r.kl||0;
+      const klDaNhap = 0; // Chua co du lieu "Da nhap"
+      const clKL = klDaNhap - klNS;
+      const vuotPct = klNS > 0 && clKL > 0 ? ((clKL/klNS)*100).toFixed(0) : null;
+      const ghiChu = clKL < 0 || klNS === 0
+        ? '<span style="color:#2e7d32;font-weight:600">Trong hạn</span>'
+        : '<span style="color:#c62828;font-weight:600">'+vuotPct+'% Vượt</span>';
       const tr = document.createElement('tr');
-      tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(idx+1)+'</td>'
-        +'<td class="tl wrap" style="max-width:200px">'+(r.n||'—')+'</td>'
+      tr.innerHTML = '<td class="tl wrap" style="max-width:200px">'+(r.n||'—')+'</td>'
         +'<td class="tc">'+(r.u||'—')+'</td>'
-        +'<td class="tr">'+(klNS   ? fmtKL(klNS)    : '—')+'</td>'
-        +'<td class="tr">'+(klDaNhap ? fmtKL(klDaNhap) : '—')+'</td>'
-        +'<td class="tr '+(clKL>0?'neg':clKL<0?'pos':'')+'">'+(klNS||klDaNhap ? fmtCL(clKL) : '—')+'</td>'
-        +'<td class="tc">'+(vuotPct ? '<span style="color:#c62828">'+vuotPct+'%</span>' : '<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tr">'+(ttNS     ? fmtAuto(ttNS)     : '—')+'</td>'
-        +'<td class="tr">'+(ttDaNhap ? fmtAuto(ttDaNhap) : '—')+'</td>'
-        +'<td class="tr '+(clTT>0?'neg':clTT<0?'pos':'')+'">'+(ttNS||ttDaNhap ? fmtAuto(clTT) : '—')+'</td>'
+        +'<td class="tr">'+(klNS>0?klNS.toLocaleString('vi-VN'):'—')+'</td>'
+        +'<td class="tr">—</td>'
+        +'<td class="tr '+(clKL>0?'neg':clKL<0?'pos':'')+'">—</td>'
+        +'<td class="tc">'+(vuotPct?'<span style="color:#c62828">'+vuotPct+'%</span>':'<span style="color:#6c757d">—</span>')+'</td>'
+        +'<td class="tr">—</td>'
         +'<td class="tc">'+ghiChu+'</td>';
       p4DcBody.appendChild(tr);
     });
   }
 
-  // --- KPI Page 5: BC CP Gián tiếp — dùng tất cả mã trừ NC và VT ---
-  const GT_CODES = COCAU_LIST.filter(c => c.ma !== 'NC' && c.ma !== 'VT').map(c => c.ma);
+  // --- KPI Page 5: BC CP Gián tiếp (mã PRE + DP + QLDN) ---
+  const GT_CODES = ['PRE','DP','QLDN'];
   const p5TH  = ttByCodes(GT_CODES).reduce((a,r)=>a+(r.gt||0),0);
   const p5TT  = ttByCodes(GT_CODES).reduce((a,r)=>a+(r.tt||0),0);
   const p5NS  = nsByCodes(GT_CODES).reduce((a,r)=>a+(r.tt||0),0);
@@ -1490,48 +1346,34 @@ function applyData(data, projectId) {
   el('kpi5_ns_cl').style.color = p5NSconlai >= 0 ? '#2e7d32' : '#c62828';
   el('kpi5_ns_cl_card').style.borderLeftColor = p5NSconlai >= 0 ? '#2e7d32' : '#c62828';
 
-  // Cơ cấu gián tiếp: thanh bar động từ COCAU_LIST (trừ NC/VT) — render vào p5CocauBars
-  const p5CocauBarsEl = el('p5CocauBars');
+  // Cơ cấu gián tiếp: thanh bar PRE/DP/QLDN
   const p5Base = p5TH > 0 ? p5TH : 1;
-  if(p5CocauBarsEl) {
-    p5CocauBarsEl.innerHTML = '';
-    GT_CODES.forEach(ma => {
-      const c = COCAU_LIST.find(x=>x.ma===ma);
-      const val = thValMap[ma]||0;
-      const pw  = Math.min((val/p5Base)*100,100).toFixed(1);
-      const clr = cocauColor(ma);
-      p5CocauBarsEl.innerHTML += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'
-        +'<span style="width:130px;font-size:0.6875rem;color:#495057">'+(c?c.noi_dung:ma)+'</span>'
-        +'<div class="cmp-track" style="flex:1"><div class="cmp-fill" style="width:'+pw+'%;background:'+clr+'"></div></div>'
-        +'<span style="width:80px;text-align:right;font-size:0.6875rem;font-weight:600;color:'+clr+'">'+fmtAuto(val)+'</span>'
-        +'</div>';
-    });
-  }
-  // Backward compat cho setBar calls cũ (nếu còn)
-  const thPRE_val = thValMap['PRE']||0, thDP_val = thValMap['DP']||0, thQLDN_val = thValMap['QLDN']||0;
-  const nsPRE_val = nsValMap['PRE']||0, nsDP_val = nsValMap['DP']||0, nsQLDN_val = nsValMap['QLDN']||0;
+  setBar('p5bar_pre', 'p5val_pre', thPRE_val,  p5Base, '#E8552A', fmtAuto);
+  setBar('p5bar_dp',  'p5val_dp',  thDP_val,   p5Base, '#F5A623', fmtAuto);
+  setBar('p5bar_qldn','p5val_qldn',thQLDN_val, p5Base, '#3B2D6F', fmtAuto);
 
-  // Bảng tổng hợp theo cơ cấu P5 — render động từ COCAU_LIST trừ NC/VT
+  // Bảng tổng hợp theo cơ cấu P5
   const p5CocauBody = el('p5CocauBody');
   const p5CocauTfoot = el('p5CocauTfoot');
   p5CocauBody.innerHTML = '';
-  GT_CODES.forEach(ma => {
-    const c   = COCAU_LIST.find(x=>x.ma===ma);
-    const clr = cocauColor(ma);
-    const th  = thValMap[ma]||0;
-    const ns  = nsValMap[ma]||0;
-    const pctNS = ns > 0 ? ((th/ns)*100).toFixed(1) : null;
-    const conlai = ns - th;
+  const p5Rows = [
+    {label:'Prelim', code:'PRE', color:'#E8552A', th:thPRE_val, ns:nsPRE_val},
+    {label:'Dự phòng', code:'DP', color:'#F5A623', th:thDP_val, ns:nsDP_val},
+    {label:'Quản lý DN', code:'QLDN', color:'#3B2D6F', th:thQLDN_val, ns:nsQLDN_val},
+  ];
+  p5Rows.forEach(row => {
+    const pctNS = row.ns > 0 ? ((row.th/row.ns)*100).toFixed(1) : null;
+    const conlai = row.ns - row.th;
     const vuot = conlai < 0;
     const statusBadge = pctNS === null ? '<span class="badge bg-b">Chưa PS</span>'
       : vuot ? '<span class="badge bg-r">Vượt NS</span>'
       : '<span class="badge bg-g">Trong hạn</span>';
     const tr = document.createElement('tr');
-    tr.innerHTML = '<td class="tl"><strong style="color:'+clr+'">'+(c?c.noi_dung:ma)+'</strong></td>'
-      +'<td class="tr">'+(ns>0?fmtAuto(ns):'—')+'</td>'
-      +'<td class="tr">'+(th>0?fmtAuto(th):'—')+'</td>'
+    tr.innerHTML = '<td class="tl"><strong style="color:'+row.color+'">'+row.label+'</strong></td>'
+      +'<td class="tr">'+(row.ns>0?fmtAuto(row.ns):'—')+'</td>'
+      +'<td class="tr">'+(row.th>0?fmtAuto(row.th):'—')+'</td>'
       +'<td class="tc">'+(pctNS!==null?pctNS+'%':'—')+'</td>'
-      +'<td class="tr '+(vuot?'neg':'pos')+'">'+(ns>0?fmtAuto(Math.abs(conlai)):'—')+'</td>'
+      +'<td class="tr '+(vuot?'neg':'pos')+'">'+(row.ns>0?fmtAuto(Math.abs(conlai)):'—')+'</td>'
       +'<td class="tc">'+statusBadge+'</td>';
     p5CocauBody.appendChild(tr);
   });
@@ -1554,80 +1396,24 @@ function applyData(data, projectId) {
     if(pa.length===2&&pb.length===2){return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);}
     return a.localeCompare(b);
   });
-  let gtCum = 0;
-  const gtCumData = gtMonths.map(m=>{ gtCum+=gtMonthMap[m]||0; return gtCum; });
   if(chartGTInst){ chartGTInst.destroy(); chartGTInst=null; }
   chartGTInst = new Chart(el('chartGianTiep').getContext('2d'),{
     type:'bar',
     data:{
       labels: gtMonths.length > 0 ? gtMonths : ['Chưa có dữ liệu'],
       datasets:[
-        {label:'CP gián tiếp TH', data: gtMonths.map(m=>gtMonthMap[m]||0), backgroundColor:'rgba(59,45,111,.75)', borderColor:'#3B2D6F', borderWidth:1, yAxisID:'y'},
-        {label:'Lũy kế CP gián tiếp', data: gtCumData, type:'line', borderColor:'#F5A623', backgroundColor:'rgba(245,166,35,.1)', borderWidth:2, pointRadius:3, fill:false, tension:0.3, yAxisID:'y2'},
+        {label:'CP gián tiếp TH', data: gtMonths.map(m=>gtMonthMap[m]||0), backgroundColor:'rgba(59,45,111,.75)', borderColor:'#3B2D6F',borderWidth:1},
       ]
     },
     options:{
-      responsive:true, maintainAspectRatio:false,
-      layout:{padding:{top:18}},
+      responsive:true,maintainAspectRatio:false,
       plugins:{
         legend:{position:'top',labels:{font:{size:11}}},
         tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toLocaleString('vi-VN')+' VNĐ'}}
       },
-      scales:{
-        x:{ticks:{font:{size:10}}},
-        y:{ticks:{font:{size:10}, callback:v=>fmtChartVal(v)}},
-        y2:{position:'right', ticks:{font:{size:10}, callback:v=>fmtChartVal(v)}, grid:{drawOnChartArea:false}}
-      }
-    },
-    plugins:[{
-      id:'gtMonthlyLabels',
-      afterDatasetsDraw(chart){
-        const{ctx,data}=chart;
-        chart.getSortedVisibleDatasetMetas().forEach(meta=>{
-          if(meta.index===1) return;
-          meta.data.forEach((pt,i)=>{
-            const val=data.datasets[meta.index].data[i]||0;
-            if(val<=0) return;
-            ctx.save();
-            ctx.fillStyle='#1a2332';
-            ctx.font='bold 9px Segoe UI,Arial';
-            ctx.textAlign='center';
-            ctx.fillText(fmtChartVal(val), pt.x, pt.y-4);
-            ctx.restore();
-          });
-        });
-      }
-    }]
+      scales:{x:{ticks:{font:{size:10}}},y:{ticks:{font:{size:10},callback:v=>(v/1e6).toFixed(0)+'tr'}}}
+    }
   });
-
-  // Bảng chi tiết sử dụng P5 — TT[] mã PRE/DP/QLDN
-  const GT_LABEL = {PRE:'Prelim', DP:'Dự phòng', QLDN:'QLDN'};
-  const GT_COLOR = {PRE:'#E8552A', DP:'#F5A623', QLDN:'#3B2D6F'};
-  window._p5DetailRows = ttByCodes(GT_CODES).map((r,i) => ({...r, _idx: i+1}));
-  window._p5GTCodes = GT_CODES;
-  // Render filter buttons động
-  const p5FilterBtns = el('p5FilterBtns');
-  if(p5FilterBtns) {
-    p5FilterBtns.innerHTML = '';
-    const allBtn = document.createElement('button');
-    allBtn.id = 'p5FilterALL';
-    allBtn.className = 'tool-btn';
-    allBtn.textContent = 'Tất cả';
-    allBtn.style.cssText = 'font-size:11px;padding:3px 10px;background:#555;color:#fff;border:none;border-radius:4px;cursor:pointer';
-    allBtn.onclick = () => filterP5Detail('ALL');
-    p5FilterBtns.appendChild(allBtn);
-    GT_CODES.forEach(ma => {
-      const c = COCAU_LIST.find(x=>x.ma===ma);
-      const btn = document.createElement('button');
-      btn.id = 'p5Filter'+ma;
-      btn.className = 'tool-btn';
-      btn.textContent = c ? c.noi_dung : ma;
-      btn.style.cssText = 'font-size:11px;padding:3px 10px;background:'+cocauColor(ma)+';color:#fff;border:none;border-radius:4px;cursor:pointer';
-      btn.onclick = () => filterP5Detail(ma);
-      p5FilterBtns.appendChild(btn);
-    });
-  }
-  renderP5Detail('ALL');
 
   wdSortDir = 0;
   el('sortWD_icon').textContent = '⇅';
@@ -1636,83 +1422,6 @@ function applyData(data, projectId) {
   updateMsLabel('ms2');
   filterWD();
   filterTT();
-}
-
-// ===== P5 BANG CHI TIET =====
-const GT_LABEL_MAP = {PRE:'Prelim', DP:'Dự phòng', QLDN:'QLDN'};
-const GT_COLOR_MAP = {PRE:'#E8552A', DP:'#F5A623', QLDN:'#3B2D6F'};
-
-function filterP5Detail(code) {
-  const keys = ['ALL', ...(window._p5GTCodes || ['PRE','DP','QLDN'])];
-  keys.forEach(k => {
-    const btn = el('p5Filter'+k);
-    if(!btn) return;
-    btn.style.opacity = (k === code) ? '1' : '0.45';
-    btn.style.outline = (k === code) ? '2px solid #fff' : 'none';
-  });
-  renderP5Detail(code);
-}
-
-function renderP5Detail(code) {
-  const body = el('p5DetailBody');
-  const foot = el('p5DetailFoot');
-  if(!body) return;
-  const rows = (window._p5DetailRows || []).filter(r =>
-    code === 'ALL' || (r.a||'').toUpperCase() === code
-  );
-  body.innerHTML = '';
-  if(rows.length === 0) {
-    body.innerHTML = '<tr><td colspan="10" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
-    if(foot) foot.innerHTML = '';
-    return;
-  }
-  // sort: theo loại (PRE→DP→QLDN) rồi theo tháng
-  const ORDER = {PRE:0, DP:1, QLDN:2};
-  rows.sort((a,b) => {
-    const oa = ORDER[(a.a||'').toUpperCase()]??9, ob = ORDER[(b.a||'').toUpperCase()]??9;
-    if(oa !== ob) return oa - ob;
-    // sort tháng MM-YYYY
-    const pa=(a.p||'').split('-'), pb=(b.p||'').split('-');
-    if(pa.length===2&&pb.length===2) return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);
-    return (a.p||'').localeCompare(b.p||'');
-  });
-
-  let totalGT=0, totalTT=0, totalCL=0;
-  rows.forEach((r, i) => {
-    const code_r = (r.a||'').toUpperCase();
-    const label  = GT_LABEL_MAP[code_r] || code_r || '—';
-    const color  = GT_COLOR_MAP[code_r] || '#555';
-    const gt = r.gt||0, tt = r.tt||0, cl = r.cl||0;
-    totalGT += gt; totalTT += tt; totalCL += cl;
-    const pctTT = gt > 0 ? ((tt/gt)*100).toFixed(0) : null;
-    const status = pctTT === null ? '<span style="color:#6c757d">—</span>'
-      : +pctTT >= 100 ? '<span class="badge bg-g">Đã TT đủ</span>'
-      : +pctTT >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Còn nợ</span>'
-      :                  '<span class="badge bg-b" style="background:#e7f3ff;color:#1565c0">Chưa TT</span>';
-    const tr = document.createElement('tr');
-    tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(i+1)+'</td>'
-      +'<td class="tc"><span style="background:'+color+';color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;white-space:nowrap">'+label+'</span></td>'
-      +'<td class="tl wrap" style="max-width:220px">'+(r.n||'—')+'</td>'
-      +'<td class="tc" style="color:#5c6b7a;font-size:11px">'+(r.p||'—')+'</td>'
-      +'<td class="tl" style="font-size:11px;max-width:160px">'+(r.t||'—')+'</td>'
-      +'<td class="tr">'+(gt?fmtAuto(gt):'—')+'</td>'
-      +'<td class="tr">'+(tt?fmtAuto(tt):'—')+'</td>'
-      +'<td class="tr '+(cl>0?'neg':cl<0?'pos':'')+'">'+(gt?fmtAuto(cl):'—')+'</td>'
-      +'<td class="tc">'+(pctTT!==null?pctTT+'%':'—')+'</td>'
-      +'<td class="tc">'+status+'</td>';
-    body.appendChild(tr);
-  });
-
-  if(foot) {
-    const totalPct = totalGT > 0 ? ((totalTT/totalGT)*100).toFixed(0)+'%' : '—';
-    foot.innerHTML = '<tr style="font-weight:700;background:#f0f0f0">'
-      +'<td colspan="5" class="tl" style="padding-left:8px">TỔNG CỘNG ('+rows.length+' mục)</td>'
-      +'<td class="tr">'+fmtAuto(totalGT)+'</td>'
-      +'<td class="tr">'+fmtAuto(totalTT)+'</td>'
-      +'<td class="tr '+(totalCL>0?'neg':totalCL<0?'pos':'')+'">'+fmtAuto(totalCL)+'</td>'
-      +'<td class="tc">'+totalPct+'</td>'
-      +'<td></td></tr>';
-  }
 }
 
 // ===== MULTI-SELECT HELPERS =====

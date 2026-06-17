@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCM Dashboard – VELA E&C</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+/* ===== VELA COLOR PALETTE ===== */
+/* Primary: cam #E8552A | Navy: #3B2D6F | Accent: #F5A623 */
+
+/* ===== BASE ===== */
+html{font-size:16px;-webkit-text-size-adjust:100%}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;font-size:0.8125rem;line-height:1.5;-webkit-font-smoothing:antialiased}
+
+/* ===== HEADER ===== */
+.header{background:linear-gradient(135deg,#3B2D6F 0%,#E8552A 100%);color:white;padding:0.875rem 1.5rem 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:0.5rem;gap:0.75rem;flex-wrap:wrap}
+.header-left{display:flex;align-items:center;gap:0.75rem}
+.header-logo{height:44px;width:auto;flex-shrink:0;mix-blend-mode:screen}
+.header h1{font-size:1.0625rem;font-weight:700}
+.header .sub{font-size:0.6875rem;opacity:.8;margin-top:0.1875rem}
+.header .meta{text-align:right;font-size:0.6875rem;opacity:.85;line-height:1.7;flex-shrink:0}
+
+/* ===== PROJECT SWITCHER ===== */
+.project-switcher{display:flex;gap:4px;padding:0.375rem 0 0;overflow-x:auto;scrollbar-width:none}
+.project-switcher::-webkit-scrollbar{display:none}
+.proj-tab{padding:0.375rem 1rem;border-radius:6px 6px 0 0;border:none;cursor:pointer;font-size:0.6875rem;font-weight:600;background:rgba(255,255,255,.15);color:rgba(255,255,255,.75);transition:all .2s;white-space:nowrap;flex-shrink:0}
+.proj-tab:hover{background:rgba(255,255,255,.25);color:white}
+.proj-tab.active{background:#f0f2f5;color:#3B2D6F;font-weight:700}
+.proj-tab.no-data{opacity:.45;cursor:not-allowed}
+.proj-tab.no-data:hover{background:rgba(255,255,255,.15);color:rgba(255,255,255,.75)}
+
+/* ===== NAV ===== */
+.nav-bar{display:flex;gap:2px;align-items:flex-end;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;background:rgba(255,255,255,.08)}
+.nav-bar::-webkit-scrollbar{display:none}
+.nav-btn{padding:0.5625rem 1rem;min-height:2.75rem;border:none;cursor:pointer;font-size:0.71875rem;font-weight:600;border-radius:7px 7px 0 0;background:rgba(255,255,255,.13);color:rgba(255,255,255,.75);transition:all .2s;white-space:nowrap;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+.nav-btn:hover{background:rgba(255,255,255,.25);color:white}
+.nav-btn.active{background:#f0f2f5;color:#3B2D6F;font-weight:700}
+.nav-num{display:inline-flex;align-items:center;justify-content:center;width:1.125rem;height:1.125rem;border-radius:50%;font-size:0.625rem;font-weight:700;background:rgba(255,255,255,.25);margin-right:0.375rem}
+.nav-btn.active .nav-num{background:#E8552A;color:white}
+
+/* ===== TOOL BAR ===== */
+.tool-bar{display:flex;gap:0.5rem;padding:0.5rem 1.5rem;background:white;border-bottom:1px solid #dee2e6;flex-wrap:wrap;align-items:center}
+.tool-btn{display:inline-flex;align-items:center;justify-content:center;gap:0.375rem;padding:0.5rem 1.125rem;min-height:2.5rem;border:none;border-radius:6px;font-size:0.71875rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-print{background:#3B2D6F;color:white;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.btn-print:hover{background:#2a1f56;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.tool-label{font-size:0.6875rem;color:#6c757d;margin-left:auto}
+
+/* ===== LOADING / ERROR ===== */
+#loadingState,#errorState{display:none;padding:3rem 1.5rem;text-align:center;color:#6c757d;font-size:0.875rem}
+#loadingState .spin{display:inline-block;width:2rem;height:2rem;border:3px solid #dee2e6;border-top-color:#E8552A;border-radius:50%;animation:spin .7s linear infinite;margin-bottom:0.75rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+#errorState .icon{font-size:2rem;margin-bottom:0.5rem}
+
+/* ===== PAGES ===== */
+.page{display:none;padding:1.125rem 1.25rem;width:100%}
+.page.active{display:block}
+
+/* ===== KPI ===== */
+.kpi-row{display:grid;gap:0.75rem;margin-bottom:1.125rem;width:100%}
+.kpi-2x4{grid-template-columns:repeat(4,1fr)}
+.kpi-6{grid-template-columns:repeat(6,1fr)}
+.kpi-4{grid-template-columns:repeat(4,1fr)}
+.kpi-5{grid-template-columns:repeat(5,1fr)}
+.kpi-3{grid-template-columns:repeat(3,1fr)}
+.kpi-card{background:white;border-radius:9px;padding:0.8125rem 0.9375rem;border-left:4px solid #E8552A;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.kpi-card.g{border-left-color:#2e7d32}.kpi-card.o{border-left-color:#E8552A}
+.kpi-card.r{border-left-color:#c62828}.kpi-card.p{border-left-color:#3B2D6F}
+.kpi-card.t{border-left-color:#00796b}.kpi-card.v{border-left-color:#F5A623}
+.kpi-label{font-size:0.625rem;color:#6c757d;text-transform:uppercase;letter-spacing:.5px;margin-bottom:0.25rem}
+.kpi-value{font-size:1.125rem;font-weight:700;line-height:1.2}
+.kpi-sub{font-size:0.625rem;color:#6c757d;margin-top:0.125rem}
+.kpi-badge{display:inline-block;font-size:0.625rem;font-weight:600;padding:2px 6px;border-radius:8px;margin-top:0.1875rem}
+.bg-g{background:#d1e7dd;color:#0f5132}.bg-o{background:#ffe5d0;color:#7d3000}
+.bg-r{background:#f8d7da;color:#721c24}.bg-b{background:#cce5ff;color:#004085}
+.bg-p{background:#e8d5f5;color:#3B2D6F}.bg-t{background:#b2dfdb;color:#00352e}
+.bg-v{background:#fff3cd;color:#7d3000}
+/* Lợi nhuận badges */
+.ln-pos{background:#d1e7dd;color:#0f5132}
+.ln-neg{background:#f8d7da;color:#721c24}
+
+/* ===== GRID ===== */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem;width:100%}
+.grid-6040{display:grid;grid-template-columns:60fr 40fr;gap:0.875rem;margin-bottom:0.875rem;width:100%}
+.grid-4060{display:grid;grid-template-columns:40fr 60fr;gap:0.875rem;margin-bottom:0.875rem;width:100%}
+.card{background:white;border-radius:9px;padding:1rem 1.125rem;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:0.875rem;width:100%}
+.mb0{margin-bottom:0}
+
+/* ===== SECTION TITLE ===== */
+.stitle{font-size:0.71875rem;font-weight:700;color:#3B2D6F;text-transform:uppercase;letter-spacing:.5px;margin-bottom:0.625rem;padding-bottom:0.4375rem;border-bottom:2px solid #E8552A;display:flex;align-items:center;gap:0.4375rem}
+.stitle::before{content:'';display:block;width:3px;height:13px;background:#E8552A;border-radius:2px;flex-shrink:0}
+
+/* ===== TABLE ===== */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%}
+table{width:100%;border-collapse:collapse;font-size:0.71875rem}
+thead tr{background:#3B2D6F;color:white}
+thead th{padding:0.4375rem 0.5625rem;text-align:center;font-weight:600;white-space:nowrap;font-size:0.6875rem}
+th.tl,td.tl{text-align:left}
+tbody tr:nth-child(even){background:#f8f9fa}
+tbody tr:hover{background:#fef3ee}
+tbody td{padding:0.375rem 0.5625rem;border-bottom:1px solid #e9ecef;white-space:nowrap}
+td.tr{text-align:right;font-variant-numeric:tabular-nums}
+td.tc{text-align:center}
+tfoot tr{background:#f3f0ff}
+tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552A}
+.grow{background:#fde8e0 !important;font-weight:700}
+.pos{color:#2e7d32}.neg{color:#c62828}
+.vuot-cell{background:#b71c1c !important;color:white !important;font-weight:700}
+
+/* ===== BADGE ===== */
+.badge{display:inline-block;padding:2px 6px;border-radius:8px;font-size:0.625rem;font-weight:600}
+
+/* ===== SORT BUTTON ===== */
+.sort-btn{cursor:pointer;user-select:none;white-space:nowrap}
+.sort-btn:hover{background:rgba(255,255,255,.15);border-radius:3px}
+.sort-icon{font-size:10px;margin-left:2px;opacity:.7}
+
+/* ===== PROGRESS ===== */
+.prog{background:#e9ecef;border-radius:6px;height:6px;overflow:hidden;width:70px;margin:2px auto 0}
+.prog-fill{height:100%;border-radius:6px}
+
+/* ===== FILTER ===== */
+.filter-bar{display:flex;gap:0.625rem;align-items:center;margin-bottom:0.75rem;flex-wrap:wrap}
+.filter-bar label{font-size:0.6875rem;font-weight:600;color:#495057}
+.filter-bar select{padding:0.375rem 0.5625rem;min-height:2.75rem;border:1px solid #ced4da;border-radius:5px;font-size:0.71875rem;background:white;cursor:pointer}
+.filter-bar select:focus{outline:none;border-color:#E8552A}
+
+/* ===== MULTI-SELECT PERIOD DROPDOWN ===== */
+.ms-wrap{position:relative;display:inline-block}
+.ms-btn{padding:0.375rem 0.625rem 0.375rem 0.5625rem;min-height:2.75rem;border:1px solid #ced4da;border-radius:5px;font-size:0.71875rem;background:white;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;min-width:160px;user-select:none}
+.ms-btn:focus,.ms-btn:hover{border-color:#E8552A;outline:none}
+.ms-arrow{margin-left:auto;font-size:10px;opacity:.6}
+.ms-dropdown{display:none;position:absolute;top:calc(100% + 2px);left:0;background:white;border:1px solid #ced4da;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.15);z-index:200;min-width:200px;max-height:260px;overflow-y:auto}
+.ms-dropdown.open{display:block}
+.ms-dropdown label{display:flex;align-items:center;gap:8px;padding:6px 10px;font-size:0.71875rem;cursor:pointer;white-space:nowrap}
+.ms-dropdown label:hover{background:#fef3ee}
+.ms-dropdown label input{accent-color:#E8552A;cursor:pointer}
+.ms-dropdown .ms-sep{border-top:1px solid #dee2e6;margin:2px 0}
+.ms-clear{padding:5px 10px;font-size:11px;color:#E8552A;cursor:pointer;border-top:1px solid #dee2e6;text-align:center}
+.ms-clear:hover{background:#fef3ee}
+
+/* ===== WARN / INFO ===== */
+.warn{background:#fff3cd;border-left:3px solid #F5A623;border-radius:6px;padding:0.5625rem 0.8125rem;font-size:0.6875rem;color:#6d4c00;margin-top:0.625rem;line-height:1.6}
+.info{background:#ede9ff;border-left:3px solid #3B2D6F;border-radius:6px;padding:0.5625rem 0.8125rem;font-size:0.6875rem;color:#3B2D6F;margin-top:0.625rem;line-height:1.6}
+
+.chart-box{position:relative}
+.footer{text-align:center;font-size:0.625rem;color:#6c757d;padding:0.875rem}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  .kpi-2x4{grid-template-columns:repeat(2,1fr)}
+  .kpi-6{grid-template-columns:repeat(3,1fr)}
+  .kpi-5{grid-template-columns:repeat(3,1fr)}
+  .grid-6040,.grid-4060{grid-template-columns:1fr}
+  .header .meta{display:none}
+}
+@media(max-width:768px){
+  html{font-size:15px}
+  .header{position:relative;padding:0.75rem 1rem 0}
+  .header-logo{height:28px}
+  .header h1{font-size:0.9375rem}
+  .nav-btn{padding:0.5rem 0.75rem;font-size:0.625rem;min-height:2.5rem}
+  .tool-bar{padding:0.5rem 0.75rem;gap:0.375rem}
+  .tool-btn{padding:0.5rem 0.75rem;font-size:0.6875rem}
+  .tool-label{display:none}
+  .page{padding:0.75rem 0.625rem}
+  .card{padding:0.75rem 0.875rem}
+  .kpi-2x4,.kpi-6,.kpi-5,.kpi-4{grid-template-columns:repeat(2,1fr)}
+  .kpi-value{font-size:1rem}
+  .grid-2,.grid-6040,.grid-4060{grid-template-columns:1fr}
+  .filter-bar select{min-height:2.75rem;font-size:0.875rem}
+  table{font-size:0.75rem}
+  thead th{font-size:0.6875rem;padding:0.375rem 0.5rem}
+  tbody td{padding:0.375rem 0.5rem}
+}
+@media(max-width:480px){
+  .kpi-2x4,.kpi-6,.kpi-5,.kpi-4{grid-template-columns:1fr 1fr}
+  .nav-btn .nav-num{display:none}
+}
+
+/* ===== PRINT ===== */
+@media print{
+  html{font-size:11pt}
+  body{background:white;color:black}
+  .header{position:relative;box-shadow:none;background:#3B2D6F!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .project-switcher,.nav-bar,.tool-bar,.filter-bar{display:none!important}
+  .page{display:block!important;page-break-before:always;padding:0;width:100%}
+  .page:first-of-type{page-break-before:auto}
+  .card{box-shadow:none;border:1px solid #dee2e6;margin-bottom:0.5rem}
+  .chart-box{height:200px!important}
+  .kpi-2x4{grid-template-columns:repeat(4,1fr)}
+  .kpi-6,.kpi-5{grid-template-columns:repeat(3,1fr)}
+  .kpi-4{grid-template-columns:repeat(4,1fr)}
+  .grid-2,.grid-6040,.grid-4060{grid-template-columns:1fr 1fr}
+  thead tr{background:#3B2D6F!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .grow{background:#fde8e0!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  a{text-decoration:none}
+  #loadingState,#errorState{display:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <img src="logo-velaenc.png" alt="VELA E&C" class="header-logo" onerror="this.style.display='none'">
+      <div>
+        <div class="sub">CÔNG TY CỔ PHẦN KỸ THUẬT XÂY DỰNG VELA</div>
+        <h1>BÁO CÁO QUẢN LÝ THANH QUYẾT TOÁN – TỔ ĐỘI</h1>
+        <div class="sub" id="hdrProjectSub">Đang tải dữ liệu...</div>
+      </div>
+    </div>
+    <div class="meta" id="hdrMeta">
+      <strong id="hdrPeriod">—</strong><br>
+      Lập bởi: <strong>Huỳnh Phương</strong><br>
+      <span id="hdrPhase">—</span>
+    </div>
+  </div>
+  <div class="project-switcher" id="projectSwitcher"></div>
+  <nav class="nav-bar">
+    <button class="nav-btn active" onclick="showPage('p1',this)">
+      <span class="nav-num">1</span>BC Tài chính
+    </button>
+    <button class="nav-btn" onclick="showPage('p2',this)">
+      <span class="nav-num">2</span>BC Workdone
+    </button>
+    <button class="nav-btn" onclick="showPage('p3',this)">
+      <span class="nav-num">3</span>BC Thanh toán ĐTC
+    </button>
+  </nav>
+</div>
+
+<!-- TOOL BAR -->
+<div class="tool-bar">
+  <button class="tool-btn btn-print" onclick="window.print()">🖨️ In báo cáo</button>
+  <span class="tool-label" id="dataLabel">Đang tải...</span>
+</div>
+
+<!-- LOADING STATE -->
+<div id="loadingState">
+  <div class="spin"></div>
+  <div>Đang tải dữ liệu dự án...</div>
+</div>
+
+<!-- ERROR STATE -->
+<div id="errorState">
+  <div class="icon">⚠️</div>
+  <div id="errorMsg">Chưa có dữ liệu cho dự án này.</div>
+  <div style="margin-top:0.5rem;font-size:0.75rem;color:#adb5bd">Chạy quy trình cập nhật hoặc <code>uv run --with openpyxl scripts\cap_nhat_dashboard.py</code></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 1: BC TÀI CHÍNH                                         -->
+<!-- ============================================================ -->
+<div id="p1" class="page active">
+
+  <!-- Hàng 1: BOQ | NS | LN DỰ KIẾN | % LN DK -->
+  <div class="kpi-row kpi-2x4">
+    <div class="kpi-card">
+      <div class="kpi-label">Giá trị BOQ</div>
+      <div class="kpi-value" id="kpi1_boq">—</div>
+      <div class="kpi-sub">VNĐ – Hợp đồng với CĐT</div>
+    </div>
+    <div class="kpi-card t">
+      <div class="kpi-label">Ngân sách nội bộ</div>
+      <div class="kpi-value" id="kpi1_ns" style="color:#00796b">—</div>
+      <div class="kpi-sub">VNĐ – Đơn giá khoán đội</div>
+    </div>
+    <div class="kpi-card v">
+      <div class="kpi-label">LN Dự kiến</div>
+      <div class="kpi-value" id="kpi1_ln_dk">—</div>
+      <div class="kpi-sub">BOQ – Ngân sách</div>
+    </div>
+    <div class="kpi-card v">
+      <div class="kpi-label">% LN Dự kiến</div>
+      <div class="kpi-value" id="kpi1_pct_ln_dk">—</div>
+      <div class="kpi-sub">LN DK / Giá trị BOQ</div>
+    </div>
+  </div>
+
+  <!-- Hàng 2: CĐT XÁC NHẬN | ĐỘI ĐÃ TH | LN HIỆN TẠI | % LN HT -->
+  <div class="kpi-row kpi-2x4">
+    <div class="kpi-card g">
+      <div class="kpi-label">Giá trị CĐT xác nhận</div>
+      <div class="kpi-value" id="kpi1_cdt" style="color:#2e7d32">—</div>
+      <div class="kpi-sub">VNĐ – IPC lũy kế</div>
+      <span class="kpi-badge bg-g" id="kpi1_cdt_badge">—</span>
+    </div>
+    <div class="kpi-card o">
+      <div class="kpi-label">Đội đã thực hiện</div>
+      <div class="kpi-value" id="kpi1_th" style="color:#E8552A">—</div>
+      <div class="kpi-sub">VNĐ – Theo hồ sơ TT</div>
+    </div>
+    <div class="kpi-card" id="kpi1_ln_ht_card">
+      <div class="kpi-label">LN Hiện tại</div>
+      <div class="kpi-value" id="kpi1_ln_ht">—</div>
+      <div class="kpi-sub">CĐT xác nhận – Đội TH</div>
+    </div>
+    <div class="kpi-card" id="kpi1_pct_ln_ht_card">
+      <div class="kpi-label">% LN Hiện tại</div>
+      <div class="kpi-value" id="kpi1_pct_ln_ht">—</div>
+      <div class="kpi-sub">LN HT / CĐT xác nhận</div>
+    </div>
+  </div>
+
+  <div class="grid-6040">
+    <div class="card mb0">
+      <div class="stitle">Biểu đồ so sánh Ngân sách – CĐT Workdone – Đã TT cho đội</div>
+      <div class="chart-box" style="height:270px"><canvas id="chartP1"></canvas></div>
+    </div>
+    <div class="card mb0">
+      <div class="stitle">Tiến độ thực hiện theo gói thầu</div>
+      <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th class="tl">Gói thầu</th>
+          <th>BOQ (tỷ)</th>
+          <th>CĐT WD (tỷ)</th>
+          <th>% BOQ</th>
+          <th>Ngân sách (tỷ)</th>
+          <th>TT đội (tỷ)</th>
+        </tr></thead>
+        <tbody id="p1GoiBody"></tbody>
+        <tfoot id="p1GoiTfoot"></tfoot>
+      </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="stitle">Bảng tổng hợp giá trị chi tiết</div>
+    <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="tl" rowspan="2" style="min-width:160px">Hạng mục / Gói thầu</th>
+          <th rowspan="2">HĐ/PS</th>
+          <th rowspan="2">ĐVT</th>
+          <th colspan="2" style="background:#1e3a6e">GIÁ TRỊ BOQ</th>
+          <th colspan="3" style="background:#1b5e20">CĐT WORKDONE</th>
+          <th colspan="2" style="background:#00695c">NGÂN SÁCH</th>
+          <th colspan="3" style="background:#3B2D6F">THANH TOÁN ĐỘI</th>
+          <th colspan="3" style="background:#b71c1c">VƯỢT NGÂN SÁCH</th>
+        </tr>
+        <tr>
+          <th style="background:#1e3a6e">KL</th><th style="background:#1e3a6e">Giá trị (VNĐ)</th>
+          <th style="background:#1b5e20">KL LK</th><th style="background:#1b5e20">Giá trị (VNĐ)</th><th style="background:#1b5e20">% BOQ</th>
+          <th style="background:#00695c">KL</th><th style="background:#00695c">Giá trị (VNĐ)</th>
+          <th style="background:#3B2D6F">KL TT</th><th style="background:#3B2D6F">GT TH (VNĐ)</th><th style="background:#3B2D6F">TD TH</th>
+          <th style="background:#b71c1c">KL vượt</th><th style="background:#b71c1c">GT vượt (VNĐ)</th><th style="background:#b71c1c">TL vượt</th>
+        </tr>
+      </thead>
+      <tbody id="p1DetailBody"></tbody>
+      <tfoot id="p1DetailTfoot"></tfoot>
+    </table>
+    </div>
+    <div class="warn" style="margin-top:0.5rem">⚠️ <strong>VƯỢT NGÂN SÁCH</strong> <span style="color:#b71c1c;font-weight:700">(ô nền đỏ)</span>: KL hoặc giá trị thực hiện vượt ngân sách nội bộ. Cần kiểm tra, lập điều chỉnh ngân sách hoặc phê duyệt bổ sung trước khi quyết toán.</div>
+  </div>
+</div><!-- /p1 -->
+
+<!-- ============================================================ -->
+<!-- PAGE 2: BC WORKDONE                                           -->
+<!-- ============================================================ -->
+<div id="p2" class="page">
+
+  <div class="kpi-row kpi-3">
+    <div class="kpi-card g">
+      <div class="kpi-label">Giá trị CĐT xác nhận (Lũy kế)</div>
+      <div class="kpi-value" id="kpi2_cdt" style="color:#2e7d32">—</div>
+      <div class="kpi-sub">VNĐ – IPC xác nhận</div>
+    </div>
+    <div class="kpi-card o">
+      <div class="kpi-label">Đội đã thực hiện</div>
+      <div class="kpi-value" id="kpi2_th" style="color:#E8552A">—</div>
+      <div class="kpi-sub">VNĐ – Theo hồ sơ TT</div>
+    </div>
+    <div class="kpi-card" id="kpi2_cl_card">
+      <div class="kpi-label">Giá trị chênh lệch</div>
+      <div class="kpi-value" id="kpi2_cl_val">—</div>
+      <div class="kpi-sub" id="kpi2_cl_sub">Đội TH – CĐT xác nhận</div>
+      <span class="kpi-badge" id="kpi2_cl_badge">—</span>
+    </div>
+  </div>
+
+  <div class="grid-4060">
+    <div class="card mb0">
+      <div class="stitle">Tổng hợp khối lượng theo gói thầu</div>
+      <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th class="tl">Gói thầu / Hạng mục</th>
+          <th>ĐVT</th>
+          <th>KL BOQ</th>
+          <th>KL CĐT xác nhận</th>
+          <th>KL xác nhận ĐTC</th>
+          <th>Chênh lệch KL</th>
+          <th>Trạng thái</th>
+        </tr></thead>
+        <tbody id="p2WdGroupBody"></tbody>
+      </table>
+      </div>
+      <div class="info">ℹ️ <strong>Chênh lệch âm</strong> = ĐTC chưa thực hiện đến mức CĐT đã xác nhận. <strong>Chênh lệch dương</strong> = ĐTC vượt KL CĐT xác nhận – cần kiểm tra.</div>
+    </div>
+    <div class="card mb0">
+      <div class="stitle">Biểu đồ so sánh Workdone giữa CĐT và ĐTC (% hoàn thành theo BOQ)</div>
+      <div class="chart-box" style="height:260px"><canvas id="chartWD"></canvas></div>
+      <div style="font-size:10px;color:#6c757d;margin-top:6px;text-align:center">
+        Gói ngoài HĐ không có BOQ – không thể hiện trên biểu đồ % BOQ
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="stitle">Chi tiết so sánh workdone CĐT và đội thi công</div>
+    <div class="filter-bar">
+      <label>Gói thầu:</label>
+      <select id="f2Goi" onchange="filterWD()">
+        <option value="">-- Tất cả --</option>
+      </select>
+      <label>HĐ/PS:</label>
+      <select id="f2Hd" onchange="filterWD()">
+        <option value="">-- Tất cả --</option>
+        <option value="Trong HĐ">Trong HĐ</option>
+        <option value="Ngoài HĐ">Ngoài HĐ</option>
+      </select>
+      <label>Thời gian:</label>
+      <div class="ms-wrap" id="msWrap2">
+        <div class="ms-btn" id="msBtn2" onclick="toggleMs('ms2')">
+          <span id="msLabel2">-- Tất cả --</span><span class="ms-arrow">▼</span>
+        </div>
+        <div class="ms-dropdown" id="ms2">
+          <div class="ms-clear" onclick="clearMs('ms2')">✕ Bỏ chọn tất cả</div>
+          <div id="ms2Items"></div>
+        </div>
+      </div>
+      <span style="margin-left:auto;font-size:11px;color:#6c757d">Số dòng: <span id="wdCount">0</span></span>
+    </div>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>STT</th><th class="tl">Gói thầu</th>
+        <th class="tl" style="min-width:200px">Nội dung công việc</th>
+        <th>ĐVT</th><th>HĐ/PS</th><th>KL BOQ</th>
+        <th>KL CĐT xác nhận</th><th>KL ĐTC</th>
+        <th class="sort-btn" onclick="sortWD('cl')" title="Sắp xếp theo chênh lệch">KL chênh lệch <span id="sortWD_icon" class="sort-icon">⇅</span></th>
+        <th>% Vượt</th><th>Ghi chú</th>
+      </tr></thead>
+      <tbody id="wdBody"></tbody>
+    </table>
+    </div>
+  </div>
+</div><!-- /p2 -->
+
+<!-- ============================================================ -->
+<!-- PAGE 3: BC THANH TOÁN ĐTC                                    -->
+<!-- ============================================================ -->
+<div id="p3" class="page">
+
+  <div class="kpi-row kpi-5">
+    <div class="kpi-card">
+      <div class="kpi-label">Số đội thi công</div>
+      <div class="kpi-value" id="kpi3_ndoi">—</div>
+      <div class="kpi-sub" id="kpi3_phase">—</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Tổng GT thực hiện</div>
+      <div class="kpi-value" id="kpi3_th">—</div>
+      <div class="kpi-sub">VNĐ</div>
+    </div>
+    <div class="kpi-card g">
+      <div class="kpi-label">Đã thanh toán</div>
+      <div class="kpi-value" id="kpi3_tt" style="color:#2e7d32">—</div>
+      <div class="kpi-sub">VNĐ</div>
+      <span class="kpi-badge bg-g" id="kpi3_tt_badge">—</span>
+    </div>
+    <div class="kpi-card r">
+      <div class="kpi-label">Còn lại chưa TT</div>
+      <div class="kpi-value" id="kpi3_cl" style="color:#c62828">—</div>
+      <div class="kpi-sub">VNĐ</div>
+      <span class="kpi-badge bg-r" id="kpi3_cl_badge">—</span>
+    </div>
+    <div class="kpi-card p">
+      <div class="kpi-label">Phát sinh ngoài HĐ</div>
+      <div class="kpi-value" id="kpi3_ps" style="color:#3B2D6F">—</div>
+      <div class="kpi-sub">VNĐ</div>
+      <span class="kpi-badge bg-p" id="kpi3_ps_badge">—</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card mb0">
+      <div class="stitle">Biểu đồ thanh toán theo đội (Đã TT vs Còn lại)</div>
+      <div class="chart-box" style="height:260px"><canvas id="chartDoi"></canvas></div>
+    </div>
+    <div class="card mb0">
+      <div class="stitle">Sản lượng thanh toán hàng tháng</div>
+      <div class="chart-box" style="height:260px"><canvas id="chartMonthly"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="stitle">Tổng hợp theo đội thi công</div>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th class="tl">Đội</th><th>Đợt</th>
+        <th>GT TH (VNĐ)</th>
+        <th>Đã TT (VNĐ)</th>
+        <th>Còn lại (VNĐ)</th>
+        <th>% TT</th>
+      </tr></thead>
+      <tbody id="p3DoiBody"></tbody>
+      <tfoot id="p3DoiTfoot"></tfoot>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="stitle">Chi tiết thanh toán từng đợt</div>
+    <div class="filter-bar">
+      <label>Đội:</label>
+      <select id="f3Doi" onchange="filterTT()"><option value="">-- Tất cả --</option></select>
+      <label>Đợt:</label>
+      <select id="f3Lan" onchange="filterTT()"><option value="">-- Tất cả --</option></select>
+      <label>HĐ/PS:</label>
+      <select id="f3Hd" onchange="filterTT()">
+        <option value="">-- Tất cả --</option>
+        <option value="Trong HĐ">Trong HĐ</option>
+        <option value="Ngoài HĐ">Ngoài HĐ</option>
+      </select>
+      <label>Thời gian:</label>
+      <select id="f3Period" onchange="filterTT()"><option value="">-- Tất cả --</option></select>
+      <span style="margin-left:auto;font-size:11px;color:#6c757d">Số dòng: <span id="ttCount">0</span></span>
+    </div>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>STT</th><th class="tl">Đội thi công</th><th>Đợt TT</th><th>Thời gian</th>
+        <th class="tl" style="min-width:180px">Nội dung công việc</th>
+        <th>Gói thầu</th><th>HĐ/PS</th><th>ĐVT</th>
+        <th>KL</th><th>Đơn giá (VNĐ)</th>
+        <th>GT TH (VNĐ)</th><th>Tỉ lệ TT</th>
+        <th>Đã TT (VNĐ)</th><th>Còn lại (VNĐ)</th>
+      </tr></thead>
+      <tbody id="ttBody"></tbody>
+      <tfoot><tr>
+        <td colspan="10" style="text-align:right">TỔNG CỘNG</td>
+        <td class="tr" id="s_th">—</td><td></td>
+        <td class="tr pos" id="s_tt">—</td>
+        <td class="tr neg" id="s_cl">—</td>
+      </tr></tfoot>
+    </table>
+    </div>
+  </div>
+</div><!-- /p3 -->
+
+<div class="footer" id="footerBar">
+  VELA E&C &nbsp;|&nbsp; Cost & Contract Management &nbsp;|&nbsp; Lập bởi: <strong>Huỳnh Phương</strong>
+</div>
+
+<!-- ============================= SCRIPTS ============================= -->
+<script>
+// ===== STATE =====
+let WD = [], TT = [], NS = [];
+let chartP1Inst = null, chartWDInst = null, chartDoiInst = null, chartMonthlyInst = null;
+let wdSortDir = 0; // 0=none, 1=desc, -1=asc
+
+// ===== UTILS =====
+const vnd    = n => Math.round(n||0).toLocaleString('vi-VN');
+const fmtAuto = v => !v||v===0 ? '—' : v >= 1e9 ? (v/1e9).toFixed(3)+' tỷ' : (v/1e6).toFixed(3)+' triệu';
+const fmtTy   = v => !v||v===0 ? '—' : (v/1e9).toFixed(3)+' tỷ';
+const el = id => document.getElementById(id);
+const pct = (a, b) => b > 0 ? ((a/b)*100).toFixed(1) : '0';
+
+// ===== NAV =====
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  el(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ===== LOADING STATES =====
+function showLoading(on) {
+  el('loadingState').style.display = on ? 'block' : 'none';
+  el('errorState').style.display = 'none';
+  if(on) ['p1','p2','p3'].forEach(id => el(id).classList.remove('active'));
+}
+function showError(msg) {
+  el('loadingState').style.display = 'none';
+  el('errorState').style.display = 'block';
+  if(msg) el('errorMsg').textContent = msg;
+}
+
+// ===== PROJECT SWITCHER =====
+function buildProjectSwitcher(projects) {
+  const container = el('projectSwitcher');
+  container.innerHTML = '';
+  projects.forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = 'proj-tab' + (p.has_data ? '' : ' no-data');
+    btn.textContent = p.id + (p.has_data ? '' : ' (chưa có dữ liệu)');
+    btn.title = p.name + (p.description ? ' — ' + p.description : '');
+    if(p.has_data) {
+      btn.onclick = () => {
+        document.querySelectorAll('.proj-tab').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        loadProject(p.id);
+      };
+    }
+    container.appendChild(btn);
+  });
+}
+
+// ===== LOAD PROJECT =====
+async function loadProject(id) {
+  showLoading(true);
+  try {
+    const resp = await fetch('data/' + id + '/data.json');
+    if(!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    applyData(data);
+    showLoading(false);
+    el('p1').classList.add('active');
+    document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i===0));
+  } catch(e) {
+    showLoading(false);
+    showError('Không tải được dữ liệu dự án ' + id + '. (' + e.message + ')');
+  }
+}
+
+// ===== APPLY DATA =====
+function applyData(data) {
+  WD = data.WD || [];
+  TT = data.TT || [];
+  NS = data.NS || [];
+  const s    = data.summary || {};
+  const meta = data.meta    || {};
+
+  // --- Header ---
+  el('hdrProjectSub').textContent = 'Dự án: ' + meta.project_name
+    + (meta.phase ? '  |  Giai đoạn: ' + meta.phase : '');
+  el('hdrPhase').textContent = meta.phase || '—';
+  const gen = meta.generated_at ? new Date(meta.generated_at) : null;
+  el('hdrPeriod').textContent = 'Cập nhật: '
+    + (gen ? String(gen.getMonth()+1).padStart(2,'0')+'/'+gen.getFullYear() : '—');
+  el('footerBar').innerHTML = 'VELA E&C &nbsp;|&nbsp; Cost & Contract Management &nbsp;|&nbsp;'
+    + ' ' + (meta.project_name||'') + ' &nbsp;|&nbsp; Lập bởi: <strong>Huỳnh Phương</strong>'
+    + (gen ? ' &nbsp;|&nbsp; ' + gen.toLocaleDateString('vi-VN') : '');
+  el('dataLabel').textContent = 'Nguồn: ' + (meta.source_file||'—')
+    + '  |  Cập nhật: ' + (gen ? gen.toLocaleString('vi-VN') : '—');
+
+  // --- Tính tổng ---
+  const totTH  = TT.reduce((a,r) => a+(r.gt||0), 0);
+  const totTT  = TT.reduce((a,r) => a+(r.tt||0), 0);
+  const totCL  = TT.reduce((a,r) => a+(r.cl||0), 0);
+  const totPS  = TT.filter(r => r.h && r.h.includes('Ngoài')).reduce((a,r) => a+(r.gt||0), 0);
+  const totCDT = s.cdt_workdone_total || 0;
+  const boq    = s.boq_total    || 0;
+  const nsTotal= s.budget_total || 0;
+
+  const pctTT   = pct(totTT, totTH);
+  const pctCLv  = (100 - parseFloat(pctTT)).toFixed(1);
+  const pctPS   = pct(totPS, totTH);
+  const pctCDTv = pct(totCDT, boq);
+
+  // --- Lợi nhuận ---
+  const lnDuKien = boq - nsTotal;
+  const pctLnDK  = boq > 0 ? ((lnDuKien / boq) * 100).toFixed(1) : 0;
+  const lnHienTai = totCDT - totTH;
+  const pctLnHT  = totCDT > 0 ? ((lnHienTai / totCDT) * 100).toFixed(1) : 0;
+
+  // Danh sách gói thầu (union WD + TT)
+  const groups = [...new Set([...WD.map(r=>r.g), ...TT.map(r=>r.g)])].filter(Boolean).sort();
+  const teams  = [...new Set(TT.map(r=>r.t))].filter(Boolean).sort();
+
+  // --- KPI Page 1 ---
+  el('kpi1_boq').textContent = fmtAuto(boq);
+  el('kpi1_ns').textContent  = fmtAuto(nsTotal);
+  el('kpi1_cdt').textContent = fmtAuto(totCDT);
+  el('kpi1_cdt_badge').textContent = pctCDTv + '% BOQ';
+  el('kpi1_th').textContent  = fmtAuto(totTH);
+
+  // LN dự kiến
+  el('kpi1_ln_dk').textContent = fmtAuto(Math.abs(lnDuKien));
+  el('kpi1_ln_dk').style.color = lnDuKien >= 0 ? '#2e7d32' : '#c62828';
+  el('kpi1_pct_ln_dk').textContent = (lnDuKien >= 0 ? '+' : '-') + Math.abs(pctLnDK) + '%';
+  el('kpi1_pct_ln_dk').style.color = lnDuKien >= 0 ? '#2e7d32' : '#c62828';
+
+  // LN hiện tại
+  el('kpi1_ln_ht').textContent = fmtAuto(Math.abs(lnHienTai));
+  el('kpi1_ln_ht').style.color = lnHienTai >= 0 ? '#2e7d32' : '#c62828';
+  el('kpi1_pct_ln_ht').textContent = (lnHienTai >= 0 ? '+' : '-') + Math.abs(pctLnHT) + '%';
+  el('kpi1_pct_ln_ht').style.color = lnHienTai >= 0 ? '#2e7d32' : '#c62828';
+  el('kpi1_ln_ht_card').style.borderLeftColor = lnHienTai >= 0 ? '#2e7d32' : '#c62828';
+  el('kpi1_pct_ln_ht_card').style.borderLeftColor = lnHienTai >= 0 ? '#2e7d32' : '#c62828';
+
+  // --- KPI Page 2 ---
+  el('kpi2_cdt').textContent = fmtTy(totCDT);
+  el('kpi2_th').textContent  = fmtTy(totTH);
+
+  const clVal = totTH - totCDT;
+  el('kpi2_cl_val').textContent = fmtTy(Math.abs(clVal));
+  el('kpi2_cl_val').style.color = clVal > 0 ? '#c62828' : '#2e7d32';
+  el('kpi2_cl_card').style.borderLeftColor = clVal > 0 ? '#c62828' : '#2e7d32';
+  if(clVal > 0) {
+    const pctVuot = totCDT > 0 ? ((clVal/totCDT)*100).toFixed(1) : 0;
+    el('kpi2_cl_badge').textContent = 'Vượt ' + pctVuot + '%';
+    el('kpi2_cl_badge').className = 'kpi-badge bg-r';
+  } else {
+    el('kpi2_cl_badge').textContent = 'Trong hạn';
+    el('kpi2_cl_badge').className = 'kpi-badge bg-g';
+  }
+
+  // --- KPI Page 3 ---
+  el('kpi3_ndoi').textContent = teams.length + ' đội';
+  el('kpi3_phase').textContent = meta.phase || '—';
+  el('kpi3_th').textContent  = vnd(totTH);
+  el('kpi3_tt').textContent  = vnd(totTT);
+  el('kpi3_cl').textContent  = vnd(totCL);
+  el('kpi3_ps').textContent  = vnd(totPS);
+  el('kpi3_tt_badge').textContent = pctTT + '%';
+  el('kpi3_cl_badge').textContent = pctCLv + '%';
+  el('kpi3_ps_badge').textContent = pctPS + '%';
+
+  // --- Bảng gói thầu P1 ---
+  const p1GoiBody  = el('p1GoiBody');
+  const p1GoiTfoot = el('p1GoiTfoot');
+  p1GoiBody.innerHTML = '';
+  let allBOQ=0, allNS=0, allTT2=0;
+  const bgMap = {};
+  (s.by_group||[]).forEach(g => { bgMap[g.group] = g; });
+  groups.forEach(g => {
+    const bg   = bgMap[g] || {};
+    const boqV = bg.boq_value    || 0;
+    const nsV  = bg.budget_value || 0;
+    const cdtV = bg.cdt_workdone || 0;
+    const ttV  = TT.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0);
+    allBOQ+=boqV; allNS+=nsV; allTT2+=ttV;
+    const pBar = boqV>0&&cdtV>0
+      ? '<div class="prog"><div class="prog-fill" style="width:'+Math.min((cdtV/boqV)*100,100)+'%;background:#E8552A"></div></div><small>'+((cdtV/boqV)*100).toFixed(1)+'%</small>'
+      : boqV>0&&cdtV===0
+        ? '<span style="color:#6c757d">—</span>'
+        : '<span style="font-size:9px;color:#E8552A">Ngoài HĐ</span>';
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td class="tl"><strong>'+g+'</strong></td>'
+      +'<td class="tr">'+(boqV>0?(boqV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr">'+(cdtV>0?(cdtV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tc">'+pBar+'</td>'
+      +'<td class="tr">'+(nsV>0?(nsV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr">'+(ttV>0?(ttV/1e9).toFixed(3):'<span style="color:#6c757d">—</span>')+'</td>';
+    p1GoiBody.appendChild(tr);
+  });
+  p1GoiTfoot.innerHTML = '<tr><td class="tl">TỔNG</td>'
+    +'<td class="tr">'+(allBOQ>0?(allBOQ/1e9).toFixed(3):'—')+'</td>'
+    +'<td class="tr" style="color:#6c757d">—</td>'
+    +'<td class="tc"><strong>'+pctCDTv+'%</strong></td>'
+    +'<td class="tr">'+(allNS>0?(allNS/1e9).toFixed(3):'—')+'</td>'
+    +'<td class="tr"><strong>'+(allTT2/1e9).toFixed(3)+'</strong></td></tr>';
+
+  // --- Bảng chi tiết P1 ---
+  const p1DetailBody  = el('p1DetailBody');
+  const p1DetailTfoot = el('p1DetailTfoot');
+  p1DetailBody.innerHTML = '';
+  const nsMap = {};
+  NS.forEach(r => { const key = (r.g||'')+'|'+(r.n||''); nsMap[key] = r; });
+
+  let totBOQ2=0, totCDT2=0, totNS2=0, totTH2=0;
+  groups.forEach(g => {
+    const gWD = WD.filter(r=>r.g===g);
+    const gTT = TT.filter(r=>r.g===g);
+    if(gWD.length===0 && gTT.length===0) return;
+
+    const sumBoqG  = gWD.reduce((a,r)=>a+(r.ttBOQ||0),0);
+    const sumCdtG  = gWD.reduce((a,r)=>a+(r.ttCDT||0),0);
+    const sumNsG   = NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0);
+    const sumThG   = gTT.reduce((a,r)=>a+(r.gt||0),0);
+    totBOQ2+=sumBoqG; totCDT2+=sumCdtG; totNS2+=sumNsG; totTH2+=sumThG;
+
+    const pctBoqG = sumBoqG>0?((sumCdtG/sumBoqG)*100).toFixed(1)+'%':'<span style="font-size:9px;color:#E8552A">Ngoài HĐ</span>';
+    const grpRow = document.createElement('tr');
+    grpRow.className='grow';
+    grpRow.innerHTML='<td class="tl" colspan="3">📁 '+g+'</td>'
+      +'<td class="tr">'+(gWD.reduce((a,r)=>a+(r.bq||0),0)>0?gWD.reduce((a,r)=>a+(r.bq||0),0).toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr">'+(sumBoqG>0?vnd(sumBoqG):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr">'+(gWD.reduce((a,r)=>a+(r.cdt||0),0)>0?gWD.reduce((a,r)=>a+(r.cdt||0),0).toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr">'+(sumCdtG>0?vnd(sumCdtG):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tc">'+pctBoqG+'</td>'
+      +'<td class="tr" style="color:#6c757d">—</td>'
+      +'<td class="tr">'+(sumNsG>0?vnd(sumNsG):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tr" style="color:#6c757d">—</td>'
+      +'<td class="tr">'+(sumThG>0?vnd(sumThG):'<span style="color:#6c757d">—</span>')+'</td>'
+      +'<td class="tc" style="color:#6c757d">—</td>'
+      +'<td class="tr" style="color:#6c757d">—</td>'
+      +'<td class="tr" style="color:#6c757d">—</td>'
+      +'<td class="tc" style="color:#6c757d">—</td>';
+    p1DetailBody.appendChild(grpRow);
+
+    gWD.forEach(row => {
+      if(!row.n && !row.u) return;
+      const nsRow = nsMap[(row.g||'')+'|'+(row.n||'')] || {};
+      const hb = row.h&&row.h.includes('Ngoài')
+        ? '<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>'
+        : '<span class="badge bg-b" style="font-size:9px">Trong HĐ</span>';
+      const pctR = row.bq>0&&row.cdt>0?((row.cdt/row.bq)*100).toFixed(1)+'%':'—';
+      const tdTH   = nsRow.klTH>0?vnd(nsRow.klTH):'<span style="color:#6c757d">—</span>';
+      const tdTHTT = nsRow.ttTH>0?vnd(nsRow.ttTH):'<span style="color:#6c757d">—</span>';
+      const tdTD   = nsRow.tdTH>0?(nsRow.tdTH*100).toFixed(1)+'%':'<span style="color:#6c757d">—</span>';
+      // VƯỢT NGÂN SÁCH: lấy trực tiếp từ NS[].klV / ttV / tlV (cột S,T,U Data-Ngân sách)
+      let tdKLV, tdGTV, tdTLV;
+      const hasVuot = (nsRow.klV != null && nsRow.klV !== 0) || (nsRow.ttV != null && nsRow.ttV !== 0);
+      if(hasVuot) {
+        tdKLV = (nsRow.klV != null && nsRow.klV !== 0) ? nsRow.klV.toLocaleString('vi-VN') : '—';
+        tdGTV = (nsRow.ttV != null && nsRow.ttV !== 0) ? vnd(nsRow.ttV) : '—';
+        const tlvRaw = nsRow.tlV || 0;
+        const tlvPct = tlvRaw > 1 ? tlvRaw.toFixed(1)+'%' : (tlvRaw*100).toFixed(1)+'%';
+        tdTLV = tlvRaw !== 0 ? tlvPct : '—';
+      } else {
+        tdKLV = '<span style="color:#6c757d">—</span>';
+        tdGTV = '<span style="color:#6c757d">—</span>';
+        tdTLV = '<span style="color:#6c757d">—</span>';
+      }
+      const vuotCls = hasVuot ? ' class="tr vuot-cell"' : ' class="tr"';
+      const vuotClsTc = hasVuot ? ' class="tc vuot-cell"' : ' class="tc"';
+      const tr = document.createElement('tr');
+      tr.innerHTML='<td class="tl" style="padding-left:22px">'+row.n+'</td>'
+        +'<td class="tc">'+hb+'</td>'
+        +'<td class="tc">'+(row.u||'—')+'</td>'
+        +'<td class="tr">'+(row.bq>0?row.bq.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
+        +'<td class="tr">'+(row.ttBOQ>0?vnd(row.ttBOQ):'<span style="color:#6c757d">—</span>')+'</td>'
+        +'<td class="tr">'+(row.cdt>0?row.cdt.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
+        +'<td class="tr">'+(row.ttCDT>0?vnd(row.ttCDT):'<span style="color:#6c757d">—</span>')+'</td>'
+        +'<td class="tc">'+pctR+'</td>'
+        +'<td class="tr">'+(nsRow.kl>0?nsRow.kl.toLocaleString('vi-VN'):'<span style="color:#6c757d">—</span>')+'</td>'
+        +'<td class="tr">'+(nsRow.tt>0?vnd(nsRow.tt):'<span style="color:#6c757d">—</span>')+'</td>'
+        +'<td class="tr">'+tdTH+'</td>'
+        +'<td class="tr">'+tdTHTT+'</td>'
+        +'<td class="tc">'+tdTD+'</td>'
+        +'<td'+vuotCls+'>'+tdKLV+'</td>'
+        +'<td'+vuotCls+'>'+tdGTV+'</td>'
+        +'<td'+vuotClsTc+'>'+tdTLV+'</td>';
+      p1DetailBody.appendChild(tr);
+    });
+  });
+  p1DetailTfoot.innerHTML='<tr><td class="tl" colspan="3">TỔNG CỘNG</td>'
+    +'<td class="tr">—</td><td class="tr">'+vnd(totBOQ2)+'</td>'
+    +'<td class="tr">—</td><td class="tr">'+vnd(totCDT2)+'</td>'
+    +'<td class="tc">'+pctCDTv+'%</td>'
+    +'<td class="tr">—</td><td class="tr">'+vnd(totNS2)+'</td>'
+    +'<td class="tr">—</td><td class="tr">'+vnd(totTH2)+'</td>'
+    +'<td class="tc">—</td><td class="tr">—</td><td class="tr">—</td><td class="tc">—</td></tr>';
+
+  // --- Bảng tổng hợp KL gói P2 ---
+  const p2WdGroupBody = el('p2WdGroupBody');
+  p2WdGroupBody.innerHTML = '';
+  groups.forEach(g => {
+    const gWD = WD.filter(r => r.g===g);
+    const boqKLg  = gWD.reduce((a,r)=>a+(r.bq||0),0);
+    const cdtKLg  = gWD.reduce((a,r)=>a+(r.cdt||0),0);
+    const dtcKLg  = NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.klTH||0),0);
+    const cl = dtcKLg - cdtKLg;
+    const units = [...new Set(gWD.map(r=>r.u).filter(Boolean))];
+    const u = units[0]||'—';
+    let badge;
+    if(cdtKLg===0 && dtcKLg===0)
+      badge='<span class="badge bg-b">Chưa phân công</span>';
+    else if(cdtKLg===0 && dtcKLg>0)
+      badge='<span class="badge" style="background:#fff3cd;color:#7d3000">Chưa có KL CĐT</span>';
+    else if(cl>0)
+      badge='<span class="badge bg-r">Vượt '+(pct(cl,cdtKLg))+'%</span>';
+    else
+      badge='<span class="badge bg-g">Trong hạn</span>';
+    const tr = document.createElement('tr');
+    tr.innerHTML='<td class="tl"><strong>'+g+'</strong></td>'
+      +'<td class="tc">'+u+'</td>'
+      +'<td class="tr">'+(boqKLg>0?boqKLg.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td class="tr">'+(cdtKLg>0?cdtKLg.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td class="tr">'+(dtcKLg>0?dtcKLg.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td class="tr '+(cl>0?'neg':cl<0?'pos':'')+'">'+((cl!==0)?cl.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td class="tc">'+badge+'</td>';
+    p2WdGroupBody.appendChild(tr);
+  });
+
+  // --- Bảng tổng hợp đội P3 ---
+  const p3Body  = el('p3DoiBody');
+  const p3Tfoot = el('p3DoiTfoot');
+  p3Body.innerHTML = '';
+  let sumDot=0;
+  teams.forEach(team => {
+    const rows = TT.filter(r=>r.t===team);
+    const gtT = rows.reduce((a,r)=>a+(r.gt||0),0);
+    const ttT = rows.reduce((a,r)=>a+(r.tt||0),0);
+    const clT = rows.reduce((a,r)=>a+(r.cl||0),0);
+    const pctT = pct(ttT, gtT);
+    const nDots = Math.max(0, ...rows.map(r=>parseInt((r.l||'').replace(/\D/g,''))||0));
+    sumDot += nDots;
+    const color = parseFloat(pctT)>=100?'#2e7d32':parseFloat(pctT)>=90?'#E8552A':'#c62828';
+    const tr = document.createElement('tr');
+    tr.innerHTML='<td class="tl"><strong>'+team+'</strong></td>'
+      +'<td class="tc">'+nDots+'</td>'
+      +'<td class="tr">'+vnd(gtT)+'</td>'
+      +'<td class="tr pos">'+vnd(ttT)+'</td>'
+      +'<td class="tr '+(clT>0?'neg':'')+'">'+vnd(clT)+'</td>'
+      +'<td class="tc"><div class="prog"><div class="prog-fill" style="width:'+Math.min(parseFloat(pctT),100)+'%;background:'+color+'"></div></div><small>'+pctT+'%</small></td>';
+    p3Body.appendChild(tr);
+  });
+  p3Tfoot.innerHTML='<tr><td class="tl">TỔNG</td><td class="tc">'+sumDot+'</td>'
+    +'<td class="tr">'+vnd(totTH)+'</td>'
+    +'<td class="tr">'+vnd(totTT)+'</td>'
+    +'<td class="tr neg">'+vnd(totCL)+'</td>'
+    +'<td class="tc"><strong>'+pctTT+'%</strong></td></tr>';
+
+  // --- Repopulate filter dropdowns ---
+  function repopSel(selId, vals) {
+    const sel = el(selId); if(!sel) return;
+    const prev = sel.value;
+    sel.innerHTML = '<option value="">-- Tất cả --</option>';
+    vals.forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); });
+    sel.value = vals.includes(prev) ? prev : '';
+  }
+  repopSel('f2Goi', [...new Set(WD.map(r=>r.g).filter(Boolean))].sort());
+  // Multi-select Thời gian cho P2
+  const periods = [...new Set(TT.map(r=>r.p).filter(Boolean))].sort((a,b)=>{
+    const pa=a.split('-'),pb=b.split('-');
+    if(pa.length===2&&pb.length===2){return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);}
+    return a.localeCompare(b);
+  });
+  buildMs('ms2', periods, filterWD);
+  repopSel('f3Doi', teams);
+  repopSel('f3Lan', [...new Set(TT.map(r=>r.l).filter(Boolean))].sort());
+  repopSel('f3Period', periods);
+
+  // --- Charts ---
+  const nsGroupData  = groups.map(g => NS.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0));
+  const cdtGroupData = groups.map(g => WD.filter(r=>r.g===g).reduce((a,r)=>a+(r.ttCDT||0),0));
+  const ttGroupData  = groups.map(g => TT.filter(r=>r.g===g).reduce((a,r)=>a+(r.tt||0),0));
+
+  if(chartP1Inst){ chartP1Inst.destroy(); chartP1Inst=null; }
+  chartP1Inst = new Chart(el('chartP1').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels: groups,
+      datasets:[
+        {label:'Ngân sách nội bộ',  data:nsGroupData,  backgroundColor:'rgba(0,121,107,.7)', borderColor:'#00796b',borderWidth:1},
+        {label:'CĐT Workdone',      data:cdtGroupData, backgroundColor:'rgba(46,125,50,.8)', borderColor:'#2e7d32',borderWidth:1},
+        {label:'Đã TT cho đội',     data:ttGroupData,  backgroundColor:'rgba(59,45,111,.8)', borderColor:'#3B2D6F',borderWidth:1},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'top',labels:{font:{size:11}}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toLocaleString('vi-VN')+' VNĐ'}}},
+      scales:{x:{ticks:{font:{size:10}}},y:{ticks:{font:{size:10},callback:v=>(v/1e9).toFixed(2)+'tỷ'}}}
+    }
+  });
+
+  // Chart WD
+  const wdGroups = groups.filter(g => WD.some(r=>r.g===g&&r.bq>0));
+  const pctCDTBoq = wdGroups.map(g=>{
+    const items=WD.filter(r=>r.g===g&&(r.bq||0)>0);
+    const sb=items.reduce((a,r)=>a+(r.bq||0),0);
+    const sc=items.reduce((a,r)=>a+(r.cdt||0),0);
+    return sb>0?parseFloat(((sc/sb)*100).toFixed(2)):0;
+  });
+  const pctDTCBoq = wdGroups.map(g=>{
+    const items=WD.filter(r=>r.g===g&&(r.bq||0)>0);
+    const sb=items.reduce((a,r)=>a+(r.bq||0),0);
+    const sd=items.reduce((a,r)=>a+(r.dtc||0),0);
+    return sb>0?parseFloat(((sd/sb)*100).toFixed(2)):0;
+  });
+  if(chartWDInst){ chartWDInst.destroy(); chartWDInst=null; }
+  chartWDInst = new Chart(el('chartWD').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels: wdGroups,
+      datasets:[
+        {label:'% CĐT xác nhận / BOQ',  data:pctCDTBoq, backgroundColor:'rgba(46,125,50,.8)', borderColor:'#2e7d32',borderWidth:1},
+        {label:'% ĐTC thực hiện / BOQ', data:pctDTCBoq, backgroundColor:'rgba(232,85,42,.75)',borderColor:'#E8552A',borderWidth:1},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      layout:{padding:{top:20}},
+      plugins:{legend:{position:'top',labels:{font:{size:11}}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'%'}}},
+      scales:{x:{ticks:{font:{size:10}}},y:{ticks:{font:{size:10},callback:v=>v+'%'}}}
+    },
+    plugins:[{
+      id:'wdLabels',
+      afterDatasetsDraw(chart){
+        const{ctx,data}=chart;
+        chart.getSortedVisibleDatasetMetas().forEach(meta=>{
+          meta.data.forEach((pt,i)=>{
+            const val=data.datasets[meta.index].data[i]||0;
+            if(val<=0) return;
+            ctx.save();
+            ctx.fillStyle='#1a2332';
+            ctx.font='bold 9px Segoe UI,Arial';
+            ctx.textAlign='center';
+            ctx.fillText(val.toFixed(1)+'%', pt.x, pt.y-4);
+            ctx.restore();
+          });
+        });
+      }
+    }]
+  });
+
+  // Chart Đội
+  const paidByTeam = teams.map(t => TT.filter(r=>r.t===t).reduce((a,r)=>a+(r.tt||0),0));
+  const remByTeam  = teams.map(t => TT.filter(r=>r.t===t).reduce((a,r)=>a+(r.cl||0),0));
+  if(chartDoiInst){ chartDoiInst.destroy(); chartDoiInst=null; }
+  chartDoiInst = new Chart(el('chartDoi').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels: teams,
+      datasets:[
+        {label:'Đã thanh toán',data:paidByTeam,backgroundColor:'rgba(46,125,50,.85)', borderColor:'#2e7d32',borderWidth:1},
+        {label:'Còn lại',      data:remByTeam, backgroundColor:'rgba(232,85,42,.75)',  borderColor:'#E8552A',borderWidth:1},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{position:'top',labels:{font:{size:11}}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toLocaleString('vi-VN')+' VNĐ'}}
+      },
+      scales:{
+        x:{stacked:true,ticks:{font:{size:10}}},
+        y:{stacked:true,ticks:{font:{size:10},callback:v=>(v/1e6).toFixed(0)+'tr'}}
+      }
+    },
+    plugins:[{
+      id:'datalabels',
+      afterDatasetsDraw(chart){
+        const{ctx,data}=chart;
+        const metas=chart.getSortedVisibleDatasetMetas();
+        teams.forEach((_,i)=>{
+          let total=0,topY=null;
+          metas.forEach(meta=>{
+            const pt=meta.data[i];
+            if(pt){ total+=data.datasets[meta.index].data[i]||0; if(topY===null||pt.y<topY)topY=pt.y; }
+          });
+          if(total>0&&topY!==null){
+            ctx.save();ctx.fillStyle='#1a2332';ctx.font='bold 10px Segoe UI,Arial';
+            ctx.textAlign='center';
+            ctx.fillText((total/1e6).toFixed(1)+'tr',metas[0].data[i].x,topY-5);
+            ctx.restore();
+          }
+        });
+      }
+    }]
+  });
+
+  // Chart Monthly (sản lượng hàng tháng)
+  // Group TT theo cột p (thời gian = cột D Data-TT, format MM-YYYY)
+  const monthMap = {};
+  TT.forEach(r => {
+    const mo = r.p || 'N/A';
+    if(!monthMap[mo]) monthMap[mo] = { gt:0, tt:0 };
+    monthMap[mo].gt += (r.gt||0);
+    monthMap[mo].tt += (r.tt||0);
+  });
+  const sortedMonths = Object.keys(monthMap).sort((a,b) => {
+    // sort theo MM-YYYY
+    const pa = a.split('-'); const pb = b.split('-');
+    if(pa.length===2 && pb.length===2) {
+      const da = new Date(+pa[1], +pa[0]-1);
+      const db = new Date(+pb[1], +pb[0]-1);
+      return da - db;
+    }
+    return a.localeCompare(b);
+  });
+  if(chartMonthlyInst){ chartMonthlyInst.destroy(); chartMonthlyInst=null; }
+  chartMonthlyInst = new Chart(el('chartMonthly').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels: sortedMonths,
+      datasets:[
+        {label:'GT thực hiện',data:sortedMonths.map(m=>monthMap[m].gt), backgroundColor:'rgba(232,85,42,.75)',borderColor:'#E8552A',borderWidth:1},
+        {label:'Đã thanh toán',data:sortedMonths.map(m=>monthMap[m].tt), backgroundColor:'rgba(59,45,111,.8)', borderColor:'#3B2D6F',borderWidth:1},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      layout:{padding:{top:18}},
+      plugins:{
+        legend:{position:'top',labels:{font:{size:11}}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toLocaleString('vi-VN')+' VNĐ'}}
+      },
+      scales:{
+        x:{ticks:{font:{size:10}}},
+        y:{ticks:{font:{size:10},callback:v=>(v/1e6).toFixed(0)+'tr'}}
+      }
+    },
+    plugins:[{
+      id:'monthlyLabels',
+      afterDatasetsDraw(chart){
+        const{ctx,data,chartArea}=chart;
+        // Vẽ label trên đỉnh từng thanh của mỗi dataset
+        chart.getSortedVisibleDatasetMetas().forEach(meta=>{
+          meta.data.forEach((pt,i)=>{
+            const val=data.datasets[meta.index].data[i]||0;
+            if(val<=0) return;
+            const label=(val/1e6).toFixed(1)+'tr';
+            ctx.save();
+            ctx.fillStyle='#1a2332';
+            ctx.font='bold 9px Segoe UI,Arial';
+            ctx.textAlign='center';
+            ctx.fillText(label, pt.x, pt.y-4);
+            ctx.restore();
+          });
+        });
+      }
+    }]
+  });
+
+  wdSortDir = 0;
+  el('sortWD_icon').textContent = '⇅';
+  // Clear multi-select period P2
+  const ms2items = el('ms2Items');
+  if(ms2items) ms2items.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.checked=false);
+  updateMsLabel('ms2');
+  filterWD();
+  filterTT();
+}
+
+// ===== MULTI-SELECT HELPERS =====
+function buildMs(msId, vals, onChangeFn) {
+  const container = el(msId+'Items');
+  if(!container) return;
+  container.innerHTML = '';
+  vals.forEach(v => {
+    const lbl = document.createElement('label');
+    const cb  = document.createElement('input');
+    cb.type = 'checkbox'; cb.value = v;
+    cb.onchange = () => { updateMsLabel(msId); onChangeFn(); };
+    lbl.appendChild(cb);
+    lbl.appendChild(document.createTextNode(' ' + v));
+    container.appendChild(lbl);
+  });
+  updateMsLabel(msId);
+}
+function toggleMs(msId) {
+  const dd = el(msId);
+  dd.classList.toggle('open');
+  // Đóng dropdown khác
+  document.querySelectorAll('.ms-dropdown.open').forEach(d => { if(d.id!==msId) d.classList.remove('open'); });
+}
+function clearMs(msId) {
+  el(msId+'Items').querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked=false);
+  updateMsLabel(msId);
+  // Gọi filter tương ứng
+  if(msId==='ms2') filterWD();
+}
+function updateMsLabel(msId) {
+  const checked = [...el(msId+'Items').querySelectorAll('input:checked')].map(c=>c.value);
+  el('msLabel'+msId.replace('ms','')).textContent = checked.length===0 ? '-- Tất cả --'
+    : checked.length===1 ? checked[0]
+    : checked.length + ' mốc đã chọn';
+}
+function getMsSelected(msId) {
+  return [...el(msId+'Items').querySelectorAll('input:checked')].map(c=>c.value);
+}
+// Đóng dropdown khi click ra ngoài
+document.addEventListener('click', e => {
+  if(!e.target.closest('.ms-wrap')) {
+    document.querySelectorAll('.ms-dropdown.open').forEach(d=>d.classList.remove('open'));
+  }
+});
+
+// ===== SORT WD =====
+function sortWD(field) {
+  wdSortDir = wdSortDir === 1 ? -1 : 1;
+  el('sortWD_icon').textContent = wdSortDir === 1 ? '↓' : '↑';
+  filterWD();
+}
+
+// ===== FILTER WD =====
+function filterWD(){
+  const gv=el('f2Goi').value, hv=el('f2Hd').value;
+  const selectedPeriods = getMsSelected('ms2'); // multi-select periods
+  const tb=el('wdBody'); tb.innerHTML='';
+
+  // Build filtered list
+  let rows = [];
+  WD.forEach(r=>{
+    if(!r.n && !r.u) return;
+    if(gv&&r.g!==gv) return;
+    if(hv&&r.h!==hv) return;
+    // Filter theo thời gian (multi-select): kiểm tra xem có bản ghi TT nào với p trong selectedPeriods
+    if(selectedPeriods.length > 0) {
+      const hasPeriod = TT.some(t => selectedPeriods.includes(t.p) && t.g===r.g && t.n===r.n);
+      if(!hasPeriod) return;
+    }
+    const nsRow = NS.find(n => n.g===r.g && n.n===r.n) || {};
+    // Tính KL ĐTC: nếu có filter period thì tính theo các period đã chọn, không thì dùng klTH tổng
+    let dtcKL;
+    if(selectedPeriods.length > 0) {
+      dtcKL = TT.filter(t=>t.g===r.g&&t.n===r.n&&selectedPeriods.includes(t.p)).reduce((a,t)=>a+(t.k||0),0);
+    } else {
+      dtcKL = nsRow.klTH||0;
+    }
+    const cl = dtcKL - (r.cdt||0);
+    rows.push({r, nsRow, dtcKL, cl});
+  });
+
+  // Sort
+  if(wdSortDir !== 0) {
+    rows.sort((a,b) => wdSortDir * (a.cl - b.cl));
+  }
+
+  let stt=0;
+  rows.forEach(({r, nsRow, dtcKL, cl})=>{
+    stt++;
+    const vuotPct = r.cdt>0?((cl/r.cdt)*100).toFixed(0):null;
+    const hbadge = r.h&&r.h.includes('Ngoài')
+      ?'<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>'
+      :'<span class="badge bg-b" style="font-size:9px">Trong HĐ</span>';
+    let statusBadge;
+    if((r.cdt||0)===0 && dtcKL===0)
+      statusBadge='<span class="badge bg-b">Chưa phân công</span>';
+    else if((r.cdt||0)===0 && dtcKL>0)
+      statusBadge='<span class="badge" style="background:#fff3cd;color:#7d3000">Chưa có KL CĐT</span>';
+    else if(cl>0)
+      statusBadge='<span class="badge bg-r" style="color:white;background:#c62828">Vượt '+vuotPct+'%</span>';
+    else
+      statusBadge='<span class="badge bg-g">Trong hạn</span>';
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td class="tc">'+stt+'</td>'
+      +'<td class="tl"><strong>'+r.g+'</strong></td>'
+      +'<td class="tl">'+r.n+'</td>'
+      +'<td class="tc">'+(r.u||'—')+'</td>'
+      +'<td class="tc">'+hbadge+'</td>'
+      +'<td class="tr">'+(r.bq>0?r.bq.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td class="tr">'+(r.cdt>0?r.cdt.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td class="tr">'+(dtcKL>0?dtcKL.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td class="tr '+(cl>0?'neg':cl<0?'pos':'')+'">'+((cl!==0)?cl.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td class="tc">'+statusBadge+'</td>'
+      +'<td class="tc">—</td>';
+    tb.appendChild(tr);
+  });
+  el('wdCount').textContent=stt;
+}
+
+// ===== FILTER TT =====
+function filterTT(){
+  const dv=el('f3Doi').value, lv=el('f3Lan').value, hv=el('f3Hd').value;
+  const pv=el('f3Period') ? el('f3Period').value : '';
+  const tb=el('ttBody'); tb.innerHTML='';
+  let stt=0,sTH=0,sTT=0,sCL=0;
+  TT.forEach(r=>{
+    if(dv&&r.t!==dv) return;
+    if(lv&&r.l!==lv) return;
+    if(hv&&r.h!==hv) return;
+    if(pv&&r.p!==pv) return;
+    stt++; sTH+=(r.gt||0); sTT+=(r.tt||0); sCL+=(r.cl||0);
+    const hb=r.h&&r.h.includes('Ngoài')
+      ?'<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>'
+      :'<span class="badge bg-b" style="font-size:9px">Trong HĐ</span>';
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td class="tc">'+stt+'</td>'
+      +'<td class="tl"><strong>'+r.t+'</strong></td>'
+      +'<td class="tc">'+(r.l||'—')+'</td>'
+      +'<td class="tc">'+(r.p||'—')+'</td>'
+      +'<td class="tl">'+(r.n||'—')+'</td>'
+      +'<td class="tc">'+(r.g||'—')+'</td>'
+      +'<td class="tc">'+hb+'</td>'
+      +'<td class="tc">'+(r.u||'—')+'</td>'
+      +'<td class="tr">'+((r.k||0).toLocaleString('vi-VN'))+'</td>'
+      +'<td class="tr">'+vnd(r.d)+'</td>'
+      +'<td class="tr">'+vnd(r.gt)+'</td>'
+      +'<td class="tc">'+((r.tl||0)*100).toFixed(0)+'%</td>'
+      +'<td class="tr pos">'+vnd(r.tt)+'</td>'
+      +'<td class="tr '+(r.cl>0?'neg':'')+'">'+vnd(r.cl)+'</td>';
+    tb.appendChild(tr);
+  });
+  el('ttCount').textContent=stt;
+  el('s_th').textContent=vnd(sTH);
+  el('s_tt').textContent=vnd(sTT);
+  el('s_cl').textContent=vnd(sCL);
+}
+
+// ===== INIT =====
+async function init() {
+  showLoading(true);
+  try {
+    const resp = await fetch('data/projects.json');
+    if(!resp.ok) throw new Error('Không tải được projects.json');
+    const { projects } = await resp.json();
+    buildProjectSwitcher(projects);
+    const first = projects.find(p => p.has_data);
+    if(first) {
+      document.querySelectorAll('.proj-tab').forEach(t =>
+        t.classList.toggle('active', t.textContent.startsWith(first.id)));
+      await loadProject(first.id);
+    } else {
+      showLoading(false);
+      showError('Chưa có dự án nào có dữ liệu. Chạy quy trình nhập liệu trước.');
+    }
+  } catch(e) {
+    showLoading(false);
+    showError('Không tải được danh sách dự án: ' + e.message);
+  }
+}
+
+window.addEventListener('load', () => { init(); });
+</script>
+</body>
+</html>

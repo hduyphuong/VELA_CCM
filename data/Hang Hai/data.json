@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Hang Hai",
     "project_name": "NOXH Hàng Hải",
-    "generated_at": "2026-06-17T11:07:47",
+    "generated_at": "2026-06-17T11:10:15",
     "source_file": "HDP_HANGHAI_DTC_BAO_CAO_THANH_QUYET_TOAN.xlsx",
     "phase": "Hoàn thiện Xây tô - Ốp lát"
   },
@@ -131,6 +131,40 @@
     "ns_th_val": 8743419068,
     "current_ipc": "IPC 02"
   },
+  "cocau": [
+    {
+      "ma": "NC",
+      "noi_dung": "Nhân công"
+    },
+    {
+      "ma": "VT",
+      "noi_dung": "Vật tư"
+    },
+    {
+      "ma": "PRE",
+      "noi_dung": "Chi phí Prelims"
+    },
+    {
+      "ma": "DP",
+      "noi_dung": "Chi phí dự phòng"
+    },
+    {
+      "ma": "QLDN",
+      "noi_dung": "CP Quản lý DN"
+    },
+    {
+      "ma": "DT",
+      "noi_dung": "Chi phí đặc thù"
+    },
+    {
+      "ma": "GG",
+      "noi_dung": "Giảm giá"
+    },
+    {
+      "ma": "PSG",
+      "noi_dung": "Phát sinh giảm"
+    }
+  ],
   "TT": [
     {
       "a": "NC",
