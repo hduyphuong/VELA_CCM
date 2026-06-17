@@ -695,25 +695,33 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   </div>
 
   <div class="card mb0" style="margin-top:0.875rem">
-    <div class="stitle">Bảng chi tiết sử dụng</div>
+    <div class="stitle" style="display:flex;align-items:center;justify-content:space-between">
+      <span>Bảng chi tiết sử dụng</span>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="tool-btn" id="p5FilterAll"  onclick="filterP5Detail('ALL')"  style="font-size:11px;padding:3px 10px;background:#3B2D6F;color:#fff;border:none;border-radius:4px;cursor:pointer">Tất cả</button>
+        <button class="tool-btn" id="p5FilterPRE"  onclick="filterP5Detail('PRE')"  style="font-size:11px;padding:3px 10px;background:#E8552A;color:#fff;border:none;border-radius:4px;cursor:pointer">Prelim</button>
+        <button class="tool-btn" id="p5FilterDP"   onclick="filterP5Detail('DP')"   style="font-size:11px;padding:3px 10px;background:#F5A623;color:#fff;border:none;border-radius:4px;cursor:pointer">Dự phòng</button>
+        <button class="tool-btn" id="p5FilterQLDN" onclick="filterP5Detail('QLDN')" style="font-size:11px;padding:3px 10px;background:#3B2D6F;color:#fff;border:none;border-radius:4px;cursor:pointer">QLDN</button>
+      </div>
+    </div>
     <div class="tbl-wrap">
     <table>
       <thead><tr>
-        <th>STT</th>
-        <th class="tl">Nhóm</th>
-        <th class="tl" style="min-width:180px">Nội dung</th>
-        <th>Tháng</th>
-        <th>NS/tháng (tr.đ)</th>
-        <th>TH tháng (tr.đ)</th>
-        <th>+/−</th>
-        <th>NS lũy kế</th>
-        <th>TH lũy kế</th>
-        <th style="min-width:90px">% Sử dụng</th>
-        <th>Trạng thái</th>
+        <th style="width:36px">STT</th>
+        <th style="width:80px">Loại</th>
+        <th class="tl" style="min-width:200px">Nội dung công việc</th>
+        <th style="width:72px">Tháng</th>
+        <th>Nhà thầu / NCC</th>
+        <th>GT Thực hiện</th>
+        <th>Đã thanh toán</th>
+        <th>Còn lại</th>
+        <th style="width:72px">% TT</th>
+        <th style="width:100px">Trạng thái</th>
       </tr></thead>
       <tbody id="p5DetailBody">
-        <tr><td colspan="11" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+        <tr><td colspan="10" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
       </tbody>
+      <tfoot id="p5DetailFoot"></tfoot>
     </table>
     </div>
   </div>
@@ -1561,6 +1569,12 @@ function applyData(data, projectId) {
     }]
   });
 
+  // Bảng chi tiết sử dụng P5 — TT[] mã PRE/DP/QLDN
+  const GT_LABEL = {PRE:'Prelim', DP:'Dự phòng', QLDN:'QLDN'};
+  const GT_COLOR = {PRE:'#E8552A', DP:'#F5A623', QLDN:'#3B2D6F'};
+  window._p5DetailRows = ttByCodes(GT_CODES).map((r,i) => ({...r, _idx: i+1}));
+  renderP5Detail('ALL');
+
   wdSortDir = 0;
   el('sortWD_icon').textContent = '⇅';
   const ms2items = el('ms2Items');
@@ -1568,6 +1582,83 @@ function applyData(data, projectId) {
   updateMsLabel('ms2');
   filterWD();
   filterTT();
+}
+
+// ===== P5 BANG CHI TIET =====
+const GT_LABEL_MAP = {PRE:'Prelim', DP:'Dự phòng', QLDN:'QLDN'};
+const GT_COLOR_MAP = {PRE:'#E8552A', DP:'#F5A623', QLDN:'#3B2D6F'};
+
+function filterP5Detail(code) {
+  // highlight active button
+  ['ALL','PRE','DP','QLDN'].forEach(k => {
+    const btn = el('p5Filter'+k);
+    if(!btn) return;
+    btn.style.opacity = (k === code) ? '1' : '0.45';
+    btn.style.outline = (k === code) ? '2px solid #fff' : 'none';
+  });
+  renderP5Detail(code);
+}
+
+function renderP5Detail(code) {
+  const body = el('p5DetailBody');
+  const foot = el('p5DetailFoot');
+  if(!body) return;
+  const rows = (window._p5DetailRows || []).filter(r =>
+    code === 'ALL' || (r.a||'').toUpperCase() === code
+  );
+  body.innerHTML = '';
+  if(rows.length === 0) {
+    body.innerHTML = '<tr><td colspan="10" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+    if(foot) foot.innerHTML = '';
+    return;
+  }
+  // sort: theo loại (PRE→DP→QLDN) rồi theo tháng
+  const ORDER = {PRE:0, DP:1, QLDN:2};
+  rows.sort((a,b) => {
+    const oa = ORDER[(a.a||'').toUpperCase()]??9, ob = ORDER[(b.a||'').toUpperCase()]??9;
+    if(oa !== ob) return oa - ob;
+    // sort tháng MM-YYYY
+    const pa=(a.p||'').split('-'), pb=(b.p||'').split('-');
+    if(pa.length===2&&pb.length===2) return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);
+    return (a.p||'').localeCompare(b.p||'');
+  });
+
+  let totalGT=0, totalTT=0, totalCL=0;
+  rows.forEach((r, i) => {
+    const code_r = (r.a||'').toUpperCase();
+    const label  = GT_LABEL_MAP[code_r] || code_r || '—';
+    const color  = GT_COLOR_MAP[code_r] || '#555';
+    const gt = r.gt||0, tt = r.tt||0, cl = r.cl||0;
+    totalGT += gt; totalTT += tt; totalCL += cl;
+    const pctTT = gt > 0 ? ((tt/gt)*100).toFixed(0) : null;
+    const status = pctTT === null ? '<span style="color:#6c757d">—</span>'
+      : +pctTT >= 100 ? '<span class="badge bg-g">Đã TT đủ</span>'
+      : +pctTT >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Còn nợ</span>'
+      :                  '<span class="badge bg-b" style="background:#e7f3ff;color:#1565c0">Chưa TT</span>';
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(i+1)+'</td>'
+      +'<td class="tc"><span style="background:'+color+';color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;white-space:nowrap">'+label+'</span></td>'
+      +'<td class="tl wrap" style="max-width:220px">'+(r.n||'—')+'</td>'
+      +'<td class="tc" style="color:#5c6b7a;font-size:11px">'+(r.p||'—')+'</td>'
+      +'<td class="tl" style="font-size:11px;max-width:160px">'+(r.t||'—')+'</td>'
+      +'<td class="tr">'+(gt?fmtAuto(gt):'—')+'</td>'
+      +'<td class="tr">'+(tt?fmtAuto(tt):'—')+'</td>'
+      +'<td class="tr '+(cl>0?'neg':cl<0?'pos':'')+'">'+(gt?fmtAuto(cl):'—')+'</td>'
+      +'<td class="tc">'+(pctTT!==null?pctTT+'%':'—')+'</td>'
+      +'<td class="tc">'+status+'</td>';
+    body.appendChild(tr);
+  });
+
+  if(foot) {
+    const totalPct = totalGT > 0 ? ((totalTT/totalGT)*100).toFixed(0)+'%' : '—';
+    foot.innerHTML = '<tr style="font-weight:700;background:#f0f0f0">'
+      +'<td colspan="5" class="tl" style="padding-left:8px">TỔNG CỘNG ('+rows.length+' mục)</td>'
+      +'<td class="tr">'+fmtAuto(totalGT)+'</td>'
+      +'<td class="tr">'+fmtAuto(totalTT)+'</td>'
+      +'<td class="tr '+(totalCL>0?'neg':totalCL<0?'pos':'')+'">'+fmtAuto(totalCL)+'</td>'
+      +'<td class="tc">'+totalPct+'</td>'
+      +'<td></td></tr>';
+  }
 }
 
 // ===== MULTI-SELECT HELPERS =====
