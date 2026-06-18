@@ -846,8 +846,9 @@ async function doAuth() {
         JSON.parse(plain); // throws neu sai mat khau
       }
     }
-    // Dung mat khau → luu session va mo dashboard
+    // Dung mat khau → luu session va localStorage (may chu, khong mat khi dong tab)
     sessionStorage.setItem('ccm_pwd', pwd);
+    localStorage.setItem('ccm_pwd', pwd);
     document.getElementById('authOverlay').classList.remove('visible');
     el('authBtn').textContent = 'Xác nhận';
     document.getElementById('authInput').value = '';
@@ -873,7 +874,7 @@ async function loadProject(id) {
       data = raw;
     } else {
       // Da ma hoa — giai ma
-      const pwd = sessionStorage.getItem('ccm_pwd') || '';
+      const pwd = sessionStorage.getItem('ccm_pwd') || localStorage.getItem('ccm_pwd') || '';
       const plain = _aesDecrypt(raw, pwd);
       if(!plain) throw new Error('Sai mật khẩu hoặc dữ liệu lỗi');
       data = JSON.parse(plain);
@@ -2006,7 +2007,7 @@ async function init() {
       const r2 = await fetch('data/' + first.id + '/data.json?v=' + Date.now());
       const raw = await r2.json();
       const isEncrypted = !raw.meta;
-      if(isEncrypted && !sessionStorage.getItem('ccm_pwd')) {
+      if(isEncrypted && !sessionStorage.getItem('ccm_pwd') && !localStorage.getItem('ccm_pwd')) {
         // Can mat khau → hien overlay
         showLoading(false);
         document.getElementById('authOverlay').classList.add('visible');
