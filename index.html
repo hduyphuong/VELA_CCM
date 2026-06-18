@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CCM Dashboard – VELA E&C</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 <style>
 /* ===== VELA COLOR PALETTE ===== */
 html{font-size:16px;-webkit-text-size-adjust:100%}
@@ -40,6 +41,19 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a2332;fo
 .nav-btn.active{background:#f0f2f5;color:#3B2D6F;font-weight:700}
 .nav-num{display:inline-flex;align-items:center;justify-content:center;width:1.125rem;height:1.125rem;border-radius:50%;font-size:0.625rem;font-weight:700;background:rgba(255,255,255,.25);margin-right:0.375rem}
 .nav-btn.active .nav-num{background:#E8552A;color:white}
+
+/* ===== AUTH OVERLAY ===== */
+#authOverlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(20,15,40,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center}
+#authOverlay.visible{display:flex}
+.auth-box{background:white;border-radius:14px;padding:2rem 2.5rem;max-width:360px;width:90%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.35)}
+.auth-logo{font-size:2.5rem;margin-bottom:0.75rem}
+.auth-box h3{font-size:1.125rem;font-weight:700;color:#3B2D6F;margin-bottom:0.375rem}
+.auth-box p{font-size:0.8125rem;color:#6c757d;margin-bottom:1.25rem}
+#authInput{width:100%;padding:0.625rem 0.875rem;border:1.5px solid #d0d7e3;border-radius:7px;font-size:0.9375rem;outline:none;transition:border .2s;text-align:center;letter-spacing:0.1em}
+#authInput:focus{border-color:#3B2D6F}
+#authBtn{margin-top:0.875rem;width:100%;padding:0.65rem;background:linear-gradient(135deg,#3B2D6F,#E8552A);color:white;border:none;border-radius:7px;font-size:0.9375rem;font-weight:700;cursor:pointer;transition:opacity .2s}
+#authBtn:hover{opacity:.88}
+#authError{margin-top:0.75rem;font-size:0.8125rem;color:#dc3545;display:none;font-weight:600}
 
 /* ===== LOADING / ERROR ===== */
 #loadingState,#errorState{display:none;padding:3rem 1.5rem;text-align:center;color:#6c757d;font-size:0.875rem}
@@ -254,6 +268,18 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <span class="nav-num">5</span>BC CP Gián tiếp
     </button>
   </nav>
+</div>
+
+<!-- AUTH OVERLAY -->
+<div id="authOverlay">
+  <div class="auth-box">
+    <div class="auth-logo">🔐</div>
+    <h3>CCM Dashboard</h3>
+    <p>Nhập mật khẩu để xem báo cáo</p>
+    <input type="password" id="authInput" placeholder="Mật khẩu..." autocomplete="current-password" />
+    <button id="authBtn" onclick="doAuth()">Xác nhận</button>
+    <p id="authError">Mật khẩu không đúng. Vui lòng thử lại.</p>
+  </div>
 </div>
 
 <!-- LOADING STATE -->
@@ -772,13 +798,86 @@ function buildProjectSwitcher(projects) {
   });
 }
 
+// ===== AES DECRYPT =====
+function _aesDecrypt(cipher, pwd) {
+  // cipher = {ct, iv, s} — format tu ma_hoa_dashboard.py (EVP_BytesToKey compatible)
+  const saltHex = cipher.s;
+  const ivHex   = cipher.iv;
+  const ctB64   = cipher.ct;
+  const salt    = CryptoJS.enc.Hex.parse(saltHex);
+  const iv      = CryptoJS.enc.Hex.parse(ivHex);
+  // Derive key bang EVP_BytesToKey (MD5, 1 iter, 32 byte key) — giong OpenSSL/pycryptodome
+  const pwdBytes = CryptoJS.enc.Utf8.parse(pwd);
+  let d = CryptoJS.lib.WordArray.create([]);
+  let prev = CryptoJS.lib.WordArray.create([]);
+  while(d.sigBytes < 48) {
+    prev = CryptoJS.MD5(prev.concat(pwdBytes).concat(salt));
+    d = d.concat(prev);
+  }
+  const key = CryptoJS.lib.WordArray.create(d.words.slice(0, 8));  // 32 bytes
+  const decrypted = CryptoJS.AES.decrypt(
+    { ciphertext: CryptoJS.enc.Base64.parse(ctB64) },
+    key,
+    { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 }
+  );
+  return decrypted.toString(CryptoJS.enc.Utf8);
+}
+
+// ===== AUTH =====
+async function doAuth() {
+  const pwd = document.getElementById('authInput').value;
+  if(!pwd) return;
+  el('authError').style.display = 'none';
+  el('authBtn').textContent = '...';
+  try {
+    const resp = await fetch('data/projects.json');
+    const { projects } = await resp.json();
+    const first = projects.find(p => p.has_data);
+    if(first) {
+      const r2 = await fetch('data/' + first.id + '/data.json?v=' + Date.now());
+      const raw = await r2.json();
+      // Neu la plaintext (chua ma hoa) → co truong "meta"
+      if(raw.meta) {
+        // File chua ma hoa → cho qua khong can mat khau
+      } else {
+        // File da ma hoa → thu decrypt de verify
+        const plain = _aesDecrypt(raw, pwd);
+        if(!plain) throw new Error('wrong');
+        JSON.parse(plain); // throws neu sai mat khau
+      }
+    }
+    // Dung mat khau → luu session va mo dashboard
+    sessionStorage.setItem('ccm_pwd', pwd);
+    document.getElementById('authOverlay').classList.remove('visible');
+    el('authBtn').textContent = 'Xác nhận';
+    document.getElementById('authInput').value = '';
+    init();
+  } catch(e) {
+    el('authError').style.display = 'block';
+    el('authBtn').textContent = 'Xác nhận';
+    document.getElementById('authInput').value = '';
+    document.getElementById('authInput').focus();
+  }
+}
+
 // ===== LOAD PROJECT =====
 async function loadProject(id) {
   showLoading(true);
   try {
     const resp = await fetch('data/' + id + '/data.json?v=' + Date.now());
     if(!resp.ok) throw new Error('HTTP ' + resp.status);
-    const data = await resp.json();
+    const raw = await resp.json();
+    let data;
+    if(raw.meta) {
+      // Plaintext (chua ma hoa)
+      data = raw;
+    } else {
+      // Da ma hoa — giai ma
+      const pwd = sessionStorage.getItem('ccm_pwd') || '';
+      const plain = _aesDecrypt(raw, pwd);
+      if(!plain) throw new Error('Sai mật khẩu hoặc dữ liệu lỗi');
+      data = JSON.parse(plain);
+    }
     applyData(data, id);
     showLoading(false);
     el('p1').classList.add('active');
@@ -1900,8 +1999,23 @@ async function init() {
     const resp = await fetch('data/projects.json');
     if(!resp.ok) throw new Error('Không tải được projects.json');
     const { projects } = await resp.json();
-    buildProjectSwitcher(projects);
+
+    // Kiem tra xem du lieu co ma hoa khong
     const first = projects.find(p => p.has_data);
+    if(first) {
+      const r2 = await fetch('data/' + first.id + '/data.json?v=' + Date.now());
+      const raw = await r2.json();
+      const isEncrypted = !raw.meta;
+      if(isEncrypted && !sessionStorage.getItem('ccm_pwd')) {
+        // Can mat khau → hien overlay
+        showLoading(false);
+        document.getElementById('authOverlay').classList.add('visible');
+        setTimeout(() => document.getElementById('authInput').focus(), 100);
+        return;
+      }
+    }
+
+    buildProjectSwitcher(projects);
     if(first) {
       document.querySelectorAll('.proj-tab').forEach(t =>
         t.classList.toggle('active', t.textContent.startsWith(first.id)));
@@ -1915,6 +2029,12 @@ async function init() {
     showError('Không tải được danh sách dự án: ' + e.message);
   }
 }
+
+// Enter key tren input goi doAuth
+document.addEventListener('DOMContentLoaded', () => {
+  const inp = document.getElementById('authInput');
+  if(inp) inp.addEventListener('keydown', e => { if(e.key === 'Enter') doAuth(); });
+});
 
 window.addEventListener('load', () => { init(); });
 </script>
