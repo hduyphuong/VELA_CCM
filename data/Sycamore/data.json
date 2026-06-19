@@ -2,7 +2,7 @@
   "meta": {
     "project_id": "Sycamore",
     "project_name": "Sycamore B14",
-    "generated_at": "2026-06-19T14:46:50",
+    "generated_at": "2026-06-19T15:15:07",
     "source_file": "VELA_CCM_SYCAMORE_KIEM_SOAT_CPKL.xlsx",
     "phase": "Hoàn thiện Xây và Tô"
   },
@@ -10,9 +10,9 @@
     "boq_total": 19373867141.199745,
     "vl_boq_total": 7178667993.973764,
     "budget_total": 17419408724.791183,
-    "cdt_total": 15340191248.406132,
-    "cdt_workdone_total": 15340191248.406134,
-    "cdt_nc_total": 9037131988.183084,
+    "cdt_total": 15304067989.02373,
+    "cdt_workdone_total": 15304067989.023731,
+    "cdt_nc_total": 9023131988.183084,
     "chi_phi_th_total": 14617075380.10325,
     "contractor_executed_total": 14617075380.10325,
     "contractor_paid_total": 14007623641.455925,
@@ -39,7 +39,7 @@
         "group": "Bệ móng vận thăng",
         "boq_value": 14000000.0,
         "budget_value": 12600000.0,
-        "cdt_workdone": 14000000.0,
+        "cdt_workdone": 0,
         "contractor_paid": 10800000.0
       },
       {
@@ -67,7 +67,7 @@
         "group": "Giảm giá",
         "boq_value": -1400000000.0,
         "budget_value": 0,
-        "cdt_workdone": -293870884.6517563,
+        "cdt_workdone": -315994144.0341584,
         "contractor_paid": 0
       },
       {
@@ -18092,10 +18092,10 @@
       "ttNC_boq": 14000000.0,
       "ttBOQ_R": 14000000.0,
       "ttVL_cdt": 0.0,
-      "ttNC_cdt": 14000000.0,
-      "ttCDT_Z": 14000000.0,
-      "cdt": 2.0,
-      "ttCDT": 14000000.0,
+      "ttNC_cdt": 0.0,
+      "ttCDT_Z": 0.0,
+      "cdt": 0.0,
+      "ttCDT": 0.0,
       "dtc": 1.0,
       "ttDTC": 12000000.0,
       "ao": "0"
@@ -18511,9 +18511,9 @@
       "ttBOQ_R": -1400000000.0,
       "ttVL_cdt": 0.0,
       "ttNC_cdt": 0.0,
-      "ttCDT_Z": -293870884.6517563,
+      "ttCDT_Z": -315994144.0341584,
       "cdt": 0.0,
-      "ttCDT": -293870884.6517563,
+      "ttCDT": -315994144.0341584,
       "dtc": 0.0,
       "ttDTC": 0.0,
       "ao": "GG"
