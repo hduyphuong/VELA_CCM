@@ -1376,15 +1376,9 @@ function applyData(data, projectId) {
     }
     return a.localeCompare(b);
   });
-  // Tính lũy kế GT thực hiện — chỉ mã NC (cột I Data-TT, field a='NC')
-  const monthMapNC = {};
-  TT.filter(r=>r.a==='NC').forEach(r => {
-    const mo = r.p || 'N/A';
-    if(!monthMapNC[mo]) monthMapNC[mo] = 0;
-    monthMapNC[mo] += (r.gt||0);
-  });
+  // Tính lũy kế GT thực hiện — cùng nguồn với bar (tất cả mã)
   let cumGT = 0;
-  const cumulativeGT = sortedMonths.map(m => { cumGT += (monthMapNC[m]||0); return cumGT; });
+  const cumulativeGT = sortedMonths.map(m => { cumGT += (monthMap[m].gt||0); return cumGT; });
   const fmtChartVal = v => v >= 1e8 ? (v/1e9).toFixed(2)+'tỷ' : (v/1e6).toFixed(0)+'tr';
 
   if(chartMonthlyInst){ chartMonthlyInst.destroy(); chartMonthlyInst=null; }
