@@ -1361,9 +1361,9 @@ function applyData(data, projectId) {
     return a.localeCompare(b);
   }));
 
-  // --- Chart Monthly ---
+  // --- Chart Monthly --- chỉ mã NC
   const monthMap = {};
-  TT.forEach(r => {
+  TT.filter(r => r.a === 'NC').forEach(r => {
     const mo = r.p || 'N/A';
     if(!monthMap[mo]) monthMap[mo] = { gt:0, tt:0 };
     monthMap[mo].gt += (r.gt||0);
