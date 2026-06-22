@@ -612,6 +612,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <tbody id="p4NccBody">
           <tr><td colspan="6" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
         </tbody>
+        <tfoot id="p4NccTfoot"></tfoot>
       </table>
       </div>
     </div>
@@ -1537,15 +1538,12 @@ function applyData(data, projectId) {
       totGT+=v.gt; totTT+=v.tt; totCL+=v.cl;
     });
     const totPct = totGT > 0 ? ((totTT/totGT)*100).toFixed(0)+'%' : '—';
-    const trTot = document.createElement('tr');
-    trTot.style.cssText = 'font-weight:700;border-top:2px solid #dee2e6;background:#f8f9fa';
-    trTot.innerHTML = '<td class="tl">TỔNG CỘNG</td>'
+    el('p4NccTfoot').innerHTML = '<tr><td class="tl">TỔNG CỘNG</td>'
       +'<td class="tr">'+fmtAuto(totGT)+'</td>'
       +'<td class="tr">'+fmtAuto(totTT)+'</td>'
       +'<td class="tr '+(totCL>0?'neg':totCL<0?'pos':'')+'">'+fmtAuto(totCL)+'</td>'
       +'<td class="tc">'+totPct+'</td>'
-      +'<td></td>';
-    p4NccBody.appendChild(trTot);
+      +'<td></td></tr>';
   }
 
   // Bảng đối chiếu NS VT từ NS[] mã VT
