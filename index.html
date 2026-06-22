@@ -1519,6 +1519,7 @@ function applyData(data, projectId) {
   if(nccList.length === 0) {
     p4NccBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
   } else {
+    let totGT=0, totTT=0, totCL=0;
     nccList.forEach(([ncc, v]) => {
       const pctTT = v.gt > 0 ? ((v.tt/v.gt)*100).toFixed(0) : null;
       const status = pctTT === null ? '<span style="color:#6c757d">—</span>'
@@ -1533,7 +1534,18 @@ function applyData(data, projectId) {
         +'<td class="tc">'+(pctTT!==null?pctTT+'%':'—')+'</td>'
         +'<td class="tc">'+status+'</td>';
       p4NccBody.appendChild(tr);
+      totGT+=v.gt; totTT+=v.tt; totCL+=v.cl;
     });
+    const totPct = totGT > 0 ? ((totTT/totGT)*100).toFixed(0)+'%' : '—';
+    const trTot = document.createElement('tr');
+    trTot.style.cssText = 'font-weight:700;border-top:2px solid #dee2e6;background:#f8f9fa';
+    trTot.innerHTML = '<td class="tl">TỔNG CỘNG</td>'
+      +'<td class="tr">'+fmtAuto(totGT)+'</td>'
+      +'<td class="tr">'+fmtAuto(totTT)+'</td>'
+      +'<td class="tr '+(totCL>0?'neg':totCL<0?'pos':'')+'">'+fmtAuto(totCL)+'</td>'
+      +'<td class="tc">'+totPct+'</td>'
+      +'<td></td>';
+    p4NccBody.appendChild(trTot);
   }
 
   // Bảng đối chiếu NS VT từ NS[] mã VT
