@@ -632,6 +632,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <th>ĐVT</th>
         <th>KL Ngân sách</th>
         <th>KL Đã nhập</th>
+        <th>% KL nhập</th>
         <th>KL Chênh lệch</th>
         <th>% Vượt KL</th>
         <th>Giá trị Ngân sách</th>
@@ -1551,7 +1552,7 @@ function applyData(data, projectId) {
   p4DcBody.innerHTML = '';
   const nsVTrows = nsByCode('VT');
   if(nsVTrows.length === 0) {
-    p4DcBody.innerHTML = '<tr><td colspan="11" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu vật tư</td></tr>';
+    p4DcBody.innerHTML = '<tr><td colspan="12" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu vật tư</td></tr>';
   } else {
     nsVTrows.forEach((r, idx) => {
       const klNS     = r.kl||0;
@@ -1574,6 +1575,7 @@ function applyData(data, projectId) {
         +'<td class="tc">'+(r.u||'—')+'</td>'
         +'<td class="tr">'+(klNS   ? fmtKL(klNS)    : '—')+'</td>'
         +'<td class="tr">'+(klDaNhap ? fmtKL(klDaNhap) : '—')+'</td>'
+        +'<td class="tc">'+(klNS > 0 ? ((klDaNhap/klNS)*100).toFixed(0)+'%' : '—')+'</td>'
         +'<td class="tr '+(clKL>0?'neg':clKL<0?'pos':'')+'">'+(klNS||klDaNhap ? fmtCL(clKL) : '—')+'</td>'
         +'<td class="tc">'+(vuotPct ? '<span style="color:#c62828">'+vuotPct+'%</span>' : '<span style="color:#6c757d">—</span>')+'</td>'
         +'<td class="tr">'+(ttNS     ? fmtAuto(ttNS)     : '—')+'</td>'
