@@ -494,7 +494,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <span class="kpi-badge bg-r" id="kpi3_cl_badge">—</span>
     </div>
     <div class="kpi-card t">
-      <div class="kpi-label">Ngân sách (Nhân công)</div>
+      <div class="kpi-label">Ngân sách (NC + Đặc thù)</div>
       <div class="kpi-value" id="kpi3_ns" style="color:#00796b">—</div>
       <div class="kpi-sub">VNĐ – Ngân sách khoán đội</div>
     </div>
@@ -1424,9 +1424,10 @@ function applyData(data, projectId) {
   el('p3DoiCount').textContent = '(' + [...new Set(ttNCDT.map(r=>r.t))].filter(Boolean).length + ' đội)';
 
   // NS nhân công = tổng NS mã NC
-  el('kpi3_ns').textContent = fmtAuto(nsNC_val);
+  const nsNCDT_val = (nsValMap['NC'] || 0) + (nsValMap['DT'] || 0);
+  el('kpi3_ns').textContent = fmtAuto(nsNCDT_val);
   el('kpi3_ns').style.color = '#00796b';
-  const nsConlai = nsNC_val - p3TH;
+  const nsConlai = nsNCDT_val - p3TH;
   el('kpi3_ns_cl').textContent = fmtAuto(Math.abs(nsConlai));
   el('kpi3_ns_cl').style.color = nsConlai >= 0 ? '#2e7d32' : '#c62828';
   el('kpi3_ns_cl_card').style.borderLeftColor = nsConlai >= 0 ? '#2e7d32' : '#c62828';
