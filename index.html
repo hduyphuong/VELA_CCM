@@ -777,11 +777,12 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 
   <div class="grid-2">
     <div class="card mb0">
-      <div class="stitle">Tổng hợp theo nhà cung cấp / đội</div>
+      <div class="stitle">Tổng hợp theo nhà cung cấp</div>
       <div class="tbl-wrap">
       <table>
         <thead><tr>
-          <th class="tl">Nhà cung cấp / Đội</th>
+          <th class="tl">Nhà cung cấp</th>
+          <th>Hình thức</th>
           <th>GT thực hiện</th>
           <th>Đã thanh toán</th>
           <th>Chưa TT</th>
@@ -789,7 +790,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
           <th>Trạng thái</th>
         </tr></thead>
         <tbody id="p6NccBody">
-          <tr><td colspan="6" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+          <tr><td colspan="7" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
         </tbody>
         <tfoot id="p6NccTfoot"></tfoot>
       </table>
@@ -1921,17 +1922,22 @@ function applyData(data, projectId) {
   // Bảng tổng hợp theo nhà cung cấp / đội (mã MMTB)
   const p6NccBody = el('p6NccBody');
   p6NccBody.innerHTML = '';
+  // Hình thức: đọc từ gc (Ghi chú) — tìm từ khóa Mua/Thuê (case-insensitive)
   const mmtbNccMap = {};
   ttByCode('MMTB').forEach(r => {
     const ncc = (r.t||'').trim() || '(Không rõ)';
-    if(!mmtbNccMap[ncc]) mmtbNccMap[ncc] = {gt:0, tt:0, cl:0};
+    const gc  = (r.gc||'').toLowerCase();
+    const ht  = gc.includes('thuê') || gc.includes('thue') ? 'Thuê'
+              : gc.includes('mua') ? 'Mua' : '—';
+    if(!mmtbNccMap[ncc]) mmtbNccMap[ncc] = {gt:0, tt:0, cl:0, htSet: new Set()};
     mmtbNccMap[ncc].gt += r.gt||0;
     mmtbNccMap[ncc].tt += r.tt||0;
     mmtbNccMap[ncc].cl += r.cl||0;
+    if(ht !== '—') mmtbNccMap[ncc].htSet.add(ht);
   });
   const mmtbNccList = Object.entries(mmtbNccMap).sort((a,b) => b[1].gt - a[1].gt);
   if(mmtbNccList.length === 0) {
-    p6NccBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+    p6NccBody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
   } else {
     let tot6GT=0, tot6TT=0, tot6CL=0;
     mmtbNccList.forEach(([ncc, v]) => {
@@ -1940,8 +1946,14 @@ function applyData(data, projectId) {
         : +pctTT6 >= 100 ? '<span style="color:#2e7d32;font-weight:600">Đã TT đủ</span>'
         : +pctTT6 > 0    ? '<span style="color:#F5A623;font-weight:600">Còn nợ</span>'
         :                   '<span style="color:#c62828;font-weight:600">Chưa TT</span>';
+      const htArr = [...v.htSet];
+      const htLabel = htArr.length === 0 ? '—'
+        : htArr.length === 2 ? 'Mua + Thuê'
+        : htArr[0];
+      const htColor = htLabel === 'Thuê' ? '#1565C0' : htLabel === 'Mua' ? '#2e7d32' : '#6c757d';
       const tr = document.createElement('tr');
-      tr.innerHTML = '<td class="tl wrap" style="max-width:200px">'+ncc+'</td>'
+      tr.innerHTML = '<td class="tl wrap" style="max-width:180px">'+ncc+'</td>'
+        +'<td class="tc"><span style="color:'+htColor+';font-weight:600;font-size:11px">'+htLabel+'</span></td>'
         +'<td class="tr">'+fmtAuto(v.gt)+'</td>'
         +'<td class="tr">'+fmtAuto(v.tt)+'</td>'
         +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
@@ -1951,7 +1963,7 @@ function applyData(data, projectId) {
       tot6GT+=v.gt; tot6TT+=v.tt; tot6CL+=v.cl;
     });
     const tot6Pct = tot6GT > 0 ? ((tot6TT/tot6GT)*100).toFixed(0)+'%' : '—';
-    el('p6NccTfoot').innerHTML = '<tr><td class="tl">TỔNG CỘNG</td>'
+    el('p6NccTfoot').innerHTML = '<tr><td class="tl" colspan="2">TỔNG CỘNG</td>'
       +'<td class="tr">'+fmtAuto(tot6GT)+'</td>'
       +'<td class="tr">'+fmtAuto(tot6TT)+'</td>'
       +'<td class="tr '+(tot6CL>0?'neg':tot6CL<0?'pos':'')+'">'+fmtAuto(tot6CL)+'</td>'
