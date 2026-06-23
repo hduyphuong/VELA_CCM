@@ -1978,10 +1978,10 @@ function applyData(data, projectId) {
       const htLabel = htArr.length === 0 ? '—'
         : htArr.length === 2 ? 'Mua + Thuê'
         : htArr[0];
-      const htColor = htLabel === 'Thuê' ? '#1565C0' : htLabel === 'Mua' ? '#2e7d32' : '#6c757d';
+      const htBg = htLabel === 'Thuê' ? '#1565C0' : htLabel === 'Mua' ? '#2e7d32' : '#adb5bd';
       const tr = document.createElement('tr');
       tr.innerHTML = '<td class="tl wrap" style="max-width:180px">'+ncc+'</td>'
-        +'<td class="tc"><span style="color:'+htColor+';font-weight:600;font-size:11px">'+htLabel+'</span></td>'
+        +'<td class="tc"><span style="background:'+htBg+';color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;white-space:nowrap">'+htLabel+'</span></td>'
         +'<td class="tr">'+fmtAuto(v.gt)+'</td>'
         +'<td class="tr">'+fmtAuto(v.tt)+'</td>'
         +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
@@ -2158,12 +2158,12 @@ function renderP6Detail(rows) {
       : +pctTT >= 100 ? '<span class="badge bg-g">Đã TT đủ</span>'
       : +pctTT >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Còn nợ</span>'
       :                  '<span class="badge bg-b" style="background:#e7f3ff;color:#1565c0">Chưa TT</span>';
-    const htColor = r._ht === 'Thuê' ? '#1565C0' : r._ht === 'Mua' ? '#2e7d32' : '#aaa';
+    const htBg = r._ht === 'Thuê' ? '#1565C0' : r._ht === 'Mua' ? '#2e7d32' : '#adb5bd';
     const tr = document.createElement('tr');
     tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(i+1)+'</td>'
       +'<td class="tl wrap" style="max-width:220px">'+(r.n||'—')+'</td>'
       +'<td class="tc" style="font-size:11px">'+(r.u||'—')+'</td>'
-      +'<td class="tc"><span style="color:'+htColor+';font-weight:600;font-size:11px">'+r._ht+'</span></td>'
+      +'<td class="tc"><span style="background:'+htBg+';color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;white-space:nowrap">'+r._ht+'</span></td>'
       +'<td class="tc" style="color:#5c6b7a;font-size:11px">'+(r.l||'—')+'</td>'
       +'<td class="tc" style="color:#5c6b7a;font-size:11px">'+(r.p||'—')+'</td>'
       +'<td class="tl" style="font-size:11px;max-width:160px">'+(r.t||'—')+'</td>'
