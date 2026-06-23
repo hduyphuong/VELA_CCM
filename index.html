@@ -267,6 +267,9 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     <button class="nav-btn" onclick="showPage('p5',this)">
       <span class="nav-num">5</span>BC CP Gián tiếp
     </button>
+    <button class="nav-btn" id="navP6" onclick="showPage('p6',this)">
+      <span class="nav-num">6</span>BC Máy móc TB
+    </button>
   </nav>
 </div>
 
@@ -737,6 +740,95 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 
 </div><!-- /p5 -->
 
+<!-- ============================================================ -->
+<!-- PAGE 6: BC MÁY MÓC THIẾT BỊ                                  -->
+<!-- ============================================================ -->
+<div id="p6" class="page">
+
+  <div class="kpi-row kpi-5">
+    <div class="kpi-card">
+      <div class="kpi-label">Tổng giá trị sử dụng</div>
+      <div class="kpi-value" id="kpi6_gt">—</div>
+      <div class="kpi-sub">VNĐ – Lũy kế phát sinh</div>
+    </div>
+    <div class="kpi-card g">
+      <div class="kpi-label">Đã thanh toán</div>
+      <div class="kpi-value" id="kpi6_tt" style="color:#2e7d32">—</div>
+      <div class="kpi-sub">VNĐ</div>
+      <span class="kpi-badge bg-g" id="kpi6_tt_badge">—</span>
+    </div>
+    <div class="kpi-card r">
+      <div class="kpi-label">Chưa thanh toán</div>
+      <div class="kpi-value" id="kpi6_chua_tt" style="color:#c62828">—</div>
+      <div class="kpi-sub">VNĐ</div>
+      <span class="kpi-badge bg-r" id="kpi6_chua_badge">—</span>
+    </div>
+    <div class="kpi-card t">
+      <div class="kpi-label">Ngân sách MMTB</div>
+      <div class="kpi-value" id="kpi6_ns" style="color:#00796b">—</div>
+      <div class="kpi-sub">VNĐ</div>
+    </div>
+    <div class="kpi-card" id="kpi6_ns_cl_card">
+      <div class="kpi-label">NS còn lại</div>
+      <div class="kpi-value" id="kpi6_ns_cl">—</div>
+      <div class="kpi-sub">NS – GT sử dụng</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card mb0">
+      <div class="stitle">Tổng hợp theo nhà cung cấp / đội</div>
+      <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th class="tl">Nhà cung cấp / Đội</th>
+          <th>GT thực hiện</th>
+          <th>Đã thanh toán</th>
+          <th>Chưa TT</th>
+          <th>% TT</th>
+          <th>Trạng thái</th>
+        </tr></thead>
+        <tbody id="p6NccBody">
+          <tr><td colspan="6" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+        </tbody>
+        <tfoot id="p6NccTfoot"></tfoot>
+      </table>
+      </div>
+    </div>
+    <div class="card mb0">
+      <div class="stitle">Sản lượng hàng tháng</div>
+      <div class="chart-box" style="height:280px"><canvas id="chartMMTBMonthly"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card mb0">
+    <div class="stitle">Bảng chi tiết máy móc thiết bị</div>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th style="width:36px">STT</th>
+        <th class="tl" style="min-width:200px">Nội dung công việc</th>
+        <th>ĐVT</th>
+        <th>Đợt TT</th>
+        <th>Tháng</th>
+        <th>Nhà cung cấp</th>
+        <th>KL</th>
+        <th>GT Thực hiện</th>
+        <th>Đã thanh toán</th>
+        <th>Còn lại</th>
+        <th style="width:72px">% TT</th>
+        <th style="width:100px">Trạng thái</th>
+      </tr></thead>
+      <tbody id="p6DetailBody">
+        <tr><td colspan="12" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+      </tbody>
+      <tfoot id="p6DetailFoot"></tfoot>
+    </table>
+    </div>
+  </div>
+
+</div><!-- /p6 -->
+
 <div class="footer" id="footerBar">
   VELA E&C &nbsp;|&nbsp; Cost & Contract Management &nbsp;|&nbsp; Lập bởi: <strong>Huỳnh Phương</strong>
 </div>
@@ -748,6 +840,7 @@ let WD = [], TT = [], NS = [], COCAU = [];
 let chartMonthlyInst = null;
 let chartGTInst = null;
 let chartVTMonthlyInst = null;
+let chartMMTBMonthlyInst = null;
 let wdSortDir = 0;
 let p3SortField = null;
 let p3SortDir = 0;
@@ -951,6 +1044,7 @@ function applyData(data, projectId) {
   // Fallback: nếu không có COCAU, dùng danh sách cứng
   const COCAU_LIST = COCAU.length > 0 ? COCAU : [
     {ma:'NC',noi_dung:'Nhân công'}, {ma:'VT',noi_dung:'Vật tư'},
+    {ma:'MMTB',noi_dung:'Máy móc thiết bị'},
     {ma:'PRE',noi_dung:'Chi phí Prelims'}, {ma:'DP',noi_dung:'Chi phí dự phòng'},
     {ma:'QLDN',noi_dung:'CP Quản lý DN'},
   ];
@@ -1590,7 +1684,7 @@ function applyData(data, projectId) {
   }
 
   // --- KPI Page 5: BC CP Gián tiếp — dùng tất cả mã trừ NC và VT ---
-  const GT_CODES = COCAU_LIST_ACTIVE.filter(c => c.ma !== 'NC' && c.ma !== 'VT').map(c => c.ma);
+  const GT_CODES = COCAU_LIST_ACTIVE.filter(c => c.ma !== 'NC' && c.ma !== 'VT' && c.ma !== 'MMTB').map(c => c.ma);
   const p5TH  = ttByCodes(GT_CODES).reduce((a,r)=>a+(r.gt||0),0);
   const p5TT  = ttByCodes(GT_CODES).reduce((a,r)=>a+(r.tt||0),0);
   const p5NS  = nsByCodes(GT_CODES).reduce((a,r)=>a+(r.tt||0),0);
@@ -1737,6 +1831,182 @@ function applyData(data, projectId) {
     });
   }
   renderP5Detail('ALL');
+
+  // --- KPI Page 6: BC Máy móc thiết bị (mã MMTB) ---
+  const p6TH  = ttByCode('MMTB').reduce((a,r)=>a+(r.gt||0),0);
+  const p6TT  = ttByCode('MMTB').reduce((a,r)=>a+(r.tt||0),0);
+  const p6CL  = ttByCode('MMTB').reduce((a,r)=>a+(r.cl||0),0);
+  const p6NS  = nsByCode('MMTB').reduce((a,r)=>a+(r.tt||0),0);
+  const p6pctTT = p6TH > 0 ? pct(p6TT, p6TH) : '—';
+  const p6pctCL = p6TH > 0 ? (100-parseFloat(p6pctTT)).toFixed(1) : '—';
+  el('kpi6_gt').textContent       = fmtAuto(p6TH);
+  el('kpi6_tt').textContent       = fmtAuto(p6TT);
+  el('kpi6_tt_badge').textContent = p6TH > 0 ? p6pctTT+'%' : '—';
+  el('kpi6_chua_tt').textContent  = fmtAuto(p6CL);
+  el('kpi6_chua_badge').textContent = p6TH > 0 ? p6pctCL+'%' : '—';
+  el('kpi6_ns').textContent = p6NS > 0 ? fmtAuto(p6NS) : '—';
+  const p6NSconlai = p6NS - p6TH;
+  if(p6NS > 0) {
+    el('kpi6_ns_cl').textContent = (p6NSconlai < 0 ? '-' : '') + fmtAuto(Math.abs(p6NSconlai));
+    el('kpi6_ns_cl').style.color = p6NSconlai >= 0 ? '#2e7d32' : '#c62828';
+    el('kpi6_ns_cl_card').style.borderLeftColor = p6NSconlai >= 0 ? '#2e7d32' : '#c62828';
+  } else {
+    el('kpi6_ns_cl').textContent = '—';
+  }
+
+  // Ẩn/hiện nav tab P6 nếu không có dữ liệu MMTB
+  const navP6 = el('navP6');
+  if(navP6) navP6.style.display = (ttByCode('MMTB').length > 0 || nsByCode('MMTB').length > 0) ? '' : 'none';
+
+  // Chart sản lượng hàng tháng (mã MMTB)
+  const mmtbMonthMap = {};
+  ttByCode('MMTB').forEach(r => {
+    const mo = r.p || 'N/A';
+    if(!mmtbMonthMap[mo]) mmtbMonthMap[mo] = {gt:0, tt:0};
+    mmtbMonthMap[mo].gt += r.gt||0;
+    mmtbMonthMap[mo].tt += r.tt||0;
+  });
+  const mmtbMonths = Object.keys(mmtbMonthMap).sort((a,b)=>{
+    const pa=a.split('-'), pb=b.split('-');
+    if(pa.length===2&&pb.length===2) return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);
+    return a.localeCompare(b);
+  });
+  let mmtbCumGT = 0;
+  const mmtbCumData = mmtbMonths.map(m=>{ mmtbCumGT+=mmtbMonthMap[m].gt; return mmtbCumGT; });
+  if(chartMMTBMonthlyInst){ chartMMTBMonthlyInst.destroy(); chartMMTBMonthlyInst=null; }
+  chartMMTBMonthlyInst = new Chart(el('chartMMTBMonthly').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels: mmtbMonths.length > 0 ? mmtbMonths : ['Chưa có dữ liệu'],
+      datasets:[
+        {label:'GT thực hiện MMTB', data: mmtbMonths.map(m=>mmtbMonthMap[m].gt), backgroundColor:'rgba(21,101,192,.75)', borderColor:'#1565C0', borderWidth:1, yAxisID:'y'},
+        {label:'Đã thanh toán MMTB', data: mmtbMonths.map(m=>mmtbMonthMap[m].tt), backgroundColor:'rgba(59,45,111,.8)', borderColor:'#3B2D6F', borderWidth:1, yAxisID:'y'},
+        {label:'Lũy kế GT TH', data: mmtbCumData, type:'line', borderColor:'#F5A623', backgroundColor:'rgba(245,166,35,.1)', borderWidth:2, pointRadius:3, fill:false, tension:0.3, yAxisID:'y2'},
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      layout:{padding:{top:18}},
+      plugins:{
+        legend:{position:'top',labels:{font:{size:11}}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toLocaleString('vi-VN')+' VNĐ'}}
+      },
+      scales:{
+        x:{ticks:{font:{size:10}}},
+        y:{ticks:{font:{size:10}, callback:v=>fmtChartVal(v)}},
+        y2:{position:'right', ticks:{font:{size:10}, callback:v=>fmtChartVal(v)}, grid:{drawOnChartArea:false}}
+      }
+    },
+    plugins:[{
+      id:'mmtbMonthlyLabels',
+      afterDatasetsDraw(chart){
+        const{ctx,data}=chart;
+        chart.getSortedVisibleDatasetMetas().forEach(meta=>{
+          if(meta.index===2) return;
+          meta.data.forEach((pt,i)=>{
+            const val=data.datasets[meta.index].data[i]||0;
+            if(val<=0) return;
+            ctx.save();
+            ctx.fillStyle='#1a2332';
+            ctx.font='bold 9px Segoe UI,Arial';
+            ctx.textAlign='center';
+            ctx.fillText(fmtChartVal(val), pt.x, pt.y-4);
+            ctx.restore();
+          });
+        });
+      }
+    }]
+  });
+
+  // Bảng tổng hợp theo nhà cung cấp / đội (mã MMTB)
+  const p6NccBody = el('p6NccBody');
+  p6NccBody.innerHTML = '';
+  const mmtbNccMap = {};
+  ttByCode('MMTB').forEach(r => {
+    const ncc = (r.t||'').trim() || '(Không rõ)';
+    if(!mmtbNccMap[ncc]) mmtbNccMap[ncc] = {gt:0, tt:0, cl:0};
+    mmtbNccMap[ncc].gt += r.gt||0;
+    mmtbNccMap[ncc].tt += r.tt||0;
+    mmtbNccMap[ncc].cl += r.cl||0;
+  });
+  const mmtbNccList = Object.entries(mmtbNccMap).sort((a,b) => b[1].gt - a[1].gt);
+  if(mmtbNccList.length === 0) {
+    p6NccBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+  } else {
+    let tot6GT=0, tot6TT=0, tot6CL=0;
+    mmtbNccList.forEach(([ncc, v]) => {
+      const pctTT6 = v.gt > 0 ? ((v.tt/v.gt)*100).toFixed(0) : null;
+      const status = pctTT6 === null ? '<span style="color:#6c757d">—</span>'
+        : +pctTT6 >= 100 ? '<span style="color:#2e7d32;font-weight:600">Đã TT đủ</span>'
+        : +pctTT6 > 0    ? '<span style="color:#F5A623;font-weight:600">Còn nợ</span>'
+        :                   '<span style="color:#c62828;font-weight:600">Chưa TT</span>';
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td class="tl wrap" style="max-width:200px">'+ncc+'</td>'
+        +'<td class="tr">'+fmtAuto(v.gt)+'</td>'
+        +'<td class="tr">'+fmtAuto(v.tt)+'</td>'
+        +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
+        +'<td class="tc">'+(pctTT6!==null?pctTT6+'%':'—')+'</td>'
+        +'<td class="tc">'+status+'</td>';
+      p6NccBody.appendChild(tr);
+      tot6GT+=v.gt; tot6TT+=v.tt; tot6CL+=v.cl;
+    });
+    const tot6Pct = tot6GT > 0 ? ((tot6TT/tot6GT)*100).toFixed(0)+'%' : '—';
+    el('p6NccTfoot').innerHTML = '<tr><td class="tl">TỔNG CỘNG</td>'
+      +'<td class="tr">'+fmtAuto(tot6GT)+'</td>'
+      +'<td class="tr">'+fmtAuto(tot6TT)+'</td>'
+      +'<td class="tr '+(tot6CL>0?'neg':tot6CL<0?'pos':'')+'">'+fmtAuto(tot6CL)+'</td>'
+      +'<td class="tc">'+tot6Pct+'</td>'
+      +'<td></td></tr>';
+  }
+
+  // Bảng chi tiết MMTB
+  const p6DetailBody = el('p6DetailBody');
+  const p6DetailFoot = el('p6DetailFoot');
+  p6DetailBody.innerHTML = '';
+  const mmtbRows = ttByCode('MMTB').slice().sort((a,b)=>{
+    const pa=(a.p||'').split('-'), pb=(b.p||'').split('-');
+    if(pa.length===2&&pb.length===2) return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);
+    return (a.p||'').localeCompare(b.p||'');
+  });
+  if(mmtbRows.length === 0) {
+    p6DetailBody.innerHTML = '<tr><td colspan="12" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu máy móc thiết bị</td></tr>';
+    if(p6DetailFoot) p6DetailFoot.innerHTML = '';
+  } else {
+    let tot6dGT=0, tot6dTT=0, tot6dCL=0;
+    mmtbRows.forEach((r,i)=>{
+      const gt=r.gt||0, tt=r.tt||0, cl=r.cl||0;
+      tot6dGT+=gt; tot6dTT+=tt; tot6dCL+=cl;
+      const pctTT6d = gt > 0 ? ((tt/gt)*100).toFixed(0) : null;
+      const status = pctTT6d === null ? '<span style="color:#6c757d">—</span>'
+        : +pctTT6d >= 100 ? '<span class="badge bg-g">Đã TT đủ</span>'
+        : +pctTT6d >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Còn nợ</span>'
+        :                    '<span class="badge bg-b" style="background:#e7f3ff;color:#1565c0">Chưa TT</span>';
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(i+1)+'</td>'
+        +'<td class="tl wrap" style="max-width:220px">'+(r.n||'—')+'</td>'
+        +'<td class="tc" style="font-size:11px">'+(r.u||'—')+'</td>'
+        +'<td class="tc" style="color:#5c6b7a;font-size:11px">'+(r.l||'—')+'</td>'
+        +'<td class="tc" style="color:#5c6b7a;font-size:11px">'+(r.p||'—')+'</td>'
+        +'<td class="tl" style="font-size:11px;max-width:160px">'+(r.t||'—')+'</td>'
+        +'<td class="tr" style="font-size:11px">'+(r.k?r.k.toLocaleString('vi-VN'):'—')+'</td>'
+        +'<td class="tr">'+(gt?fmtAuto(gt):'—')+'</td>'
+        +'<td class="tr">'+(tt?fmtAuto(tt):'—')+'</td>'
+        +'<td class="tr '+(cl>0?'neg':cl<0?'pos':'')+'">'+(gt?fmtAuto(cl):'—')+'</td>'
+        +'<td class="tc">'+(pctTT6d!==null?pctTT6d+'%':'—')+'</td>'
+        +'<td class="tc">'+status+'</td>';
+      p6DetailBody.appendChild(tr);
+    });
+    if(p6DetailFoot) {
+      const tot6dPct = tot6dGT > 0 ? ((tot6dTT/tot6dGT)*100).toFixed(0)+'%' : '—';
+      p6DetailFoot.innerHTML = '<tr style="font-weight:700;background:#f0f0f0">'
+        +'<td colspan="7" class="tl" style="padding-left:8px">TỔNG CỘNG ('+mmtbRows.length+' dòng)</td>'
+        +'<td class="tr">'+fmtAuto(tot6dGT)+'</td>'
+        +'<td class="tr">'+fmtAuto(tot6dTT)+'</td>'
+        +'<td class="tr '+(tot6dCL>0?'neg':tot6dCL<0?'pos':'')+'">'+fmtAuto(tot6dCL)+'</td>'
+        +'<td class="tc">'+tot6dPct+'</td>'
+        +'<td></td></tr>';
+    }
+  }
 
   wdSortDir = 0;
   el('sortWD_icon').textContent = '⇅';
