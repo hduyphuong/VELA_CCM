@@ -1130,8 +1130,9 @@ function applyData(data, projectId) {
         boqV = wdRows.reduce((a,r)=>a+(r.ttBOQ_R||0),0);
         cdtV = wdRows.reduce((a,r)=>a+(r.ttCDT_Z||0),0);
       } else if(mctGroup === 'NC') {
-        boqV = wdRows.reduce((a,r)=>a+(r.ttNC_boq||0),0);
-        cdtV = wdRows.reduce((a,r)=>a+(r.ttNC_cdt||0),0);
+        // ttNC_boq (col P) có thể =0 với một số dòng — fallback sang ttBOQ_R (col R)
+        boqV = wdRows.reduce((a,r)=>a+(r.ttNC_boq||r.ttBOQ_R||0),0);
+        cdtV = wdRows.reduce((a,r)=>a+(r.ttNC_cdt||r.ttCDT_Z||0),0);
       } else {
         // Fallback
         boqV = wdRows.reduce((a,r)=>a+(r.ttBOQ_R||0),0);
