@@ -1139,11 +1139,13 @@ function applyData(data, projectId) {
       }
     } else {
       // Logic chung cho các dự án khác
-      const ncBOQ = wdNC.reduce((a,r)=>a+(r.ttNC_boq||0),0) - wdOT.reduce((a,r)=>a+(r.ttNC_boq||0),0);
+      // ttNC_boq (col P) chỉ có giá trị khi là NC thuần — fallback sang ttBOQ_R nếu =0
+      const ncBOQ = wdNC.reduce((a,r)=>a+(r.ttNC_boq||r.ttBOQ_R||0),0) - wdOT.reduce((a,r)=>a+(r.ttNC_boq||r.ttBOQ_R||0),0);
       const vtBOQ = wdEmpty.reduce((a,r)=>a+(r.ttVL_boq||r.ttBOQ_R||0),0) - wdOT.reduce((a,r)=>a+(r.ttVL_boq||0),0);
       const otBOQ = wdOT.reduce((a,r)=>a+(r.ttBOQ_R||0),0);
       boqV = ncBOQ + vtBOQ + otBOQ;
-      const ncCDT = wdNC.reduce((a,r)=>a+(r.ttNC_cdt||0),0);
+      // ttNC_cdt (col X) tương tự — fallback sang ttCDT_Z nếu =0
+      const ncCDT = wdNC.reduce((a,r)=>a+(r.ttNC_cdt||r.ttCDT_Z||0),0);
       const vtCDT = wdEmpty.reduce((a,r)=>a+(r.ttVL_cdt||0),0);
       const otCDT = wdOT.reduce((a,r)=>a+(r.ttCDT_Z||r.ttCDT||0),0);
       cdtV = ncCDT + vtCDT + otCDT;
