@@ -715,42 +715,41 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   </div>
 
   <div class="card mb0" style="margin-top:0.875rem">
-    <div class="stitle">Giá trị chi tiết theo hạng mục</div>
-    <div class="tbl-wrap">
-    <table>
-      <thead><tr>
-        <th class="tl">Hạng mục</th>
-        <th class="tl">Nội dung</th>
-        <th>Ngân sách</th>
-        <th>GT Thực hiện</th>
-        <th>% NS</th>
-        <th>NS còn lại</th>
-        <th>Đã thanh toán</th>
-        <th>Còn lại chưa TT</th>
-        <th>Trạng thái</th>
-      </tr></thead>
-      <tbody id="p5HangMucBody">
-        <tr><td colspan="9" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
-      </tbody>
-      <tfoot id="p5HangMucTfoot"></tfoot>
-    </table>
-    </div>
-  </div>
-
-  <div class="card mb0" style="margin-top:0.875rem">
-    <div class="stitle" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-      <span>Bảng chi tiết sử dụng</span>
-      <div id="p5FilterBtns" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+    <div class="stitle">Bảng chi tiết sử dụng</div>
+    <div class="filter-bar" style="flex-wrap:wrap;gap:8px 16px">
+      <label>Loại:</label>
+      <select id="f5Loai" onchange="filterP5Detail()">
+        <option value="">-- Tất cả --</option>
+      </select>
+      <label>Đợt TT:</label>
+      <select id="f5Dot" onchange="filterP5Detail()">
+        <option value="">-- Tất cả --</option>
+      </select>
+      <label>Tháng:</label>
+      <div class="ms-wrap" id="msWrap5">
+        <div class="ms-btn" id="msBtn5" onclick="toggleMs('ms5')">
+          <span id="msLabel5">-- Tất cả --</span><span class="ms-arrow">▼</span>
+        </div>
+        <div class="ms-dropdown" id="ms5">
+          <div class="ms-clear" onclick="clearMs('ms5')">✕ Bỏ chọn tất cả</div>
+          <div id="ms5Items"></div>
+        </div>
+      </div>
+      <label>ĐTC/NCC:</label>
+      <select id="f5Ncc" onchange="filterP5Detail()">
+        <option value="">-- Tất cả --</option>
+      </select>
+      <span style="margin-left:auto;font-size:11px;color:#6c757d">Số dòng: <span id="p5Count">0</span></span>
     </div>
     <div class="tbl-wrap">
     <table>
       <thead><tr>
         <th style="width:36px">STT</th>
-        <th style="width:80px">Loại</th>
+        <th style="width:88px">Loại</th>
         <th class="tl" style="min-width:200px">Nội dung công việc</th>
         <th style="width:64px">Đợt TT</th>
         <th style="width:72px">Tháng</th>
-        <th>Nhà thầu / NCC</th>
+        <th>ĐTC / NCC</th>
         <th>GT Thực hiện</th>
         <th>Đã thanh toán</th>
         <th>Còn lại</th>
@@ -1102,8 +1101,9 @@ function applyData(data, projectId) {
     {ma:'NC',noi_dung:'Nhân công'}, {ma:'VT',noi_dung:'Vật tư'},
     {ma:'MMTB',noi_dung:'Máy móc thiết bị'},
     {ma:'PRE',noi_dung:'Chi phí Prelims'}, {ma:'DP',noi_dung:'Chi phí dự phòng'},
-    {ma:'QLDN',noi_dung:'CP Quản lý DN'},
+    {ma:'QLDN',noi_dung:'CP Quản lý DN'}, {ma:'DT',noi_dung:'Đặc thù'},
   ];
+  window._p5CocauList = COCAU_LIST;
   // Bảng màu theo mã (cố định cho các mã phổ biến, sinh ngẫu nhiên cho mã lạ)
   const COCAU_COLORS = {
     NC:'#1565c0', VT:'#2e7d32', PRE:'#E8552A', DP:'#F5A623',
@@ -1801,58 +1801,6 @@ function applyData(data, projectId) {
     +'<td class="tr '+(p5NSconlai<0?'neg':'pos')+'">'+fmtAuto(Math.abs(p5NSconlai))+'</td>'
     +'<td></td></tr>';
 
-  // Bảng giá trị chi tiết theo hạng mục P5 — group theo NS[].g (hạng mục = gói thầu)
-  const p5HangMucBody  = el('p5HangMucBody');
-  const p5HangMucTfoot = el('p5HangMucTfoot');
-  if(p5HangMucBody) {
-    p5HangMucBody.innerHTML = '';
-    // Lấy danh sách hạng mục từ NS rows mã GT_CODES, theo thứ tự xuất hiện
-    const hmList = [];
-    nsByCodes(GT_CODES).forEach(r => { if(r.g && !hmList.includes(r.g)) hmList.push(r.g); });
-    let hmTotalNS=0, hmTotalTH=0, hmTotalTT=0;
-    hmList.forEach(hm => {
-      const nsRows = nsByCodes(GT_CODES).filter(r => r.g === hm);
-      const ttRows = ttByCodes(GT_CODES).filter(r => r.g === hm);
-      const hmNS = nsRows.reduce((a,r)=>a+(r.tt||0),0);
-      const hmTH = ttRows.reduce((a,r)=>a+(r.gt||0),0);
-      const hmTT = ttRows.reduce((a,r)=>a+(r.tt||0),0);
-      const hmCL_ns = hmNS - hmTH;
-      const hmCL_tt = hmTH - hmTT;
-      const pctNS = hmNS > 0 ? ((hmTH/hmNS)*100).toFixed(1) : null;
-      const vuot = hmCL_ns < 0;
-      const statusBadge = pctNS === null
-        ? '<span class="badge bg-b">Chưa PS</span>'
-        : vuot ? '<span class="badge bg-r">Vượt NS</span>'
-        : '<span class="badge bg-g">Trong hạn</span>';
-      // Tên nội dung: lấy tên loại CP từ NS row đầu tiên (trường a/mct)
-      const maType = nsRows[0] ? (nsRows[0].a || nsRows[0].mct || '') : '';
-      const maLabel = (()=>{ const c=COCAU_LIST.find(x=>x.ma===maType); return c?c.noi_dung:maType; })();
-      const tr = document.createElement('tr');
-      tr.innerHTML = '<td class="tl"><strong>'+hm+'</strong></td>'
-        +'<td class="tl" style="color:#6c757d;font-size:0.6875rem">'+maLabel+'</td>'
-        +'<td class="tr">'+(hmNS>0?fmtAuto(hmNS):'—')+'</td>'
-        +'<td class="tr">'+(hmTH>0?fmtAuto(hmTH):'—')+'</td>'
-        +'<td class="tc">'+(pctNS!==null?pctNS+'%':'—')+'</td>'
-        +'<td class="tr '+(vuot?'neg':'pos')+'">'+(hmNS>0?fmtAuto(Math.abs(hmCL_ns)):'—')+'</td>'
-        +'<td class="tr pos">'+(hmTT>0?fmtAuto(hmTT):'—')+'</td>'
-        +'<td class="tr '+(hmCL_tt>0?'neg':'')+'">'+fmtAuto(hmCL_tt)+'</td>'
-        +'<td class="tc">'+statusBadge+'</td>';
-      p5HangMucBody.appendChild(tr);
-      hmTotalNS+=hmNS; hmTotalTH+=hmTH; hmTotalTT+=hmTT;
-    });
-    const hmTotalCL_ns = hmTotalNS - hmTotalTH;
-    const hmTotalCL_tt = hmTotalTH - hmTotalTT;
-    p5HangMucTfoot.innerHTML = '<tr>'
-      +'<td class="tl" colspan="2">TỔNG CỘNG</td>'
-      +'<td class="tr">'+fmtAuto(hmTotalNS)+'</td>'
-      +'<td class="tr">'+fmtAuto(hmTotalTH)+'</td>'
-      +'<td class="tc">'+(hmTotalNS>0?((hmTotalTH/hmTotalNS)*100).toFixed(1)+'%':'—')+'</td>'
-      +'<td class="tr '+(hmTotalCL_ns<0?'neg':'pos')+'">'+fmtAuto(Math.abs(hmTotalCL_ns))+'</td>'
-      +'<td class="tr">'+fmtAuto(hmTotalTT)+'</td>'
-      +'<td class="tr '+(hmTotalCL_tt>0?'neg':'')+'">'+fmtAuto(hmTotalCL_tt)+'</td>'
-      +'<td></td></tr>';
-  }
-
   // Biểu đồ gián tiếp hàng tháng (TT mã PRE+DP+QLDN)
   const gtMonthMap = {};
   ttByCodes(GT_CODES).forEach(r => {
@@ -1911,34 +1859,43 @@ function applyData(data, projectId) {
     }]
   });
 
-  // Bảng chi tiết sử dụng P5 — TT[] mã PRE/DP/QLDN
-  const GT_LABEL = {PRE:'Prelim', DP:'Dự phòng', QLDN:'QLDN'};
-  const GT_COLOR = {PRE:'#E8552A', DP:'#F5A623', QLDN:'#3B2D6F'};
+  // Bảng chi tiết sử dụng P5 — TT[] mã GT_CODES
   window._p5DetailRows = ttByCodes(GT_CODES).map((r,i) => ({...r, _idx: i+1}));
   window._p5GTCodes = GT_CODES;
-  // Render filter buttons động
-  const p5FilterBtns = el('p5FilterBtns');
-  if(p5FilterBtns) {
-    p5FilterBtns.innerHTML = '';
-    const allBtn = document.createElement('button');
-    allBtn.id = 'p5FilterALL';
-    allBtn.className = 'tool-btn';
-    allBtn.textContent = 'Tất cả';
-    allBtn.style.cssText = 'font-size:11px;padding:3px 10px;background:#555;color:#fff;border:none;border-radius:4px;cursor:pointer';
-    allBtn.onclick = () => filterP5Detail('ALL');
-    p5FilterBtns.appendChild(allBtn);
-    GT_CODES.forEach(ma => {
+  // Build filter dropdowns
+  const p5AllRows = window._p5DetailRows;
+  // Loại
+  const f5Loai = el('f5Loai');
+  if(f5Loai) {
+    const loaiOpts = [...new Set(p5AllRows.map(r => (r.a||'').toUpperCase()).filter(Boolean))];
+    loaiOpts.sort().forEach(ma => {
       const c = COCAU_LIST.find(x=>x.ma===ma);
-      const btn = document.createElement('button');
-      btn.id = 'p5Filter'+ma;
-      btn.className = 'tool-btn';
-      btn.textContent = c ? c.noi_dung : ma;
-      btn.style.cssText = 'font-size:11px;padding:3px 10px;background:'+cocauColor(ma)+';color:#fff;border:none;border-radius:4px;cursor:pointer';
-      btn.onclick = () => filterP5Detail(ma);
-      p5FilterBtns.appendChild(btn);
+      const label = GT5_LABEL_MAP[ma] || (c ? c.noi_dung : ma);
+      const opt = document.createElement('option');
+      opt.value = ma; opt.textContent = label;
+      f5Loai.appendChild(opt);
     });
   }
-  renderP5Detail('ALL');
+  // Đợt TT
+  const f5Dot = el('f5Dot');
+  if(f5Dot) {
+    const dotOpts = [...new Set(p5AllRows.map(r=>r.l||'').filter(Boolean))].sort();
+    dotOpts.forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v; f5Dot.appendChild(o); });
+  }
+  // Tháng multi-select ms5
+  const thang5Opts = [...new Set(p5AllRows.map(r=>r.p||'').filter(Boolean))].sort((a,b)=>{
+    const pa=a.split('-'),pb=b.split('-');
+    if(pa.length===2&&pb.length===2) return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);
+    return a.localeCompare(b);
+  });
+  buildMs('ms5', thang5Opts, filterP5Detail);
+  // ĐTC/NCC
+  const f5Ncc = el('f5Ncc');
+  if(f5Ncc) {
+    const nccOpts = [...new Set(p5AllRows.map(r=>r.t||'').filter(Boolean))].sort();
+    nccOpts.forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v; f5Ncc.appendChild(o); });
+  }
+  filterP5Detail();
 
   // --- KPI Page 6: BC Máy móc thiết bị (mã MMTB) ---
   const p6TH  = ttByCode('MMTB').reduce((a,r)=>a+(r.gt||0),0);
@@ -2122,49 +2079,50 @@ function applyData(data, projectId) {
 }
 
 // ===== P5 BANG CHI TIET =====
-const GT_LABEL_MAP = {PRE:'Prelim', DP:'Dự phòng', QLDN:'QLDN'};
-const GT_COLOR_MAP = {PRE:'#E8552A', DP:'#F5A623', QLDN:'#3B2D6F'};
+const GT5_LABEL_MAP = {PRE:'Prelim', DP:'Dự phòng', QLDN:'QLDN', DT:'Đặc thù'};
+const GT5_COLOR_MAP = {PRE:'#E8552A', DP:'#F5A623', QLDN:'#3B2D6F', DT:'#2e7d32'};
 
-function filterP5Detail(code) {
-  const keys = ['ALL', ...(window._p5GTCodes || ['PRE','DP','QLDN'])];
-  keys.forEach(k => {
-    const btn = el('p5Filter'+k);
-    if(!btn) return;
-    btn.style.opacity = (k === code) ? '1' : '0.45';
-    btn.style.outline = (k === code) ? '2px solid #fff' : 'none';
+function filterP5Detail() {
+  const loai    = (el('f5Loai')||{}).value || '';
+  const dot     = (el('f5Dot')||{}).value  || '';
+  const thangSel = getMsSelected('ms5');
+  const ncc     = (el('f5Ncc')||{}).value  || '';
+  const rows = (window._p5DetailRows || []).filter(r => {
+    if(loai && (r.a||'').toUpperCase() !== loai) return false;
+    if(dot  && (r.l||'') !== dot) return false;
+    if(thangSel.length && !thangSel.includes(r.p||'')) return false;
+    if(ncc  && (r.t||'').trim() !== ncc) return false;
+    return true;
   });
-  renderP5Detail(code);
+  renderP5Detail(rows);
 }
 
-function renderP5Detail(code) {
+function renderP5Detail(rows) {
+  if(!rows) rows = window._p5DetailRows || [];
   const body = el('p5DetailBody');
   const foot = el('p5DetailFoot');
   if(!body) return;
-  const rows = (window._p5DetailRows || []).filter(r =>
-    code === 'ALL' || (r.a||'').toUpperCase() === code
-  );
+  if(el('p5Count')) el('p5Count').textContent = rows.length;
+  // sort: theo loại rồi theo tháng
+  const ORDER = {PRE:0, DP:1, DT:2, QLDN:3};
+  rows = [...rows].sort((a,b) => {
+    const oa = ORDER[(a.a||'').toUpperCase()]??9, ob = ORDER[(b.a||'').toUpperCase()]??9;
+    if(oa !== ob) return oa - ob;
+    const pa=(a.p||'').split('-'), pb=(b.p||'').split('-');
+    if(pa.length===2&&pb.length===2) return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);
+    return (a.p||'').localeCompare(b.p||'');
+  });
   body.innerHTML = '';
   if(rows.length === 0) {
     body.innerHTML = '<tr><td colspan="11" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
     if(foot) foot.innerHTML = '';
     return;
   }
-  // sort: theo loại (PRE→DP→QLDN) rồi theo tháng
-  const ORDER = {PRE:0, DP:1, QLDN:2};
-  rows.sort((a,b) => {
-    const oa = ORDER[(a.a||'').toUpperCase()]??9, ob = ORDER[(b.a||'').toUpperCase()]??9;
-    if(oa !== ob) return oa - ob;
-    // sort tháng MM-YYYY
-    const pa=(a.p||'').split('-'), pb=(b.p||'').split('-');
-    if(pa.length===2&&pb.length===2) return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);
-    return (a.p||'').localeCompare(b.p||'');
-  });
-
   let totalGT=0, totalTT=0, totalCL=0;
   rows.forEach((r, i) => {
     const code_r = (r.a||'').toUpperCase();
-    const label  = GT_LABEL_MAP[code_r] || code_r || '—';
-    const color  = GT_COLOR_MAP[code_r] || '#555';
+    const label  = GT5_LABEL_MAP[code_r] || (()=>{ const c=(window._p5CocauList||[]).find(x=>x.ma===code_r); return c?c.noi_dung:code_r||'—'; })();
+    const color  = GT5_COLOR_MAP[code_r] || '#555';
     const gt = r.gt||0, tt = r.tt||0, cl = r.cl||0;
     totalGT += gt; totalTT += tt; totalCL += cl;
     const pctTT = gt > 0 ? ((tt/gt)*100).toFixed(0) : null;
@@ -2186,7 +2144,6 @@ function renderP5Detail(code) {
       +'<td class="tc">'+status+'</td>';
     body.appendChild(tr);
   });
-
   if(foot) {
     const totalPct = totalGT > 0 ? ((totalTT/totalGT)*100).toFixed(0)+'%' : '—';
     foot.innerHTML = '<tr style="font-weight:700;background:#f0f0f0">'
@@ -2291,6 +2248,7 @@ function clearMs(msId) {
   el(msId+'Items').querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked=false);
   updateMsLabel(msId);
   if(msId==='ms2') filterWD();
+  if(msId==='ms5') filterP5Detail();
   if(msId==='ms6') filterP6Detail();
 }
 function updateMsLabel(msId) {
