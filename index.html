@@ -804,12 +804,40 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 
   <div class="card mb0">
     <div class="stitle">Bảng chi tiết máy móc thiết bị</div>
+    <div class="filter-bar" style="flex-wrap:wrap;gap:8px 16px">
+      <label>NCC:</label>
+      <select id="f6Ncc" onchange="filterP6Detail()">
+        <option value="">-- Tất cả --</option>
+      </select>
+      <label>Đợt TT:</label>
+      <select id="f6Dot" onchange="filterP6Detail()">
+        <option value="">-- Tất cả --</option>
+      </select>
+      <label>Tháng:</label>
+      <div class="ms-wrap" id="msWrap6">
+        <div class="ms-btn" id="msBtn6" onclick="toggleMs('ms6')">
+          <span id="msLabel6">-- Tất cả --</span><span class="ms-arrow">▼</span>
+        </div>
+        <div class="ms-dropdown" id="ms6">
+          <div class="ms-clear" onclick="clearMs('ms6')">✕ Bỏ chọn tất cả</div>
+          <div id="ms6Items"></div>
+        </div>
+      </div>
+      <label>Hình thức:</label>
+      <select id="f6Ht" onchange="filterP6Detail()">
+        <option value="">-- Tất cả --</option>
+        <option value="Mua">Mua</option>
+        <option value="Thuê">Thuê</option>
+      </select>
+      <span style="margin-left:auto;font-size:11px;color:#6c757d">Số dòng: <span id="p6Count">0</span></span>
+    </div>
     <div class="tbl-wrap">
     <table>
       <thead><tr>
         <th style="width:36px">STT</th>
         <th class="tl" style="min-width:200px">Nội dung công việc</th>
         <th>ĐVT</th>
+        <th>Hình thức</th>
         <th>Đợt TT</th>
         <th>Tháng</th>
         <th>Nhà cung cấp</th>
@@ -817,11 +845,11 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <th>GT Thực hiện</th>
         <th>Đã thanh toán</th>
         <th>Còn lại</th>
-        <th style="width:72px">% TT</th>
-        <th style="width:100px">Trạng thái</th>
+        <th style="width:60px">% TT</th>
+        <th style="width:96px">Trạng thái</th>
       </tr></thead>
       <tbody id="p6DetailBody">
-        <tr><td colspan="12" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+        <tr><td colspan="13" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
       </tbody>
       <tfoot id="p6DetailFoot"></tfoot>
     </table>
@@ -1971,54 +1999,39 @@ function applyData(data, projectId) {
       +'<td></td></tr>';
   }
 
-  // Bảng chi tiết MMTB
-  const p6DetailBody = el('p6DetailBody');
-  const p6DetailFoot = el('p6DetailFoot');
-  p6DetailBody.innerHTML = '';
-  const mmtbRows = ttByCode('MMTB').slice().sort((a,b)=>{
+  // Bảng chi tiết MMTB — cache rows, build filter options, gọi renderP6Detail
+  window._p6AllRows = ttByCode('MMTB').map(r => {
+    const gc = (r.gc||'').toLowerCase();
+    const ht = gc.includes('thuê') || gc.includes('thue') ? 'Thuê'
+             : gc.includes('mua') ? 'Mua' : '—';
+    return {...r, _ht: ht};
+  }).sort((a,b)=>{
     const pa=(a.p||'').split('-'), pb=(b.p||'').split('-');
     if(pa.length===2&&pb.length===2) return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);
     return (a.p||'').localeCompare(b.p||'');
   });
-  if(mmtbRows.length === 0) {
-    p6DetailBody.innerHTML = '<tr><td colspan="12" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu máy móc thiết bị</td></tr>';
-    if(p6DetailFoot) p6DetailFoot.innerHTML = '';
-  } else {
-    let tot6dGT=0, tot6dTT=0, tot6dCL=0;
-    mmtbRows.forEach((r,i)=>{
-      const gt=r.gt||0, tt=r.tt||0, cl=r.cl||0;
-      tot6dGT+=gt; tot6dTT+=tt; tot6dCL+=cl;
-      const pctTT6d = gt > 0 ? ((tt/gt)*100).toFixed(0) : null;
-      const status = pctTT6d === null ? '<span style="color:#6c757d">—</span>'
-        : +pctTT6d >= 100 ? '<span class="badge bg-g">Đã TT đủ</span>'
-        : +pctTT6d >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Còn nợ</span>'
-        :                    '<span class="badge bg-b" style="background:#e7f3ff;color:#1565c0">Chưa TT</span>';
-      const tr = document.createElement('tr');
-      tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(i+1)+'</td>'
-        +'<td class="tl wrap" style="max-width:220px">'+(r.n||'—')+'</td>'
-        +'<td class="tc" style="font-size:11px">'+(r.u||'—')+'</td>'
-        +'<td class="tc" style="color:#5c6b7a;font-size:11px">'+(r.l||'—')+'</td>'
-        +'<td class="tc" style="color:#5c6b7a;font-size:11px">'+(r.p||'—')+'</td>'
-        +'<td class="tl" style="font-size:11px;max-width:160px">'+(r.t||'—')+'</td>'
-        +'<td class="tr" style="font-size:11px">'+(r.k?r.k.toLocaleString('vi-VN'):'—')+'</td>'
-        +'<td class="tr">'+(gt?fmtAuto(gt):'—')+'</td>'
-        +'<td class="tr">'+(tt?fmtAuto(tt):'—')+'</td>'
-        +'<td class="tr '+(cl>0?'neg':cl<0?'pos':'')+'">'+(gt?fmtAuto(cl):'—')+'</td>'
-        +'<td class="tc">'+(pctTT6d!==null?pctTT6d+'%':'—')+'</td>'
-        +'<td class="tc">'+status+'</td>';
-      p6DetailBody.appendChild(tr);
-    });
-    if(p6DetailFoot) {
-      const tot6dPct = tot6dGT > 0 ? ((tot6dTT/tot6dGT)*100).toFixed(0)+'%' : '—';
-      p6DetailFoot.innerHTML = '<tr style="font-weight:700;background:#f0f0f0">'
-        +'<td colspan="7" class="tl" style="padding-left:8px">TỔNG CỘNG ('+mmtbRows.length+' dòng)</td>'
-        +'<td class="tr">'+fmtAuto(tot6dGT)+'</td>'
-        +'<td class="tr">'+fmtAuto(tot6dTT)+'</td>'
-        +'<td class="tr '+(tot6dCL>0?'neg':tot6dCL<0?'pos':'')+'">'+fmtAuto(tot6dCL)+'</td>'
-        +'<td class="tc">'+tot6dPct+'</td>'
-        +'<td></td></tr>';
-    }
+  // Build filter options NCC
+  const f6Ncc = el('f6Ncc');
+  if(f6Ncc) {
+    const nccOpts = [...new Set(window._p6AllRows.map(r=>(r.t||'').trim()).filter(Boolean))].sort();
+    f6Ncc.innerHTML = '<option value="">-- Tất cả --</option>'
+      + nccOpts.map(v=>'<option value="'+v+'">'+v+'</option>').join('');
   }
+  // Build filter options Đợt TT
+  const f6Dot = el('f6Dot');
+  if(f6Dot) {
+    const dotOpts = [...new Set(window._p6AllRows.map(r=>r.l||'').filter(Boolean))].sort();
+    f6Dot.innerHTML = '<option value="">-- Tất cả --</option>'
+      + dotOpts.map(v=>'<option value="'+v+'">'+v+'</option>').join('');
+  }
+  // Build Tháng multi-select ms6
+  const thangOpts = [...new Set(window._p6AllRows.map(r=>r.p||'').filter(Boolean))].sort((a,b)=>{
+    const pa=a.split('-'), pb=b.split('-');
+    if(pa.length===2&&pb.length===2) return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);
+    return a.localeCompare(b);
+  });
+  buildMs('ms6', thangOpts, filterP6Detail);
+  renderP6Detail();
 
   wdSortDir = 0;
   el('sortWD_icon').textContent = '⇅';
@@ -2107,6 +2120,73 @@ function renderP5Detail(code) {
   }
 }
 
+// ===== P6 BANG CHI TIET MMTB =====
+function filterP6Detail() {
+  const ncc    = (el('f6Ncc')||{}).value || '';
+  const dot    = (el('f6Dot')||{}).value || '';
+  const thangSel = getMsSelected('ms6');
+  const ht     = (el('f6Ht')||{}).value || '';
+  const rows = (window._p6AllRows || []).filter(r => {
+    if(ncc  && (r.t||'').trim() !== ncc)  return false;
+    if(dot  && (r.l||'') !== dot)          return false;
+    if(thangSel.length && !thangSel.includes(r.p||'')) return false;
+    if(ht   && r._ht !== ht)              return false;
+    return true;
+  });
+  renderP6Detail(rows);
+}
+
+function renderP6Detail(rows) {
+  if(!rows) rows = window._p6AllRows || [];
+  const body = el('p6DetailBody');
+  const foot = el('p6DetailFoot');
+  if(!body) return;
+  const cnt = el('p6Count');
+  if(cnt) cnt.textContent = rows.length;
+  body.innerHTML = '';
+  if(rows.length === 0) {
+    body.innerHTML = '<tr><td colspan="13" style="text-align:center;color:#6c757d;padding:1.5rem">Không có dữ liệu phù hợp</td></tr>';
+    if(foot) foot.innerHTML = '';
+    return;
+  }
+  let totGT=0, totTT=0, totCL=0;
+  rows.forEach((r,i) => {
+    const gt=r.gt||0, tt=r.tt||0, cl=r.cl||0;
+    totGT+=gt; totTT+=tt; totCL+=cl;
+    const pctTT = gt > 0 ? ((tt/gt)*100).toFixed(0) : null;
+    const status = pctTT === null ? '<span style="color:#6c757d">—</span>'
+      : +pctTT >= 100 ? '<span class="badge bg-g">Đã TT đủ</span>'
+      : +pctTT >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Còn nợ</span>'
+      :                  '<span class="badge bg-b" style="background:#e7f3ff;color:#1565c0">Chưa TT</span>';
+    const htColor = r._ht === 'Thuê' ? '#1565C0' : r._ht === 'Mua' ? '#2e7d32' : '#aaa';
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(i+1)+'</td>'
+      +'<td class="tl wrap" style="max-width:220px">'+(r.n||'—')+'</td>'
+      +'<td class="tc" style="font-size:11px">'+(r.u||'—')+'</td>'
+      +'<td class="tc"><span style="color:'+htColor+';font-weight:600;font-size:11px">'+r._ht+'</span></td>'
+      +'<td class="tc" style="color:#5c6b7a;font-size:11px">'+(r.l||'—')+'</td>'
+      +'<td class="tc" style="color:#5c6b7a;font-size:11px">'+(r.p||'—')+'</td>'
+      +'<td class="tl" style="font-size:11px;max-width:160px">'+(r.t||'—')+'</td>'
+      +'<td class="tr" style="font-size:11px">'+(r.k?r.k.toLocaleString('vi-VN'):'—')+'</td>'
+      +'<td class="tr">'+(gt?fmtAuto(gt):'—')+'</td>'
+      +'<td class="tr">'+(tt?fmtAuto(tt):'—')+'</td>'
+      +'<td class="tr '+(cl>0?'neg':cl<0?'pos':'')+'">'+(gt?fmtAuto(cl):'—')+'</td>'
+      +'<td class="tc">'+(pctTT!==null?pctTT+'%':'—')+'</td>'
+      +'<td class="tc">'+status+'</td>';
+    body.appendChild(tr);
+  });
+  if(foot) {
+    const totPct = totGT > 0 ? ((totTT/totGT)*100).toFixed(0)+'%' : '—';
+    foot.innerHTML = '<tr style="font-weight:700;background:#f0f0f0">'
+      +'<td colspan="8" class="tl" style="padding-left:8px">TỔNG CỘNG ('+rows.length+' dòng)</td>'
+      +'<td class="tr">'+fmtAuto(totGT)+'</td>'
+      +'<td class="tr">'+fmtAuto(totTT)+'</td>'
+      +'<td class="tr '+(totCL>0?'neg':totCL<0?'pos':'')+'">'+fmtAuto(totCL)+'</td>'
+      +'<td class="tc">'+totPct+'</td>'
+      +'<td></td></tr>';
+  }
+}
+
 // ===== MULTI-SELECT HELPERS =====
 function buildMs(msId, vals, onChangeFn) {
   const container = el(msId+'Items');
@@ -2132,6 +2212,7 @@ function clearMs(msId) {
   el(msId+'Items').querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked=false);
   updateMsLabel(msId);
   if(msId==='ms2') filterWD();
+  if(msId==='ms6') filterP6Detail();
 }
 function updateMsLabel(msId) {
   const checked = [...el(msId+'Items').querySelectorAll('input:checked')].map(c=>c.value);
