@@ -544,6 +544,12 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       </select>
       <label>Thời gian:</label>
       <select id="f3Period" onchange="filterTT()"><option value="">-- Tất cả --</option></select>
+      <label>Loại:</label>
+      <select id="f3Loai" onchange="filterTT()">
+        <option value="">-- Tất cả --</option>
+        <option value="NC">Nhân công</option>
+        <option value="DT">Đặc thù</option>
+      </select>
       <span style="margin-left:auto;font-size:11px;color:#6c757d">Số dòng: <span id="ttCount">0</span></span>
     </div>
     <div class="tbl-wrap">
@@ -551,14 +557,14 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <thead><tr>
         <th>STT</th><th class="tl">Đội thi công</th><th>Đợt TT</th><th>Thời gian</th>
         <th class="tl" style="min-width:180px;max-width:280px">Nội dung công việc</th>
-        <th>Gói thầu</th><th>HĐ/PS</th><th>ĐVT</th>
+        <th>Gói thầu</th><th>Loại</th><th>HĐ/PS</th><th>ĐVT</th>
         <th>KL</th><th>Đơn giá (VNĐ)</th>
         <th>GT TH (VNĐ)</th><th>Tỉ lệ TT</th>
         <th>Đã TT (VNĐ)</th><th>Còn lại (VNĐ)</th>
       </tr></thead>
       <tbody id="ttBody"></tbody>
       <tfoot><tr>
-        <td colspan="10" style="text-align:right">TỔNG CỘNG</td>
+        <td colspan="11" style="text-align:right">TỔNG CỘNG</td>
         <td class="tr" id="s_th">—</td><td></td>
         <td class="tr pos" id="s_tt">—</td>
         <td class="tr neg" id="s_cl">—</td>
@@ -1400,11 +1406,13 @@ function applyData(data, projectId) {
     p2WdGroupBody.appendChild(tr);
   });
 
-  // --- KPI Page 3: chỉ lấy rows mã NC ---
-  const ttNC = ttByCode('NC');
-  const p3TH = ttNC.reduce((a,r)=>a+(r.gt||0),0);
-  const p3TT = ttNC.reduce((a,r)=>a+(r.tt||0),0);
-  const p3CL = ttNC.reduce((a,r)=>a+(r.cl||0),0);
+  // --- KPI Page 3: mã NC (Nhân công) + DT (Đặc thù) ---
+  const ttNC   = ttByCode('NC');
+  const ttDT   = ttByCode('DT');
+  const ttNCDT = [...ttNC, ...ttDT];
+  const p3TH = ttNCDT.reduce((a,r)=>a+(r.gt||0),0);
+  const p3TT = ttNCDT.reduce((a,r)=>a+(r.tt||0),0);
+  const p3CL = ttNCDT.reduce((a,r)=>a+(r.cl||0),0);
   const p3pctTT  = pct(p3TT, p3TH);
   const p3pctCLv = (100 - parseFloat(p3pctTT)).toFixed(1);
   el('kpi3_phase').textContent = meta.phase || '—';
@@ -1413,7 +1421,7 @@ function applyData(data, projectId) {
   el('kpi3_cl').textContent  = fmtAuto(p3CL);
   el('kpi3_tt_badge').textContent = p3pctTT + '%';
   el('kpi3_cl_badge').textContent = p3pctCLv + '%';
-  el('p3DoiCount').textContent = '(' + [...new Set(ttNC.map(r=>r.t))].filter(Boolean).length + ' đội)';
+  el('p3DoiCount').textContent = '(' + [...new Set(ttNCDT.map(r=>r.t))].filter(Boolean).length + ' đội)';
 
   // NS nhân công = tổng NS mã NC
   el('kpi3_ns').textContent = fmtAuto(nsNC_val);
@@ -1423,14 +1431,14 @@ function applyData(data, projectId) {
   el('kpi3_ns_cl').style.color = nsConlai >= 0 ? '#2e7d32' : '#c62828';
   el('kpi3_ns_cl_card').style.borderLeftColor = nsConlai >= 0 ? '#2e7d32' : '#c62828';
 
-  // --- Bảng tổng hợp đội P3 (chỉ mã NC) ---
+  // --- Bảng tổng hợp đội P3 (mã NC + DT) ---
   const p3Tfoot = el('p3DoiTfoot');
   p3DoiDataCache = [];
   p3SortField = null; p3SortDir = 0;
   ['gt','cl','status'].forEach(f => { const ic=el('sortP3_'+f+'_icon'); if(ic) ic.textContent='⇅'; });
-  const teamsNC = [...new Set(ttNC.map(r=>r.t))].filter(Boolean).sort();
+  const teamsNC = [...new Set(ttNCDT.map(r=>r.t))].filter(Boolean).sort();
   teamsNC.forEach(team => {
-    const rows = ttNC.filter(r=>r.t===team);
+    const rows = ttNCDT.filter(r=>r.t===team);
     const gtT = rows.reduce((a,r)=>a+(r.gt||0),0);
     const ttT = rows.reduce((a,r)=>a+(r.tt||0),0);
     const clT = rows.reduce((a,r)=>a+(r.cl||0),0);
@@ -1486,16 +1494,16 @@ function applyData(data, projectId) {
   });
   buildMs('ms2', periods, filterWD);
   repopSel('f3Doi', teamsNC);
-  repopSel('f3Lan', [...new Set(ttNC.map(r=>r.l).filter(Boolean))].sort());
-  repopSel('f3Period', [...new Set(ttNC.map(r=>r.p).filter(Boolean))].sort((a,b)=>{
+  repopSel('f3Lan', [...new Set(ttNCDT.map(r=>r.l).filter(Boolean))].sort());
+  repopSel('f3Period', [...new Set(ttNCDT.map(r=>r.p).filter(Boolean))].sort((a,b)=>{
     const pa=a.split('-'),pb=b.split('-');
     if(pa.length===2&&pb.length===2){return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);}
     return a.localeCompare(b);
   }));
 
-  // --- Chart Monthly --- chỉ mã NC
+  // --- Chart Monthly --- mã NC + DT
   const monthMap = {};
-  TT.filter(r => r.a === 'NC').forEach(r => {
+  TT.filter(r => r.a === 'NC' || r.a === 'DT').forEach(r => {
     const mo = r.p || 'N/A';
     if(!monthMap[mo]) monthMap[mo] = { gt:0, tt:0 };
     monthMap[mo].gt += (r.gt||0);
@@ -1717,7 +1725,7 @@ function applyData(data, projectId) {
   }
 
   // --- KPI Page 5: BC CP Gián tiếp — dùng tất cả mã trừ NC và VT ---
-  const GT_CODES = COCAU_LIST_ACTIVE.filter(c => c.ma !== 'NC' && c.ma !== 'VT' && c.ma !== 'MMTB').map(c => c.ma);
+  const GT_CODES = COCAU_LIST_ACTIVE.filter(c => c.ma !== 'NC' && c.ma !== 'VT' && c.ma !== 'MMTB' && c.ma !== 'DT').map(c => c.ma);
   const p5TH  = ttByCodes(GT_CODES).reduce((a,r)=>a+(r.gt||0),0);
   const p5TT  = ttByCodes(GT_CODES).reduce((a,r)=>a+(r.tt||0),0);
   const p5NS  = nsByCodes(GT_CODES).reduce((a,r)=>a+(r.tt||0),0);
@@ -2334,18 +2342,22 @@ function filterWD(){
 function filterTT(){
   const dv=el('f3Doi').value, lv=el('f3Lan').value, hv=el('f3Hd').value;
   const pv=el('f3Period') ? el('f3Period').value : '';
+  const lv2=el('f3Loai') ? el('f3Loai').value : '';
   const tb=el('ttBody'); tb.innerHTML='';
   let stt=0,sTH=0,sTT=0,sCL=0;
-  // Chi hien thi rows ma NC (Nhan cong)
-  TT.filter(r=>r.a==='NC').forEach(r=>{
+  TT.filter(r=>r.a==='NC'||r.a==='DT').forEach(r=>{
     if(dv&&r.t!==dv) return;
     if(lv&&r.l!==lv) return;
     if(hv&&r.h!==hv) return;
     if(pv&&r.p!==pv) return;
+    if(lv2&&r.a!==lv2) return;
     stt++; sTH+=(r.gt||0); sTT+=(r.tt||0); sCL+=(r.cl||0);
     const hb=r.h&&r.h.includes('Ngoài')
       ?'<span class="badge bg-o" style="font-size:9px">Ngoài HĐ</span>'
       :'<span class="badge bg-b" style="font-size:9px">Trong HĐ</span>';
+    const loaiBadge = r.a==='DT'
+      ?'<span class="badge" style="background:#7B1FA2;color:#fff;font-size:9px">Đặc thù</span>'
+      :'<span class="badge" style="background:#1565C0;color:#fff;font-size:9px">Nhân công</span>';
     const tr=document.createElement('tr');
     tr.innerHTML='<td class="tc">'+stt+'</td>'
       +'<td class="tl"><strong>'+r.t+'</strong></td>'
@@ -2353,6 +2365,7 @@ function filterTT(){
       +'<td class="tc">'+(r.p||'—')+'</td>'
       +'<td class="tl wrap" style="max-width:280px">'+(r.n||'—')+'</td>'
       +'<td class="tc">'+(r.g||'—')+'</td>'
+      +'<td class="tc">'+loaiBadge+'</td>'
       +'<td class="tc">'+hb+'</td>'
       +'<td class="tc">'+(r.u||'—')+'</td>'
       +'<td class="tr">'+((r.k||0).toLocaleString('vi-VN'))+'</td>'
