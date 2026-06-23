@@ -715,8 +715,31 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   </div>
 
   <div class="card mb0" style="margin-top:0.875rem">
-    <div class="stitle" style="display:flex;align-items:center;justify-content:space-between">
-      <span style="text-align:left">Bảng chi tiết sử dụng</span>
+    <div class="stitle">Giá trị chi tiết theo hạng mục</div>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th class="tl">Hạng mục</th>
+        <th class="tl">Nội dung</th>
+        <th>Ngân sách</th>
+        <th>GT Thực hiện</th>
+        <th>% NS</th>
+        <th>NS còn lại</th>
+        <th>Đã thanh toán</th>
+        <th>Còn lại chưa TT</th>
+        <th>Trạng thái</th>
+      </tr></thead>
+      <tbody id="p5HangMucBody">
+        <tr><td colspan="9" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+      </tbody>
+      <tfoot id="p5HangMucTfoot"></tfoot>
+    </table>
+    </div>
+  </div>
+
+  <div class="card mb0" style="margin-top:0.875rem">
+    <div class="stitle" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span>Bảng chi tiết sử dụng</span>
       <div id="p5FilterBtns" style="display:flex;gap:6px;flex-wrap:wrap"></div>
     </div>
     <div class="tbl-wrap">
@@ -1777,6 +1800,58 @@ function applyData(data, projectId) {
     +'<td class="tc">'+(p5NS>0?((p5TH/p5NS)*100).toFixed(1)+'%':'—')+'</td>'
     +'<td class="tr '+(p5NSconlai<0?'neg':'pos')+'">'+fmtAuto(Math.abs(p5NSconlai))+'</td>'
     +'<td></td></tr>';
+
+  // Bảng giá trị chi tiết theo hạng mục P5 — group theo NS[].g (hạng mục = gói thầu)
+  const p5HangMucBody  = el('p5HangMucBody');
+  const p5HangMucTfoot = el('p5HangMucTfoot');
+  if(p5HangMucBody) {
+    p5HangMucBody.innerHTML = '';
+    // Lấy danh sách hạng mục từ NS rows mã GT_CODES, theo thứ tự xuất hiện
+    const hmList = [];
+    nsByCodes(GT_CODES).forEach(r => { if(r.g && !hmList.includes(r.g)) hmList.push(r.g); });
+    let hmTotalNS=0, hmTotalTH=0, hmTotalTT=0;
+    hmList.forEach(hm => {
+      const nsRows = nsByCodes(GT_CODES).filter(r => r.g === hm);
+      const ttRows = ttByCodes(GT_CODES).filter(r => r.g === hm);
+      const hmNS = nsRows.reduce((a,r)=>a+(r.tt||0),0);
+      const hmTH = ttRows.reduce((a,r)=>a+(r.gt||0),0);
+      const hmTT = ttRows.reduce((a,r)=>a+(r.tt||0),0);
+      const hmCL_ns = hmNS - hmTH;
+      const hmCL_tt = hmTH - hmTT;
+      const pctNS = hmNS > 0 ? ((hmTH/hmNS)*100).toFixed(1) : null;
+      const vuot = hmCL_ns < 0;
+      const statusBadge = pctNS === null
+        ? '<span class="badge bg-b">Chưa PS</span>'
+        : vuot ? '<span class="badge bg-r">Vượt NS</span>'
+        : '<span class="badge bg-g">Trong hạn</span>';
+      // Tên nội dung: lấy tên loại CP từ NS row đầu tiên (trường a/mct)
+      const maType = nsRows[0] ? (nsRows[0].a || nsRows[0].mct || '') : '';
+      const maLabel = (()=>{ const c=COCAU_LIST.find(x=>x.ma===maType); return c?c.noi_dung:maType; })();
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td class="tl"><strong>'+hm+'</strong></td>'
+        +'<td class="tl" style="color:#6c757d;font-size:0.6875rem">'+maLabel+'</td>'
+        +'<td class="tr">'+(hmNS>0?fmtAuto(hmNS):'—')+'</td>'
+        +'<td class="tr">'+(hmTH>0?fmtAuto(hmTH):'—')+'</td>'
+        +'<td class="tc">'+(pctNS!==null?pctNS+'%':'—')+'</td>'
+        +'<td class="tr '+(vuot?'neg':'pos')+'">'+(hmNS>0?fmtAuto(Math.abs(hmCL_ns)):'—')+'</td>'
+        +'<td class="tr pos">'+(hmTT>0?fmtAuto(hmTT):'—')+'</td>'
+        +'<td class="tr '+(hmCL_tt>0?'neg':'')+'">'+fmtAuto(hmCL_tt)+'</td>'
+        +'<td class="tc">'+statusBadge+'</td>';
+      p5HangMucBody.appendChild(tr);
+      hmTotalNS+=hmNS; hmTotalTH+=hmTH; hmTotalTT+=hmTT;
+    });
+    const hmTotalCL_ns = hmTotalNS - hmTotalTH;
+    const hmTotalCL_tt = hmTotalTH - hmTotalTT;
+    p5HangMucTfoot.innerHTML = '<tr>'
+      +'<td class="tl" colspan="2">TỔNG CỘNG</td>'
+      +'<td class="tr">'+fmtAuto(hmTotalNS)+'</td>'
+      +'<td class="tr">'+fmtAuto(hmTotalTH)+'</td>'
+      +'<td class="tc">'+(hmTotalNS>0?((hmTotalTH/hmTotalNS)*100).toFixed(1)+'%':'—')+'</td>'
+      +'<td class="tr '+(hmTotalCL_ns<0?'neg':'pos')+'">'+fmtAuto(Math.abs(hmTotalCL_ns))+'</td>'
+      +'<td class="tr">'+fmtAuto(hmTotalTT)+'</td>'
+      +'<td class="tr '+(hmTotalCL_tt>0?'neg':'')+'">'+fmtAuto(hmTotalCL_tt)+'</td>'
+      +'<td></td></tr>';
+  }
 
   // Biểu đồ gián tiếp hàng tháng (TT mã PRE+DP+QLDN)
   const gtMonthMap = {};
