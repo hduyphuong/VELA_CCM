@@ -1324,7 +1324,8 @@ function applyData(data, projectId) {
       cdtV = ncCDT + vtCDT + otCDT;
     }
     const nsV  = nsRows.reduce((a,r)=>a+(r.tt||0),0);
-    const thV  = TT.filter(r=>r.g===hmVal).reduce((a,r)=>a+(r.gt||0),0);
+    const hmValLow = hmVal.toLowerCase();
+    const thV  = TT.filter(r=>(r.g||'').toLowerCase()===hmValLow).reduce((a,r)=>a+(r.gt||0),0);
     const lnV  = cdtV - thV;
     const pctB = boqV>0 ? ((cdtV/boqV)*100).toFixed(1) : null;
     const pctLn= cdtV>0 ? ((lnV/cdtV)*100).toFixed(1) : null;
