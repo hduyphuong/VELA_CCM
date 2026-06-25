@@ -715,11 +715,13 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   </div>
 
   <div class="card mb0" style="margin-top:0.875rem">
-    <div class="stitle">Tổng hợp theo ĐTC/NCC</div>
+    <div class="stitle">Tổng hợp theo đơn vị</div>
     <div class="tbl-wrap">
     <table>
       <thead><tr>
         <th class="tl">ĐTC / NCC</th>
+        <th>Loại</th>
+        <th class="tl">Gói thầu / Hạng mục</th>
         <th>GT Thực hiện</th>
         <th>Đã thanh toán</th>
         <th>Còn lại</th>
@@ -727,7 +729,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <th>Trạng thái</th>
       </tr></thead>
       <tbody id="p5NccBody">
-        <tr><td colspan="6" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+        <tr><td colspan="8" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
       </tbody>
       <tfoot id="p5NccTfoot"></tfoot>
     </table>
@@ -1931,22 +1933,25 @@ function applyData(data, projectId) {
   }
   filterP5Detail();
 
-  // --- Bảng tổng hợp ĐTC/NCC P5 ---
+  // --- Bảng tổng hợp theo đơn vị P5 ---
   const p5NccBody  = el('p5NccBody');
   const p5NccTfoot = el('p5NccTfoot');
   if(p5NccBody) {
     const nccMap = {};
     ttByCodes(GT_CODES).forEach(r => {
       const ncc = (r.t||'').trim() || '(Không rõ)';
-      if(!nccMap[ncc]) nccMap[ncc] = {gt:0, tt:0, cl:0};
+      if(!nccMap[ncc]) nccMap[ncc] = {gt:0, tt:0, cl:0, loaiSet: new Set(), goiSet: new Set()};
       nccMap[ncc].gt += r.gt||0;
       nccMap[ncc].tt += r.tt||0;
       nccMap[ncc].cl += r.cl||0;
+      if(r.a) nccMap[ncc].loaiSet.add((r.a||'').toUpperCase());
+      if(r.g) nccMap[ncc].goiSet.add(r.g);
     });
+    const GT5_LABEL = {PRE:'Prelim', DP:'Dự phòng', QLDN:'QLDN', DT:'Đặc thù', NTP:'NTP'};
     const nccList = Object.entries(nccMap).sort((a,b) => b[1].gt - a[1].gt);
     p5NccBody.innerHTML = '';
     if(nccList.length === 0) {
-      p5NccBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+      p5NccBody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
       if(p5NccTfoot) p5NccTfoot.innerHTML = '';
     } else {
       let tot5GT=0, tot5TT=0, tot5CL=0;
@@ -1956,8 +1961,17 @@ function applyData(data, projectId) {
           : +pctTT5 >= 100 ? '<span class="badge bg-g">Đã TT đủ</span>'
           : +pctTT5 >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Còn nợ</span>'
           :                   '<span class="badge bg-b" style="background:#e7f3ff;color:#1565c0">Chưa TT</span>';
+        const loaiTags = [...v.loaiSet].map(ma => {
+          const label = GT5_LABEL[ma] || ma;
+          const color = (window._p5CocauList||[]).length > 0
+            ? cocauColor(ma) : '#607D8B';
+          return '<span style="background:'+color+';color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;white-space:nowrap;margin-right:3px">'+label+'</span>';
+        }).join('');
+        const goiLabel = [...v.goiSet].join(', ') || '—';
         const tr = document.createElement('tr');
-        tr.innerHTML = '<td class="tl wrap" style="max-width:220px">'+ncc+'</td>'
+        tr.innerHTML = '<td class="tl wrap" style="max-width:180px">'+ncc+'</td>'
+          +'<td class="tc" style="white-space:nowrap">'+loaiTags+'</td>'
+          +'<td class="tl wrap" style="font-size:11px;max-width:200px;color:#4a5568">'+goiLabel+'</td>'
           +'<td class="tr">'+fmtAuto(v.gt)+'</td>'
           +'<td class="tr">'+fmtAuto(v.tt)+'</td>'
           +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
@@ -1968,7 +1982,7 @@ function applyData(data, projectId) {
       });
       if(p5NccTfoot) {
         const tot5Pct = tot5GT > 0 ? ((tot5TT/tot5GT)*100).toFixed(0)+'%' : '—';
-        p5NccTfoot.innerHTML = '<tr><td class="tl">TỔNG CỘNG</td>'
+        p5NccTfoot.innerHTML = '<tr><td class="tl" colspan="3">TỔNG CỘNG</td>'
           +'<td class="tr">'+fmtAuto(tot5GT)+'</td>'
           +'<td class="tr">'+fmtAuto(tot5TT)+'</td>'
           +'<td class="tr '+(tot5CL>0?'neg':tot5CL<0?'pos':'')+'">'+fmtAuto(tot5CL)+'</td>'
