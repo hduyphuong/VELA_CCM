@@ -1389,11 +1389,10 @@ function applyData(data, projectId) {
     const gWD = WD.filter(r => r.g===g);
     const boqKLg  = gWD.reduce((a,r)=>a+(r.bq||0),0);
     const cdtKLg  = gWD.reduce((a,r)=>a+(r.cdt||0),0);
-    const nsRowsNC = NS.filter(r=>r.g===g && WD_WORKDONE_CODES.includes((r.a||'').toUpperCase()));
-    const dtcKLg  = nsRowsNC.reduce((a,r)=>a+(r.klTH||0),0);
+    // KL ĐTC = col V sheet WD (WD[].dtc — Quản lý thanh toán ĐTC)
+    const dtcKLg  = gWD.reduce((a,r)=>a+(r.dtc||0),0);
     const cl = dtcKLg - cdtKLg;
-    const units = [...new Set(nsRowsNC.map(r=>r.u).filter(Boolean))];
-    const u = units[0]||'—';
+    const u = (gWD.find(r=>r.u) || {}).u || '—';
     const pctCDT = boqKLg>0 ? Math.min((cdtKLg/boqKLg)*100, 100) : 0;
     const pctDTC = boqKLg>0 ? Math.min((dtcKLg/boqKLg)*100, 100) : 0;
     const hasBOQ = boqKLg > 0;
@@ -2322,12 +2321,8 @@ function filterWD(){
     // Join WD-NS theo mc+mp (chinh xac hon g+n)
     const nsRow = NS.find(n => n.mc&&r.mc&&n.mc===r.mc&&n.mp===r.mp)
                 || NS.find(n => n.g===r.g && n.n===r.n) || {};
-    let dtcKL;
-    if(selectedPeriods.length > 0) {
-      dtcKL = TT.filter(t=>t.g===r.g&&t.n===r.n&&selectedPeriods.includes(t.p)).reduce((a,t)=>a+(t.k||0),0);
-    } else {
-      dtcKL = nsRow.klTH||0;
-    }
+    // KL ĐTC = col V sheet WD (số thứ tự 15 lần 2 — Quản lý thanh toán ĐTC)
+    const dtcKL = r.dtc||0;
     const cl = dtcKL - (r.cdt||0);
     rows.push({r, nsRow, dtcKL, cl});
   });
