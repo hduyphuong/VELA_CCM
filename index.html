@@ -1745,7 +1745,7 @@ function applyData(data, projectId) {
   }
 
   // --- KPI Page 5: BC CP Gián tiếp — dùng tất cả mã trừ NC và VT ---
-  const GT_CODES = COCAU_LIST_ACTIVE.filter(c => c.ma !== 'NC' && c.ma !== 'VT' && c.ma !== 'MMTB').map(c => c.ma);
+  const GT_CODES = COCAU_LIST_ACTIVE.filter(c => c.ma !== 'NC' && c.ma !== 'VT' && c.ma !== 'MMTB' && c.ma !== 'NTP').map(c => c.ma);
   const p5TH  = ttByCodes(GT_CODES).reduce((a,r)=>a+(r.gt||0),0);
   const p5TT  = ttByCodes(GT_CODES).reduce((a,r)=>a+(r.tt||0),0);
   const p5NS  = nsByCodes(GT_CODES).reduce((a,r)=>a+(r.tt||0),0);
