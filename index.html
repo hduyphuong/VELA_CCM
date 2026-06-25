@@ -196,6 +196,54 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   .nav-btn .nav-num{display:none}
 }
 
+/* ===== P0 EXECUTIVE SUMMARY ===== */
+.ex-hero{display:grid;grid-template-columns:repeat(5,1fr);gap:0.75rem;margin-bottom:1rem}
+.ex-card{background:white;border-radius:12px;padding:1.125rem 1rem 0.875rem;box-shadow:0 2px 8px rgba(0,0,0,.09);display:flex;flex-direction:column;gap:0.25rem;position:relative;overflow:hidden}
+.ex-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px}
+.ex-card.purple::after{background:linear-gradient(90deg,#3B2D6F,#5c4a9e)}
+.ex-card.green::after{background:linear-gradient(90deg,#2e7d32,#43a047)}
+.ex-card.orange::after{background:linear-gradient(90deg,#E8552A,#f5834d)}
+.ex-card.teal::after{background:linear-gradient(90deg,#00796b,#26a69a)}
+.ex-card.amber::after{background:linear-gradient(90deg,#F5A623,#ffcc02)}
+.ex-card.red::after{background:linear-gradient(90deg,#c62828,#ef5350)}
+.ex-card.blue::after{background:linear-gradient(90deg,#1565c0,#42a5f5)}
+.ex-icon{font-size:1.375rem;line-height:1;margin-bottom:0.125rem}
+.ex-label{font-size:0.625rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#6c757d}
+.ex-value{font-size:1.25rem;font-weight:800;line-height:1.15;color:#1a2332}
+.ex-sub{font-size:0.625rem;color:#6c757d;margin-top:0.1rem}
+.ex-badge{display:inline-flex;align-items:center;gap:3px;font-size:0.625rem;font-weight:700;padding:2px 7px;border-radius:10px;margin-top:0.25rem;width:fit-content}
+
+.ex-section{display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem}
+.ex-section-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.875rem;margin-bottom:0.875rem}
+
+/* Gauge / donut mini */
+.gauge-wrap{display:flex;flex-direction:column;align-items:center;gap:0.375rem}
+.gauge-ring{transform:rotate(-90deg)}
+.gauge-pct{font-size:1rem;font-weight:800;line-height:1}
+.gauge-lbl{font-size:0.625rem;color:#6c757d;font-weight:600}
+
+/* Executive progress row */
+.ex-prog-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ex-prog-label{font-size:0.6875rem;color:#1a2332;font-weight:600;min-width:130px;flex-shrink:0}
+.ex-prog-track{flex:1;height:10px;background:#e9ecef;border-radius:6px;overflow:hidden}
+.ex-prog-fill{height:100%;border-radius:6px;transition:width .5s ease}
+.ex-prog-pct{font-size:0.6875rem;font-weight:700;min-width:38px;text-align:right;flex-shrink:0}
+.ex-prog-val{font-size:0.625rem;color:#6c757d;min-width:90px;text-align:right;flex-shrink:0}
+
+/* Timeline thanh toán */
+.timeline-wrap{display:flex;flex-direction:column;gap:0px}
+.tl-item{display:grid;grid-template-columns:90px 1fr 100px 80px 70px;align-items:center;gap:8px;padding:5px 4px;border-bottom:1px solid #f0f0f0;font-size:0.6875rem}
+.tl-item:last-child{border-bottom:none}
+.tl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;display:inline-block;margin-right:4px}
+.tl-team{font-weight:600;color:#1a2332;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-bar-wrap{height:7px;background:#e9ecef;border-radius:4px;overflow:hidden}
+.tl-bar-fill{height:100%;border-radius:4px}
+
+/* Responsive P0 */
+@media(max-width:1100px){.ex-hero{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:768px){.ex-hero{grid-template-columns:repeat(2,1fr)}.ex-section,.ex-section-3{grid-template-columns:1fr}}
+@media(max-width:480px){.ex-hero{grid-template-columns:1fr 1fr}}
+
 /* ===== PRINT TAB NAME ===== */
 #printTabName{display:none}
 @media print{
@@ -252,7 +300,10 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   <div class="project-switcher" id="projectSwitcher"></div>
   <div id="printTabName"></div>
   <nav class="nav-bar">
-    <button class="nav-btn active" onclick="showPage('p1',this)">
+    <button class="nav-btn active" onclick="showPage('p0',this)">
+      <span class="nav-num" style="background:#E8552A;color:white">✦</span>Tổng quan
+    </button>
+    <button class="nav-btn" onclick="showPage('p1',this)">
       <span class="nav-num">1</span>BC Tài chính
     </button>
     <button class="nav-btn" onclick="showPage('p2',this)">
@@ -300,9 +351,105 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 </div>
 
 <!-- ============================================================ -->
+<!-- PAGE 0: TỔNG QUAN (EXECUTIVE SUMMARY)                        -->
+<!-- ============================================================ -->
+<div id="p0" class="page active">
+
+  <!-- Row 1: 5 KPI hero cards -->
+  <div class="ex-hero">
+    <div class="ex-card purple">
+      <div class="ex-label">Giá trị BOQ</div>
+      <div class="ex-value" id="ex_boq">—</div>
+      <div class="ex-sub">Hợp đồng gốc + phát sinh duyệt</div>
+    </div>
+    <div class="ex-card teal">
+      <div class="ex-label">Ngân sách dự án</div>
+      <div class="ex-value" id="ex_ns">—</div>
+      <div class="ex-sub">Chi phí khoán nội bộ</div>
+    </div>
+    <div class="ex-card green">
+      <div class="ex-label">CĐT xác nhận (Lũy kế)</div>
+      <div class="ex-value" id="ex_cdt">—</div>
+      <div class="ex-sub" id="ex_cdt_sub">IPC lũy kế</div>
+    </div>
+    <div class="ex-card orange">
+      <div class="ex-label">Chi phí thực hiện</div>
+      <div class="ex-value" id="ex_th">—</div>
+      <div class="ex-sub">GT thực hiện (đội TH)</div>
+    </div>
+    <div class="ex-card" id="ex_ln_card" style="background:white">
+      <div class="ex-label">Lợi nhuận Hiện tại</div>
+      <div class="ex-value" id="ex_ln">—</div>
+      <div class="ex-sub" id="ex_ln_sub">CĐT XN – Chi phí TH</div>
+      <div class="ex-badge" id="ex_ln_badge">—</div>
+    </div>
+  </div>
+
+  <!-- Row 2: Tiến độ tài chính (trái) + Thanh toán đội (phải) -->
+  <div class="ex-section">
+    <!-- TIẾN ĐỘ TÀI CHÍNH -->
+    <div class="card mb0">
+      <div class="stitle">Tiến độ tài chính</div>
+      <div style="margin-bottom:1rem" id="ex_progress_bars"></div>
+      <!-- 3 mini gauges -->
+      <div style="display:flex;justify-content:space-around;padding-top:0.75rem;border-top:1px solid #f0f0f0" id="ex_gauges"></div>
+    </div>
+
+    <!-- TỔNG HỢP THANH TOÁN ĐỘI THI CÔNG -->
+    <div class="card mb0">
+      <div class="stitle">Thanh toán đội thi công <span id="ex_ipc_badge" style="font-weight:400;font-size:0.6875rem;color:#6c757d;text-transform:none;letter-spacing:0;border:none;padding:0;margin-left:4px"></span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;margin-bottom:0.875rem">
+        <div style="text-align:center;padding:0.625rem;background:#f8f9fa;border-radius:8px">
+          <div style="font-size:0.625rem;color:#6c757d;font-weight:600;text-transform:uppercase;letter-spacing:.4px">GT Thực hiện</div>
+          <div style="font-size:1rem;font-weight:800;color:#1a2332;margin-top:4px" id="ex_tt_gt">—</div>
+        </div>
+        <div style="text-align:center;padding:0.625rem;background:#d1e7dd;border-radius:8px">
+          <div style="font-size:0.625rem;color:#0f5132;font-weight:600;text-transform:uppercase;letter-spacing:.4px">Đã thanh toán</div>
+          <div style="font-size:1rem;font-weight:800;color:#0f5132;margin-top:4px" id="ex_tt_tt">—</div>
+        </div>
+        <div style="text-align:center;padding:0.625rem;background:#fde8e0;border-radius:8px">
+          <div style="font-size:0.625rem;color:#7d3000;font-weight:600;text-transform:uppercase;letter-spacing:.4px">Còn lại</div>
+          <div style="font-size:1rem;font-weight:800;color:#c62828;margin-top:4px" id="ex_tt_cl">—</div>
+        </div>
+      </div>
+      <!-- Timeline top 5 đội theo GT TH -->
+      <div style="font-size:0.6875rem;font-weight:700;color:#3B2D6F;margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px">Top đơn vị theo GT thực hiện</div>
+      <div class="timeline-wrap" id="ex_team_timeline"></div>
+    </div>
+  </div>
+
+  <!-- Row 3: Cơ cấu chi phí (trái) + Workdone so sánh (phải) + CP Gián tiếp (phải) -->
+  <div class="ex-section-3">
+    <!-- CƠ CẤU CHI PHÍ -->
+    <div class="card mb0">
+      <div class="stitle">Cơ cấu chi phí</div>
+      <div id="ex_cocau_bars"></div>
+    </div>
+
+    <!-- WORKDONE STATUS -->
+    <div class="card mb0">
+      <div class="stitle">Khối lượng xác nhận</div>
+      <div style="display:flex;justify-content:space-around;align-items:center;padding:0.75rem 0" id="ex_wd_gauges"></div>
+      <div style="margin-top:0.5rem;padding-top:0.5rem;border-top:1px solid #f0f0f0" id="ex_wd_rows"></div>
+    </div>
+
+    <!-- CHI PHÍ GIÁN TIẾP -->
+    <div class="card mb0">
+      <div class="stitle">Chi phí gián tiếp</div>
+      <div id="ex_gt_bars"></div>
+      <div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:0.6875rem;color:#6c757d">Tổng gián tiếp</div>
+        <div style="font-size:0.875rem;font-weight:700;color:#3B2D6F" id="ex_gt_total">—</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /p0 -->
+
+<!-- ============================================================ -->
 <!-- PAGE 1: BC TÀI CHÍNH                                         -->
 <!-- ============================================================ -->
-<div id="p1" class="page active">
+<div id="p1" class="page">
 
   <!-- KPI: 4 thẻ -->
   <div class="kpi-row kpi-4">
@@ -949,7 +1096,7 @@ function showPage(id, btn) {
 function showLoading(on) {
   el('loadingState').style.display = on ? 'block' : 'none';
   el('errorState').style.display = 'none';
-  if(on) ['p1','p2','p3','p4','p5'].forEach(id => el(id).classList.remove('active'));
+  if(on) ['p0','p1','p2','p3','p4','p5','p6'].forEach(id => el(id).classList.remove('active'));
 }
 function showError(msg) {
   el('loadingState').style.display = 'none';
@@ -1060,7 +1207,7 @@ async function loadProject(id) {
     }
     applyData(data, id);
     showLoading(false);
-    el('p1').classList.add('active');
+    el('p0').classList.add('active');
     document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i===0));
     const firstBtn = document.querySelector('.nav-btn');
     if(firstBtn) el('printTabName').textContent = firstBtn.textContent.trim();
@@ -2172,6 +2319,180 @@ function applyData(data, projectId) {
   updateMsLabel('ms2');
   filterWD();
   filterTT();
+
+  // ===== P0 EXECUTIVE SUMMARY =====
+  (function renderP0() {
+    // --- Hero cards ---
+    el('ex_boq').textContent = fmtAuto(boq);
+    el('ex_ns').textContent  = fmtAuto(nsTotal);
+    el('ex_cdt').textContent = fmtAuto(totCDT);
+    el('ex_cdt_sub').textContent = s.current_ipc ? 'IPC ' + s.current_ipc + ' — lũy kế' : 'IPC lũy kế';
+    el('ex_th').textContent  = fmtAuto(chiPhiTH);
+    const lnAbs = Math.abs(lnHT);
+    el('ex_ln').textContent  = (lnHT < 0 ? '–' : '') + fmtAuto(lnAbs);
+    el('ex_ln').style.color  = lnHT >= 0 ? '#2e7d32' : '#c62828';
+    el('ex_ln_card').style.borderBottom = '3px solid ' + (lnHT >= 0 ? '#2e7d32' : '#c62828');
+    const lnBadge = el('ex_ln_badge');
+    lnBadge.textContent = (lnHT >= 0 ? '+' : '') + pctLnHT + '% / CĐT xác nhận';
+    lnBadge.style.background = lnHT >= 0 ? '#d1e7dd' : '#fde8e0';
+    lnBadge.style.color = lnHT >= 0 ? '#0f5132' : '#7d3000';
+
+    // --- Tiến độ tài chính (progress bars) ---
+    const progEl = el('ex_progress_bars');
+    if(progEl) {
+      const progData = [
+        {label:'CĐT xác nhận / BOQ',  val:totCDT,  base:boq,     color:'#2e7d32'},
+        {label:'Chi phí TH / Ngân sách', val:chiPhiTH, base:nsTotal, color:'#E8552A'},
+        {label:'Chi phí TH / BOQ',    val:chiPhiTH, base:boq,     color:'#1565c0'},
+        {label:'Đã thanh toán / GT TH', val:totTT,  base:totTH,   color:'#3B2D6F'},
+      ];
+      progEl.innerHTML = progData.map(d => {
+        const pct0 = d.base > 0 ? Math.min((d.val/d.base)*100,100) : 0;
+        const pctDisp = d.base > 0 ? ((d.val/d.base)*100).toFixed(1)+'%' : '—';
+        return '<div class="ex-prog-row">'
+          +'<div class="ex-prog-label">'+d.label+'</div>'
+          +'<div class="ex-prog-track"><div class="ex-prog-fill" style="width:'+pct0.toFixed(1)+'%;background:'+d.color+'"></div></div>'
+          +'<div class="ex-prog-pct" style="color:'+d.color+'">'+pctDisp+'</div>'
+          +'<div class="ex-prog-val">'+fmtAuto(d.val)+'</div>'
+          +'</div>';
+      }).join('');
+    }
+
+    // --- 3 mini SVG gauges ---
+    function svgGauge(pctVal, color, label, sub) {
+      const R = 28, cx = 34, cy = 34, stroke = 7;
+      const circ = 2 * Math.PI * R;
+      const fill = circ * Math.min(pctVal, 100) / 100;
+      return '<div class="gauge-wrap">'
+        +'<svg width="68" height="68" class="gauge-ring">'
+        +'<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="none" stroke="#e9ecef" stroke-width="'+stroke+'"/>'
+        +'<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="none" stroke="'+color+'" stroke-width="'+stroke+'"'
+        +' stroke-dasharray="'+fill.toFixed(1)+' '+circ.toFixed(1)+'" stroke-linecap="round"/>'
+        +'</svg>'
+        +'<div class="gauge-pct" style="color:'+color+'">'+pctVal.toFixed(1)+'%</div>'
+        +'<div class="gauge-lbl" style="text-align:center">'+label+'</div>'
+        +(sub ? '<div style="font-size:0.5625rem;color:#adb5bd;text-align:center">'+sub+'</div>' : '')
+        +'</div>';
+    }
+    const gaugesEl = el('ex_gauges');
+    if(gaugesEl) {
+      const pctCDTBoq   = boq > 0     ? (totCDT/boq)*100     : 0;
+      const pctThNS     = nsTotal > 0 ? (chiPhiTH/nsTotal)*100 : 0;
+      const pctTTGT     = totTH > 0   ? (totTT/totTH)*100     : 0;
+      gaugesEl.innerHTML =
+        svgGauge(pctCDTBoq,  '#2e7d32', 'CĐT/BOQ',  'Tỷ lệ XN') +
+        svgGauge(pctThNS,    '#E8552A', 'CP TH/NS', 'Chi phí') +
+        svgGauge(pctTTGT,    '#3B2D6F', 'Đã TT/GT', 'Thanh toán');
+    }
+
+    // --- Thanh toán đội TH ---
+    el('ex_tt_gt').textContent = fmtAuto(totTH);
+    el('ex_tt_tt').textContent = fmtAuto(totTT);
+    el('ex_tt_cl').textContent = fmtAuto(totCL);
+    if(s.current_ipc) el('ex_ipc_badge').textContent = '— IPC ' + s.current_ipc;
+
+    // Top teams by GT TH
+    const teamMap = {};
+    TT.forEach(r => {
+      const t = (r.t||'').trim() || '(Không rõ)';
+      if(!teamMap[t]) teamMap[t] = {gt:0, tt:0};
+      teamMap[t].gt += r.gt||0;
+      teamMap[t].tt += r.tt||0;
+    });
+    const topTeams = Object.entries(teamMap).sort((a,b)=>b[1].gt-a[1].gt).slice(0,6);
+    const maxGT = topTeams.length > 0 ? topTeams[0][1].gt : 1;
+    const TEAM_COLORS = ['#3B2D6F','#E8552A','#2e7d32','#1565c0','#00796b','#F5A623'];
+    const tlEl = el('ex_team_timeline');
+    if(tlEl) {
+      tlEl.innerHTML = topTeams.length === 0
+        ? '<div style="color:#6c757d;font-size:0.6875rem;padding:0.5rem 0">Chưa có dữ liệu</div>'
+        : topTeams.map(([team, v], i) => {
+          const barW = maxGT > 0 ? ((v.gt/maxGT)*100).toFixed(1) : 0;
+          const pctTT0 = v.gt > 0 ? ((v.tt/v.gt)*100).toFixed(0) : '0';
+          const color = TEAM_COLORS[i % TEAM_COLORS.length];
+          return '<div class="tl-item">'
+            +'<div class="tl-team" title="'+team+'"><span class="tl-dot" style="background:'+color+'"></span>'+team+'</div>'
+            +'<div class="tl-bar-wrap"><div class="tl-bar-fill" style="width:'+barW+'%;background:'+color+'"></div></div>'
+            +'<div style="font-size:0.6875rem;font-weight:700;text-align:right;color:#1a2332">'+fmtAuto(v.gt)+'</div>'
+            +'<div style="font-size:0.6875rem;text-align:right;color:#2e7d32">'+fmtAuto(v.tt)+'</div>'
+            +'<div style="font-size:0.6875rem;font-weight:700;text-align:right;color:'+color+'">'+pctTT0+'%</div>'
+            +'</div>';
+        }).join('');
+    }
+
+    // --- Cơ cấu chi phí (progress bars theo mã) ---
+    const ccEl = el('ex_cocau_bars');
+    if(ccEl) {
+      const ccBase = chiPhiTH > 0 ? chiPhiTH : 1;
+      ccEl.innerHTML = COCAU_LIST_ACTIVE.map(c => {
+        const val = thValMap[c.ma] || 0;
+        if(!val) return '';
+        const pw = Math.min((val/ccBase)*100, 100).toFixed(1);
+        const color = cocauColor(c.ma);
+        return '<div class="ex-prog-row">'
+          +'<div class="ex-prog-label" style="min-width:110px">'+c.noi_dung+'</div>'
+          +'<div class="ex-prog-track"><div class="ex-prog-fill" style="width:'+pw+'%;background:'+color+'"></div></div>'
+          +'<div class="ex-prog-pct" style="color:'+color+'">'+pw+'%</div>'
+          +'<div class="ex-prog-val">'+fmtAuto(val)+'</div>'
+          +'</div>';
+      }).join('');
+    }
+
+    // --- Workdone: 2 gauges CĐT vs ĐTC + bảng hạng mục top ---
+    const wdGaugesEl = el('ex_wd_gauges');
+    if(wdGaugesEl) {
+      const wdNC = WD.filter(r => (r.mct||'').toUpperCase() === 'NC');
+      const sumBOQ = wdNC.reduce((a,r)=>a+(r.bq||0),0);
+      const sumCDT = wdNC.reduce((a,r)=>a+(r.cdt||0),0);
+      const sumDTC = wdNC.reduce((a,r)=>a+(r.dtc||0),0);
+      const pctCDT0 = sumBOQ > 0 ? (sumCDT/sumBOQ)*100 : 0;
+      const pctDTC0 = sumBOQ > 0 ? (sumDTC/sumBOQ)*100 : 0;
+      wdGaugesEl.innerHTML =
+        svgGauge(pctCDT0, '#2e7d32', 'CĐT/BOQ',  'Workdone') +
+        svgGauge(pctDTC0, '#E8552A', 'ĐTC/BOQ',  'Workdone');
+    }
+    const wdRowsEl = el('ex_wd_rows');
+    if(wdRowsEl) {
+      const hmGroups = {};
+      WD.filter(r=>(r.mct||'').toUpperCase()==='NC').forEach(r=>{
+        const g = r.g || '—';
+        if(!hmGroups[g]) hmGroups[g] = {bq:0, cdt:0, dtc:0};
+        hmGroups[g].bq  += r.bq  || 0;
+        hmGroups[g].cdt += r.cdt || 0;
+        hmGroups[g].dtc += r.dtc || 0;
+      });
+      wdRowsEl.innerHTML = Object.entries(hmGroups).slice(0,5).map(([g,v]) => {
+        const pw = v.bq > 0 ? Math.min((v.cdt/v.bq)*100,100).toFixed(1) : 0;
+        return '<div class="ex-prog-row" style="margin-bottom:4px">'
+          +'<div class="ex-prog-label" style="min-width:110px;font-size:0.625rem">'+g+'</div>'
+          +'<div class="ex-prog-track"><div class="ex-prog-fill" style="width:'+pw+'%;background:#2e7d32"></div></div>'
+          +'<div class="ex-prog-pct" style="color:#2e7d32">'+pw+'%</div>'
+          +'</div>';
+      }).join('') || '<div style="font-size:0.6875rem;color:#6c757d">Chưa có dữ liệu WD</div>';
+    }
+
+    // --- Chi phí gián tiếp (P5 codes) ---
+    const gtEl = el('ex_gt_bars');
+    if(gtEl) {
+      const gtBase = p5TH > 0 ? p5TH : 1;
+      const GT5_LABEL = {PRE:'Prelim', DP:'Dự phòng', QLDN:'QLDN', DT:'Đặc thù', NTP:'NTP'};
+      gtEl.innerHTML = GT_CODES.map(ma => {
+        const val = thValMap[ma] || 0;
+        if(!val) return '';
+        const c = COCAU_LIST.find(x=>x.ma===ma);
+        const label = c ? c.noi_dung : (GT5_LABEL[ma]||ma);
+        const color = cocauColor(ma);
+        const pw = Math.min((val/gtBase)*100, 100).toFixed(1);
+        return '<div class="ex-prog-row">'
+          +'<div class="ex-prog-label" style="min-width:110px">'+label+'</div>'
+          +'<div class="ex-prog-track"><div class="ex-prog-fill" style="width:'+pw+'%;background:'+color+'"></div></div>'
+          +'<div class="ex-prog-pct" style="color:'+color+'">'+pw+'%</div>'
+          +'<div class="ex-prog-val">'+fmtAuto(val)+'</div>'
+          +'</div>';
+      }).join('') || '<div style="font-size:0.6875rem;color:#6c757d">Chưa có dữ liệu</div>';
+    }
+    el('ex_gt_total').textContent = fmtAuto(p5TH);
+  })();
 }
 
 // ===== P5 BANG CHI TIET =====
