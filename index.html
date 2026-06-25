@@ -1102,12 +1102,13 @@ function applyData(data, projectId) {
     {ma:'MMTB',noi_dung:'Máy móc thiết bị'},
     {ma:'PRE',noi_dung:'Chi phí Prelims'}, {ma:'DP',noi_dung:'Chi phí dự phòng'},
     {ma:'QLDN',noi_dung:'CP Quản lý DN'}, {ma:'DT',noi_dung:'Đặc thù'},
+    {ma:'NTP',noi_dung:'Nhà thầu phụ'},
   ];
   window._p5CocauList = COCAU_LIST;
   // Bảng màu theo mã (cố định cho các mã phổ biến, sinh ngẫu nhiên cho mã lạ)
   const COCAU_COLORS = {
     NC:'#1565c0', VT:'#2e7d32', PRE:'#E8552A', DP:'#F5A623',
-    QLDN:'#3B2D6F', DT:'#9C27B0', GG:'#c62828', PSG:'#795548', TT:'#607D8B',
+    QLDN:'#3B2D6F', DT:'#9C27B0', NTP:'#00838F', GG:'#c62828', PSG:'#795548', TT:'#607D8B',
   };
   function cocauColor(ma) {
     if(COCAU_COLORS[ma]) return COCAU_COLORS[ma];
@@ -2079,8 +2080,8 @@ function applyData(data, projectId) {
 }
 
 // ===== P5 BANG CHI TIET =====
-const GT5_LABEL_MAP = {PRE:'Prelim', DP:'Dự phòng', QLDN:'QLDN', DT:'Đặc thù'};
-const GT5_COLOR_MAP = {PRE:'#E8552A', DP:'#F5A623', QLDN:'#3B2D6F', DT:'#2e7d32'};
+const GT5_LABEL_MAP = {PRE:'Prelim', DP:'Dự phòng', QLDN:'QLDN', DT:'Đặc thù', NTP:'Nhà thầu phụ'};
+const GT5_COLOR_MAP = {PRE:'#E8552A', DP:'#F5A623', QLDN:'#3B2D6F', DT:'#9C27B0', NTP:'#00838F'};
 
 function filterP5Detail() {
   const loai    = (el('f5Loai')||{}).value || '';
