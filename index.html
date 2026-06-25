@@ -1132,6 +1132,7 @@ function applyData(data, projectId) {
   const nsDP_val  = nsValMap['DP']  || 0;
   const nsQLDN_val= nsValMap['QLDN']|| 0;
   const thNC_val  = thValMap['NC']  || 0;
+  const thNTP_val = thValMap['NTP'] || 0;
   const thVT_val  = thValMap['VT']  || 0;
   const thPRE_val = thValMap['PRE'] || 0;
   const thDP_val  = thValMap['DP']  || 0;
@@ -1358,7 +1359,7 @@ function applyData(data, projectId) {
 
   // --- KPI Page 2: CDT = từ dòng TỔNG CỘNG sheet WD col X (chính xác tuyệt đối)
   const p2CDT = s.cdt_nc_total || WD.reduce((a,r)=>a+(r.ttNC_cdt||r.ttCDT||0),0);
-  const p2TH  = thNC_val;
+  const p2TH  = thNC_val + thNTP_val;
   el('kpi2_cdt').textContent = fmtTy(p2CDT);
   // IPC hiện tại: đọc từ summary.current_ipc (được xác định từ header row 7 sheet WD)
   if(s.current_ipc) el('kpi2_ipc_sub').textContent = 'VNĐ – Đến ' + s.current_ipc;
@@ -1379,15 +1380,16 @@ function applyData(data, projectId) {
   // --- Bảng so sánh KL hạng mục P2 (chỉ Mã CT = NC, theo thứ tự NS.g) ---
   const p2WdGroupBody = el('p2WdGroupBody');
   p2WdGroupBody.innerHTML = '';
-  // Danh sách hạng mục từ WD col C (g), lọc chỉ mã CT = NC (col F), theo thứ tự xuất hiện
+  // Danh sách hạng mục từ WD col C (g), lọc mã CT = NC hoặc NTP, theo thứ tự xuất hiện
+  const WD_WORKDONE_CODES = ['NC','NTP'];
   const hmListNC = [];
-  WD.filter(r=>(r.mct||'').toUpperCase()==='NC').forEach(r=>{ if(r.g&&!hmListNC.includes(r.g)) hmListNC.push(r.g); });
+  WD.filter(r=>WD_WORKDONE_CODES.includes((r.mct||'').toUpperCase())).forEach(r=>{ if(r.g&&!hmListNC.includes(r.g)) hmListNC.push(r.g); });
   let p2Stt = 0;
   hmListNC.forEach(g => {
     const gWD = WD.filter(r => r.g===g);
     const boqKLg  = gWD.reduce((a,r)=>a+(r.bq||0),0);
     const cdtKLg  = gWD.reduce((a,r)=>a+(r.cdt||0),0);
-    const nsRowsNC = NS.filter(r=>r.g===g && r.a==='NC');
+    const nsRowsNC = NS.filter(r=>r.g===g && WD_WORKDONE_CODES.includes((r.a||'').toUpperCase()));
     const dtcKLg  = nsRowsNC.reduce((a,r)=>a+(r.klTH||0),0);
     const cl = dtcKLg - cdtKLg;
     const units = [...new Set(nsRowsNC.map(r=>r.u).filter(Boolean))];
