@@ -1481,8 +1481,7 @@ function applyData(data, projectId) {
       cdtV = ncCDT + vtCDT + otCDT;
     }
     const nsV  = nsRows.reduce((a,r)=>a+(r.tt||0),0);
-    const hmValLow = hmVal.toLowerCase();
-    const thV  = TT.filter(r=>(r.g||'').toLowerCase()===hmValLow).reduce((a,r)=>a+(r.gt||0),0);
+    const thV  = nsRows.reduce((a,r)=>a+(r.ttTH||0),0);  // NS[].ttTH = TT thực hiện col Q sheet NS
     const lnV  = cdtV - thV;
     const pctB = boqV>0 ? ((cdtV/boqV)*100).toFixed(1) : null;
     const pctLn= cdtV>0 ? ((lnV/cdtV)*100).toFixed(1) : null;
@@ -1521,7 +1520,9 @@ function applyData(data, projectId) {
       +'<td class="tc">'+badge+'</td>';
     p1CocauBody.appendChild(tr);
   });
-  const tot_ln = tot_cdt2 - tot_th2;
+  // Tfoot dùng chiPhiTH (s.chi_phi_th_total) để khớp với SO SÁNH GIÁ TRỊ
+  const tot_th2_disp = chiPhiTH;
+  const tot_ln = tot_cdt2 - tot_th2_disp;
   const tot_pctLn = tot_cdt2>0 ? ((tot_ln/tot_cdt2)*100).toFixed(1) : '0';
   const tot_pctB  = tot_boq2>0 ? ((tot_cdt2/tot_boq2)*100).toFixed(1) : '—';
   p1CocauTfoot.innerHTML = '<tr>'
@@ -1529,7 +1530,7 @@ function applyData(data, projectId) {
     +'<td class="tr">'+vnd(tot_boq2)+'</td>'
     +'<td class="tr">'+vnd(tot_ns2)+'</td>'
     +'<td class="tr">'+vnd(tot_cdt2)+'</td>'
-    +'<td class="tr">'+vnd(tot_th2)+'</td>'
+    +'<td class="tr">'+vnd(tot_th2_disp)+'</td>'
     +'<td class="tc"><strong>'+tot_pctB+'%</strong></td>'
     +'<td class="tr" style="color:'+(tot_ln>=0?'#2e7d32':'#c62828')+'">'+fmtAuto(Math.abs(tot_ln))+'</td>'
     +'<td class="tc" style="color:'+(tot_ln>=0?'#2e7d32':'#c62828')+'">'+(tot_ln>=0?'+':'-')+Math.abs(tot_pctLn)+'%</td>'
