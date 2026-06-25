@@ -715,6 +715,26 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   </div>
 
   <div class="card mb0" style="margin-top:0.875rem">
+    <div class="stitle">Tổng hợp theo ĐTC/NCC</div>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th class="tl">ĐTC / NCC</th>
+        <th>GT Thực hiện</th>
+        <th>Đã thanh toán</th>
+        <th>Còn lại</th>
+        <th>% TT</th>
+        <th>Trạng thái</th>
+      </tr></thead>
+      <tbody id="p5NccBody">
+        <tr><td colspan="6" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+      </tbody>
+      <tfoot id="p5NccTfoot"></tfoot>
+    </table>
+    </div>
+  </div>
+
+  <div class="card mb0" style="margin-top:0.875rem">
     <div class="stitle">Bảng chi tiết sử dụng</div>
     <div class="filter-bar" style="flex-wrap:wrap;gap:8px 16px">
       <label>Loại:</label>
@@ -1901,6 +1921,53 @@ function applyData(data, projectId) {
     nccOpts.forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v; f5Ncc.appendChild(o); });
   }
   filterP5Detail();
+
+  // --- Bảng tổng hợp ĐTC/NCC P5 ---
+  const p5NccBody  = el('p5NccBody');
+  const p5NccTfoot = el('p5NccTfoot');
+  if(p5NccBody) {
+    const nccMap = {};
+    ttByCodes(GT_CODES).forEach(r => {
+      const ncc = (r.t||'').trim() || '(Không rõ)';
+      if(!nccMap[ncc]) nccMap[ncc] = {gt:0, tt:0, cl:0};
+      nccMap[ncc].gt += r.gt||0;
+      nccMap[ncc].tt += r.tt||0;
+      nccMap[ncc].cl += r.cl||0;
+    });
+    const nccList = Object.entries(nccMap).sort((a,b) => b[1].gt - a[1].gt);
+    p5NccBody.innerHTML = '';
+    if(nccList.length === 0) {
+      p5NccBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+      if(p5NccTfoot) p5NccTfoot.innerHTML = '';
+    } else {
+      let tot5GT=0, tot5TT=0, tot5CL=0;
+      nccList.forEach(([ncc, v]) => {
+        const pctTT5 = v.gt > 0 ? ((v.tt/v.gt)*100).toFixed(0) : null;
+        const status = pctTT5 === null ? '<span style="color:#6c757d">—</span>'
+          : +pctTT5 >= 100 ? '<span class="badge bg-g">Đã TT đủ</span>'
+          : +pctTT5 >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Còn nợ</span>'
+          :                   '<span class="badge bg-b" style="background:#e7f3ff;color:#1565c0">Chưa TT</span>';
+        const tr = document.createElement('tr');
+        tr.innerHTML = '<td class="tl wrap" style="max-width:220px">'+ncc+'</td>'
+          +'<td class="tr">'+fmtAuto(v.gt)+'</td>'
+          +'<td class="tr">'+fmtAuto(v.tt)+'</td>'
+          +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
+          +'<td class="tc">'+(pctTT5!==null?pctTT5+'%':'—')+'</td>'
+          +'<td class="tc">'+status+'</td>';
+        p5NccBody.appendChild(tr);
+        tot5GT+=v.gt; tot5TT+=v.tt; tot5CL+=v.cl;
+      });
+      if(p5NccTfoot) {
+        const tot5Pct = tot5GT > 0 ? ((tot5TT/tot5GT)*100).toFixed(0)+'%' : '—';
+        p5NccTfoot.innerHTML = '<tr><td class="tl">TỔNG CỘNG</td>'
+          +'<td class="tr">'+fmtAuto(tot5GT)+'</td>'
+          +'<td class="tr">'+fmtAuto(tot5TT)+'</td>'
+          +'<td class="tr '+(tot5CL>0?'neg':tot5CL<0?'pos':'')+'">'+fmtAuto(tot5CL)+'</td>'
+          +'<td class="tc">'+tot5Pct+'</td>'
+          +'<td></td></tr>';
+      }
+    }
+  }
 
   // --- KPI Page 6: BC Máy móc thiết bị (mã MMTB) ---
   const p6TH  = ttByCode('MMTB').reduce((a,r)=>a+(r.gt||0),0);
