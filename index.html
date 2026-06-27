@@ -901,20 +901,36 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 
   <div class="card mb0" style="margin-top:0.875rem">
     <div class="stitle">Tổng hợp theo đơn vị</div>
+    <div class="filter-bar" style="flex-wrap:wrap;gap:8px 16px">
+      <label>Đơn vị:</label>
+      <select id="f5NccFilter" onchange="filterP5Ncc()">
+        <option value="">-- Tất cả --</option>
+      </select>
+      <label>Loại:</label>
+      <select id="f5NccLoai" onchange="filterP5Ncc()">
+        <option value="">-- Tất cả --</option>
+      </select>
+      <label>Hạng mục:</label>
+      <select id="f5NccHangMuc" onchange="filterP5Ncc()">
+        <option value="">-- Tất cả --</option>
+      </select>
+      <span style="margin-left:auto;font-size:11px;color:#6c757d">Số đơn vị: <span id="p5NccCount">0</span></span>
+    </div>
     <div class="tbl-wrap">
     <table>
       <thead><tr>
+        <th style="width:36px">STT</th>
         <th class="tl">ĐTC / NCC</th>
         <th>Loại</th>
         <th class="tl">Gói thầu / Hạng mục</th>
-        <th>GT Thực hiện</th>
-        <th>Đã thanh toán</th>
+        <th>GT Thực hiện (đ)</th>
+        <th>Đã thanh toán (đ)</th>
         <th>Còn lại</th>
         <th>% TT</th>
         <th>Trạng thái</th>
       </tr></thead>
       <tbody id="p5NccBody">
-        <tr><td colspan="8" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+        <tr><td colspan="9" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
       </tbody>
       <tfoot id="p5NccTfoot"></tfoot>
     </table>
@@ -2123,62 +2139,32 @@ function applyData(data, projectId) {
   filterP5Detail();
 
   // --- Bảng tổng hợp theo đơn vị P5 ---
-  const p5NccBody  = el('p5NccBody');
-  const p5NccTfoot = el('p5NccTfoot');
-  if(p5NccBody) {
-    const nccMap = {};
+  {
+    const nccRawMap = {};
     ttByCodes(GT_CODES).forEach(r => {
       const ncc = (r.t||'').trim() || '(Không rõ)';
-      if(!nccMap[ncc]) nccMap[ncc] = {gt:0, tt:0, cl:0, loaiSet: new Set(), goiSet: new Set()};
-      nccMap[ncc].gt += r.gt||0;
-      nccMap[ncc].tt += r.tt||0;
-      nccMap[ncc].cl += r.cl||0;
-      if(r.a) nccMap[ncc].loaiSet.add((r.a||'').toUpperCase());
-      if(r.g) nccMap[ncc].goiSet.add(r.g);
+      const loai = (r.a||'').toUpperCase();
+      const goi  = (r.g||'').trim();
+      const key  = ncc + '|||' + loai + '|||' + goi;
+      if(!nccRawMap[key]) nccRawMap[key] = {ncc, loai, goi, gt:0, tt:0, cl:0};
+      nccRawMap[key].gt += r.gt||0;
+      nccRawMap[key].tt += r.tt||0;
+      nccRawMap[key].cl += r.cl||0;
     });
-    const GT5_LABEL = {PRE:'Prelim', DP:'Dự phòng', QLDN:'QLDN', DT:'Đặc thù', NTP:'NTP'};
-    const nccList = Object.entries(nccMap).sort((a,b) => b[1].gt - a[1].gt);
-    p5NccBody.innerHTML = '';
-    if(nccList.length === 0) {
-      p5NccBody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
-      if(p5NccTfoot) p5NccTfoot.innerHTML = '';
-    } else {
-      let tot5GT=0, tot5TT=0, tot5CL=0;
-      nccList.forEach(([ncc, v]) => {
-        const pctTT5 = v.gt > 0 ? ((v.tt/v.gt)*100).toFixed(0) : null;
-        const status = pctTT5 === null ? '<span style="color:#6c757d">—</span>'
-          : +pctTT5 >= 100 ? '<span class="badge bg-g">Đã TT đủ</span>'
-          : +pctTT5 >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Còn nợ</span>'
-          :                   '<span class="badge bg-b" style="background:#e7f3ff;color:#1565c0">Chưa TT</span>';
-        const loaiTags = [...v.loaiSet].map(ma => {
-          const label = GT5_LABEL[ma] || ma;
-          const color = (window._p5CocauList||[]).length > 0
-            ? cocauColor(ma) : '#607D8B';
-          return '<span style="background:'+color+';color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;white-space:nowrap;margin-right:3px">'+label+'</span>';
-        }).join('');
-        const goiLabel = [...v.goiSet].join(', ') || '—';
-        const tr = document.createElement('tr');
-        tr.innerHTML = '<td class="tl wrap" style="max-width:180px">'+ncc+'</td>'
-          +'<td class="tc" style="white-space:nowrap">'+loaiTags+'</td>'
-          +'<td class="tl wrap" style="font-size:11px;max-width:200px;color:#4a5568">'+goiLabel+'</td>'
-          +'<td class="tr">'+fmtAuto(v.gt)+'</td>'
-          +'<td class="tr">'+fmtAuto(v.tt)+'</td>'
-          +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
-          +'<td class="tc">'+(pctTT5!==null?pctTT5+'%':'—')+'</td>'
-          +'<td class="tc">'+status+'</td>';
-        p5NccBody.appendChild(tr);
-        tot5GT+=v.gt; tot5TT+=v.tt; tot5CL+=v.cl;
-      });
-      if(p5NccTfoot) {
-        const tot5Pct = tot5GT > 0 ? ((tot5TT/tot5GT)*100).toFixed(0)+'%' : '—';
-        p5NccTfoot.innerHTML = '<tr><td class="tl" colspan="3">TỔNG CỘNG</td>'
-          +'<td class="tr">'+fmtAuto(tot5GT)+'</td>'
-          +'<td class="tr">'+fmtAuto(tot5TT)+'</td>'
-          +'<td class="tr '+(tot5CL>0?'neg':tot5CL<0?'pos':'')+'">'+fmtAuto(tot5CL)+'</td>'
-          +'<td class="tc">'+tot5Pct+'</td>'
-          +'<td></td></tr>';
-      }
-    }
+    // Flatten to array for filtering
+    window._p5NccRows = Object.values(nccRawMap);
+
+    // Build filter dropdowns
+    const allNcc   = [...new Set(window._p5NccRows.map(r=>r.ncc).filter(Boolean))].sort();
+    const allLoai  = [...new Set(window._p5NccRows.map(r=>r.loai).filter(Boolean))].sort();
+    const allGoi   = [...new Set(window._p5NccRows.map(r=>r.goi).filter(Boolean))].sort();
+    const f5NccFilter  = el('f5NccFilter');
+    const f5NccLoai    = el('f5NccLoai');
+    const f5NccHangMuc = el('f5NccHangMuc');
+    if(f5NccFilter)  allNcc.forEach(v=>{ const o=document.createElement('option'); o.value=v; o.textContent=v; f5NccFilter.appendChild(o); });
+    if(f5NccLoai) allLoai.forEach(ma=>{ const label=GT5_LABEL_MAP[ma]||ma; const o=document.createElement('option'); o.value=ma; o.textContent=label; f5NccLoai.appendChild(o); });
+    if(f5NccHangMuc) allGoi.forEach(v=>{ const o=document.createElement('option'); o.value=v; o.textContent=v; f5NccHangMuc.appendChild(o); });
+    filterP5Ncc();
   }
 
   // --- KPI Page 6: BC Máy móc thiết bị + Công cụ dụng cụ (mã MMTB + CCDC) ---
@@ -2651,6 +2637,85 @@ function applyData(data, projectId) {
       }).join('') || '<div style="font-size:0.6875rem;color:#6c757d">Chưa có dữ liệu</div>';
     }
   })();
+}
+
+// ===== P5 TONG HOP THEO DON VI =====
+function filterP5Ncc() {
+  const nccVal  = (el('f5NccFilter')||{}).value  || '';
+  const loaiVal = (el('f5NccLoai')||{}).value    || '';
+  const goiVal  = (el('f5NccHangMuc')||{}).value || '';
+  const rows = (window._p5NccRows || []).filter(r => {
+    if(nccVal  && r.ncc  !== nccVal)  return false;
+    if(loaiVal && r.loai !== loaiVal) return false;
+    if(goiVal  && r.goi  !== goiVal)  return false;
+    return true;
+  });
+  renderP5Ncc(rows);
+}
+
+function renderP5Ncc(rows) {
+  if(!rows) rows = window._p5NccRows || [];
+  const body  = el('p5NccBody');
+  const tfoot = el('p5NccTfoot');
+  const countEl = el('p5NccCount');
+  if(!body) return;
+
+  // Group by NCC (aggregate across loai/goi combos for display)
+  const nccMap = {};
+  rows.forEach(r => {
+    if(!nccMap[r.ncc]) nccMap[r.ncc] = {gt:0, tt:0, cl:0, loaiSet:new Set(), goiSet:new Set()};
+    nccMap[r.ncc].gt += r.gt;
+    nccMap[r.ncc].tt += r.tt;
+    nccMap[r.ncc].cl += r.cl;
+    if(r.loai) nccMap[r.ncc].loaiSet.add(r.loai);
+    if(r.goi)  nccMap[r.ncc].goiSet.add(r.goi);
+  });
+  // Sort theo tên đơn vị tăng dần (natural sort)
+  const nccList = Object.entries(nccMap).sort((a,b) =>
+    a[0].localeCompare(b[0], 'vi', {numeric:true, sensitivity:'base'})
+  );
+  if(countEl) countEl.textContent = nccList.length;
+  body.innerHTML = '';
+  if(nccList.length === 0) {
+    body.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+    if(tfoot) tfoot.innerHTML = '';
+    return;
+  }
+  let totGT=0, totTT=0, totCL=0;
+  nccList.forEach(([ncc, v], idx) => {
+    const pctTT5 = v.gt > 0 ? ((v.tt/v.gt)*100).toFixed(0) : null;
+    const status = pctTT5 === null ? '<span style="color:#6c757d">—</span>'
+      : +pctTT5 >= 100 ? '<span class="badge bg-g">Đã TT đủ</span>'
+      : +pctTT5 >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Còn nợ</span>'
+      :                   '<span class="badge bg-b" style="background:#e7f3ff;color:#1565c0">Chưa TT</span>';
+    const loaiTags = [...v.loaiSet].map(ma => {
+      const label = GT5_LABEL_MAP[ma] || ma;
+      const color = GT5_COLOR_MAP[ma] || '#607D8B';
+      return '<span style="background:'+color+';color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;white-space:nowrap;margin-right:3px">'+label+'</span>';
+    }).join('');
+    const goiLabel = [...v.goiSet].join(', ') || '—';
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(idx+1)+'</td>'
+      +'<td class="tl wrap" style="max-width:180px">'+ncc+'</td>'
+      +'<td class="tc" style="white-space:nowrap">'+loaiTags+'</td>'
+      +'<td class="tl wrap" style="font-size:11px;max-width:200px;color:#4a5568">'+goiLabel+'</td>'
+      +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(v.gt)+'</td>'
+      +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(v.tt)+'</td>'
+      +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
+      +'<td class="tc">'+(pctTT5!==null?pctTT5+'%':'—')+'</td>'
+      +'<td class="tc">'+status+'</td>';
+    body.appendChild(tr);
+    totGT+=v.gt; totTT+=v.tt; totCL+=v.cl;
+  });
+  if(tfoot) {
+    const totPct = totGT > 0 ? ((totTT/totGT)*100).toFixed(0)+'%' : '—';
+    tfoot.innerHTML = '<tr><td class="tl" colspan="4">TỔNG CỘNG ('+nccList.length+' đơn vị)</td>'
+      +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(totGT)+'</td>'
+      +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(totTT)+'</td>'
+      +'<td class="tr '+(totCL>0?'neg':totCL<0?'pos':'')+'">'+fmtAuto(totCL)+'</td>'
+      +'<td class="tc">'+totPct+'</td>'
+      +'<td></td></tr>';
+  }
 }
 
 // ===== P5 BANG CHI TIET =====
