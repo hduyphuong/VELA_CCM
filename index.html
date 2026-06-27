@@ -1578,8 +1578,11 @@ function applyData(data, projectId) {
   const p2CDT = s.cdt_nc_total || WD.reduce((a,r)=>a+(r.ttNC_cdt||r.ttCDT||0),0);
   const p2TH  = thNC_val + thNTP_val;
   el('kpi2_cdt').textContent = fmtTy(p2CDT);
-  // IPC hiện tại: đọc từ summary.current_ipc (được xác định từ header row 7 sheet WD)
-  if(s.current_ipc) el('kpi2_ipc_sub').textContent = 'VNĐ – Đến ' + s.current_ipc;
+  // IPC hiện tại: đọc từ summary.current_ipc — "IPC QT" = IPC Quyết toán (đã bao gồm prefix)
+  const ipcLabel = s.current_ipc
+    ? (s.current_ipc.toUpperCase().startsWith('IPC') ? s.current_ipc : 'IPC ' + s.current_ipc)
+    : null;
+  if(ipcLabel) el('kpi2_ipc_sub').textContent = 'VNĐ – Đến ' + ipcLabel;
   el('kpi2_th').textContent  = fmtTy(p2TH);
   const clVal = p2TH - p2CDT;
   el('kpi2_cl_val').textContent = fmtTy(Math.abs(clVal));
@@ -2365,7 +2368,7 @@ function applyData(data, projectId) {
     el('ex_boq').textContent = fmtAuto(boq);
     el('ex_ns').textContent  = fmtAuto(nsTotal);
     el('ex_cdt').textContent = fmtAuto(totCDT);
-    el('ex_cdt_sub').textContent = s.current_ipc ? 'IPC ' + s.current_ipc + ' — lũy kế' : 'IPC lũy kế';
+    el('ex_cdt_sub').textContent = ipcLabel ? ipcLabel + ' — lũy kế' : 'IPC lũy kế';
     el('ex_th').textContent  = fmtAuto(chiPhiTH);
     const lnAbs = Math.abs(lnHT);
     el('ex_ln').textContent  = (lnHT < 0 ? '–' : '') + fmtAuto(lnAbs);
@@ -2381,8 +2384,8 @@ function applyData(data, projectId) {
 
     // 6th KPI card — Đã TT / GT TH
     if(el('ex_tt_gt_kpi')) el('ex_tt_gt_kpi').textContent = fmtAuto(totTT);
-    if(el('ex_ipc_badge')) el('ex_ipc_badge').textContent = s.current_ipc ? 'IPC ' + s.current_ipc : '';
-    if(el('ex_ipc_badge_section4')) el('ex_ipc_badge_section4').textContent = s.current_ipc ? '— IPC ' + s.current_ipc : '';
+    if(el('ex_ipc_badge')) el('ex_ipc_badge').textContent = ipcLabel || '';
+    if(el('ex_ipc_badge_section4')) el('ex_ipc_badge_section4').textContent = ipcLabel ? '— ' + ipcLabel : '';
     const ttPctBadge = el('ex_tt_pct_badge');
     if(ttPctBadge) {
       const pctTT6th = totTH > 0 ? ((totTT/totTH)*100).toFixed(1) : '0.0';
