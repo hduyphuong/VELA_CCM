@@ -560,9 +560,9 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 
   <!-- Bảng thống kê chi phí TH theo đơn vị -->
   <div class="card mb0" style="margin-top:0.875rem">
-    <div class="stitle" style="display:flex;align-items:center;justify-content:space-between">
-      <span>Thống kê chi phí thực hiện</span>
-      <button onclick="toggleP1Cost()" id="p1CostToggleBtn" style="font-size:11px;padding:3px 10px;border:1px solid #ccc;border-radius:6px;background:#f5f5f5;cursor:pointer;color:#555">Ẩn bảng</button>
+    <div class="stitle" style="display:flex;align-items:center;gap:8px">
+      Thống kê chi phí thực hiện
+      <button onclick="toggleP1Cost()" id="p1CostToggleBtn" style="font-size:11px;padding:3px 10px;border:1px solid #ccc;border-radius:6px;background:#f5f5f5;cursor:pointer;color:#555;font-weight:400;text-transform:none;letter-spacing:0;margin-left:auto">Ẩn bảng</button>
     </div>
     <div id="p1CostBody_wrap">
     <div class="filter-bar" style="flex-wrap:wrap;gap:8px 16px">
@@ -650,7 +650,11 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   </div>
 
   <div class="card mb0">
-    <div class="stitle">Chi tiết so sánh workdone CĐT và đội thi công</div>
+    <div class="stitle" style="display:flex;align-items:center;gap:8px">
+      Chi tiết so sánh workdone CĐT và đội thi công
+      <button onclick="toggleSection('wdDetailWrap','wdDetailToggleBtn')" id="wdDetailToggleBtn" style="font-size:11px;padding:3px 10px;border:1px solid #ccc;border-radius:6px;background:#f5f5f5;cursor:pointer;color:#555;font-weight:400;text-transform:none;letter-spacing:0;margin-left:auto">Ẩn bảng</button>
+    </div>
+    <div id="wdDetailWrap">
     <div class="filter-bar">
       <label>Gói thầu:</label>
       <select id="f2Goi" onchange="filterWD()">
@@ -691,6 +695,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <tbody id="wdBody"></tbody>
     </table>
     </div>
+    </div><!-- /wdDetailWrap -->
   </div>
 </div><!-- /p2 -->
 
@@ -754,7 +759,11 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   </div>
 
   <div class="card mb0">
-    <div class="stitle">Chi tiết thanh toán từng đợt</div>
+    <div class="stitle" style="display:flex;align-items:center;gap:8px">
+      Chi tiết thanh toán từng đợt
+      <button onclick="toggleSection('ttDetailWrap','ttDetailToggleBtn')" id="ttDetailToggleBtn" style="font-size:11px;padding:3px 10px;border:1px solid #ccc;border-radius:6px;background:#f5f5f5;cursor:pointer;color:#555;font-weight:400;text-transform:none;letter-spacing:0;margin-left:auto">Ẩn bảng</button>
+    </div>
+    <div id="ttDetailWrap">
     <div class="filter-bar">
       <label>Đội:</label>
       <select id="f3Doi" onchange="filterTT()"><option value="">-- Tất cả --</option></select>
@@ -789,6 +798,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       </tr></tfoot>
     </table>
     </div>
+    </div><!-- /ttDetailWrap -->
   </div>
 </div><!-- /p3 -->
 
@@ -977,7 +987,11 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   </div>
 
   <div class="card mb0" style="margin-top:0.875rem">
-    <div class="stitle">Bảng chi tiết sử dụng</div>
+    <div class="stitle" style="display:flex;align-items:center;gap:8px">
+      Bảng chi tiết sử dụng
+      <button onclick="toggleSection('p5DetailWrap','p5DetailToggleBtn')" id="p5DetailToggleBtn" style="font-size:11px;padding:3px 10px;border:1px solid #ccc;border-radius:6px;background:#f5f5f5;cursor:pointer;color:#555;font-weight:400;text-transform:none;letter-spacing:0;margin-left:auto">Ẩn bảng</button>
+    </div>
+    <div id="p5DetailWrap">
     <div class="filter-bar" style="flex-wrap:wrap;gap:8px 16px">
       <label>Loại:</label>
       <select id="f5Loai" onchange="filterP5Detail()">
@@ -1024,6 +1038,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <tfoot id="p5DetailFoot"></tfoot>
     </table>
     </div>
+    </div><!-- /p5DetailWrap -->
   </div>
 
 </div><!-- /p5 -->
@@ -1091,7 +1106,11 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   </div>
 
   <div class="card mb0">
-    <div class="stitle">Bảng chi tiết máy móc thiết bị / công cụ dụng cụ</div>
+    <div class="stitle" style="display:flex;align-items:center;gap:8px">
+      Bảng chi tiết máy móc thiết bị / công cụ dụng cụ
+      <button onclick="toggleSection('p6DetailWrap','p6DetailToggleBtn')" id="p6DetailToggleBtn" style="font-size:11px;padding:3px 10px;border:1px solid #ccc;border-radius:6px;background:#f5f5f5;cursor:pointer;color:#555;font-weight:400;text-transform:none;letter-spacing:0;margin-left:auto">Ẩn bảng</button>
+    </div>
+    <div id="p6DetailWrap">
     <div class="filter-bar" style="flex-wrap:wrap;gap:8px 16px">
       <label>Loại:</label>
       <select id="f6Loai" onchange="filterP6Detail()">
@@ -1148,6 +1167,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <tfoot id="p6DetailFoot"></tfoot>
     </table>
     </div>
+    </div><!-- /p6DetailWrap -->
   </div>
 
 </div><!-- /p6 -->
@@ -2705,6 +2725,15 @@ function applyData(data, projectId) {
 // ===== P1 BANG THONG KE CHI PHI TH THEO DOI/NCC =====
 const P1COST_LOAI_LABEL = {NC:'Nhân công',VT:'Vật tư',PRE:'Prelim',DP:'Dự phòng',QLDN:'QLDN',DT:'Đặc thù'};
 const P1COST_LOAI_COLOR = {NC:'#1565c0',VT:'#2e7d32',PRE:'#E8552A',DP:'#F5A623',QLDN:'#3B2D6F',DT:'#7B1FA2'};
+
+function toggleSection(wrapId, btnId) {
+  const wrap = el(wrapId);
+  const btn  = el(btnId);
+  if(!wrap) return;
+  const hidden = wrap.style.display === 'none';
+  wrap.style.display = hidden ? '' : 'none';
+  if(btn) btn.textContent = hidden ? 'Ẩn bảng' : 'Hiện bảng';
+}
 
 function toggleP1Cost() {
   const wrap = el('p1CostBody_wrap');
