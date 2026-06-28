@@ -557,6 +557,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <th style="width:36px">STT</th>
         <th class="tl" style="min-width:160px">Đội / NCC / Thầu phụ</th>
         <th class="tl" style="min-width:130px">Hạng mục</th>
+        <th>Loại</th>
         <th>GT Thực hiện (đ)</th>
         <th>Đã thanh toán (đ)</th>
         <th>Còn lại</th>
@@ -564,7 +565,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <th>Trạng thái</th>
       </tr></thead>
       <tbody id="p1CostBody">
-        <tr><td colspan="8" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+        <tr><td colspan="9" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
       </tbody>
       <tfoot id="p1CostFoot"></tfoot>
     </table>
@@ -2755,8 +2756,8 @@ function renderP1Cost(grouped) {
     const tr = document.createElement('tr');
     tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(i+1)+'</td>'
       +'<td class="tl wrap" style="max-width:180px">'+v.doi+'</td>'
-      +'<td class="tl wrap" style="font-size:11px;max-width:160px;color:#3B2D6F;font-weight:600">'+v.hm
-        +(loaiBadges?'<br>'+loaiBadges:'')+'</td>'
+      +'<td class="tl wrap" style="font-size:11px;max-width:160px;color:#3B2D6F;font-weight:600">'+v.hm+'</td>'
+      +'<td class="tc" style="white-space:nowrap">'+(loaiBadges||'—')+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(v.gt)+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(v.tt)+'</td>'
       +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
@@ -2768,7 +2769,7 @@ function renderP1Cost(grouped) {
   if(tfoot) {
     const totPct = totGT > 0 ? ((totTT/totGT)*100).toFixed(0)+'%' : '—';
     tfoot.innerHTML = '<tr style="font-weight:700;background:#f0f0f0">'
-      +'<td colspan="3" class="tl" style="padding-left:8px">TỔNG CỘNG ('+grouped.length+' nhóm)</td>'
+      +'<td colspan="4" class="tl" style="padding-left:8px">TỔNG CỘNG ('+grouped.length+' nhóm)</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(totGT)+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(totTT)+'</td>'
       +'<td class="tr '+(totCL>0?'neg':totCL<0?'pos':'')+'">'+fmtAuto(totCL)+'</td>'
