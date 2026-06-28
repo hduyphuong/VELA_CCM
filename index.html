@@ -2747,7 +2747,7 @@ function renderP1Cost(grouped) {
     const pctTT = v.gt > 0 ? ((v.tt/v.gt)*100).toFixed(0) : null;
     const status = pctTT === null ? '<span style="color:#6c757d">—</span>'
       : +pctTT >= 100 ? '<span class="badge bg-g">Đã TT đủ</span>'
-      : +pctTT >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Còn nợ</span>'
+      : +pctTT >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Tiền giữ lại</span>'
       :                  '<span class="badge bg-b" style="background:#e7f3ff;color:#1565c0">Chưa TT</span>';
     const loaiBadges = [...v.loaiSet].map(ma => {
       const lbl = P1COST_LOAI_LABEL[ma]||ma;
