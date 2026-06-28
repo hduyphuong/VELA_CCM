@@ -554,21 +554,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <select id="f1Loai" onchange="filterP1Cost()">
         <option value="">-- Tất cả --</option>
       </select>
-      <label>Đợt TT:</label>
-      <select id="f1Dot" onchange="filterP1Cost()">
-        <option value="">-- Tất cả --</option>
-      </select>
-      <label>Tháng:</label>
-      <div class="ms-wrap" id="msWrap1Cost">
-        <div class="ms-btn" id="msBtn1Cost" onclick="toggleMs('ms1Cost')">
-          <span id="msLabel1Cost">-- Tất cả --</span><span class="ms-arrow">▼</span>
-        </div>
-        <div class="ms-dropdown" id="ms1Cost">
-          <div class="ms-clear" onclick="clearMs('ms1Cost')">✕ Bỏ chọn tất cả</div>
-          <div id="ms1CostItems"></div>
-        </div>
-      </div>
-      <span style="margin-left:auto;font-size:11px;color:#6c757d">Số dòng: <span id="p1CostCount">0</span></span>
+      <span style="margin-left:auto;font-size:11px;color:#6c757d">Số đơn vị: <span id="p1CostCount">0</span></span>
     </div>
     <div class="tbl-wrap">
     <table>
@@ -576,8 +562,6 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <th style="width:36px">STT</th>
         <th class="tl" style="min-width:160px">Đội / NCC / Thầu phụ</th>
         <th class="tl" style="min-width:130px">Hạng mục</th>
-        <th>Đợt TT</th>
-        <th>Tháng</th>
         <th>GT Thực hiện (đ)</th>
         <th>Đã thanh toán (đ)</th>
         <th>Còn lại</th>
@@ -585,7 +569,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <th>Trạng thái</th>
       </tr></thead>
       <tbody id="p1CostBody">
-        <tr><td colspan="10" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+        <tr><td colspan="8" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
       </tbody>
       <tfoot id="p1CostFoot"></tfoot>
     </table>
@@ -1653,17 +1637,10 @@ function applyData(data, projectId) {
     const f1Doi     = el('f1Doi');
     const f1HangMuc = el('f1HangMuc');
     const f1Loai    = el('f1Loai');
-    const f1Dot     = el('f1Dot');
 
-    const doiOpts = [...new Set(p1AllRows.map(r=>(r.t||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'vi',{numeric:true,sensitivity:'base'}));
-    const hmOpts  = [...new Set(p1AllRows.map(r=>r.g||'').filter(Boolean))].sort();
-    const loaiOpts= [...new Set(p1AllRows.map(r=>(r.a||'').toUpperCase()).filter(Boolean))].sort();
-    const dotOpts = [...new Set(p1AllRows.map(r=>r.l||'').filter(Boolean))].sort();
-    const thangOpts = [...new Set(p1AllRows.map(r=>r.p||'').filter(Boolean))].sort((a,b)=>{
-      const pa=a.split('-'),pb=b.split('-');
-      if(pa.length===2&&pb.length===2) return new Date(+pa[1],+pa[0]-1)-new Date(+pb[1],+pb[0]-1);
-      return a.localeCompare(b);
-    });
+    const doiOpts  = [...new Set(p1AllRows.map(r=>(r.t||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'vi',{numeric:true,sensitivity:'base'}));
+    const hmOpts   = [...new Set(p1AllRows.map(r=>r.g||'').filter(Boolean))].sort();
+    const loaiOpts = [...new Set(p1AllRows.map(r=>(r.a||'').toUpperCase()).filter(Boolean))].sort();
 
     if(f1Doi)     doiOpts.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;f1Doi.appendChild(o);});
     if(f1HangMuc) hmOpts.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;f1HangMuc.appendChild(o);});
@@ -1671,8 +1648,6 @@ function applyData(data, projectId) {
       const LOAI_LABEL = {NC:'Nhân công',VT:'Vật tư',PRE:'Prelim',DP:'Dự phòng',QLDN:'QLDN'};
       loaiOpts.forEach(ma=>{const o=document.createElement('option');o.value=ma;o.textContent=LOAI_LABEL[ma]||ma;f1Loai.appendChild(o);});
     }
-    if(f1Dot) dotOpts.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;f1Dot.appendChild(o);});
-    buildMs('ms1Cost', thangOpts, filterP1Cost);
     filterP1Cost();
   }
 
@@ -2733,62 +2708,72 @@ function filterP1Cost() {
   const doiVal   = (el('f1Doi')||{}).value     || '';
   const hmVal    = (el('f1HangMuc')||{}).value || '';
   const loaiVal  = (el('f1Loai')||{}).value    || '';
-  const dotVal   = (el('f1Dot')||{}).value     || '';
-  const thangSel = getMsSelected('ms1Cost');
-  const rows = (window._p1CostRows || []).filter(r => {
-    if(doiVal  && (r.t||'').trim() !== doiVal)           return false;
-    if(hmVal   && (r.g||'')        !== hmVal)             return false;
-    if(loaiVal && (r.a||'').toUpperCase() !== loaiVal)   return false;
-    if(dotVal  && (r.l||'')        !== dotVal)            return false;
-    if(thangSel.length && !thangSel.includes(r.p||''))   return false;
+  const filtered = (window._p1CostRows || []).filter(r => {
+    if(doiVal  && (r.t||'').trim() !== doiVal)         return false;
+    if(hmVal   && (r.g||'')        !== hmVal)           return false;
+    if(loaiVal && (r.a||'').toUpperCase() !== loaiVal) return false;
     return true;
   });
-  renderP1Cost(rows);
+  // Group by Đội + Hạng mục
+  const groupMap = {};
+  filtered.forEach(r => {
+    const doi = (r.t||'').trim() || '(Không rõ)';
+    const hm  = r.g || '(Không có HM)';
+    const key = doi + '|||' + hm;
+    if(!groupMap[key]) groupMap[key] = {doi, hm, gt:0, tt:0, cl:0, loaiSet:new Set()};
+    groupMap[key].gt += r.gt||0;
+    groupMap[key].tt += r.tt||0;
+    groupMap[key].cl += r.cl||0;
+    if(r.a) groupMap[key].loaiSet.add((r.a||'').toUpperCase());
+  });
+  const grouped = Object.values(groupMap).sort((a,b) =>
+    a.doi.localeCompare(b.doi,'vi',{numeric:true,sensitivity:'base'}) || a.hm.localeCompare(b.hm,'vi')
+  );
+  renderP1Cost(grouped);
 }
 
-function renderP1Cost(rows) {
-  if(!rows) rows = window._p1CostRows || [];
+function renderP1Cost(grouped) {
+  if(!grouped) { filterP1Cost(); return; }
   const body  = el('p1CostBody');
   const tfoot = el('p1CostFoot');
   const cntEl = el('p1CostCount');
   if(!body) return;
-  if(cntEl) cntEl.textContent = rows.length;
+  if(cntEl) cntEl.textContent = grouped.length;
   body.innerHTML = '';
-  if(rows.length === 0) {
-    body.innerHTML = '<tr><td colspan="10" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+  if(grouped.length === 0) {
+    body.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
     if(tfoot) tfoot.innerHTML = '';
     return;
   }
   let totGT=0, totTT=0, totCL=0;
-  rows.forEach((r, i) => {
-    const gt = r.gt||0, tt = r.tt||0, cl = r.cl||0;
-    totGT+=gt; totTT+=tt; totCL+=cl;
-    const ma = (r.a||'').toUpperCase();
-    const loaiLabel = P1COST_LOAI_LABEL[ma] || ma || '—';
-    const loaiColor = P1COST_LOAI_COLOR[ma] || '#607D8B';
-    const pctTT = gt > 0 ? ((tt/gt)*100).toFixed(0) : null;
+  grouped.forEach((v, i) => {
+    const pctTT = v.gt > 0 ? ((v.tt/v.gt)*100).toFixed(0) : null;
     const status = pctTT === null ? '<span style="color:#6c757d">—</span>'
       : +pctTT >= 100 ? '<span class="badge bg-g">Đã TT đủ</span>'
       : +pctTT >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Còn nợ</span>'
       :                  '<span class="badge bg-b" style="background:#e7f3ff;color:#1565c0">Chưa TT</span>';
-    const loaiBadge = ma ? '<span style="background:'+loaiColor+';color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;white-space:nowrap">'+loaiLabel+'</span>' : '—';
+    const loaiBadges = [...v.loaiSet].map(ma => {
+      const lbl = P1COST_LOAI_LABEL[ma]||ma;
+      const col = P1COST_LOAI_COLOR[ma]||'#607D8B';
+      return '<span style="background:'+col+';color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;font-weight:600;white-space:nowrap;margin-right:2px">'+lbl+'</span>';
+    }).join('');
     const tr = document.createElement('tr');
     tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(i+1)+'</td>'
-      +'<td class="tl wrap" style="max-width:180px">'+(r.t||'—')+'</td>'
-      +'<td class="tl wrap" style="font-size:11px;max-width:160px;color:#3B2D6F;font-weight:600">'+(r.g||'—')+'</td>'
-      +'<td class="tc" style="font-size:11px;color:#5c6b7a">'+(r.l||'—')+'</td>'
-      +'<td class="tc" style="font-size:11px;color:#5c6b7a">'+(r.p||'—')+'</td>'
-      +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(gt)+'</td>'
-      +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(tt)+'</td>'
-      +'<td class="tr '+(cl>0?'neg':cl<0?'pos':'')+'">'+fmtAuto(cl)+'</td>'
+      +'<td class="tl wrap" style="max-width:180px">'+v.doi+'</td>'
+      +'<td class="tl wrap" style="font-size:11px;max-width:160px;color:#3B2D6F;font-weight:600">'+v.hm
+        +(loaiBadges?'<br>'+loaiBadges:'')+'</td>'
+      +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(v.gt)+'</td>'
+      +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(v.tt)+'</td>'
+      +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
       +'<td class="tc">'+(pctTT!==null?pctTT+'%':'—')+'</td>'
       +'<td class="tc">'+status+'</td>';
     body.appendChild(tr);
+    totGT+=v.gt; totTT+=v.tt; totCL+=v.cl;
   });
   if(tfoot) {
     const totPct = totGT > 0 ? ((totTT/totGT)*100).toFixed(0)+'%' : '—';
     tfoot.innerHTML = '<tr style="font-weight:700;background:#f0f0f0">'
-      +'<td colspan="5" class="tl" style="padding-left:8px">TỔNG CỘNG ('+rows.length+' dòng)</td>'
+      +'<td colspan="3" class="tl" style="padding-left:8px">TỔNG CỘNG ('+grouped.length+' nhóm)</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(totGT)+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(totTT)+'</td>'
       +'<td class="tr '+(totCL>0?'neg':totCL<0?'pos':'')+'">'+fmtAuto(totCL)+'</td>'
