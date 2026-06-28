@@ -533,45 +533,6 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     </div>
   </div>
 
-  <!-- Bảng thống kê chi phí TH theo đội/NCC/thầu phụ và hạng mục -->
-  <div class="card mb0" style="margin-bottom:0.875rem">
-    <div class="stitle">Thống kê chi phí thực hiện theo đội thi công / NCC</div>
-    <div class="filter-bar" style="flex-wrap:wrap;gap:8px 16px">
-      <label>Đội / NCC:</label>
-      <select id="f1Doi" onchange="filterP1Cost()">
-        <option value="">-- Tất cả --</option>
-      </select>
-      <label>Hạng mục:</label>
-      <select id="f1HangMuc" onchange="filterP1Cost()">
-        <option value="">-- Tất cả --</option>
-      </select>
-      <label>Loại:</label>
-      <select id="f1Loai" onchange="filterP1Cost()">
-        <option value="">-- Tất cả --</option>
-      </select>
-      <span style="margin-left:auto;font-size:11px;color:#6c757d">Số đơn vị: <span id="p1CostCount">0</span></span>
-    </div>
-    <div class="tbl-wrap">
-    <table>
-      <thead><tr>
-        <th style="width:36px">STT</th>
-        <th class="tl" style="min-width:160px">Đội / NCC / Thầu phụ</th>
-        <th class="tl" style="min-width:130px">Hạng mục</th>
-        <th>Loại</th>
-        <th>GT Thực hiện (đ)</th>
-        <th>Đã thanh toán (đ)</th>
-        <th>Còn lại</th>
-        <th style="width:64px">% TT</th>
-        <th>Trạng thái</th>
-      </tr></thead>
-      <tbody id="p1CostBody">
-        <tr><td colspan="9" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
-      </tbody>
-      <tfoot id="p1CostFoot"></tfoot>
-    </table>
-    </div>
-  </div>
-
   <!-- Bảng giá trị chi tiết theo hạng mục -->
   <div class="card mb0">
     <div class="stitle">Bảng giá trị chi tiết theo hạng mục</div>
@@ -593,6 +554,45 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       </thead>
       <tbody id="p1CocauBody"></tbody>
       <tfoot id="p1CocauTfoot"></tfoot>
+    </table>
+    </div>
+  </div>
+
+  <!-- Bảng thống kê chi phí TH theo đơn vị -->
+  <div class="card mb0" style="margin-top:0.875rem">
+    <div class="stitle">Thống kê chi phí thực hiện</div>
+    <div class="filter-bar" style="flex-wrap:wrap;gap:8px 16px">
+      <label>Loại:</label>
+      <select id="f1Loai" onchange="filterP1Cost()">
+        <option value="">-- Tất cả --</option>
+      </select>
+      <label>Đơn vị:</label>
+      <select id="f1Doi" onchange="filterP1Cost()">
+        <option value="">-- Tất cả --</option>
+      </select>
+      <label>Hạng mục:</label>
+      <select id="f1HangMuc" onchange="filterP1Cost()">
+        <option value="">-- Tất cả --</option>
+      </select>
+      <span style="margin-left:auto;font-size:11px;color:#6c757d">Số đơn vị: <span id="p1CostCount">0</span></span>
+    </div>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th style="width:36px">STT</th>
+        <th>Loại</th>
+        <th class="tl" style="min-width:160px">Đơn vị</th>
+        <th class="tl" style="min-width:130px">Hạng mục</th>
+        <th>GT Thực hiện (đ)</th>
+        <th>Đã thanh toán (đ)</th>
+        <th>Còn lại</th>
+        <th style="width:64px">% TT</th>
+        <th>Trạng thái</th>
+      </tr></thead>
+      <tbody id="p1CostBody">
+        <tr><td colspan="9" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+      </tbody>
+      <tfoot id="p1CostFoot"></tfoot>
     </table>
     </div>
   </div>
@@ -1641,7 +1641,7 @@ function applyData(data, projectId) {
     if(f1Doi)     doiOpts.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;f1Doi.appendChild(o);});
     if(f1HangMuc) hmOpts.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;f1HangMuc.appendChild(o);});
     if(f1Loai) {
-      const LOAI_LABEL = {NC:'Nhân công',VT:'Vật tư',PRE:'Prelim',DP:'Dự phòng',QLDN:'QLDN'};
+      const LOAI_LABEL = {NC:'Nhân công',VT:'Vật tư',PRE:'Prelim',DP:'Dự phòng',QLDN:'QLDN',DT:'Đặc thù'};
       loaiOpts.forEach(ma=>{const o=document.createElement('option');o.value=ma;o.textContent=LOAI_LABEL[ma]||ma;f1Loai.appendChild(o);});
     }
     filterP1Cost();
@@ -2697,8 +2697,8 @@ function applyData(data, projectId) {
 }
 
 // ===== P1 BANG THONG KE CHI PHI TH THEO DOI/NCC =====
-const P1COST_LOAI_LABEL = {NC:'Nhân công',VT:'Vật tư',PRE:'Prelim',DP:'Dự phòng',QLDN:'QLDN'};
-const P1COST_LOAI_COLOR = {NC:'#1565c0',VT:'#2e7d32',PRE:'#E8552A',DP:'#F5A623',QLDN:'#3B2D6F'};
+const P1COST_LOAI_LABEL = {NC:'Nhân công',VT:'Vật tư',PRE:'Prelim',DP:'Dự phòng',QLDN:'QLDN',DT:'Đặc thù'};
+const P1COST_LOAI_COLOR = {NC:'#1565c0',VT:'#2e7d32',PRE:'#E8552A',DP:'#F5A623',QLDN:'#3B2D6F',DT:'#7B1FA2'};
 
 function filterP1Cost() {
   const doiVal   = (el('f1Doi')||{}).value     || '';
@@ -2737,7 +2737,7 @@ function renderP1Cost(grouped) {
   if(cntEl) cntEl.textContent = grouped.length;
   body.innerHTML = '';
   if(grouped.length === 0) {
-    body.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+    body.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
     if(tfoot) tfoot.innerHTML = '';
     return;
   }
@@ -2755,9 +2755,9 @@ function renderP1Cost(grouped) {
     }).join('');
     const tr = document.createElement('tr');
     tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(i+1)+'</td>'
+      +'<td class="tc" style="white-space:nowrap">'+(loaiBadges||'—')+'</td>'
       +'<td class="tl wrap" style="max-width:180px">'+v.doi+'</td>'
       +'<td class="tl wrap" style="font-size:11px;max-width:160px;color:#3B2D6F;font-weight:600">'+v.hm+'</td>'
-      +'<td class="tc" style="white-space:nowrap">'+(loaiBadges||'—')+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(v.gt)+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(v.tt)+'</td>'
       +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
