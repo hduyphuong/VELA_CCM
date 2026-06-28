@@ -288,10 +288,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   <div class="project-switcher" id="projectSwitcher"></div>
   <div id="printTabName"></div>
   <nav class="nav-bar">
-    <button class="nav-btn active" onclick="showPage('p0',this)">
-      <span class="nav-num" style="background:#E8552A;color:white">✦</span>Tổng quan
-    </button>
-    <button class="nav-btn" onclick="showPage('p1',this)">
+    <button class="nav-btn active" onclick="showPage('p1',this)">
       <span class="nav-num">1</span>BC Tài chính
     </button>
     <button class="nav-btn" onclick="showPage('p2',this)">
@@ -338,10 +335,8 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
   <div style="margin-top:0.5rem;font-size:0.75rem;color:#adb5bd">Chạy quy trình cập nhật hoặc <code>uv run --with openpyxl scripts\cap_nhat_dashboard.py</code></div>
 </div>
 
-<!-- ============================================================ -->
-<!-- PAGE 0: TỔNG QUAN (EXECUTIVE SUMMARY)                        -->
-<!-- ============================================================ -->
-<div id="p0" class="page active">
+<!-- PAGE 0 removed -->
+<div id="p0" style="display:none">
 
   <!-- Section 1: 6 Hero KPI cards -->
   <div class="ex-hero">
@@ -1188,7 +1183,7 @@ function showPage(id, btn) {
 function showLoading(on) {
   el('loadingState').style.display = on ? 'block' : 'none';
   el('errorState').style.display = 'none';
-  if(on) ['p0','p1','p2','p3','p4','p5','p6'].forEach(id => el(id).classList.remove('active'));
+  if(on) ['p1','p2','p3','p4','p5','p6'].forEach(id => el(id).classList.remove('active'));
 }
 function showError(msg) {
   el('loadingState').style.display = 'none';
@@ -1299,7 +1294,7 @@ async function loadProject(id) {
     }
     applyData(data, id);
     showLoading(false);
-    el('p0').classList.add('active');
+    el('p1').classList.add('active');
     document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i===0));
     const firstBtn = document.querySelector('.nav-btn');
     if(firstBtn) el('printTabName').textContent = firstBtn.textContent.trim();
