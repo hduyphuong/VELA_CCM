@@ -560,7 +560,11 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 
   <!-- Bảng thống kê chi phí TH theo đơn vị -->
   <div class="card mb0" style="margin-top:0.875rem">
-    <div class="stitle">Thống kê chi phí thực hiện</div>
+    <div class="stitle" style="display:flex;align-items:center;justify-content:space-between">
+      <span>Thống kê chi phí thực hiện</span>
+      <button onclick="toggleP1Cost()" id="p1CostToggleBtn" style="font-size:11px;padding:3px 10px;border:1px solid #ccc;border-radius:6px;background:#f5f5f5;cursor:pointer;color:#555">Ẩn bảng</button>
+    </div>
+    <div id="p1CostBody_wrap">
     <div class="filter-bar" style="flex-wrap:wrap;gap:8px 16px">
       <label>Loại:</label>
       <select id="f1Loai" onchange="filterP1Cost()">
@@ -595,6 +599,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <tfoot id="p1CostFoot"></tfoot>
     </table>
     </div>
+    </div><!-- /p1CostBody_wrap -->
   </div>
 
 </div><!-- /p1 -->
@@ -2700,6 +2705,15 @@ function applyData(data, projectId) {
 // ===== P1 BANG THONG KE CHI PHI TH THEO DOI/NCC =====
 const P1COST_LOAI_LABEL = {NC:'Nhân công',VT:'Vật tư',PRE:'Prelim',DP:'Dự phòng',QLDN:'QLDN',DT:'Đặc thù'};
 const P1COST_LOAI_COLOR = {NC:'#1565c0',VT:'#2e7d32',PRE:'#E8552A',DP:'#F5A623',QLDN:'#3B2D6F',DT:'#7B1FA2'};
+
+function toggleP1Cost() {
+  const wrap = el('p1CostBody_wrap');
+  const btn  = el('p1CostToggleBtn');
+  if(!wrap) return;
+  const hidden = wrap.style.display === 'none';
+  wrap.style.display = hidden ? '' : 'none';
+  if(btn) btn.textContent = hidden ? 'Ẩn bảng' : 'Hiện bảng';
+}
 
 function filterP1Cost() {
   const doiVal   = (el('f1Doi')||{}).value     || '';
