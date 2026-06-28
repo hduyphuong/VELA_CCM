@@ -1568,7 +1568,7 @@ function applyData(data, projectId) {
       +'<td class="tr">'+fmtCell(nsV)+'</td>'
       +'<td class="tr">'+fmtCell(cdtV)+'</td>'
       +'<td class="tr">'+(thV>0?vnd(thV):'<span style="color:#6c757d">—</span>')+'</td>'
-      +'<td class="tc">'+(pctB!==null?'<div class="prog"><div class="prog-fill" style="width:'+Math.min(parseFloat(pctB),100)+'%;background:#2e7d32"></div></div><small>'+pctB+'%</small>':'<span style="font-size:9px;color:#E8552A">Ngoài HĐ</span>')+'</td>'
+      +'<td class="tc">'+(pctB!==null?'<div class="prog"><div class="prog-fill" style="width:'+Math.min(parseFloat(pctB),100)+'%;background:#2e7d32"></div></div><small>'+pctB+'%</small>':'<span style="font-size:9px;color:#1565c0;background:#e3f0ff;padding:2px 6px;border-radius:8px;font-weight:600">Included in BOQ</span>')+'</td>'
       +'<td class="tr" style="color:'+lnColor+';font-weight:600">'+(cdtV!==0?fmtAuto(Math.abs(lnV)):'—')+'</td>'
       +'<td class="tc" style="color:'+lnColor+'">'+(pctLn!==null?(lnV>=0?'+':'-')+Math.abs(pctLn)+'%':'—')+'</td>'
       +'<td class="tc">'+badge+'</td>';
