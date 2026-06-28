@@ -2869,7 +2869,7 @@ function renderP5Ncc(rows) {
     const pctTT5 = v.gt > 0 ? ((v.tt/v.gt)*100).toFixed(0) : null;
     const status = pctTT5 === null ? '<span style="color:#6c757d">—</span>'
       : +pctTT5 >= 100 ? '<span class="badge bg-g">Đã TT đủ</span>'
-      : +pctTT5 >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Còn nợ</span>'
+      : +pctTT5 >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Tiền giữ lại</span>'
       :                   '<span class="badge bg-b" style="background:#e7f3ff;color:#1565c0">Chưa TT</span>';
     const loaiTags = [...v.loaiSet].map(ma => {
       const label = GT5_LABEL_MAP[ma] || ma;
