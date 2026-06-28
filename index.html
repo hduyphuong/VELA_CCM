@@ -1572,7 +1572,8 @@ function applyData(data, projectId) {
     const thV  = nsRows.reduce((a,r)=>a+(r.ttTH||0),0);  // NS[].ttTH = TT thực hiện col Q sheet NS
     const lnV  = cdtV - thV;
     const pctB = boqV>0 ? ((cdtV/boqV)*100).toFixed(1) : null;
-    const pctLn= cdtV>0 ? ((lnV/cdtV)*100).toFixed(1) : null;
+    // Khi cdtV=0 và thV>0: lỗ 100% (không có doanh thu, chỉ có chi phí)
+    const pctLn= cdtV>0 ? ((lnV/cdtV)*100).toFixed(1) : (thV>0 ? '-100' : null);
     tot_boq2+=boqV; tot_ns2+=nsV; tot_cdt2+=cdtV; tot_th2+=thV;
 
     const dtcKL = nsRows.reduce((a,r)=>a+(r.klTH||0),0);
@@ -1603,8 +1604,8 @@ function applyData(data, projectId) {
       +'<td class="tr">'+fmtCell(cdtV)+'</td>'
       +'<td class="tr">'+(thV>0?vnd(thV):'<span style="color:#6c757d">—</span>')+'</td>'
       +'<td class="tc">'+(pctB!==null?'<div class="prog"><div class="prog-fill" style="width:'+Math.min(parseFloat(pctB),100)+'%;background:#2e7d32"></div></div><small>'+pctB+'%</small>':'<span style="font-size:9px;color:#1565c0;background:#e3f0ff;padding:2px 6px;border-radius:8px;font-weight:600">Included in BOQ</span>')+'</td>'
-      +'<td class="tr" style="color:'+lnColor+';font-weight:600">'+(cdtV!==0&&thV!==0?fmtAuto(Math.abs(lnV)):'—')+'</td>'
-      +'<td class="tc" style="color:'+lnColor+'">'+(cdtV!==0&&thV!==0&&pctLn!==null?(lnV>=0?'+':'-')+Math.abs(pctLn)+'%':'—')+'</td>'
+      +'<td class="tr" style="color:'+lnColor+';font-weight:600">'+(thV!==0?fmtAuto(Math.abs(lnV)):'—')+'</td>'
+      +'<td class="tc" style="color:'+lnColor+'">'+(pctLn!==null?(lnV>=0?'+':'-')+Math.abs(pctLn)+'%':'—')+'</td>'
       +'<td class="tc">'+badge+'</td>';
     p1CocauBody.appendChild(tr);
   });
