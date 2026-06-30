@@ -1915,17 +1915,19 @@ function applyData(data, projectId) {
   // Bảng tổng hợp theo nhà cung cấp (TT[] mã VT, group theo t = cột B Nhà thầu)
   // Loại suy ra từ mã chính (mc): VATTU_CHINH/VATTU_PHU/MMTB/CCDC...
   const P4_LOAI_LABEL = {VATTU_CHINH:'Vật tư chính', VATTU_PHU:'Vật tư phụ', MMTB:'Máy móc thiết bị', CCDC:'Công cụ dụng cụ'};
+  const P4_LOAI_COLOR = {VATTU_CHINH:'#2e7d32', VATTU_PHU:'#0277BD', MMTB:'#7B1FA2', CCDC:'#E8552A'};
   const p4LoaiOf = mc => P4_LOAI_LABEL[(mc||'').toUpperCase()] || (mc || 'Khác');
+  const p4LoaiColorOf = mc => P4_LOAI_COLOR[(mc||'').toUpperCase()] || cocauColor((mc||'KHAC').toUpperCase());
   const p4NccBody = el('p4NccBody');
   p4NccBody.innerHTML = '';
   const nccMap = {};
   ttByCode('VT').forEach(r => {
     const ncc = (r.t||'').trim() || '(Không rõ)';
-    if(!nccMap[ncc]) nccMap[ncc] = {gt:0, tt:0, cl:0, loaiSet:new Set()};
+    if(!nccMap[ncc]) nccMap[ncc] = {gt:0, tt:0, cl:0, mcSet:new Set()};
     nccMap[ncc].gt += r.gt||0;
     nccMap[ncc].tt += r.tt||0;
     nccMap[ncc].cl += r.cl||0;
-    nccMap[ncc].loaiSet.add(p4LoaiOf(r.mc));
+    nccMap[ncc].mcSet.add((r.mc||'').toUpperCase());
   });
   const nccList = Object.entries(nccMap).sort((a,b) => b[1].gt - a[1].gt);
   if(nccList.length === 0) {
@@ -1938,10 +1940,13 @@ function applyData(data, projectId) {
         : +pctTT >= 100 ? '<span style="color:#2e7d32;font-weight:600">Đã TT đủ</span>'
         : +pctTT > 0    ? '<span style="color:#F5A623;font-weight:600">Còn nợ</span>'
         :                  '<span style="color:#c62828;font-weight:600">Chưa TT</span>';
-      const loaiTxt = [...v.loaiSet].join(', ');
+      const loaiBadges = [...v.mcSet].map(mc => {
+        const clr = p4LoaiColorOf(mc);
+        return '<span class="badge" style="background:'+clr+';color:#fff;font-size:9px;white-space:nowrap">'+p4LoaiOf(mc)+'</span>';
+      }).join(' ');
       const tr = document.createElement('tr');
       tr.innerHTML = '<td class="tl wrap" style="max-width:180px">'+ncc+'</td>'
-        +'<td class="tc" style="font-size:0.6875rem">'+loaiTxt+'</td>'
+        +'<td class="tc" style="white-space:nowrap">'+(loaiBadges||'—')+'</td>'
         +'<td class="tr">'+fmtAuto(v.gt)+'</td>'
         +'<td class="tr">'+fmtAuto(v.tt)+'</td>'
         +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
