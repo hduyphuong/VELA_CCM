@@ -575,10 +575,6 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <select id="f1Doi" onchange="filterP1Cost()">
         <option value="">-- Tất cả --</option>
       </select>
-      <label>Hạng mục:</label>
-      <select id="f1HangMuc" onchange="filterP1Cost()">
-        <option value="">-- Tất cả --</option>
-      </select>
       <span style="margin-left:auto;font-size:11px;color:#6c757d">Số đơn vị: <span id="p1CostCount">0</span></span>
     </div>
     <div class="tbl-wrap">
@@ -586,8 +582,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <thead><tr>
         <th style="width:36px">STT</th>
         <th>Loại</th>
-        <th class="tl" style="min-width:160px">Đơn vị</th>
-        <th class="tl" style="min-width:130px">Hạng mục</th>
+        <th class="tl" style="min-width:180px">Đơn vị</th>
         <th>GT Thực hiện (đ)</th>
         <th>Đã thanh toán (đ)</th>
         <th>Còn lại</th>
@@ -1586,15 +1581,12 @@ function applyData(data, projectId) {
     const p1AllRows = window._p1CostRows;
 
     const f1Doi     = el('f1Doi');
-    const f1HangMuc = el('f1HangMuc');
     const f1Loai    = el('f1Loai');
 
     const doiOpts  = [...new Set(p1AllRows.map(r=>(r.t||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'vi',{numeric:true,sensitivity:'base'}));
-    const hmOpts   = [...new Set(p1AllRows.map(r=>r.g||'').filter(Boolean))].sort();
     const loaiOpts = [...new Set(p1AllRows.map(r=>(r.a||'').toUpperCase()).filter(Boolean))].sort();
 
-    if(f1Doi)     doiOpts.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;f1Doi.appendChild(o);});
-    if(f1HangMuc) hmOpts.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;f1HangMuc.appendChild(o);});
+    if(f1Doi)  doiOpts.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;f1Doi.appendChild(o);});
     if(f1Loai) {
       const LOAI_LABEL = {NC:'Nhân công',VT:'Vật tư',PRE:'Prelim',DP:'Dự phòng',QLDN:'QLDN',DT:'Đặc thù'};
       loaiOpts.forEach(ma=>{const o=document.createElement('option');o.value=ma;o.textContent=LOAI_LABEL[ma]||ma;f1Loai.appendChild(o);});
@@ -2687,21 +2679,18 @@ function toggleP1Cost() {
 
 function filterP1Cost() {
   const doiVal   = (el('f1Doi')||{}).value     || '';
-  const hmVal    = (el('f1HangMuc')||{}).value || '';
   const loaiVal  = (el('f1Loai')||{}).value    || '';
   const filtered = (window._p1CostRows || []).filter(r => {
     if(doiVal  && (r.t||'').trim() !== doiVal)         return false;
-    if(hmVal   && (r.g||'')        !== hmVal)           return false;
     if(loaiVal && (r.a||'').toUpperCase() !== loaiVal) return false;
     return true;
   });
-  // Group by Đội + Hạng mục
+  // Group by Đội (gộp hết loại + hạng mục)
   const groupMap = {};
   filtered.forEach(r => {
     const doi = (r.t||'').trim() || '(Không rõ)';
-    const hm  = r.g || '(Không có HM)';
-    const key = doi + '|||' + hm;
-    if(!groupMap[key]) groupMap[key] = {doi, hm, gt:0, tt:0, cl:0, loaiSet:new Set(), roundSet:new Set()};
+    const key = doi;
+    if(!groupMap[key]) groupMap[key] = {doi, gt:0, tt:0, cl:0, loaiSet:new Set(), roundSet:new Set()};
     groupMap[key].gt += r.gt||0;
     groupMap[key].tt += r.tt||0;
     groupMap[key].cl += r.cl||0;
@@ -2709,7 +2698,7 @@ function filterP1Cost() {
     if(r.l) groupMap[key].roundSet.add(r.l);
   });
   const grouped = Object.values(groupMap).sort((a,b) =>
-    a.doi.localeCompare(b.doi,'vi',{numeric:true,sensitivity:'base'}) || a.hm.localeCompare(b.hm,'vi')
+    a.doi.localeCompare(b.doi,'vi',{numeric:true,sensitivity:'base'})
   );
   renderP1Cost(grouped);
 }
@@ -2723,7 +2712,7 @@ function renderP1Cost(grouped) {
   if(cntEl) cntEl.textContent = grouped.length;
   body.innerHTML = '';
   if(grouped.length === 0) {
-    body.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+    body.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
     if(tfoot) tfoot.innerHTML = '';
     return;
   }
@@ -2750,8 +2739,7 @@ function renderP1Cost(grouped) {
     const tr = document.createElement('tr');
     tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(i+1)+'</td>'
       +'<td class="tc" style="white-space:nowrap">'+(loaiBadges||'—')+'</td>'
-      +'<td class="tl wrap" style="max-width:180px">'+v.doi+'</td>'
-      +'<td class="tl wrap" style="font-size:11px;max-width:160px;color:#3B2D6F;font-weight:600">'+v.hm+'</td>'
+      +'<td class="tl wrap" style="max-width:200px">'+v.doi+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(v.gt)+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(v.tt)+'</td>'
       +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
@@ -2763,7 +2751,7 @@ function renderP1Cost(grouped) {
   if(tfoot) {
     const totPct = totGT > 0 ? ((totTT/totGT)*100).toFixed(0)+'%' : '—';
     tfoot.innerHTML = '<tr style="font-weight:700;background:#f0f0f0">'
-      +'<td colspan="4" class="tl" style="padding-left:8px">TỔNG CỘNG ('+grouped.length+' nhóm)</td>'
+      +'<td colspan="3" class="tl" style="padding-left:8px">TỔNG CỘNG ('+grouped.length+' đơn vị)</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(totGT)+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(totTT)+'</td>'
       +'<td class="tr '+(totCL>0?'neg':totCL<0?'pos':'')+'">'+fmtAuto(totCL)+'</td>'
