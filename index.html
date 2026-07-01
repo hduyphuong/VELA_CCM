@@ -592,7 +592,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <th>Đã thanh toán (đ)</th>
         <th>Còn lại</th>
         <th style="width:64px">% TT</th>
-        <th>Trạng thái</th>
+        <th style="width:72px">Đợt TT</th>
       </tr></thead>
       <tbody id="p1CostBody">
         <tr><td colspan="9" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
@@ -2701,11 +2701,12 @@ function filterP1Cost() {
     const doi = (r.t||'').trim() || '(Không rõ)';
     const hm  = r.g || '(Không có HM)';
     const key = doi + '|||' + hm;
-    if(!groupMap[key]) groupMap[key] = {doi, hm, gt:0, tt:0, cl:0, loaiSet:new Set()};
+    if(!groupMap[key]) groupMap[key] = {doi, hm, gt:0, tt:0, cl:0, loaiSet:new Set(), roundSet:new Set()};
     groupMap[key].gt += r.gt||0;
     groupMap[key].tt += r.tt||0;
     groupMap[key].cl += r.cl||0;
     if(r.a) groupMap[key].loaiSet.add((r.a||'').toUpperCase());
+    if(r.l) groupMap[key].roundSet.add(r.l);
   });
   const grouped = Object.values(groupMap).sort((a,b) =>
     a.doi.localeCompare(b.doi,'vi',{numeric:true,sensitivity:'base'}) || a.hm.localeCompare(b.hm,'vi')
@@ -2729,10 +2730,18 @@ function renderP1Cost(grouped) {
   let totGT=0, totTT=0, totCL=0;
   grouped.forEach((v, i) => {
     const pctTT = v.gt > 0 ? ((v.tt/v.gt)*100).toFixed(0) : null;
-    const status = pctTT === null ? '<span style="color:#6c757d">—</span>'
-      : +pctTT >= 100 ? '<span class="badge bg-g">Đã TT đủ</span>'
-      : +pctTT >  0   ? '<span class="badge bg-y" style="background:#fff3cd;color:#856404">Tiền giữ lại</span>'
-      :                  '<span class="badge bg-b" style="background:#e7f3ff;color:#1565c0">Chưa TT</span>';
+    const rounds = [...(v.roundSet||[])];
+    const hasQT = rounds.some(r => /quy.t.to.n/i.test(r));
+    let status;
+    if(hasQT) {
+      status = '<span class="badge" style="background:#e8f5e9;color:#2e7d32">Quyết toán</span>';
+    } else {
+      const nums = rounds.map(r => { const m=r.match(/\d+/); return m?parseInt(m[0]):0; }).filter(n=>n>0);
+      const maxRound = nums.length>0 ? Math.max(...nums) : null;
+      status = maxRound!==null
+        ? '<span style="font-size:0.6875rem;font-weight:600">Đợt '+maxRound+'</span>'
+        : '<span style="font-size:0.6875rem;color:#6c757d">—</span>';
+    }
     const loaiBadges = [...v.loaiSet].map(ma => {
       const lbl = P1COST_LOAI_LABEL[ma]||ma;
       const col = P1COST_LOAI_COLOR[ma]||'#607D8B';
