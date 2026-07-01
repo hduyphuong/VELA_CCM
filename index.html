@@ -575,6 +575,10 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <select id="f1Doi" onchange="filterP1Cost()">
         <option value="">-- Tất cả --</option>
       </select>
+      <label>Hạng mục:</label>
+      <select id="f1HangMuc" onchange="filterP1Cost()">
+        <option value="">-- Tất cả --</option>
+      </select>
       <span style="margin-left:auto;font-size:11px;color:#6c757d">Số đơn vị: <span id="p1CostCount">0</span></span>
     </div>
     <div class="tbl-wrap">
@@ -1582,12 +1586,15 @@ function applyData(data, projectId) {
     const p1AllRows = window._p1CostRows;
 
     const f1Doi     = el('f1Doi');
+    const f1HangMuc = el('f1HangMuc');
     const f1Loai    = el('f1Loai');
 
     const doiOpts  = [...new Set(p1AllRows.map(r=>(r.t||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'vi',{numeric:true,sensitivity:'base'}));
+    const hmOpts   = [...new Set(p1AllRows.map(r=>r.g||'').filter(Boolean))].sort();
     const loaiOpts = [...new Set(p1AllRows.map(r=>(r.a||'').toUpperCase()).filter(Boolean))].sort();
 
-    if(f1Doi)  doiOpts.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;f1Doi.appendChild(o);});
+    if(f1Doi)     doiOpts.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;f1Doi.appendChild(o);});
+    if(f1HangMuc) hmOpts.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;f1HangMuc.appendChild(o);});
     if(f1Loai) {
       const LOAI_LABEL = {NC:'Nhân công',VT:'Vật tư',PRE:'Prelim',DP:'Dự phòng',QLDN:'QLDN',DT:'Đặc thù'};
       loaiOpts.forEach(ma=>{const o=document.createElement('option');o.value=ma;o.textContent=LOAI_LABEL[ma]||ma;f1Loai.appendChild(o);});
@@ -2680,9 +2687,11 @@ function toggleP1Cost() {
 
 function filterP1Cost() {
   const doiVal   = (el('f1Doi')||{}).value     || '';
+  const hmVal    = (el('f1HangMuc')||{}).value || '';
   const loaiVal  = (el('f1Loai')||{}).value    || '';
   const filtered = (window._p1CostRows || []).filter(r => {
     if(doiVal  && (r.t||'').trim() !== doiVal)         return false;
+    if(hmVal   && (r.g||'')        !== hmVal)           return false;
     if(loaiVal && (r.a||'').toUpperCase() !== loaiVal) return false;
     return true;
   });
