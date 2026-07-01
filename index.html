@@ -761,6 +761,18 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 
   <div class="card mb0">
     <div class="stitle" style="display:flex;align-items:center;gap:8px">
+      Tổng hợp GT thực hiện theo gói thầu và đội thi công
+      <button onclick="toggleSection('p3GoiDoiWrap','p3GoiDoiToggleBtn')" id="p3GoiDoiToggleBtn" style="font-size:11px;padding:3px 10px;border:1px solid #ccc;border-radius:6px;background:#f5f5f5;cursor:pointer;color:#555;font-weight:400;text-transform:none;letter-spacing:0;margin-left:auto">Ẩn bảng</button>
+    </div>
+    <div id="p3GoiDoiWrap">
+      <div class="tbl-wrap">
+        <table id="p3GoiDoiTable"><thead id="p3GoiDoiHead"></thead><tbody id="p3GoiDoiBody"></tbody><tfoot id="p3GoiDoiTfoot"></tfoot></table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb0">
+    <div class="stitle" style="display:flex;align-items:center;gap:8px">
       Chi tiết thanh toán từng đợt
       <button onclick="toggleSection('ttDetailWrap','ttDetailToggleBtn')" id="ttDetailToggleBtn" style="font-size:11px;padding:3px 10px;border:1px solid #ccc;border-radius:6px;background:#f5f5f5;cursor:pointer;color:#555;font-weight:400;text-transform:none;letter-spacing:0;margin-left:auto">Ẩn bảng</button>
     </div>
@@ -1745,6 +1757,58 @@ function applyData(data, projectId) {
     +'<td class="tr neg">'+fmtAuto(p3CL)+'</td>'
     +'<td class="tc"><strong>'+p3pctTT+'%</strong></td>'
     +'<td></td></tr>';
+
+  // --- Bảng ma trận Gói thầu × Đội thi công ---
+  (function buildGoiDoiMatrix(){
+    const headEl  = el('p3GoiDoiHead');
+    const bodyEl  = el('p3GoiDoiBody');
+    const tfootEl = el('p3GoiDoiTfoot');
+    if(!headEl) return;
+
+    // Gói thầu theo thứ tự xuất hiện trong ttP3
+    const goiList = [];
+    ttP3.forEach(r => { if(r.g && !goiList.includes(r.g)) goiList.push(r.g); });
+    // Đội thi công đã sort
+    const doiList = teamsNC;
+
+    // Map gt: goiMap[goi][doi] = sum(gt)
+    const goiMap = {};
+    const doiTot = {};  // tổng theo cột đội
+    const goiTot = {};  // tổng theo dòng gói
+    ttP3.forEach(r => {
+      const g = r.g || ''; const d = r.t || ''; const v = r.gt || 0;
+      if(!goiMap[g]) goiMap[g] = {};
+      goiMap[g][d] = (goiMap[g][d] || 0) + v;
+      goiTot[g] = (goiTot[g] || 0) + v;
+      doiTot[d] = (doiTot[d] || 0) + v;
+    });
+
+    // Header
+    let hHtml = '<tr><th class="tl" style="min-width:120px">Gói thầu</th>';
+    doiList.forEach(d => { hHtml += '<th class="tr" style="min-width:100px;white-space:normal">'+d+'</th>'; });
+    hHtml += '<th class="tr" style="min-width:100px">Tổng</th></tr>';
+    headEl.innerHTML = hHtml;
+
+    // Body
+    let bHtml = '';
+    goiList.forEach(g => {
+      bHtml += '<tr><td class="tl"><strong>'+g+'</strong></td>';
+      doiList.forEach(d => {
+        const v = (goiMap[g]||{})[d] || 0;
+        bHtml += '<td class="tr">'+(v>0 ? fmtAuto(v) : '<span style="color:#ccc">—</span>')+'</td>';
+      });
+      bHtml += '<td class="tr"><strong>'+fmtAuto(goiTot[g]||0)+'</strong></td></tr>';
+    });
+    bodyEl.innerHTML = bHtml;
+
+    // Tfoot tổng cột
+    let fHtml = '<tr style="background:#f8f8f8"><td class="tl"><strong>TỔNG CỘNG</strong></td>';
+    doiList.forEach(d => {
+      fHtml += '<td class="tr"><strong>'+fmtAuto(doiTot[d]||0)+'</strong></td>';
+    });
+    fHtml += '<td class="tr"><strong>'+fmtAuto(p3TH)+'</strong></td></tr>';
+    tfootEl.innerHTML = fHtml;
+  })();
 
   // --- Repopulate filter dropdowns ---
   function repopSel(selId, vals) {
