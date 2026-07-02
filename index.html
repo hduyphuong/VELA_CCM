@@ -1655,8 +1655,8 @@ function applyData(data, projectId) {
   // --- Bảng so sánh KL hạng mục P2 (chỉ Mã CT = NC, theo thứ tự BCTC.g) ---
   const p2WdGroupBody = el('p2WdGroupBody');
   p2WdGroupBody.innerHTML = '';
-  // Danh sách hạng mục từ BCTC col B (g), lọc mã CT = NC hoặc NTP, theo thứ tự xuất hiện
-  const WD_WORKDONE_CODES = ['NC','NTP'];
+  // Danh sách hạng mục từ BCTC col B (g), lọc mã CT = NC, theo thứ tự xuất hiện
+  const WD_WORKDONE_CODES = ['NC'];
   const hmListNC = [];
   BCTC.filter(r=>WD_WORKDONE_CODES.includes((r.a||'').toUpperCase())).forEach(r=>{ if(r.g&&!hmListNC.includes(r.g)) hmListNC.push(r.g); });
   let p2Stt = 0;
