@@ -137,6 +137,17 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 .filter-bar label{font-size:0.6875rem;font-weight:600;color:#495057}
 .filter-bar select{padding:0.375rem 0.5625rem;min-height:2.75rem;border:1px solid #ced4da;border-radius:5px;font-size:0.71875rem;background:white;cursor:pointer}
 .filter-bar select:focus{outline:none;border-color:#E8552A}
+/* ===== CHECKBOX DROPDOWN ===== */
+.ck-drop{position:relative;display:inline-block}
+.ck-btn{padding:0.375rem 0.75rem;border:1px solid #ced4da;border-radius:5px;font-size:0.71875rem;background:white;cursor:pointer;white-space:nowrap;min-width:120px;text-align:left;display:flex;align-items:center;gap:6px}
+.ck-btn:hover{border-color:#E8552A}
+.ck-arrow{margin-left:auto;font-size:9px;color:#6c757d}
+.ck-list{display:none;position:absolute;top:calc(100% + 4px);left:0;background:white;border:1px solid #ced4da;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.12);z-index:200;min-width:180px;max-height:260px;overflow-y:auto;padding:6px 0}
+.ck-drop.open .ck-list{display:block}
+.ck-item{display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:0.6875rem;cursor:pointer;white-space:nowrap}
+.ck-item:hover{background:#f8f9fa}
+.ck-item input[type=checkbox]{accent-color:#E8552A;cursor:pointer}
+.ck-sep{height:1px;background:#e9ecef;margin:4px 0}
 
 /* ===== MULTI-SELECT PERIOD DROPDOWN ===== */
 .ms-wrap{position:relative;display:inline-block}
@@ -867,18 +878,32 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
 
   <div class="card mb0">
     <div class="stitle">Đối chiếu mua hàng với ngân sách</div>
+    <div class="filter-bar" style="flex-wrap:wrap;gap:8px 16px;margin-bottom:8px">
+      <label>Loại:</label>
+      <div class="ck-drop" id="f4LoaiDrop">
+        <button class="ck-btn" onclick="toggleCkDrop('f4LoaiDrop')">-- Tất cả -- <span class="ck-arrow">▾</span></button>
+        <div class="ck-list" id="f4LoaiList"></div>
+      </div>
+      <label>NCC:</label>
+      <div class="ck-drop" id="f4NccDrop">
+        <button class="ck-btn" onclick="toggleCkDrop('f4NccDrop')">-- Tất cả -- <span class="ck-arrow">▾</span></button>
+        <div class="ck-list" id="f4NccList"></div>
+      </div>
+      <span style="margin-left:auto;font-size:11px;color:#6c757d">Hiển thị: <span id="p4DcCount">0</span> dòng</span>
+    </div>
     <div class="tbl-wrap">
     <table>
       <thead><tr>
         <th style="width:36px">STT</th>
         <th class="tl">Vật tư</th>
         <th>ĐVT</th>
+        <th class="tl">Loại</th>
+        <th class="tl">NCC</th>
         <th>KL Ngân sách</th>
         <th>KL Đã nhập</th>
         <th>% KL nhập</th>
         <th>KL Chênh lệch</th>
-        <th>% Vượt KL</th>
-        <th>Giá trị Ngân sách</th>
+        <th>GT Ngân sách</th>
         <th>GT Đã nhập</th>
         <th>GT Chênh lệch</th>
         <th>Ghi chú</th>
@@ -1964,43 +1989,31 @@ function applyData(data, projectId) {
       +'<td></td></tr>';
   }
 
-  // Bảng đối chiếu mua hàng với ngân sách — BCTC mã VT
-  const p4DcBody = el('p4DcBody');
-  p4DcBody.innerHTML = '';
-  const nsVTrows = bctcByCode('VT');
-  if(nsVTrows.length === 0) {
-    p4DcBody.innerHTML = '<tr><td colspan="12" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu vật tư</td></tr>';
-  } else {
-    nsVTrows.forEach((r, idx) => {
-      const klNS     = r.klNS||0;   // cot U BCTC: KL Ngan sach du an ban dau
-      const klDaNhap = r.dtcKL||0;  // cot AF BCTC: KL da thuc hien (Luy ke KL THUC HIEN)
-      const clKL     = klDaNhap - klNS;
-      const vuotPct  = klNS > 0 && clKL > 0 ? ((clKL/klNS)*100).toFixed(0) : null;
-      const ghiChu   = klNS === 0
-        ? '<span style="color:#6c757d">—</span>'
-        : clKL <= 0
-          ? '<span style="color:#2e7d32;font-weight:600">Trong hạn</span>'
-          : '<span style="color:#c62828;font-weight:600">'+vuotPct+'% Vượt</span>';
-      const ttNS     = r.ns||0;     // cot W BCTC: Thanh tien Ngan sach du an ban dau
-      const ttDaNhap = r.th||0;     // cot AL BCTC: Thanh tien Luy ke CHI PHI THUC HIEN
-      const clTT     = ttDaNhap - ttNS;
-      const fmtKL    = v => v !== 0 ? v.toLocaleString('vi-VN') : '—';
-      const fmtCL    = v => (v >= 0 ? '+' : '') + v.toLocaleString('vi-VN');
-      const tr = document.createElement('tr');
-      tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(idx+1)+'</td>'
-        +'<td class="tl wrap" style="max-width:200px">'+(r.n||'—')+'</td>'
-        +'<td class="tc">'+(r.u||'—')+'</td>'
-        +'<td class="tr">'+(klNS   ? fmtKL(klNS)    : '—')+'</td>'
-        +'<td class="tr">'+(klDaNhap ? fmtKL(klDaNhap) : '—')+'</td>'
-        +'<td class="tc">'+(klNS > 0 ? ((klDaNhap/klNS)*100).toFixed(0)+'%' : '—')+'</td>'
-        +'<td class="tr '+(clKL>0?'neg':clKL<0?'pos':'')+'">'+(klNS||klDaNhap ? fmtCL(clKL) : '—')+'</td>'
-        +'<td class="tc">'+(vuotPct ? '<span style="color:#c62828">'+vuotPct+'%</span>' : '<span style="color:#6c757d">—</span>')+'</td>'
-        +'<td class="tr">'+(ttNS     ? fmtAuto(ttNS)     : '—')+'</td>'
-        +'<td class="tr">'+(ttDaNhap ? fmtAuto(ttDaNhap) : '—')+'</td>'
-        +'<td class="tr '+(clTT>0?'neg':clTT<0?'pos':'')+'">'+(ttNS||ttDaNhap ? fmtAuto(clTT) : '—')+'</td>'
-        +'<td class="tc">'+ghiChu+'</td>';
-      p4DcBody.appendChild(tr);
+  // Bảng đối chiếu mua hàng với ngân sách — BCTC mã VT, có filter Loại + NCC
+  {
+    // Build map TT VT: (mc+mp) → Set of NCC
+    const vtTTmap = {};
+    ttByCode('VT').forEach(r => {
+      const key = (r.mc||'')+'|'+(r.mp||'');
+      if(!vtTTmap[key]) vtTTmap[key] = new Set();
+      if(r.t) vtTTmap[key].add((r.t||'').trim());
     });
+    const nsVTrows = bctcByCode('VT');
+    window._p4DcRows = nsVTrows.map(r => ({
+      n: r.n, u: r.u,
+      loai: (r.mc||'').toUpperCase(),
+      nccSet: [...(vtTTmap[(r.mc||'')+'|'+(r.mp||'')] || new Set())].sort(),
+      klNS:     r.klNS||0,
+      klDaNhap: r.dtcKL||0,
+      ttNS:     r.ns||0,
+      ttDaNhap: r.th||0,
+    }));
+    const allLoai = [...new Set(window._p4DcRows.map(r=>r.loai).filter(Boolean))].sort();
+    const allNcc  = [...new Set(window._p4DcRows.flatMap(r=>r.nccSet))].sort((a,b)=>a.localeCompare(b,'vi',{numeric:true,sensitivity:'base'}));
+    const P4_DC_LOAI_LABEL = {VATTU_CHINH:'Vật tư chính', VATTU_PHU:'Vật tư phụ', MMTB:'Máy móc thiết bị', CCDC:'Công cụ dụng cụ'};
+    buildCkList('f4LoaiList', allLoai.map(v=>({value:v, label:P4_DC_LOAI_LABEL[v]||v})), filterP4Dc);
+    buildCkList('f4NccList',  allNcc.map(v=>({value:v, label:v})), filterP4Dc);
+    filterP4Dc();
   }
 
   // --- KPI Page 5: BC CP Gián tiếp — dùng tất cả mã trừ NC và VT ---
@@ -2674,6 +2687,128 @@ function toggleSection(wrapId, btnId) {
   const hidden = wrap.style.display === 'none';
   wrap.style.display = hidden ? '' : 'none';
   if(btn) btn.textContent = hidden ? 'Ẩn bảng' : 'Hiện bảng';
+}
+
+// ===== CHECKBOX DROPDOWN HELPER =====
+function toggleCkDrop(id) {
+  const drop = el(id);
+  if(!drop) return;
+  const isOpen = drop.classList.contains('open');
+  // Đóng tất cả drop khác
+  document.querySelectorAll('.ck-drop.open').forEach(d => d.classList.remove('open'));
+  if(!isOpen) drop.classList.add('open');
+}
+// Đóng khi click ngoài
+document.addEventListener('click', e => {
+  if(!e.target.closest('.ck-drop')) document.querySelectorAll('.ck-drop.open').forEach(d => d.classList.remove('open'));
+});
+// Build checkbox list vào một ck-drop
+function buildCkList(listId, items, onChangeFn) {
+  const ul = el(listId);
+  if(!ul) return;
+  ul.innerHTML = '';
+  // Chọn tất cả
+  const allLi = document.createElement('div');
+  allLi.className = 'ck-item';
+  allLi.innerHTML = '<input type="checkbox" id="'+listId+'_all" checked> <label for="'+listId+'_all" style="cursor:pointer;font-weight:600">Tất cả</label>';
+  ul.appendChild(allLi);
+  const allCk = allLi.querySelector('input');
+  const sep = document.createElement('div'); sep.className='ck-sep'; ul.appendChild(sep);
+  items.forEach((item, i) => {
+    const li = document.createElement('div');
+    li.className = 'ck-item';
+    const cid = listId+'_'+i;
+    li.innerHTML = '<input type="checkbox" id="'+cid+'" value="'+item.value+'" checked> <label for="'+cid+'" style="cursor:pointer">'+item.label+'</label>';
+    ul.appendChild(li);
+  });
+  // Logic chọn tất cả / bỏ tất cả
+  allCk.addEventListener('change', () => {
+    ul.querySelectorAll('input:not(#'+listId+'_all)').forEach(ck => { ck.checked = allCk.checked; });
+    updateCkBtn(listId, items); onChangeFn();
+  });
+  ul.querySelectorAll('input:not(#'+listId+'_all)').forEach(ck => {
+    ck.addEventListener('change', () => {
+      const all = [...ul.querySelectorAll('input:not(#'+listId+'_all)')];
+      allCk.checked = all.every(c=>c.checked);
+      updateCkBtn(listId, items); onChangeFn();
+    });
+  });
+}
+function updateCkBtn(listId, items) {
+  const ul = el(listId);
+  const drop = ul ? ul.closest('.ck-drop') : null;
+  if(!drop) return;
+  const btn = drop.querySelector('.ck-btn');
+  if(!btn) return;
+  const checked = [...ul.querySelectorAll('input:not([id$="_all"])')].filter(c=>c.checked).map(c=>c.value);
+  let label;
+  if(checked.length === 0)           label = '(Không có)';
+  else if(checked.length === items.length) label = '-- Tất cả --';
+  else if(checked.length <= 2)       label = checked.map(v=>items.find(i=>i.value===v)?.label||v).join(', ');
+  else                               label = checked.length + ' được chọn';
+  btn.innerHTML = label + ' <span class="ck-arrow">▾</span>';
+}
+function getCkSelected(listId) {
+  const ul = el(listId);
+  if(!ul) return null;
+  const all = [...ul.querySelectorAll('input:not([id$="_all"])')];
+  const checked = all.filter(c=>c.checked).map(c=>c.value);
+  return checked.length === all.length ? null : checked; // null = tất cả
+}
+
+// ===== P4 ĐỐI CHIẾU MUA HÀNG FILTER =====
+function filterP4Dc() {
+  const rows = window._p4DcRows || [];
+  const loaiSel = getCkSelected('f4LoaiList');
+  const nccSel  = getCkSelected('f4NccList');
+  const filtered = rows.filter(r => {
+    if(loaiSel && !loaiSel.includes(r.loai)) return false;
+    if(nccSel  && !r.nccSet.some(n => nccSel.includes(n))) return false;
+    return true;
+  });
+  renderP4Dc(filtered);
+}
+function renderP4Dc(rows) {
+  const body    = el('p4DcBody');
+  const cntEl   = el('p4DcCount');
+  if(!body) return;
+  if(cntEl) cntEl.textContent = rows.length;
+  if(rows.length === 0) {
+    body.innerHTML = '<tr><td colspan="12" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+    return;
+  }
+  const P4_LOAI_LABEL = {VATTU_CHINH:'Vật tư chính', VATTU_PHU:'Vật tư phụ', MMTB:'Máy móc thiết bị', CCDC:'Công cụ dụng cụ'};
+  const P4_LOAI_COLOR = {VATTU_CHINH:'#2e7d32', VATTU_PHU:'#0277BD', MMTB:'#7B1FA2', CCDC:'#E8552A'};
+  const fmtKL = v => v !== 0 ? v.toLocaleString('vi-VN') : '—';
+  const fmtCL = v => (v >= 0 ? '+' : '') + v.toLocaleString('vi-VN');
+  body.innerHTML = '';
+  rows.forEach((r, idx) => {
+    const clKL    = r.klDaNhap - r.klNS;
+    const vuotPct = r.klNS > 0 && clKL > 0 ? ((clKL/r.klNS)*100).toFixed(0) : null;
+    const ghiChu  = r.klNS === 0 ? '<span style="color:#6c757d">—</span>'
+      : clKL <= 0 ? '<span style="color:#2e7d32;font-weight:600">Trong hạn</span>'
+      : '<span style="color:#c62828;font-weight:600">'+vuotPct+'% Vượt</span>';
+    const clTT = r.ttDaNhap - r.ttNS;
+    const loaiClr = P4_LOAI_COLOR[r.loai] || '#607D8B';
+    const loaiLbl = P4_LOAI_LABEL[r.loai] || (r.loai||'Khác');
+    const loaiBadge = '<span class="badge" style="background:'+loaiClr+';color:#fff;font-size:9px">'+loaiLbl+'</span>';
+    const nccLabel = r.nccSet.length ? r.nccSet.join(', ') : '—';
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(idx+1)+'</td>'
+      +'<td class="tl wrap" style="max-width:180px">'+(r.n||'—')+'</td>'
+      +'<td class="tc">'+(r.u||'—')+'</td>'
+      +'<td class="tl" style="font-size:10px">'+loaiBadge+'</td>'
+      +'<td class="tl wrap" style="font-size:10px;max-width:150px;color:#495057">'+nccLabel+'</td>'
+      +'<td class="tr">'+(r.klNS    ? fmtKL(r.klNS)    : '—')+'</td>'
+      +'<td class="tr">'+(r.klDaNhap ? fmtKL(r.klDaNhap) : '—')+'</td>'
+      +'<td class="tc">'+(r.klNS > 0 ? ((r.klDaNhap/r.klNS)*100).toFixed(0)+'%' : '—')+'</td>'
+      +'<td class="tr '+(clKL>0?'neg':clKL<0?'pos':'')+'">'+(r.klNS||r.klDaNhap ? fmtCL(clKL) : '—')+'</td>'
+      +'<td class="tr">'+(r.ttNS    ? fmtAuto(r.ttNS)    : '—')+'</td>'
+      +'<td class="tr">'+(r.ttDaNhap ? fmtAuto(r.ttDaNhap) : '—')+'</td>'
+      +'<td class="tr '+(clTT>0?'neg':clTT<0?'pos':'')+'">'+(r.ttNS||r.ttDaNhap ? fmtAuto(clTT) : '—')+'</td>'
+      +'<td class="tc">'+ghiChu+'</td>';
+    body.appendChild(tr);
+  });
 }
 
 function toggleP1Cost() {
