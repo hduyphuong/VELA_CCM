@@ -911,6 +911,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
       <tbody id="p4DcBody">
         <tr><td colspan="11" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
       </tbody>
+      <tfoot id="p4DcTfoot"></tfoot>
     </table>
     </div>
   </div>
@@ -2779,11 +2780,13 @@ function filterP4Dc() {
 }
 function renderP4Dc(rows, nccSel) {
   const body  = el('p4DcBody');
+  const tfoot = el('p4DcTfoot');
   const cntEl = el('p4DcCount');
   if(!body) return;
   if(cntEl) cntEl.textContent = rows.length;
   if(rows.length === 0) {
     body.innerHTML = '<tr><td colspan="13" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+    if(tfoot) tfoot.innerHTML = '';
     return;
   }
   const P4_LOAI_LABEL = {VATTU_CHINH:'Vật tư chính', VATTU_PHU:'Vật tư phụ', MMTB:'Máy móc thiết bị', CCDC:'Công cụ dụng cụ'};
@@ -2791,6 +2794,7 @@ function renderP4Dc(rows, nccSel) {
   const fmtKL = v => v ? v.toLocaleString('vi-VN') : '—';
   const fmtCL = v => (v >= 0 ? '+' : '') + v.toLocaleString('vi-VN');
   body.innerHTML = '';
+  let totKLns=0, totKLnhap=0, totTTns=0, totTTnhap=0;
   rows.forEach((r, idx) => {
     // Nếu đang filter NCC → chỉ sum KL/GT của các NCC được chọn
     let klDaNhap, ttDaNhap, nccLabel;
@@ -2828,7 +2832,22 @@ function renderP4Dc(rows, nccSel) {
       +'<td class="tr '+(clTT>0?'neg':clTT<0?'pos':'')+'">'+(r.ttNS||ttDaNhap ? fmtAuto(clTT) : '—')+'</td>'
       +'<td class="tc">'+ghiChu+'</td>';
     body.appendChild(tr);
+    totKLns+=r.klNS; totKLnhap+=klDaNhap; totTTns+=r.ttNS; totTTnhap+=ttDaNhap;
   });
+  if(tfoot) {
+    const clKLtot = totKLnhap - totKLns;
+    const clTTtot = totTTnhap - totTTns;
+    tfoot.innerHTML = '<tr style="font-weight:700;background:#f0f0f0">'
+      +'<td colspan="5" class="tl" style="padding-left:8px">TỔNG CỘNG ('+rows.length+' dòng)</td>'
+      +'<td class="tr">'+fmtKL(totKLns)+'</td>'
+      +'<td class="tr">'+fmtKL(totKLnhap)+'</td>'
+      +'<td class="tc">'+(totKLns>0?((totKLnhap/totKLns)*100).toFixed(0)+'%':'—')+'</td>'
+      +'<td class="tr '+(clKLtot>0?'neg':clKLtot<0?'pos':'')+'">'+fmtCL(clKLtot)+'</td>'
+      +'<td class="tr">'+fmtAuto(totTTns)+'</td>'
+      +'<td class="tr">'+fmtAuto(totTTnhap)+'</td>'
+      +'<td class="tr '+(clTTtot>0?'neg':clTTtot<0?'pos':'')+'">'+fmtAuto(clTTtot)+'</td>'
+      +'<td></td></tr>';
+  }
 }
 
 function toggleP1Cost() {
