@@ -1652,22 +1652,26 @@ function applyData(data, projectId) {
     el('kpi2_cl_badge').className = 'kpi-badge bg-g';
   }
 
-  // --- Bảng so sánh KL hạng mục P2 (chỉ Mã CT = NC, theo thứ tự BCTC.g) ---
+  // --- Bảng so sánh KL hạng mục P2 (chỉ Mã CT = NC, tách theo từng DVT) ---
   const p2WdGroupBody = el('p2WdGroupBody');
   p2WdGroupBody.innerHTML = '';
-  // Danh sách hạng mục từ BCTC col B (g), lọc mã CT = NC, theo thứ tự xuất hiện
   const WD_WORKDONE_CODES = ['NC'];
-  const hmListNC = [];
-  BCTC.filter(r=>WD_WORKDONE_CODES.includes((r.a||'').toUpperCase())).forEach(r=>{ if(r.g&&!hmListNC.includes(r.g)) hmListNC.push(r.g); });
+  // Build danh sách (g, u) theo thứ tự xuất hiện — mỗi cặp hạng mục+DVT là 1 dòng
+  const hmUnitKeys = []; // ['g|u', ...]
+  const hmUnitMap  = {}; // key → {g, u, rows:[]}
+  BCTC.filter(r => WD_WORKDONE_CODES.includes((r.a||'').toUpperCase()) && r.g).forEach(r => {
+    const u = (r.u||'').trim() || '—';
+    const key = r.g + '\x00' + u;
+    if(!hmUnitMap[key]) { hmUnitKeys.push(key); hmUnitMap[key] = {g:r.g, u, rows:[]}; }
+    hmUnitMap[key].rows.push(r);
+  });
   let p2Stt = 0;
-  hmListNC.forEach(g => {
-    const gWD = BCTC.filter(r => r.g===g);
-    const boqKLg  = gWD.reduce((a,r)=>a+(r.klBoq||0),0);
-    const cdtKLg  = gWD.reduce((a,r)=>a+(r.cdtKL||0),0);
-    // KL ĐTC = cột AF BCTC (KL đã thực hiện)
-    const dtcKLg  = gWD.reduce((a,r)=>a+(r.dtcKL||0),0);
+  hmUnitKeys.forEach(key => {
+    const {g, u, rows} = hmUnitMap[key];
+    const boqKLg = rows.reduce((a,r)=>a+(r.klBoq||0),0);
+    const cdtKLg = rows.reduce((a,r)=>a+(r.cdtKL||0),0);
+    const dtcKLg = rows.reduce((a,r)=>a+(r.dtcKL||0),0);
     const cl = dtcKLg - cdtKLg;
-    const u = (gWD.find(r=>r.u) || {}).u || '—';
     const pctCDT = boqKLg>0 ? Math.min((cdtKLg/boqKLg)*100, 100) : 0;
     const pctDTC = boqKLg>0 ? Math.min((dtcKLg/boqKLg)*100, 100) : 0;
     const hasBOQ = boqKLg > 0;
