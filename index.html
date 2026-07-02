@@ -3273,6 +3273,7 @@ function filterWD(){
   let rows = [];
   BCTC.forEach(r=>{
     if(!r.n && !r.u) return;
+    if((r.a||'').toUpperCase() !== 'NC') return;
     if(gv&&r.g!==gv) return;
     if(hv&&r.hdps!==hv) return;
     if(selectedPeriods.length > 0) {
