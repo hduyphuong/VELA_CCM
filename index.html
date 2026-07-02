@@ -1991,23 +1991,32 @@ function applyData(data, projectId) {
 
   // Bảng đối chiếu mua hàng với ngân sách — BCTC mã VT, có filter Loại + NCC
   {
-    // Build map TT VT: (mc+mp) → Set of NCC
+    // Build map TT VT: (mc+mp) → { nccSet, nccKL: {ncc→kl}, nccTT: {ncc→tt} }
     const vtTTmap = {};
     ttByCode('VT').forEach(r => {
       const key = (r.mc||'')+'|'+(r.mp||'');
-      if(!vtTTmap[key]) vtTTmap[key] = new Set();
-      if(r.t) vtTTmap[key].add((r.t||'').trim());
+      if(!vtTTmap[key]) vtTTmap[key] = {nccSet:new Set(), nccKL:{}, nccTT:{}};
+      const ncc = (r.t||'').trim(); if(!ncc) return;
+      vtTTmap[key].nccSet.add(ncc);
+      vtTTmap[key].nccKL[ncc] = (vtTTmap[key].nccKL[ncc]||0) + (r.k||0);
+      vtTTmap[key].nccTT[ncc] = (vtTTmap[key].nccTT[ncc]||0) + (r.gt||0);
     });
     const nsVTrows = bctcByCode('VT');
-    window._p4DcRows = nsVTrows.map(r => ({
-      n: r.n, u: r.u,
-      loai: (r.mc||'').toUpperCase(),
-      nccSet: [...(vtTTmap[(r.mc||'')+'|'+(r.mp||'')] || new Set())].sort(),
-      klNS:     r.klNS||0,
-      klDaNhap: r.dtcKL||0,
-      ttNS:     r.ns||0,
-      ttDaNhap: r.th||0,
-    }));
+    window._p4DcRows = nsVTrows.map(r => {
+      const key  = (r.mc||'')+'|'+(r.mp||'');
+      const info = vtTTmap[key] || {nccSet:new Set(), nccKL:{}, nccTT:{}};
+      return {
+        n: r.n, u: r.u,
+        loai:    (r.mc||'').toUpperCase(),
+        nccSet:  [...info.nccSet].sort(),
+        nccKL:   info.nccKL,
+        nccTT:   info.nccTT,
+        klNS:    r.klNS||0,
+        ttNS:    r.ns||0,
+        klTotal: r.dtcKL||0,
+        ttTotal: r.th||0,
+      };
+    });
     const allLoai = [...new Set(window._p4DcRows.map(r=>r.loai).filter(Boolean))].sort();
     const allNcc  = [...new Set(window._p4DcRows.flatMap(r=>r.nccSet))].sort((a,b)=>a.localeCompare(b,'vi',{numeric:true,sensitivity:'base'}));
     const P4_DC_LOAI_LABEL = {VATTU_CHINH:'Vật tư chính', VATTU_PHU:'Vật tư phụ', MMTB:'Máy móc thiết bị', CCDC:'Công cụ dụng cụ'};
@@ -2766,46 +2775,57 @@ function filterP4Dc() {
     if(nccSel  && !r.nccSet.some(n => nccSel.includes(n))) return false;
     return true;
   });
-  renderP4Dc(filtered);
+  renderP4Dc(filtered, nccSel);
 }
-function renderP4Dc(rows) {
-  const body    = el('p4DcBody');
-  const cntEl   = el('p4DcCount');
+function renderP4Dc(rows, nccSel) {
+  const body  = el('p4DcBody');
+  const cntEl = el('p4DcCount');
   if(!body) return;
   if(cntEl) cntEl.textContent = rows.length;
   if(rows.length === 0) {
-    body.innerHTML = '<tr><td colspan="12" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+    body.innerHTML = '<tr><td colspan="13" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
     return;
   }
   const P4_LOAI_LABEL = {VATTU_CHINH:'Vật tư chính', VATTU_PHU:'Vật tư phụ', MMTB:'Máy móc thiết bị', CCDC:'Công cụ dụng cụ'};
   const P4_LOAI_COLOR = {VATTU_CHINH:'#2e7d32', VATTU_PHU:'#0277BD', MMTB:'#7B1FA2', CCDC:'#E8552A'};
-  const fmtKL = v => v !== 0 ? v.toLocaleString('vi-VN') : '—';
+  const fmtKL = v => v ? v.toLocaleString('vi-VN') : '—';
   const fmtCL = v => (v >= 0 ? '+' : '') + v.toLocaleString('vi-VN');
   body.innerHTML = '';
   rows.forEach((r, idx) => {
-    const clKL    = r.klDaNhap - r.klNS;
+    // Nếu đang filter NCC → chỉ sum KL/GT của các NCC được chọn
+    let klDaNhap, ttDaNhap, nccLabel;
+    if(nccSel) {
+      const selNccs = r.nccSet.filter(n => nccSel.includes(n));
+      klDaNhap = selNccs.reduce((a,n) => a + (r.nccKL[n]||0), 0);
+      ttDaNhap = selNccs.reduce((a,n) => a + (r.nccTT[n]||0), 0);
+      nccLabel = selNccs.join(', ') || '—';
+    } else {
+      klDaNhap = r.klTotal;
+      ttDaNhap = r.ttTotal;
+      nccLabel = r.nccSet.length ? r.nccSet.join(', ') : '—';
+    }
+    const clKL    = klDaNhap - r.klNS;
     const vuotPct = r.klNS > 0 && clKL > 0 ? ((clKL/r.klNS)*100).toFixed(0) : null;
     const ghiChu  = r.klNS === 0 ? '<span style="color:#6c757d">—</span>'
       : clKL <= 0 ? '<span style="color:#2e7d32;font-weight:600">Trong hạn</span>'
       : '<span style="color:#c62828;font-weight:600">'+vuotPct+'% Vượt</span>';
-    const clTT = r.ttDaNhap - r.ttNS;
-    const loaiClr = P4_LOAI_COLOR[r.loai] || '#607D8B';
-    const loaiLbl = P4_LOAI_LABEL[r.loai] || (r.loai||'Khác');
+    const clTT = ttDaNhap - r.ttNS;
+    const loaiClr   = P4_LOAI_COLOR[r.loai] || '#607D8B';
+    const loaiLbl   = P4_LOAI_LABEL[r.loai] || (r.loai||'Khác');
     const loaiBadge = '<span class="badge" style="background:'+loaiClr+';color:#fff;font-size:9px">'+loaiLbl+'</span>';
-    const nccLabel = r.nccSet.length ? r.nccSet.join(', ') : '—';
     const tr = document.createElement('tr');
     tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(idx+1)+'</td>'
       +'<td class="tl wrap" style="max-width:180px">'+(r.n||'—')+'</td>'
       +'<td class="tc">'+(r.u||'—')+'</td>'
       +'<td class="tl" style="font-size:10px">'+loaiBadge+'</td>'
       +'<td class="tl wrap" style="font-size:10px;max-width:150px;color:#495057">'+nccLabel+'</td>'
-      +'<td class="tr">'+(r.klNS    ? fmtKL(r.klNS)    : '—')+'</td>'
-      +'<td class="tr">'+(r.klDaNhap ? fmtKL(r.klDaNhap) : '—')+'</td>'
-      +'<td class="tc">'+(r.klNS > 0 ? ((r.klDaNhap/r.klNS)*100).toFixed(0)+'%' : '—')+'</td>'
-      +'<td class="tr '+(clKL>0?'neg':clKL<0?'pos':'')+'">'+(r.klNS||r.klDaNhap ? fmtCL(clKL) : '—')+'</td>'
-      +'<td class="tr">'+(r.ttNS    ? fmtAuto(r.ttNS)    : '—')+'</td>'
-      +'<td class="tr">'+(r.ttDaNhap ? fmtAuto(r.ttDaNhap) : '—')+'</td>'
-      +'<td class="tr '+(clTT>0?'neg':clTT<0?'pos':'')+'">'+(r.ttNS||r.ttDaNhap ? fmtAuto(clTT) : '—')+'</td>'
+      +'<td class="tr">'+(r.klNS   ? fmtKL(r.klNS)  : '—')+'</td>'
+      +'<td class="tr">'+(klDaNhap ? fmtKL(klDaNhap) : '—')+'</td>'
+      +'<td class="tc">'+(r.klNS > 0 ? ((klDaNhap/r.klNS)*100).toFixed(0)+'%' : '—')+'</td>'
+      +'<td class="tr '+(clKL>0?'neg':clKL<0?'pos':'')+'">'+(r.klNS||klDaNhap ? fmtCL(clKL) : '—')+'</td>'
+      +'<td class="tr">'+(r.ttNS   ? fmtAuto(r.ttNS)  : '—')+'</td>'
+      +'<td class="tr">'+(ttDaNhap ? fmtAuto(ttDaNhap) : '—')+'</td>'
+      +'<td class="tr '+(clTT>0?'neg':clTT<0?'pos':'')+'">'+(r.ttNS||ttDaNhap ? fmtAuto(clTT) : '—')+'</td>'
       +'<td class="tc">'+ghiChu+'</td>';
     body.appendChild(tr);
   });
