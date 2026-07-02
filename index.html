@@ -1000,6 +1000,7 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <th class="tl">ĐTC / NCC</th>
         <th class="tl">Loại</th>
         <th class="tl">Gói thầu / Hạng mục</th>
+        <th>Khối lượng</th>
         <th>GT Thực hiện (đ)</th>
         <th>Đã thanh toán (đ)</th>
         <th>Còn lại</th>
@@ -2193,10 +2194,11 @@ function applyData(data, projectId) {
       const loai = (r.a||'').toUpperCase();
       const goi  = (r.g||'').trim();
       const key  = ncc + '|||' + loai + '|||' + goi;
-      if(!nccRawMap[key]) nccRawMap[key] = {ncc, loai, goi, gt:0, tt:0, cl:0};
+      if(!nccRawMap[key]) nccRawMap[key] = {ncc, loai, goi, gt:0, tt:0, cl:0, kl:0};
       nccRawMap[key].gt += r.gt||0;
       nccRawMap[key].tt += r.tt||0;
       nccRawMap[key].cl += r.cl||0;
+      nccRawMap[key].kl += r.k||0;
     });
     // Flatten to array for filtering
     window._p5NccRows = Object.values(nccRawMap);
@@ -2971,10 +2973,11 @@ function renderP5Ncc(rows) {
   // Group by NCC (aggregate across loai/goi combos for display)
   const nccMap = {};
   rows.forEach(r => {
-    if(!nccMap[r.ncc]) nccMap[r.ncc] = {gt:0, tt:0, cl:0, loaiSet:new Set(), goiSet:new Set()};
+    if(!nccMap[r.ncc]) nccMap[r.ncc] = {gt:0, tt:0, cl:0, kl:0, loaiSet:new Set(), goiSet:new Set()};
     nccMap[r.ncc].gt += r.gt;
     nccMap[r.ncc].tt += r.tt;
     nccMap[r.ncc].cl += r.cl;
+    nccMap[r.ncc].kl += r.kl||0;
     if(r.loai) nccMap[r.ncc].loaiSet.add(r.loai);
     if(r.goi)  nccMap[r.ncc].goiSet.add(r.goi);
   });
@@ -2985,11 +2988,11 @@ function renderP5Ncc(rows) {
   if(countEl) countEl.textContent = nccList.length;
   body.innerHTML = '';
   if(nccList.length === 0) {
-    body.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
+    body.innerHTML = '<tr><td colspan="10" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>';
     if(tfoot) tfoot.innerHTML = '';
     return;
   }
-  let totGT=0, totTT=0, totCL=0;
+  let totGT=0, totTT=0, totCL=0, totKL=0;
   nccList.forEach(([ncc, v], idx) => {
     const pctTT5 = v.gt > 0 ? ((v.tt/v.gt)*100).toFixed(0) : null;
     const status = pctTT5 === null ? '<span style="color:#6c757d">—</span>'
@@ -3003,21 +3006,25 @@ function renderP5Ncc(rows) {
     }).join('');
     const goiLabel = [...v.goiSet].join(', ') || '—';
     const tr = document.createElement('tr');
+    const klFmt = v.kl ? v.kl.toLocaleString('vi-VN', {maximumFractionDigits:2}) : '—';
     tr.innerHTML = '<td class="tc" style="color:#6c757d">'+(idx+1)+'</td>'
       +'<td class="tl wrap" style="max-width:180px">'+ncc+'</td>'
       +'<td class="tl" style="white-space:nowrap">'+loaiTags+'</td>'
       +'<td class="tl wrap" style="font-size:11px;max-width:200px;color:#4a5568">'+goiLabel+'</td>'
+      +'<td class="tr" style="font-size:11px">'+klFmt+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(v.gt)+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(v.tt)+'</td>'
       +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
       +'<td class="tc">'+(pctTT5!==null?pctTT5+'%':'—')+'</td>'
       +'<td class="tc">'+status+'</td>';
     body.appendChild(tr);
-    totGT+=v.gt; totTT+=v.tt; totCL+=v.cl;
+    totGT+=v.gt; totTT+=v.tt; totCL+=v.cl; totKL+=v.kl||0;
   });
   if(tfoot) {
     const totPct = totGT > 0 ? ((totTT/totGT)*100).toFixed(0)+'%' : '—';
+    const totKLfmt = totKL ? totKL.toLocaleString('vi-VN', {maximumFractionDigits:2}) : '—';
     tfoot.innerHTML = '<tr><td class="tl" colspan="4">TỔNG CỘNG ('+nccList.length+' đơn vị)</td>'
+      +'<td class="tr" style="font-size:11px">'+totKLfmt+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(totGT)+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(totTT)+'</td>'
       +'<td class="tr '+(totCL>0?'neg':totCL<0?'pos':'')+'">'+fmtAuto(totCL)+'</td>'
