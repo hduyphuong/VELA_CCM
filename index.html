@@ -2705,7 +2705,11 @@ function applyData(data, projectId) {
     if(chartCashflowInst){ chartCashflowInst.destroy(); chartCashflowInst=null; }
     const canvas = el('chartCashflow');
     if(!canvas) return;
-    if(cf.length === 0) return;
+    // Chi hien khi du an co du lieu doanh thu CDT theo IPC (vd Hang Hai)
+    const hasRevenue = cf.some(r => (r.doanhThu || 0) > 0);
+    const card = canvas.closest('.card');
+    if(card) card.style.display = (cf.length && hasRevenue) ? '' : 'none';
+    if(cf.length === 0 || !hasRevenue) return;
 
     const labels = cf.map(r => r.thang);
     const dtArr  = cf.map(r => r.doanhThu || 0);
