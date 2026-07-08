@@ -615,6 +615,12 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     </div><!-- /p1CostBody_wrap -->
   </div>
 
+  <!-- Biểu đồ Doanh thu - Chi phí theo tháng -->
+  <div class="card mb0" style="margin-top:0.875rem">
+    <div class="stitle">Doanh thu &amp; Chi phí theo tháng (IPC)</div>
+    <div class="chart-box" style="height:300px"><canvas id="chartCashflow"></canvas></div>
+  </div>
+
 </div><!-- /p1 -->
 
 <!-- ============================================================ -->
@@ -1214,6 +1220,7 @@ let chartMonthlyInst = null;
 let chartGTInst = null;
 let chartVTMonthlyInst = null;
 let chartMMTBMonthlyInst = null;
+let chartCashflowInst = null;
 let wdSortDir = 0;
 let p3SortField = null;
 let p3SortDir = 0;
@@ -2690,6 +2697,80 @@ function applyData(data, projectId) {
           +'</div>';
       }).join('') || '<div style="font-size:0.6875rem;color:#6c757d">Chưa có dữ liệu</div>';
     }
+  })();
+
+  // --- Biểu đồ Doanh thu - Chi phí theo tháng (IPC) ---
+  (function renderCashflowChart() {
+    const cf = (data && data.summary && data.summary.monthly_cashflow) || [];
+    if(chartCashflowInst){ chartCashflowInst.destroy(); chartCashflowInst=null; }
+    const canvas = el('chartCashflow');
+    if(!canvas) return;
+    if(cf.length === 0) return;
+
+    const labels = cf.map(r => r.thang);
+    const dtArr  = cf.map(r => r.doanhThu || 0);
+    const cpArr  = cf.map(r => r.chiPhi   || 0);
+
+    // Lũy kế
+    let cumDT = 0, cumCP = 0;
+    const cumDTArr = dtArr.map(v => { cumDT += v; return cumDT; });
+    const cumCPArr = cpArr.map(v => { cumCP += v; return cumCP; });
+
+    const fmtV = v => v >= 1e9 ? (v/1e9).toFixed(2)+'tỷ' : v >= 1e6 ? (v/1e6).toFixed(0)+'tr' : v.toLocaleString('vi-VN');
+
+    chartCashflowInst = new Chart(canvas.getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          { label:'Doanh thu CĐT',  data: dtArr,    backgroundColor:'rgba(46,125,50,.75)',  borderColor:'#2e7d32', borderWidth:1, yAxisID:'y' },
+          { label:'Chi phí thực hiện', data: cpArr, backgroundColor:'rgba(232,85,42,.75)', borderColor:'#E8552A', borderWidth:1, yAxisID:'y' },
+          { label:'Lũy kế Doanh thu',  data: cumDTArr, type:'line', borderColor:'#2e7d32', backgroundColor:'rgba(46,125,50,.08)', borderWidth:2, pointRadius:4, fill:false, tension:0.3, borderDash:[4,3], yAxisID:'y2' },
+          { label:'Lũy kế Chi phí',    data: cumCPArr, type:'line', borderColor:'#E8552A', backgroundColor:'rgba(232,85,42,.08)', borderWidth:2, pointRadius:4, fill:false, tension:0.3, borderDash:[4,3], yAxisID:'y2' },
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        layout: { padding: { top: 20 } },
+        plugins: {
+          legend: { position:'top', labels:{ font:{size:11} } },
+          tooltip: { callbacks: { label: c => c.dataset.label + ': ' + (c.raw||0).toLocaleString('vi-VN') + ' VNĐ' } }
+        },
+        scales: {
+          x: { ticks:{ font:{size:10} } },
+          y: {
+            position:'left',
+            ticks:{ font:{size:10}, callback: v => fmtV(v) },
+            title:{ display:true, text:'Theo tháng', font:{size:10} }
+          },
+          y2: {
+            position:'right',
+            ticks:{ font:{size:10}, callback: v => fmtV(v) },
+            title:{ display:true, text:'Lũy kế', font:{size:10} },
+            grid:{ drawOnChartArea:false }
+          }
+        }
+      },
+      plugins: [{
+        id: 'cashflowLabels',
+        afterDatasetsDraw(chart) {
+          const {ctx, data: d} = chart;
+          chart.getSortedVisibleDatasetMetas().forEach(meta => {
+            if(meta.type !== 'bar') return;
+            meta.data.forEach((pt, i) => {
+              const val = d.datasets[meta.index].data[i] || 0;
+              if(val <= 0) return;
+              ctx.save();
+              ctx.fillStyle = '#1a2332';
+              ctx.font = 'bold 9px Segoe UI,Arial';
+              ctx.textAlign = 'center';
+              ctx.fillText(fmtV(val), pt.x, pt.y - 5);
+              ctx.restore();
+            });
+          });
+        }
+      }]
+    });
   })();
 }
 
