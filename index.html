@@ -546,6 +546,12 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     </div>
   </div>
 
+  <!-- Biểu đồ Doanh thu - Chi phí theo tháng -->
+  <div class="card mb0" style="margin-bottom:0.875rem">
+    <div class="stitle">Doanh thu &amp; Chi phí theo tháng (IPC)</div>
+    <div class="chart-box" style="height:300px"><canvas id="chartCashflow"></canvas></div>
+  </div>
+
   <!-- Bảng giá trị theo hạng mục -->
   <div class="card mb0">
     <div class="stitle">Bảng giá trị theo hạng mục</div>
@@ -613,12 +619,6 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
     </table>
     </div>
     </div><!-- /p1CostBody_wrap -->
-  </div>
-
-  <!-- Biểu đồ Doanh thu - Chi phí theo tháng -->
-  <div class="card mb0" style="margin-top:0.875rem">
-    <div class="stitle">Doanh thu &amp; Chi phí theo tháng (IPC)</div>
-    <div class="chart-box" style="height:300px"><canvas id="chartCashflow"></canvas></div>
   </div>
 
 </div><!-- /p1 -->
@@ -2725,8 +2725,8 @@ function applyData(data, projectId) {
         datasets: [
           { label:'Doanh thu CĐT',  data: dtArr,    backgroundColor:'rgba(46,125,50,.75)',  borderColor:'#2e7d32', borderWidth:1, yAxisID:'y' },
           { label:'Chi phí thực hiện', data: cpArr, backgroundColor:'rgba(232,85,42,.75)', borderColor:'#E8552A', borderWidth:1, yAxisID:'y' },
-          { label:'Lũy kế Doanh thu',  data: cumDTArr, type:'line', borderColor:'#2e7d32', backgroundColor:'rgba(46,125,50,.08)', borderWidth:2, pointRadius:4, fill:false, tension:0.3, borderDash:[4,3], yAxisID:'y2' },
-          { label:'Lũy kế Chi phí',    data: cumCPArr, type:'line', borderColor:'#E8552A', backgroundColor:'rgba(232,85,42,.08)', borderWidth:2, pointRadius:4, fill:false, tension:0.3, borderDash:[4,3], yAxisID:'y2' },
+          { label:'Lũy kế Doanh thu',  data: cumDTArr, type:'line', borderColor:'#2e7d32', backgroundColor:'rgba(46,125,50,.08)', borderWidth:2, pointRadius:4, fill:false, tension:0.3, yAxisID:'y2' },
+          { label:'Lũy kế Chi phí',    data: cumCPArr, type:'line', borderColor:'#E8552A', backgroundColor:'rgba(232,85,42,.08)', borderWidth:2, pointRadius:4, fill:false, tension:0.3, yAxisID:'y2' },
         ]
       },
       options: {
