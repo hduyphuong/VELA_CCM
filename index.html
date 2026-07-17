@@ -607,13 +607,14 @@ tfoot td{padding:0.4375rem 0.5625rem;font-weight:700;border-top:2px solid #E8552
         <th class="tl" style="min-width:160px">Đơn vị</th>
         <th class="tl" style="min-width:120px">Hạng mục</th>
         <th>GT Thực hiện (đ)</th>
+        <th>Giá trị Khấu trừ (đ)</th>
         <th>Đã thanh toán (đ)</th>
         <th>Còn lại</th>
         <th style="width:64px">% TT</th>
         <th style="width:72px">Đợt TT</th>
       </tr></thead>
       <tbody id="p1CostBody">
-        <tr><td colspan="9" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
+        <tr><td colspan="10" style="text-align:center;color:#6c757d;padding:1.5rem">Chưa có dữ liệu</td></tr>
       </tbody>
       <tfoot id="p1CostFoot"></tfoot>
     </table>
@@ -3097,8 +3098,9 @@ function filterP1Cost() {
   filtered.forEach(r => {
     const doi = (r.t||'').trim() || '(Không rõ)';
     const key = doi;
-    if(!groupMap[key]) groupMap[key] = {doi, gt:0, tt:0, cl:0, loaiSet:new Set(), hmSet:new Set(), roundSet:new Set()};
-    groupMap[key].gt += r.gt||0;
+    if(!groupMap[key]) groupMap[key] = {doi, gt:0, dt:0, tt:0, cl:0, loaiSet:new Set(), hmSet:new Set(), roundSet:new Set()};
+    const rgt = r.gt||0;
+    if(rgt > 0) groupMap[key].gt += rgt; else groupMap[key].dt += rgt;
     groupMap[key].tt += r.tt||0;
     groupMap[key].cl += r.cl||0;
     if(r.a) groupMap[key].loaiSet.add((r.a||'').toUpperCase());
@@ -3124,7 +3126,7 @@ function renderP1Cost(grouped) {
     if(tfoot) tfoot.innerHTML = '';
     return;
   }
-  let totGT=0, totTT=0, totCL=0;
+  let totGT=0, totDT=0, totTT=0, totCL=0;
   grouped.forEach((v, i) => {
     const pctTT = v.gt > 0 ? ((v.tt/v.gt)*100).toFixed(0) : null;
     const rounds = [...(v.roundSet||[])];
@@ -3151,18 +3153,20 @@ function renderP1Cost(grouped) {
       +'<td class="tl wrap" style="max-width:160px">'+v.doi+'</td>'
       +'<td class="tl wrap" style="font-size:11px;max-width:150px;color:#3B2D6F;font-weight:600">'+hmLabel+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(v.gt)+'</td>'
+      +'<td class="tr neg" style="font-size:11px;white-space:nowrap">'+(v.dt?vnd(v.dt):'—')+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(v.tt)+'</td>'
       +'<td class="tr '+(v.cl>0?'neg':v.cl<0?'pos':'')+'">'+fmtAuto(v.cl)+'</td>'
       +'<td class="tc">'+(pctTT!==null?pctTT+'%':'—')+'</td>'
       +'<td class="tc">'+status+'</td>';
     body.appendChild(tr);
-    totGT+=v.gt; totTT+=v.tt; totCL+=v.cl;
+    totGT+=v.gt; totDT+=v.dt; totTT+=v.tt; totCL+=v.cl;
   });
   if(tfoot) {
     const totPct = totGT > 0 ? ((totTT/totGT)*100).toFixed(0)+'%' : '—';
     tfoot.innerHTML = '<tr style="font-weight:700;background:#f0f0f0">'
       +'<td colspan="4" class="tl" style="padding-left:8px">TỔNG CỘNG ('+grouped.length+' đơn vị)</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(totGT)+'</td>'
+      +'<td class="tr neg" style="font-size:11px;white-space:nowrap">'+(totDT?vnd(totDT):'—')+'</td>'
       +'<td class="tr" style="font-size:11px;white-space:nowrap">'+vnd(totTT)+'</td>'
       +'<td class="tr '+(totCL>0?'neg':totCL<0?'pos':'')+'">'+fmtAuto(totCL)+'</td>'
       +'<td class="tc">'+totPct+'</td>'
