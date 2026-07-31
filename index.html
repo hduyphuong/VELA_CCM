@@ -3020,7 +3020,12 @@ function renderP4Dc(rows, nccSel) {
   body.innerHTML = '';
   let totKLns=0, totKLnhap=0, totTTns=0, totTTnhap=0;
   rows.forEach((r, idx) => {
-    // Nếu đang filter NCC → chỉ sum KL/GT của các NCC được chọn
+    // Nếu đang filter NCC → chỉ sum KL/GT của các NCC được chọn.
+    // Không filter (mặc định) → PHẢI tổng tất cả NCC từ nccKL/nccTT (dữ liệu
+    // mua hàng thật, sheet Data-Thanh toán) — KHÔNG dùng r.klTotal/r.ttTotal
+    // (đó là field dtcKL/th từ BCTC, luôn =0 với vật tư, gây cột "KL Đã nhập"
+    // trống dù đã mua đủ. Bug phát hiện 31/07/2026, xem memory
+    // project_ccm_ai_bctqt_dashboard_github).
     let klDaNhap, ttDaNhap, nccLabel;
     if(nccSel) {
       const selNccs = r.nccSet.filter(n => nccSel.includes(n));
@@ -3028,8 +3033,8 @@ function renderP4Dc(rows, nccSel) {
       ttDaNhap = selNccs.reduce((a,n) => a + (r.nccTT[n]||0), 0);
       nccLabel = selNccs.join(', ') || '—';
     } else {
-      klDaNhap = r.klTotal;
-      ttDaNhap = r.ttTotal;
+      klDaNhap = r.nccSet.reduce((a,n) => a + (r.nccKL[n]||0), 0);
+      ttDaNhap = r.nccSet.reduce((a,n) => a + (r.nccTT[n]||0), 0);
       nccLabel = r.nccSet.length ? r.nccSet.join(', ') : '—';
     }
     const clKL    = klDaNhap - r.klNS;
